@@ -1,0 +1,39 @@
+name: blacknoble
+on:
+  schedule:
+    - cron:  '0 0 * * 2,4'
+env:
+  GH_TOKEN: ${{secrets.GH_TOKEN}}
+jobs:
+  kadin_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: kadin
+      maxconcurrency: '5'
+      WEBSITE: 'biraradamoda'
+      marka: 'blacknoble'
+    secrets: inherit
+  erkek_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: erkek
+      maxconcurrency: '5'
+      WEBSITE: 'biraradamoda'
+      marka: 'blacknoble'
+    secrets: inherit
+  kcocuk_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: kcocuk
+      maxconcurrency: '5'
+      WEBSITE: 'biraradamoda'
+      marka: 'blacknoble'
+    secrets: inherit
+  ecocuk_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: ecocuk
+      maxconcurrency: '5'
+      WEBSITE: 'biraradamoda'
+      marka: 'blacknoble'
+    secrets: inherit

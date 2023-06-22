@@ -1,0 +1,23 @@
+name: colins
+on:
+  schedule:
+    - cron:  '0 0 * * 3,5'
+env:
+  GH_TOKEN: ${{secrets.GH_TOKEN}}
+jobs:
+  kadin_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: kadin
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'colins'
+    secrets: inherit
+  erkek_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: erkek
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'colins'
+    secrets: inherit

@@ -1,0 +1,39 @@
+name: uspoloassn
+on:
+  schedule:
+    - cron:  '0 0 * * 6,1'
+env:
+  GH_TOKEN: ${{secrets.GH_TOKEN}}
+jobs:
+  kadin_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: kadin
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'uspoloassn'
+    secrets: inherit
+  erkek_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: erkek
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'uspoloassn'
+    secrets: inherit
+  kcocuk_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: kcocuk
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'uspoloassn'
+    secrets: inherit
+  ecocuk_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: ecocuk
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'uspoloassn'
+    secrets: inherit
