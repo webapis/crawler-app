@@ -59,8 +59,6 @@ jobs:
             ${{ runner.os }}-
       - name: Install dependencies
         run: 'npm install'
-      - name: Decript data
-        run: 'npm run decryptData'
       - name: aggregation step
         id: collection
         run: node main.mjs
