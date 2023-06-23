@@ -2,7 +2,7 @@
 import { productTitleMatch } from './productTitleMatch.mjs'
 import fs from 'fs'
 
-const Rawallkeywords = fs.readFileSync(`${process.cwd()}/utils/keywords.json`, { encoding: 'utf-8' })
+const Rawallkeywords = fs.readFileSync(`${process.cwd()}/typesense/keywords.json`, { encoding: 'utf-8' })
 const allkeywords = JSON.parse(Rawallkeywords)
 
 function genegateNavigation({ title }) {

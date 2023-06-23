@@ -19,11 +19,10 @@ let isComplete = false;
 let indexCounter = 0;
 const prevData =[]
 const mergedData =[]
-const productsDataset = await Dataset.open(`products`);
-const { items: newData } = await productsDataset.getData();
+
+const { items: data } = await productsDataset.getData();
 while (!isComplete) {
-    const newData 
-      .map((m) => {
+   const mappedData=   data.map((m) => {
         return {
           marka: m.marka,
           gender: m.gender
@@ -31,7 +30,7 @@ while (!isComplete) {
                 .replace("kcocuk", "kız çocuk")
                 .replace("ecocuk", "erkek çocuk")
                 .replace("kadin", "kadın")
-            : m.gender,
+            : "unknown",
           title: m.title
             .substr(m.title.indexOf(" "))
             .replace("_kcocuk", "")
@@ -47,8 +46,9 @@ while (!isComplete) {
       .slice(sliceCounter, sliceCounter + 20);
 
    
-    const removeImgNull = data.filter((m) => m.imageUrl !== null);
-    const imageUrlWithNull = data.filter((m) => m.imageUrl === null);
+    const removeImgNull = mappedData.filter((m) => m.imageUrl !== null);
+    debugger
+    const imageUrlWithNull = mappedData.filter((m) => m.imageUrl === null);
     if (imageUrlWithNull.length > 0) {
       console.log("imageUrlWithNull", imageUrlWithNull.length);
     }
@@ -81,6 +81,7 @@ while (!isComplete) {
       );
     const chunkedArray = chunk(indexedList, 300);
     for (let arr of chunkedArray) {
+      debugger
       await main({ data: arr });
       debugger;
     }

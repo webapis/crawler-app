@@ -5,7 +5,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "scrape": "node index.mjs",
-    "schema": "node typesense/createSchema.mjs"
+    "schema": "node typesense/createSchema.mjs",
+    "import": "node typesense/importData.mjs",
+    "deleteData": "node typesense/deleteDatabase.mjs"
+    
   },
   "keywords": [],
   "author": "",
