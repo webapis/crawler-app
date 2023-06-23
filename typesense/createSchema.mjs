@@ -1,3 +1,7 @@
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const {client} =require('./client.js')
 let schema = {
     name: "products",
     fields: [
@@ -44,12 +48,12 @@ let schema = {
         facet: false,
         optional:false
       },
-      {
-        name: "index",
-        type: "int32",
-        facet: false,
-        sortable:true
-      },
+      // {
+      //   name: "index",
+      //   type: "int32",
+      //   facet: false,
+      //   sortable:true
+      // },
       {
         name: "kategori",
         type: "string",
@@ -66,3 +70,4 @@ let schema = {
     // default_sorting_field: "index",
   };
   const rest =await client.collections().create(schema);
+  console.log('create schema',rest)

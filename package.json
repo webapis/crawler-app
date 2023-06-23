@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scrape": "node index.mjs"
+    "scrape": "node index.mjs",
+    "schema": "node typesense/createSchema.mjs"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,7 @@
   "dependencies": {
     "crawlee": "^3.4.0",
     "dotenv": "^16.3.1",
-    "puppeteer": "^20.7.3"
+    "puppeteer": "^20.7.3",
+    "typesense": "^1.5.4"
   }
 }
