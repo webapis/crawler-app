@@ -5,138 +5,24 @@ import path from "path";
 import walkSync from "./walkSync.mjs";
 import orderData from "./orderData.mjs";
 import { createRequire } from "module";
+import { PuppeteerCrawler, Dataset,RequestQueue  } from 'crawlee';
+const productsDataset = await Dataset.open(`products`);
 const require = createRequire(import.meta.url);
-const Typesense = require("typesense");
-
-let client = new Typesense.Client({
-  nodes: [
-    {
-      host: "cainkfusel2d9vzjp.a1.typesense.net", // For Typesense Cloud use cainkfusel2d9vzjp.a1.typesense.net
-      port: "443", // For Typesense Cloud use 443
-      protocol: "https", // For Typesense Cloud use https
-    },
-  ],
-  apiKey: "V4FN9a4QTCYkq8zWjjgs1YVonWDyrpSD",
-  connectionTimeoutSeconds: 2,
-});
-debugger
-let schema = {
-  name: "products",
-  fields: [
-    {
-      name: "title",
-      type: "string",
-      facet: false,
-      optional:false
-      
-    },
-    {
-      name: "marka",
-      type: "string",
-      facet: true,
-      optional:false
-    },
-    {
-      name: "gender",
-      type: "string",
-      facet: true,
-      optional:false
-    },
-    {
-      name: "renk",
-      type: "string",
-      facet: true,
-      optional:false
-    },
-    {
-      name: "price",
-      type: "float",
-      facet: true,
-      optional:false
-    },
-    {
-      name: "link",
-      type: "string",
-      facet: false,
-      optional:false
-    },
-    {
-      name: "id",
-      type: "string",
-      facet: false,
-      optional:false
-    },
-    {
-      name: "index",
-      type: "int32",
-      facet: false,
-      sortable:true
-    },
-    {
-      name: "kategori",
-      type: "string",
-      facet: true,
-      sortable:true
-    },
-    {
-      name: "altKategori",
-      type: "string",
-      facet: true,
-      sortable:true
-    },
-  ],
-  // default_sorting_field: "index",
-};
-
-//const rest =await client.collections().create(schema);
-
-//await client.collections('products').delete()
-debugger;
+const {client} =require('./client.js')
 console.log("process.env.marka------", process.env.marka === true);
-
-
-
-
-
-debugger
-if (process.env.marka) {
-  //const deleteResult = await prisma.products.deleteMany({ where: { marka: { contains: process.env.marka } } })
-
-}
 
 let filePaths = [];
 debugger;
-
-walkSync(path.join(process.cwd(), `erkek/unzipped-data`), async (filepath) => {
-  filePaths.push(filepath);
-});
-walkSync(path.join(process.cwd(), `kadin/unzipped-data`), async (filepath) => {
-  filePaths.push(filepath);
-});
-walkSync(
-  path.join(process.cwd(), `kiz-cocuk/unzipped-data`),
-  async (filepath) => {
-    filePaths.push(filepath);
-  }
-);
-
-walkSync(
-  path.join(process.cwd(), `erkek-cocuk/unzipped-data`),
-  async (filepath) => {
-    filePaths.push(filepath);
-  }
-);
-
 let list = [];
 let sliceCounter = 0;
 let isComplete = false;
 let indexCounter = 0;
-
+const prevData =[]
+const mergedData =[]
+const productsDataset = await Dataset.open(`products`);
+const { items: newData } = await productsDataset.getData();
 while (!isComplete) {
-  for (let filepath of filePaths) {
-    const raw = fs.readFileSync(filepath, { encoding: "utf-8" });
-    
-    const data = JSON.parse(raw)
+    const newData 
       .map((m) => {
         return {
           marka: m.marka,
@@ -145,7 +31,7 @@ while (!isComplete) {
                 .replace("kcocuk", "kız çocuk")
                 .replace("ecocuk", "erkek çocuk")
                 .replace("kadin", "kadın")
-            : "unknown",
+            : m.gender,
           title: m.title
             .substr(m.title.indexOf(" "))
             .replace("_kcocuk", "")
@@ -168,7 +54,7 @@ while (!isComplete) {
     }
 
     list.push(...removeImgNull);
-  }
+  
   if (list.length > 0) {
     console.log("list.length", list.length);
     //add kategori field
@@ -203,9 +89,9 @@ while (!isComplete) {
   } else {
     debugger;
     isComplete = true;
-    // const deleteResult = await prisma.products.deleteMany({ where: { modified: { lt: new Date(new Date().setHours(0, 0, 0, 0)) } } })
   }
 }
+
 
 async function main({ data }) {
   try {
@@ -214,53 +100,7 @@ async function main({ data }) {
       .collections("products")
       .documents()
       .import(data, { action: "create" });
-    debugger;
-    console.log(`result`,result)
-    for (let d of data) {
-      debugger;
 
-      if (d.delete) {
-        try {
-          delete d.delete;
-          delete d.update;
-          delete d.deletedDate;
-          // const user = await prisma.products.delete({
-          //   where: {
-          //     imageUrl: d.imageUrl
-          //   }
-          // })
-          console.log("deleted", d.marka, d.link);
-        } catch (error) {
-          console.log("no raw existed in db");
-        }
-      } else if (d.update) {
-        delete d.delete;
-        delete d.update;
-        delete d.deletedDate;
-        // const user = await prisma.products.upsert({
-        //   where: {
-        //     imageUrl: d.imageUrl
-        //   },
-        //   update: d,
-        //   create: d,
-        // })
-
-        console.log("updated");
-      } else {
-        delete d.delete;
-        delete d.update;
-        delete d.deletedDate;
-        debugger;
-        // const user = await prisma.products.update({
-        //   where: {
-        //     imageUrl: d.imageUrl
-        //   },
-        //   data: { modified: new Date() },
-        // })
-      }
-
-      debugger;
-    }
   } catch (error) {
     console.error(error);
   }
