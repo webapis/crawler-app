@@ -1,0 +1,3516 @@
+[{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c64a"
+    },
+    "keywords": "bralet",
+    "title": "bralet",
+    "exclude": "bluz,kcocuk,ecocuk,erkek",
+    "index": "22",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c643"
+    },
+    "keywords": "kemer,belt,kemeri",
+    "title": "kemer",
+    "exclude": "elbise,ceket,şort,tayt,etek,bluz,pantolon,bikini,mont,yelek,bot,kaban,kemer detaylı,çanta,terlik,kemerli",
+    "index": "15",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c655"
+    },
+    "keywords": "bermuda",
+    "title": "bermuda",
+    "exclude": "",
+    "index": "33",
+    "keywordType": "category",
+    "groupName": "Alt giyim",
+    "functionName": "six"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c641"
+    },
+    "keywords": "yelek",
+    "title": "yelek",
+    "exclude": "gömlek,elbise",
+    "index": "13",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c63e"
+    },
+    "keywords": "manto",
+    "title": "manto",
+    "exclude": "",
+    "index": "10",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c654"
+    },
+    "keywords": "şort,Şortu",
+    "title": "şort",
+    "exclude": "şort korse,pijama",
+    "index": "32",
+    "keywordType": "category",
+    "groupName": "Alt giyim",
+    "functionName": "six"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c636"
+    },
+    "keywords": "sabahlık",
+    "title": "sabahlık",
+    "exclude": "",
+    "index": "2",
+    "keywordType": "category",
+    "groupName": "Ev giyim",
+    "functionName": "one"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c644"
+    },
+    "keywords": "şapka,şapkası",
+    "title": "şapka",
+    "exclude": "",
+    "index": "16",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c661"
+    },
+    "keywords": "atlet,atleti",
+    "title": "atlet",
+    "exclude": "tunik",
+    "index": "45",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c63d"
+    },
+    "keywords": "pardösü,Pardesü",
+    "title": "pardösü",
+    "exclude": "",
+    "index": "9",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c63f"
+    },
+    "keywords": "palto",
+    "title": "palto",
+    "exclude": "",
+    "index": "11",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c637"
+    },
+    "keywords": "gecelik",
+    "title": "gecelik",
+    "exclude": "fantazi",
+    "index": "3",
+    "keywordType": "category",
+    "groupName": "Ev giyim",
+    "functionName": "one"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c645"
+    },
+    "keywords": "şal",
+    "title": "şal",
+    "exclude": "Şal Yaka,Şal Detaylı,Şal desenli,şal kol,şallı,elbise",
+    "index": "17",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c642"
+    },
+    "keywords": "parka",
+    "title": "parka",
+    "exclude": "",
+    "index": "14",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c683"
+    },
+    "keywords": "pijama yaka",
+    "title": "pijama yaka",
+    "exclude": "",
+    "index": "79",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6bb"
+    },
+    "keywords": "200-300",
+    "title": "200-300",
+    "exclude": "",
+    "index": "135",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c6"
+    },
+    "keywords": "fantazi",
+    "title": "fantazi",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ev giyim",
+    "functionName": "one",
+    "index": "146"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6cd"
+    },
+    "keywords": "saat,saati",
+    "title": "saat",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "153"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ea"
+    },
+    "keywords": "havuç pantolon",
+    "title": "havuç",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "182"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c702"
+    },
+    "keywords": "orta bel",
+    "title": "orta bel",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Beli",
+    "index": "206"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c646"
+    },
+    "keywords": "çorap,Çorabı",
+    "title": "çorap",
+    "exclude": "sneaker, bot, çizme,ayakkabı,Çorap Model",
+    "index": "18",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c656"
+    },
+    "keywords": "etek",
+    "title": "etek",
+    "exclude": "etek detaylı,tunik,gömlek,elbise",
+    "index": "34",
+    "keywordType": "category",
+    "groupName": "Alt giyim",
+    "functionName": "six"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c664"
+    },
+    "keywords": "tunik,tunic",
+    "title": "tunik",
+    "exclude": "",
+    "index": "48",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c67e"
+    },
+    "keywords": "polo yaka",
+    "title": "polo yaka",
+    "exclude": "",
+    "index": "74",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c685"
+    },
+    "keywords": "şal yaka",
+    "title": "şal yaka",
+    "exclude": "",
+    "index": "81",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c68b"
+    },
+    "keywords": "diz altı",
+    "title": "diz altı",
+    "exclude": "",
+    "index": "87",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c690"
+    },
+    "keywords": "midi",
+    "title": "midi",
+    "exclude": "",
+    "index": "92",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c693"
+    },
+    "keywords": "defacto",
+    "title": "defacto",
+    "exclude": "",
+    "index": "95",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c69c"
+    },
+    "keywords": "butigo",
+    "title": "butigo",
+    "exclude": "",
+    "index": "104",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b3"
+    },
+    "keywords": "addax",
+    "title": "addax",
+    "exclude": "",
+    "index": "127",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c0"
+    },
+    "keywords": "700-800",
+    "title": "700-800",
+    "exclude": "",
+    "index": "140",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6cf"
+    },
+    "keywords": "loafer",
+    "title": "loafer",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "155",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e1"
+    },
+    "keywords": "terlik,terliği,terli",
+    "title": "terlik",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "173",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c640"
+    },
+    "keywords": "blazer",
+    "title": "blazer",
+    "exclude": "blazer tasarımlı,sneaker",
+    "index": "12",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c647"
+    },
+    "keywords": "cüzdan",
+    "title": "cüzdan",
+    "exclude": "",
+    "index": "19",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c648"
+    },
+    "keywords": "külot,Külodu",
+    "title": "külot",
+    "exclude": "kcocuk,ecocuk,erkek",
+    "index": "20",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c64e"
+    },
+    "keywords": "babydoll",
+    "title": "babydoll",
+    "exclude": "elbise,ecocuk,erkek",
+    "index": "26",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c658"
+    },
+    "keywords": "elbise,elbisesi,skirt",
+    "title": "elbise",
+    "exclude": "abiye,tişört,kimono,sweatshirt,penye,tunik,salopet,tulum,etek",
+    "index": "36",
+    "keywordType": "category",
+    "groupName": "Elbise",
+    "functionName": "eight",
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c687"
+    },
+    "keywords": "kabarık kol",
+    "title": "kabarık kol",
+    "exclude": "",
+    "index": "83",
+    "keywordType": "keyword",
+    "groupName": "Kol tipi"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a0"
+    },
+    "keywords": "ipekyol",
+    "title": "ipekyol",
+    "exclude": "",
+    "index": "108",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a2"
+    },
+    "keywords": "penti",
+    "title": "penti",
+    "exclude": "",
+    "index": "110",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6af"
+    },
+    "keywords": "jimmykey",
+    "title": "jimmykey",
+    "exclude": "",
+    "index": "123",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b1"
+    },
+    "keywords": "mango",
+    "title": "mango",
+    "exclude": "",
+    "index": "125",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ba"
+    },
+    "keywords": "100-200",
+    "title": "100-200",
+    "exclude": "",
+    "index": "134",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6cc"
+    },
+    "keywords": "gözlük,gözlüğü",
+    "title": "gözlük",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "152"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6de"
+    },
+    "keywords": "makosen",
+    "title": "makosen",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "170",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e7"
+    },
+    "keywords": "kaftan",
+    "title": "kaftan",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": "179"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c657"
+    },
+    "keywords": "kimono",
+    "title": "kimono",
+    "exclude": "elbise",
+    "index": "35",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c65e"
+    },
+    "keywords": "hırka,Hirka",
+    "title": "hırka",
+    "exclude": "tunik",
+    "index": "42",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c667"
+    },
+    "keywords": "bol paça",
+    "title": "bol paça",
+    "exclude": "",
+    "index": "51",
+    "keywordType": "keyword",
+    "groupName": "Paça"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c66d"
+    },
+    "keywords": "kalp yaka",
+    "title": "kalp yaka",
+    "exclude": "",
+    "index": "57",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c674"
+    },
+    "keywords": "degaje yaka",
+    "title": "degaje yaka",
+    "exclude": "",
+    "index": "64",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c69b"
+    },
+    "keywords": "colins",
+    "title": "colins",
+    "exclude": "",
+    "index": "103",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c69d"
+    },
+    "keywords": "dilvin",
+    "title": "dilvin",
+    "exclude": "",
+    "index": "105",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a3"
+    },
+    "keywords": "roman",
+    "title": "roman",
+    "exclude": "",
+    "index": "111",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ab"
+    },
+    "keywords": "quzu",
+    "title": "quzu",
+    "exclude": "",
+    "index": "119",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c3"
+    },
+    "keywords": "1000-1500",
+    "title": "1000-1500",
+    "exclude": "",
+    "index": "143",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c4"
+    },
+    "keywords": "1500",
+    "title": "1500",
+    "exclude": "",
+    "index": "144",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c5"
+    },
+    "keywords": "Şal Yaka",
+    "title": "Şal Yaka",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "index": "145",
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d0"
+    },
+    "keywords": "bootie",
+    "title": "bootie",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "156",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d8"
+    },
+    "keywords": "toka",
+    "title": "toka",
+    "exclude": "tokalı,etek,toka detaylı,elbise",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "164"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e4"
+    },
+    "keywords": "bodysuit,Bodysuıt",
+    "title": "bodysuit",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "index": "176",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e9"
+    },
+    "keywords": "hamile",
+    "title": "hamile",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "181"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ed"
+    },
+    "keywords": "slim fit",
+    "title": "slim fit",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "185"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f0"
+    },
+    "keywords": "deri görünümlü",
+    "title": "deri görünümlü",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "188"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f5"
+    },
+    "keywords": "mom jean",
+    "title": "mom jean",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "193"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f6"
+    },
+    "keywords": "ekose,ekoseli",
+    "title": "ekose",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "194"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c635"
+    },
+    "keywords": "pijama",
+    "title": "pijama",
+    "exclude": "pijama yaka",
+    "index": "1",
+    "keywordType": "category",
+    "groupName": "Ev giyim",
+    "functionName": "one",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c668"
+    },
+    "keywords": "geniş paça",
+    "title": "geniş paça",
+    "exclude": "",
+    "index": "52",
+    "keywordType": "keyword",
+    "groupName": "Paça"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b8"
+    },
+    "keywords": "yargici",
+    "title": "yargici",
+    "exclude": "",
+    "index": "132",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b9"
+    },
+    "keywords": "0-100",
+    "title": "0-100",
+    "exclude": "",
+    "index": "133",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d5"
+    },
+    "keywords": "sneaker,Spor ayakkabı,Bağcıklı Ayakkabı,Spor Ayakkabi",
+    "title": "Spor (sneaker)",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "161",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6df"
+    },
+    "keywords": "boyunluk",
+    "title": "boyunluk",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "171"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e3"
+    },
+    "keywords": "maske",
+    "title": "maske",
+    "exclude": "MI",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "175"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c64b"
+    },
+    "keywords": "bra",
+    "title": "bra",
+    "exclude": "kcocuk,ecocuk,erkek",
+    "index": "23",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c669"
+    },
+    "keywords": "düz paça",
+    "title": "düz paça",
+    "exclude": "",
+    "index": "53",
+    "keywordType": "keyword",
+    "groupName": "Paça"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c66a"
+    },
+    "keywords": "kısa paça",
+    "title": "kısa paça",
+    "exclude": "",
+    "index": "54",
+    "keywordType": "keyword",
+    "groupName": "Paça"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c679"
+    },
+    "keywords": "halter yaka",
+    "title": "halter yaka",
+    "exclude": "",
+    "index": "69",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c67c"
+    },
+    "keywords": "kaçık yaka",
+    "title": "kaçık yaka",
+    "exclude": "",
+    "index": "72",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c698"
+    },
+    "keywords": "baqa",
+    "title": "baqa",
+    "exclude": "",
+    "index": "100",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b6"
+    },
+    "keywords": "desa",
+    "title": "desa",
+    "exclude": "",
+    "index": "130",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6bd"
+    },
+    "keywords": "400-500",
+    "title": "400-500",
+    "exclude": "",
+    "index": "137",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d7"
+    },
+    "keywords": "fular",
+    "title": "fular",
+    "exclude": "fularlı desenli,elbise,gömlek,fular detaylı",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "163"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6eb"
+    },
+    "keywords": "skinny jean",
+    "title": "skinny jean",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "183"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ec"
+    },
+    "keywords": "fit jean",
+    "title": "fit jean",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "184"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f4"
+    },
+    "keywords": "skinny",
+    "title": "skinny",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "192"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c703"
+    },
+    "keywords": "düşük bel",
+    "title": "düşük bel",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Beli",
+    "index": "207"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c63c"
+    },
+    "keywords": "ceket,ceketi,Triko Ceket,Çeket",
+    "title": "ceket",
+    "exclude": "ceket yaka, elbise,ceket tasarımlı,gömlek,dik yaka,mont",
+    "index": "8",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c64d"
+    },
+    "keywords": "mayo,Mayokini",
+    "title": "mayo",
+    "exclude": "ecocuk,erkek",
+    "index": "25",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c64f"
+    },
+    "keywords": "Bel Korsesi,Bel Korse",
+    "title": "bel korse",
+    "exclude": "Korse Detaylı",
+    "index": "27",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c652"
+    },
+    "keywords": "tayt,taytı",
+    "title": "tayt",
+    "exclude": "pantolon",
+    "index": "30",
+    "keywordType": "category",
+    "groupName": "Alt giyim",
+    "functionName": "six"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c69a"
+    },
+    "keywords": "beyyoglu",
+    "title": "beyyoglu",
+    "exclude": "",
+    "index": "102",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b4"
+    },
+    "keywords": "oxxo",
+    "title": "oxxo",
+    "exclude": "",
+    "index": "128",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6bc"
+    },
+    "keywords": "300-400",
+    "title": "300-400",
+    "exclude": "",
+    "index": "136",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6be"
+    },
+    "keywords": "500-600",
+    "title": "500-600",
+    "exclude": "",
+    "index": "138",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e6"
+    },
+    "keywords": "pelerin",
+    "title": "pelerin",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": "178"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f3"
+    },
+    "keywords": "jean",
+    "title": "jean",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "191"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6fa"
+    },
+    "keywords": "yandan cepli",
+    "title": "yandan cepli",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "198"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c653"
+    },
+    "keywords": "eşofman",
+    "title": "eşofman",
+    "exclude": "",
+    "index": "31",
+    "keywordType": "category",
+    "groupName": "Alt giyim",
+    "functionName": "six"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c65b"
+    },
+    "keywords": "salopet",
+    "title": "salopet",
+    "exclude": "elbise",
+    "index": "39",
+    "keywordType": "category",
+    "groupName": "Elbise",
+    "functionName": "eight",
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c662"
+    },
+    "keywords": "büstiyer,Bustiyer",
+    "title": "büstiyer",
+    "exclude": "",
+    "index": "46",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c66c"
+    },
+    "keywords": "yüksek bel",
+    "title": "yüksek bel",
+    "exclude": "",
+    "index": "56",
+    "keywordType": "keyword",
+    "groupName": "Bel Yüksekliği"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c676"
+    },
+    "keywords": "dökümlü yaka",
+    "title": "dökümlü yaka",
+    "exclude": "",
+    "index": "66",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c678"
+    },
+    "keywords": "hakim yaka",
+    "title": "hakim yaka",
+    "exclude": "",
+    "index": "68",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c689"
+    },
+    "keywords": "tek kol",
+    "title": "tek kol",
+    "exclude": "",
+    "index": "85",
+    "keywordType": "keyword",
+    "groupName": "Kol tipi"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c68c"
+    },
+    "keywords": "diz üstü",
+    "title": "diz üstü",
+    "exclude": "",
+    "index": "88",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c691"
+    },
+    "keywords": "mini",
+    "title": "mini",
+    "exclude": "",
+    "index": "93",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c69f"
+    },
+    "keywords": "hm",
+    "title": "hm",
+    "exclude": "",
+    "index": "107",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ad"
+    },
+    "keywords": "manuka",
+    "title": "manuka",
+    "exclude": "",
+    "index": "121",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6bf"
+    },
+    "keywords": "600-700",
+    "title": "600-700",
+    "exclude": "",
+    "index": "139",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6db"
+    },
+    "keywords": "saç",
+    "title": "saç aksesuar",
+    "exclude": "kazak,hırka,saç örgü",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "167"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6dc"
+    },
+    "keywords": "bere,beresi",
+    "title": "bere",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "168"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f2"
+    },
+    "keywords": "kargo",
+    "title": "kargo",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "190"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6fb"
+    },
+    "keywords": "dar paça",
+    "title": "dar paça",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Paça",
+    "index": "199"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6fd"
+    },
+    "keywords": "ispanyol paça",
+    "title": "ispanyol paça",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Paça",
+    "index": "201"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c660"
+    },
+    "keywords": "bluz,Blouse",
+    "title": "bluz",
+    "exclude": "",
+    "index": "44",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c663"
+    },
+    "keywords": "tişört,tshirt,t-shirt,penye,T Shirt,Tshırt,T-Shırt",
+    "title": "tişört",
+    "exclude": "Pantolon,tişört sütyen,külot",
+    "index": "47",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c666"
+    },
+    "keywords": "babet",
+    "title": "babet",
+    "exclude": "çorap,çorab",
+    "index": "50",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c670"
+    },
+    "keywords": "madonna yaka",
+    "title": "madonna yaka",
+    "exclude": "",
+    "index": "60",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c680"
+    },
+    "keywords": "tek omuz",
+    "title": "tek omuz",
+    "exclude": "",
+    "index": "76",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c686"
+    },
+    "keywords": "ispanyol kol",
+    "title": "ispanyol kol",
+    "exclude": "",
+    "index": "82",
+    "keywordType": "keyword",
+    "groupName": "Kol tipi"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c68d"
+    },
+    "keywords": "kısa",
+    "title": "kısa",
+    "exclude": "Kısa Kol,kısa kollu,kısa paça",
+    "index": "89",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b0"
+    },
+    "keywords": "perspective",
+    "title": "perspective",
+    "exclude": "",
+    "index": "124",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b5"
+    },
+    "keywords": "abiyefon",
+    "title": "abiyefon",
+    "exclude": "",
+    "index": "129",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6da"
+    },
+    "keywords": "bilezik",
+    "title": "bilezik",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "166"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e2"
+    },
+    "keywords": "şemsiye",
+    "title": "şemsiye",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "174"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f1"
+    },
+    "keywords": "deri",
+    "title": "deri",
+    "exclude": "deri görünümlü,kemeri,deri detaylı",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "189"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f7"
+    },
+    "keywords": "cigarette",
+    "title": "cigarette",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "195"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c650"
+    },
+    "keywords": "pantolon,trousers,pantalon,pantolo,pantolonu,mom jean,Skinny Jean,Leg Jean",
+    "title": "pantolon",
+    "exclude": "pantolon görünümlü,kapri,gömlek",
+    "index": "28",
+    "keywordType": "category",
+    "groupName": "Alt giyim",
+    "functionName": "six"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c651"
+    },
+    "keywords": "jogger",
+    "title": "jogger",
+    "exclude": "pantolon",
+    "index": "29",
+    "keywordType": "category",
+    "groupName": "Alt giyim",
+    "functionName": "six"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c672"
+    },
+    "keywords": "bisiklet yaka",
+    "title": "bisiklet yaka",
+    "exclude": "",
+    "index": "62",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c673"
+    },
+    "keywords": "carmen yaka",
+    "title": "carmen yaka",
+    "exclude": "",
+    "index": "63",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c677"
+    },
+    "keywords": "gömlek yaka",
+    "title": "gömlek yaka",
+    "exclude": "",
+    "index": "67",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c692"
+    },
+    "keywords": "uzun",
+    "title": "uzun",
+    "exclude": "Uzun Kol,UZUN KOLLU,uzun kollu",
+    "index": "94",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a8"
+    },
+    "keywords": "vitrin",
+    "title": "vitrin",
+    "exclude": "",
+    "index": "116",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a9"
+    },
+    "keywords": "xint",
+    "title": "xint",
+    "exclude": "",
+    "index": "117",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6aa"
+    },
+    "keywords": "tozlu",
+    "title": "tozlu",
+    "exclude": "",
+    "index": "118",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c2"
+    },
+    "keywords": "900-1000",
+    "title": "900-1000",
+    "exclude": "",
+    "index": "142",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e8"
+    },
+    "keywords": "atkı,Atki,Eşarp",
+    "title": "atkı,eşarp",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "180"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6fc"
+    },
+    "keywords": "paçası yırtmaçlı",
+    "title": "paçası yırtmaçlı",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Paça",
+    "index": "200"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ff"
+    },
+    "keywords": "yüksek bel",
+    "title": "yüksek bel",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Beli",
+    "index": "203"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c701"
+    },
+    "keywords": "normal bel",
+    "title": "normal bel",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Beli",
+    "index": "205"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c65d"
+    },
+    "keywords": "süveter",
+    "title": "süveter",
+    "exclude": "tunik",
+    "index": "41",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c66b"
+    },
+    "keywords": "normal bel",
+    "title": "normal bel",
+    "exclude": "",
+    "index": "55",
+    "keywordType": "keyword",
+    "groupName": "Bel Yüksekliği"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c67b"
+    },
+    "keywords": "ceket yaka",
+    "title": "ceket yaka",
+    "exclude": "",
+    "index": "71",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c68a"
+    },
+    "keywords": "yarasa kol",
+    "title": "yarasa kol",
+    "exclude": "",
+    "index": "86",
+    "keywordType": "keyword",
+    "groupName": "Kol tipi"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a6"
+    },
+    "keywords": "zara",
+    "title": "zara",
+    "exclude": "",
+    "index": "114",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a7"
+    },
+    "keywords": "gizia",
+    "title": "gizia",
+    "exclude": "",
+    "index": "115",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c1"
+    },
+    "keywords": "800-900",
+    "title": "800-900",
+    "exclude": "",
+    "index": "141",
+    "keywordType": "keyword",
+    "groupName": "Fiyat"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6cb"
+    },
+    "keywords": "çanta,çantası,bag,backpack,Çantasi,clutch,baget",
+    "title": "çanta",
+    "exclude": "pantolon,baggy,ayakkabı,Çanta Baskılı,şort",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "151"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ce"
+    },
+    "keywords": "stiletto,heeled shoes,topuklu,Platform Ayakkabı,Topuk Ayakkabı",
+    "title": "topuklu (stiletto)",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "154",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d9"
+    },
+    "keywords": "bileklik",
+    "title": "bileklik",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "165"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ee"
+    },
+    "keywords": "oversize",
+    "title": "oversize",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "186"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c63b"
+    },
+    "keywords": "kaban",
+    "title": "kaban",
+    "exclude": "",
+    "index": "7",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c649"
+    },
+    "keywords": "sütyen",
+    "title": "sütyen",
+    "exclude": "kcocuk,ecocuk,erkek",
+    "index": "21",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c65f"
+    },
+    "keywords": "gömlek,gömle,gömleği,gomlek",
+    "title": "gömlek",
+    "exclude": "gömlek yaka",
+    "index": "43",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c66f"
+    },
+    "keywords": "kruvaze yaka",
+    "title": "kruvaze yaka",
+    "exclude": "",
+    "index": "59",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c68e"
+    },
+    "keywords": "maksi",
+    "title": "maksi",
+    "exclude": "",
+    "index": "90",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c694"
+    },
+    "keywords": "koton",
+    "title": "koton",
+    "exclude": "",
+    "index": "96",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c695"
+    },
+    "keywords": "lcwaikiki",
+    "title": "lcwaikiki",
+    "exclude": "",
+    "index": "97",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d2"
+    },
+    "keywords": "Bot Yaka",
+    "title": "Bot Yaka",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "index": "158",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d4"
+    },
+    "keywords": "slippers",
+    "title": "slippers",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "160",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d6"
+    },
+    "keywords": "sandalet",
+    "title": "sandalet",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "162",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c639"
+    },
+    "keywords": "mont,sweatmont,trençmont,montu",
+    "title": "mont",
+    "exclude": "",
+    "index": "5",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c67d"
+    },
+    "keywords": "kayık yaka",
+    "title": "kayık yaka",
+    "exclude": "",
+    "index": "73",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c68f"
+    },
+    "keywords": "maxi",
+    "title": "maxi",
+    "exclude": "",
+    "index": "91",
+    "keywordType": "keyword",
+    "groupName": "Boyu"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c699"
+    },
+    "keywords": "beymen",
+    "title": "beymen",
+    "exclude": "",
+    "index": "101",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c69e"
+    },
+    "keywords": "dogo",
+    "title": "dogo",
+    "exclude": "",
+    "index": "106",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a1"
+    },
+    "keywords": "machka",
+    "title": "machka",
+    "exclude": "",
+    "index": "109",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ae"
+    },
+    "keywords": "kikiriki",
+    "title": "kikiriki",
+    "exclude": "",
+    "index": "122",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c7"
+    },
+    "keywords": "panço",
+    "title": "panço",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": "147"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c9"
+    },
+    "keywords": "küpe",
+    "title": "küpe",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "149"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d1"
+    },
+    "keywords": "bot,botu,boots",
+    "title": "bot",
+    "exclude": "bot yaka",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "157",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e0"
+    },
+    "keywords": "eldiven",
+    "title": "eldiven",
+    "exclude": "eldiven detaylı,eldivenli",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "172"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6e5"
+    },
+    "keywords": "bandana",
+    "title": "bandana",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "177"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6fe"
+    },
+    "keywords": "beli kemerli",
+    "title": "beli kemerli",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Beli",
+    "index": "202"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c65a"
+    },
+    "keywords": "tulum,tulumu",
+    "title": "tulum",
+    "exclude": "",
+    "index": "38",
+    "keywordType": "category",
+    "groupName": "Elbise",
+    "functionName": "eight",
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c675"
+    },
+    "keywords": "dik yaka",
+    "title": "dik yaka",
+    "exclude": "",
+    "index": "65",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c67a"
+    },
+    "keywords": "v yaka",
+    "title": "v yaka",
+    "exclude": "",
+    "index": "70",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c681"
+    },
+    "keywords": "u yaka",
+    "title": "u yaka",
+    "exclude": "",
+    "index": "77",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c682"
+    },
+    "keywords": "bağlamalı yaka",
+    "title": "bağlamalı yaka",
+    "exclude": "",
+    "index": "78",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a4"
+    },
+    "keywords": "twist",
+    "title": "twist",
+    "exclude": "",
+    "index": "112",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6c8"
+    },
+    "keywords": "kolye",
+    "title": "kolye",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "148"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6dd"
+    },
+    "keywords": "pareo",
+    "title": "pareo",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": "169"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f8"
+    },
+    "keywords": "triko",
+    "title": "triko",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "196"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6f9"
+    },
+    "keywords": "cep detaylı",
+    "title": "cep detaylı",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "197"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c700"
+    },
+    "keywords": "beli lastikli",
+    "title": "beli lastikli",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Beli",
+    "index": "204"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c64c"
+    },
+    "keywords": "bikini",
+    "title": "bikini",
+    "exclude": "kcocuk,ecocuk,erkek",
+    "index": "24",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c684"
+    },
+    "keywords": "klasik yaka",
+    "title": "klasik yaka",
+    "exclude": "",
+    "index": "80",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c696"
+    },
+    "keywords": "adidas",
+    "title": "adidas",
+    "exclude": "",
+    "index": "98",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c697"
+    },
+    "keywords": "adl",
+    "title": "adl",
+    "exclude": "",
+    "index": "99",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6d3"
+    },
+    "keywords": "çizme,çizmesi",
+    "title": "çizme",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": "159",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c638"
+    },
+    "keywords": "yağmurluk",
+    "title": "yağmurluk",
+    "exclude": "",
+    "index": "4",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c63a"
+    },
+    "keywords": "trençkot,trenç,Trenchcoat",
+    "title": "trençkot",
+    "exclude": "",
+    "index": "6",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c659"
+    },
+    "keywords": "abiye,gelinlik",
+    "title": "abiye",
+    "exclude": "",
+    "index": "37",
+    "keywordType": "category",
+    "groupName": "Elbise",
+    "functionName": "eight",
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c65c"
+    },
+    "keywords": "kazak",
+    "title": "kazak",
+    "exclude": "tunik",
+    "index": "40",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c665"
+    },
+    "keywords": "sweatshirt,sweat,sweatshırt",
+    "title": "sweatshirt",
+    "exclude": "",
+    "index": "49",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c66e"
+    },
+    "keywords": "kare yaka",
+    "title": "kare yaka",
+    "exclude": "",
+    "index": "58",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c671"
+    },
+    "keywords": "balıkçı yaka",
+    "title": "balıkçı yaka",
+    "exclude": "",
+    "index": "61",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c67f"
+    },
+    "keywords": "straplez",
+    "title": "straplez",
+    "exclude": "",
+    "index": "75",
+    "keywordType": "keyword",
+    "groupName": "Yaka tipi",
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c688"
+    },
+    "keywords": "karpuz kol",
+    "title": "karpuz kol",
+    "exclude": "",
+    "index": "84",
+    "keywordType": "keyword",
+    "groupName": "Kol tipi"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6a5"
+    },
+    "keywords": "vakko",
+    "title": "vakko",
+    "exclude": "",
+    "index": "113",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ac"
+    },
+    "keywords": "saygigiyim",
+    "title": "saygigiyim",
+    "exclude": "",
+    "index": "120",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b2"
+    },
+    "keywords": "olegcassini",
+    "title": "olegcassini",
+    "exclude": "",
+    "index": "126",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6b7"
+    },
+    "keywords": "patirti",
+    "title": "patirti",
+    "exclude": "",
+    "index": "131",
+    "keywordType": "keyword",
+    "groupName": "Marka"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ca"
+    },
+    "keywords": "yüzük",
+    "title": "yüzük",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": "150"
+  },{
+    "_id": {
+      "$oid": "63b5282a6a406b4adba3c6ef"
+    },
+    "keywords": "viskon",
+    "title": "viskon",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": "187"
+  },{
+    "_id": {
+      "$oid": "63c77b06ac6dff85f850b33b"
+    },
+    "keywords": "takım,takim",
+    "title": "takım",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 208
+  },{
+    "_id": {
+      "$oid": "63c78637e3a095481bee5ca9"
+    },
+    "keywords": "network",
+    "title": "network",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 209
+  },{
+    "_id": {
+      "$oid": "63c78641e3a095481bee5caa"
+    },
+    "keywords": "sementa",
+    "title": "sementa",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 210
+  },{
+    "_id": {
+      "$oid": "63c78662e3a095481bee5cab"
+    },
+    "keywords": "tiffanytomato",
+    "title": "tiffanytomato",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 211
+  },{
+    "_id": {
+      "$oid": "63d8bdf1934d9e9e40f8e7b2"
+    },
+    "keywords": "diger",
+    "title": "diger",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Diger",
+    "index": 214
+  },{
+    "_id": {
+      "$oid": "63d9e9ab3aaf3cbb7dfb7bfa"
+    },
+    "keywords": "elbise,elbise,elbisesi,skirt,dress,ELBİSE",
+    "title": "elbise",
+    "exclude": "ecocuk,erkek",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 215
+  },{
+    "_id": {
+      "$oid": "63d9e9b93aaf3cbb7dfb7bfb"
+    },
+    "keywords": "abiye,gelinlik",
+    "title": "abiye",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 216
+  },{
+    "_id": {
+      "$oid": "63d9e9c63aaf3cbb7dfb7bfc"
+    },
+    "keywords": "tulum,tulumu,Jumpsuit",
+    "title": "tulum",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 217
+  },{
+    "_id": {
+      "$oid": "63d9e9d03aaf3cbb7dfb7bfd"
+    },
+    "keywords": "salopet",
+    "title": "salopet",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 218
+  },{
+    "_id": {
+      "$oid": "63db40f7b575918705c8b0fd"
+    },
+    "keywords": "diger",
+    "title": "diger",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Diger",
+    "functionName": "diger",
+    "index": 219
+  },{
+    "_id": {
+      "$oid": "63e0dd619b46cab77323123b"
+    },
+    "keywords": "spor ayakkabı",
+    "title": "spor ayakkabı",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 218,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63edcf5a089157b633a25ecb"
+    },
+    "keywords": "deri ayakkabı",
+    "title": "deri ayakkabı",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": 219,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63edcf77089157b633a25ecc"
+    },
+    "keywords": "spor ayakkabı",
+    "title": "spor ayakkabı",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": 220,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63edd0a2089157b633a25ecd"
+    },
+    "keywords": "topuklu ayakkabı",
+    "title": "topuklu ayakkabı",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": 221,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "63f061069a966b39c8086904"
+    },
+    "keywords": "Iç Giyim,İç Çamaşırı,İç Giyim,Iç Çamaşırı,Iç Çamaşırı,Jartiyer\n",
+    "title": "İç Çamaşırı",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "index": 222
+  },{
+    "_id": {
+      "$oid": "63f327032f08383a9becf2d3"
+    },
+    "keywords": "Crop Top",
+    "title": "Crop Top",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 223,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63f327ec2f08383a9becf2d4"
+    },
+    "keywords": "body$",
+    "title": "body",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 224,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63f35646424c15177d3bf47f"
+    },
+    "keywords": "triko",
+    "title": "triko",
+    "exclude": "pantolon",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 225,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63f35655424c15177d3bf480"
+    },
+    "keywords": "body",
+    "title": "body",
+    "exclude": "Fantazi",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 226
+  },{
+    "_id": {
+      "$oid": "63f3599120317a66c26557a3"
+    },
+    "keywords": "triko",
+    "title": "triko",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 227
+  },{
+    "_id": {
+      "$oid": "63f35fa1a0be531bc6d721db"
+    },
+    "keywords": "Kap",
+    "title": "Kap",
+    "exclude": "Sütyen,elbise,Kap Kol",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two",
+    "index": 228
+  },{
+    "_id": {
+      "$oid": "63f36897b9e160bdc05fa837"
+    },
+    "keywords": "top,crop",
+    "title": "crop top",
+    "exclude": "pantolon,Ayakkabı,Bileklik,Fantazi,ecocuk,erkek",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 229,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63f451d27d83a36cf085d902"
+    },
+    "keywords": "kürk,kurk",
+    "title": "kürk",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Dış giyim",
+    "functionName": "two",
+    "index": 230,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "63f4538f7d83a36cf085d903"
+    },
+    "keywords": "Plaj",
+    "title": "Plaj",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Ev giyim",
+    "functionName": "one",
+    "index": 231
+  },{
+    "_id": {
+      "$oid": "63f46a510f7c923b7728eaa2"
+    },
+    "keywords": "Dantelli Korse",
+    "title": "dantelli korse",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "İç giyim",
+    "functionName": "five",
+    "index": 232
+  },{
+    "_id": {
+      "$oid": "63f46bacc44796affb355010"
+    },
+    "keywords": "broş",
+    "title": "broş",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": 233
+  },{
+    "_id": {
+      "$oid": "63f4726164d10ab4ae8004d7"
+    },
+    "keywords": "Kap Kol",
+    "title": "kap kol",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Kol tipi",
+    "index": 234
+  },{
+    "_id": {
+      "$oid": "63f4740364d10ab4ae8004d8"
+    },
+    "keywords": "valiz",
+    "title": "valiz",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": 235
+  },{
+    "_id": {
+      "$oid": "63f4750f64d10ab4ae8004d9"
+    },
+    "keywords": "parfüm",
+    "title": "parfüm",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Aksesuar",
+    "functionName": "four",
+    "index": 236
+  },{
+    "_id": {
+      "$oid": "63f47a6a50b4689e6faf55dd"
+    },
+    "keywords": "kürk,kurk",
+    "title": "kürk",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 237
+  },{
+    "_id": {
+      "$oid": "63f74dba4bf39fe2030ce788"
+    },
+    "keywords": "Takım Elbise",
+    "title": "takım elbise",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 238
+  },{
+    "_id": {
+      "$oid": "63f7588a085af15346badc78"
+    },
+    "keywords": "crop",
+    "title": "crop",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 239
+  },{
+    "_id": {
+      "$oid": "63fc5009a07a5e4c0a3e548f"
+    },
+    "keywords": "derimod",
+    "title": "derimod",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 240
+  },{
+    "_id": {
+      "$oid": "63fc6bbc5a7dc69da35c2985"
+    },
+    "keywords": "tergan",
+    "title": "tergan",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 241
+  },{
+    "_id": {
+      "$oid": "63fc8a4364f1a6c89e197047"
+    },
+    "keywords": "deriderim",
+    "title": "deriderim",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 242
+  },{
+    "_id": {
+      "$oid": "63fda937ba89392cf6e4beda"
+    },
+    "keywords": "matras",
+    "title": "matras",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 243
+  },{
+    "_id": {
+      "$oid": "63ff41976f3728ea1eb32ac5"
+    },
+    "keywords": "dericlub",
+    "title": "dericlub",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 244
+  },{
+    "_id": {
+      "$oid": "640bfdd1bf0544aa8c4624fe"
+    },
+    "keywords": "tişört sütyen",
+    "title": "tişört sütyen",
+    "exclude": "",
+    "keywordType": "category",
+    "groupName": "Üst giyim",
+    "functionName": "seven",
+    "index": 245,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "640bfe05bf0544aa8c4624ff"
+    },
+    "keywords": "tişört sütyen",
+    "title": "tişört sütyen",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 246
+  },{
+    "_id": {
+      "$oid": "640ef579fd7f135fd1173d70"
+    },
+    "keywords": "outdoor",
+    "title": "outdoor",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 247
+  },{
+    "_id": {
+      "$oid": "640ef59afd7f135fd1173d71"
+    },
+    "keywords": "spor",
+    "title": "spor",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 248
+  },{
+    "_id": {
+      "$oid": "64113ab85a49ef497063a15f"
+    },
+    "keywords": "su geçirmez",
+    "title": "su geçirmez",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 249
+  },{
+    "_id": {
+      "$oid": "641431430a56d70a4ae0c189"
+    },
+    "keywords": "kaşkorse",
+    "title": "kaşkorse",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 250
+  },{
+    "_id": {
+      "$oid": "64143485c63c95e0d36b14f0"
+    },
+    "keywords": "deniz",
+    "title": "deniz",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 251
+  },{
+    "_id": {
+      "$oid": "641434d8c63c95e0d36b14f1"
+    },
+    "keywords": "klasik",
+    "title": "klasik",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 252
+  },{
+    "_id": {
+      "$oid": "641544e36d2e565b90d54842"
+    },
+    "keywords": "mavijeans",
+    "title": "mavijeans",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 253
+  },{
+    "_id": {
+      "$oid": "64181b358fd4efe7a409b2a7"
+    },
+    "keywords": "miostil",
+    "title": "miostil",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 254
+  },{
+    "_id": {
+      "$oid": "64181b518fd4efe7a409b2a8"
+    },
+    "keywords": "pierrecardin",
+    "title": "pierrecardin",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 255
+  },{
+    "_id": {
+      "$oid": "64181b6b8fd4efe7a409b2a9"
+    },
+    "keywords": "ikbalderi",
+    "title": "ikbalderi",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 256
+  },{
+    "_id": {
+      "$oid": "64181b7e8fd4efe7a409b2aa"
+    },
+    "keywords": "deristore",
+    "title": "deristore",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 257
+  },{
+    "_id": {
+      "$oid": "64181b9c8fd4efe7a409b2ab"
+    },
+    "keywords": "dericeket",
+    "title": "dericeket",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 258
+  },{
+    "_id": {
+      "$oid": "64181baf8fd4efe7a409b2ac"
+    },
+    "keywords": "blacknoble",
+    "title": "blacknoble",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 259
+  },{
+    "_id": {
+      "$oid": "64181bba8fd4efe7a409b2ad"
+    },
+    "keywords": "beymenclub",
+    "title": "beymenclub",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 260
+  },{
+    "_id": {
+      "$oid": "64181bca8fd4efe7a409b2ae"
+    },
+    "keywords": "alinderi",
+    "title": "alinderi",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 261
+  },{
+    "_id": {
+      "$oid": "64181bdf8fd4efe7a409b2af"
+    },
+    "keywords": "wcollection",
+    "title": "wcollection",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 262
+  },{
+    "_id": {
+      "$oid": "641822338fb4d6c3bc969b28"
+    },
+    "keywords": "lovemybody",
+    "title": "lovemybody",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 263
+  },{
+    "_id": {
+      "$oid": "64183de9d739b48cc9c7d122"
+    },
+    "keywords": "bsl",
+    "title": "bsl",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 264
+  },{
+    "_id": {
+      "$oid": "6418479e670a72038b610333"
+    },
+    "keywords": "oxford",
+    "title": "oxford",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 265
+  },{
+    "_id": {
+      "$oid": "641847e4670a72038b610334"
+    },
+    "keywords": "kapüşonlu",
+    "title": "kapüşonlu",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 266
+  },{
+    "_id": {
+      "$oid": "641c2638ca2586e0da4927e5"
+    },
+    "keywords": "nu",
+    "title": "nu",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 267
+  },{
+    "_id": {
+      "$oid": "641d37d7eac2e89d86629610"
+    },
+    "keywords": "lacht",
+    "title": "lacht",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 268
+  },{
+    "_id": {
+      "$oid": "64269371978629ffe1575ac0"
+    },
+    "keywords": "erkek,_erkek",
+    "title": "erkek",
+    "exclude": "erkek yaka",
+    "keywordType": "keyword",
+    "groupName": "Cinsiyet",
+    "index": 269,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "6426939a978629ffe1575ac1"
+    },
+    "keywords": "kadın,kdn, bayan",
+    "title": "kadın",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Cinsiyet",
+    "index": 270,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642693d2978629ffe1575ac2"
+    },
+    "keywords": "kız çocuk,çocuk, kız",
+    "title": "kız çocuk",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Cinsiyet",
+    "index": 271,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "64269404978629ffe1575ac3"
+    },
+    "keywords": "erkek çocuk,çocuk",
+    "title": "erkek çocuk",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Cinsiyet",
+    "index": 272,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "64269415978629ffe1575ac4"
+    },
+    "keywords": "bebek",
+    "title": "bebek",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Cinsiyet",
+    "index": 273,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "64269430978629ffe1575ac5"
+    },
+    "keywords": "unisex",
+    "title": "unisex",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Cinsiyet",
+    "index": 274,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642bbd6c587a2225a836ee44"
+    },
+    "keywords": "kigili",
+    "title": "kigili",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 275
+  },{
+    "_id": {
+      "$oid": "642bc55d90f0ecc819086155"
+    },
+    "keywords": "valiberta",
+    "title": "valiberta",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 276
+  },{
+    "_id": {
+      "$oid": "642bcacfb145c7d472e15d21"
+    },
+    "keywords": "slatra",
+    "title": "slatra",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 277
+  },{
+    "_id": {
+      "$oid": "642c0331a0e885235c2de7b3"
+    },
+    "keywords": "markapia",
+    "title": "markapia",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 278
+  },{
+    "_id": {
+      "$oid": "642c16d001d7ef828b035c12"
+    },
+    "keywords": "tommylife",
+    "title": "tommylife",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 279
+  },{
+    "_id": {
+      "$oid": "642ce97a30397706fa36fb08"
+    },
+    "keywords": "sırt",
+    "title": "sırt",
+    "exclude": "tişört",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 280
+  },{
+    "_id": {
+      "$oid": "642ce98830397706fa36fb09"
+    },
+    "keywords": "çapraz",
+    "title": "çapraz",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 281
+  },{
+    "_id": {
+      "$oid": "642ce99730397706fa36fb0a"
+    },
+    "keywords": "günlük",
+    "title": "günlük",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 282
+  },{
+    "_id": {
+      "$oid": "642ce9a630397706fa36fb0b"
+    },
+    "keywords": "kol,el",
+    "title": "kol",
+    "exclude": "tişört,T-Shirt,TShirt,T Shirt,penye",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 283
+  },{
+    "_id": {
+      "$oid": "642ce9b130397706fa36fb0c"
+    },
+    "keywords": "omuz",
+    "title": "omuz",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 284
+  },{
+    "_id": {
+      "$oid": "642ce9dd30397706fa36fb0d"
+    },
+    "keywords": "bel",
+    "title": "bel",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 285
+  },{
+    "_id": {
+      "$oid": "642ce9e830397706fa36fb0e"
+    },
+    "keywords": "baget",
+    "title": "baget",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 286
+  },{
+    "_id": {
+      "$oid": "642ce9f130397706fa36fb0f"
+    },
+    "keywords": "peluş",
+    "title": "peluş",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 287
+  },{
+    "_id": {
+      "$oid": "642cea2630397706fa36fb10"
+    },
+    "keywords": "plaj",
+    "title": "plaj",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 288
+  },{
+    "_id": {
+      "$oid": "642cea3a30397706fa36fb11"
+    },
+    "keywords": "zincir",
+    "title": "zincirli",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 289
+  },{
+    "_id": {
+      "$oid": "642cea4430397706fa36fb12"
+    },
+    "keywords": "telefon",
+    "title": "telefon",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 290
+  },{
+    "_id": {
+      "$oid": "642cea5430397706fa36fb13"
+    },
+    "keywords": "kapaklı",
+    "title": "kapaklı",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 291
+  },{
+    "_id": {
+      "$oid": "642cea6130397706fa36fb14"
+    },
+    "keywords": "hasır",
+    "title": "hasır",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 292
+  },{
+    "_id": {
+      "$oid": "642cea7d30397706fa36fb15"
+    },
+    "keywords": "clutch",
+    "title": "clutch",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 293
+  },{
+    "_id": {
+      "$oid": "642d0b1289a90f45f63dc53f"
+    },
+    "keywords": "avva",
+    "title": "avva",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 294
+  },{
+    "_id": {
+      "$oid": "642d1f760245947b0c142efe"
+    },
+    "keywords": "sırt baskılı",
+    "title": "sırt baskılı",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 295
+  },{
+    "_id": {
+      "$oid": "642d1fcb0245947b0c142eff"
+    },
+    "keywords": "kisa kollu",
+    "title": "kisa kollu",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 296
+  },{
+    "_id": {
+      "$oid": "642d1fe50245947b0c142f00"
+    },
+    "keywords": "uzun kollu",
+    "title": "uzun kollu",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 297
+  },{
+    "_id": {
+      "$oid": "642d248b6b84f50f264ad303"
+    },
+    "keywords": "bez",
+    "title": "bez",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 298
+  },{
+    "_id": {
+      "$oid": "642d3ab00047f827470a6a2f"
+    },
+    "keywords": "uspoloassn",
+    "title": "uspoloassn",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 299
+  },{
+    "_id": {
+      "$oid": "642d445658aad3cf4eb74dd4"
+    },
+    "keywords": "wrangler",
+    "title": "wrangler",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 300
+  },{
+    "_id": {
+      "$oid": "642d54dfe7078ac9dd60a513"
+    },
+    "keywords": "levis",
+    "title": "levis",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 301
+  },{
+    "_id": {
+      "$oid": "642d6261db9a1179edd96cf4"
+    },
+    "keywords": "abiye",
+    "title": "abiye",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 302
+  },{
+    "_id": {
+      "$oid": "642e70092a1a21079f222ddd"
+    },
+    "keywords": "babet",
+    "title": "babet",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 303,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e71712a1a21079f222dde"
+    },
+    "keywords": "sneaker,ayakkabı,slippers,topuklu,stiletto,bot,babet,çizme,loafer,bootie,terlik,makosen,sandalet",
+    "title": "ayakkabı",
+    "exclude": "çorap,çorabı",
+    "keywordType": "category",
+    "groupName": "Ayakkabı",
+    "functionName": "nine",
+    "index": 304,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "642e720cfd42a6826171e8ad"
+    },
+    "keywords": "slippers",
+    "title": "slippers",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 305,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e721bfd42a6826171e8ae"
+    },
+    "keywords": "topuklu",
+    "title": "topuklu",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 306,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e7225fd42a6826171e8af"
+    },
+    "keywords": "stiletto",
+    "title": "stiletto",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 307,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e722efd42a6826171e8b0"
+    },
+    "keywords": "bot",
+    "title": "bot",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 308,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e723cfd42a6826171e8b1"
+    },
+    "keywords": "çizme",
+    "title": "çizme",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 309,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e7248fd42a6826171e8b2"
+    },
+    "keywords": "loafer",
+    "title": "loafer",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 310,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e7253fd42a6826171e8b3"
+    },
+    "keywords": "terlik",
+    "title": "terlik",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 311,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e725cfd42a6826171e8b4"
+    },
+    "keywords": "makosen",
+    "title": "makosen",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 312,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e7265fd42a6826171e8b5"
+    },
+    "keywords": "sandalet",
+    "title": "sandalet",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 313,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e727cfd42a6826171e8b6"
+    },
+    "keywords": "koşu",
+    "title": "koşu",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Seçenekler",
+    "index": 314,
+    "disabled": true
+  },{
+    "_id": {
+      "$oid": "642e7df072a9427a8ecbb1c1"
+    },
+    "keywords": "centone",
+    "title": "centone",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 315
+  },{
+    "_id": {
+      "$oid": "642e9907cd3fb3cbcdb95504"
+    },
+    "keywords": "nike",
+    "title": "nike",
+    "exclude": "beymen",
+    "keywordType": "keyword",
+    "groupName": "Marka",
+    "index": 316
+  },{
+    "_id": {
+      "$oid": "643e419b061d3d61b7f801a0"
+    },
+    "keywords": "kırmızı, kirmizi",
+    "title": "kırmızı",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 317,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e41b1061d3d61b7f801a1"
+    },
+    "keywords": "sarı,sari",
+    "title": "sarı",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 318,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e41cc061d3d61b7f801a2"
+    },
+    "keywords": "siyah",
+    "title": "siyah",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 319,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e41dc061d3d61b7f801a3"
+    },
+    "keywords": "fuşya,fusya",
+    "title": "fuşya",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 320,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e41ed061d3d61b7f801a4"
+    },
+    "keywords": "yeşil",
+    "title": "yeşil",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 321,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e41f7061d3d61b7f801a5"
+    },
+    "keywords": "mavi",
+    "title": "mavi",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 322,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e4208061d3d61b7f801a6"
+    },
+    "keywords": "beyaz",
+    "title": "beyaz",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 323,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e420f061d3d61b7f801a7"
+    },
+    "keywords": "gri",
+    "title": "gri",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 324,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e422a061d3d61b7f801a8"
+    },
+    "keywords": "turuncu",
+    "title": "turuncu",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 325,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e423e061d3d61b7f801a9"
+    },
+    "keywords": "lacivert",
+    "title": "lacivert",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 326,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e4253061d3d61b7f801aa"
+    },
+    "keywords": "bordo",
+    "title": "bordo",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 327,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e4262061d3d61b7f801ab"
+    },
+    "keywords": "kahve",
+    "title": "kahve",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 328,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e4274061d3d61b7f801ac"
+    },
+    "keywords": "erku",
+    "title": "erku",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 329,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e4286061d3d61b7f801ad"
+    },
+    "keywords": "pembe",
+    "title": "pembe",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 330,
+    "disabled": false
+  },{
+    "_id": {
+      "$oid": "643e42a4061d3d61b7f801ae"
+    },
+    "keywords": "mor",
+    "title": "mor",
+    "exclude": "",
+    "keywordType": "keyword",
+    "groupName": "Renk",
+    "index": 331,
+    "disabled": false
+  }]

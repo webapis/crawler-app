@@ -1,10 +1,17 @@
-export default   (context)=>  {
+import { PuppeteerCrawler, Dataset,RequestQueue  } from 'crawlee';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+require('dotenv').config()
+
+const requestQueue = await RequestQueue.open();
+const productsDataset = await Dataset.open(`products`);
+export default   async(context)=>  {
 
 
     const { page, request: { userData: { start, opts } } } = context
 
 
-    const { handler, getUrls } = require(`./handlers/biraradamoda/${process.env.marka}`);
+    const { handler, getUrls } = require(`${process.cwd()}/handlers/biraradamoda/${process.env.marka}`);
     const { pageUrls, productCount } = await getUrls(page)
     process.env.productCount = productCount
 
