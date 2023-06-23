@@ -2,11 +2,16 @@
   "name": "crawler-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape": "node index.mjs"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "crawlee": "^3.4.0",
+    "dotenv": "^16.3.1",
+    "puppeteer": "^20.7.3"
+  }
 }
