@@ -61,4 +61,4 @@ jobs:
         run: 'npm install'
       - name: aggregation step
         id: collection
-        run: node main.mjs
+        run: node index.mjs
