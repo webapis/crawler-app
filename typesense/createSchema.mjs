@@ -43,17 +43,11 @@ let schema = {
         optional:false
       },
       {
-        name: "id",
+        name: "imageUrl",
         type: "string",
         facet: false,
         optional:false
       },
-      // {
-      //   name: "index",
-      //   type: "int32",
-      //   facet: false,
-      //   sortable:true
-      // },
       {
         name: "kategori",
         type: "string",

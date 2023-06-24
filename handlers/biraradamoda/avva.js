@@ -25,6 +25,7 @@ async function handler(page, context) {
                 link,
                 timestamp: Date.now(),
                 marka: 'avva',
+                gender:'erkek'
             }
         }).filter(f => f.imageUrl !== null && f.title.length > 5)
     })
