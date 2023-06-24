@@ -31,6 +31,7 @@ env:
   WEBSITE: 'biraradamoda'
   GENDER: ${{inputs.GENDER}}
   GH_TOKEN: ${{secrets.GH_TOKEN}}
+  API_KEY: ${{secrets.API_KEY}}
 jobs:
   aggregator:
     runs-on: ubuntu-latest
