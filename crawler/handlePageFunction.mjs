@@ -29,7 +29,7 @@ export default   async(context)=>  {
 
     const dataCollected = await handler(page, context)
     if (dataCollected.length > 0) {
-        await productsDataset.pushData(dataCollected)
+        await productsDataset.pushData(dataCollected.map((m)=>{return {...m,gender: m.title.substring(m.title.lastIndexOf('_'))}}))
 
         process.env.dataLength = parseInt(process.env.dataLength) + dataCollected.length
 
