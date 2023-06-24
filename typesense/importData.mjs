@@ -5,6 +5,7 @@ import { createRequire } from "module";
 import { Dataset  } from 'crawlee';
 const productsDataset = await Dataset.open(`products`);
 const require = createRequire(import.meta.url);
+require('dotenv').config()
 const {client} =require('./client.js')
 console.log("process.env.marka------", process.env.marka === true);
 
