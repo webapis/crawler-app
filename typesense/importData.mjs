@@ -10,7 +10,7 @@ const {client} =require('./client.js')
 console.log("process.env.marka------", process.env.marka === true);
 
 
-await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
+await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:${process.env.GENDER}`});
 
 const { items: data } = await productsDataset.getData();
 
