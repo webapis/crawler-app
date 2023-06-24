@@ -64,4 +64,4 @@ jobs:
         run: node index.mjs
       - name: import data
         id: impdata
-        run: node typsense/importData.mjs
+        run: node typesense/importData.mjs
