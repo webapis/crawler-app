@@ -20,7 +20,10 @@ const crawler = new PuppeteerCrawler({
     requestHandler: handlePageFunction,
     launchContext,
     preNavigationHooks,
-    maxConcurrency: 1
+    maxConcurrency: 1,
+    handleRequestTimeoutSecs:3600,
+    requestHandlerTimeoutSecs:3600,
+    navigationTimeoutSecs:240
 
 
 });
