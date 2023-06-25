@@ -1,4 +1,4 @@
-import { PuppeteerCrawler, Dataset,RequestQueue  } from 'crawlee';
+import { PuppeteerCrawler, Dataset, RequestQueue } from 'crawlee';
 import { createRequire } from 'module';
 import launchContext from './crawler/launchContext.mjs';
 import preNavigationHooks from './crawler/preNavigationHooks.mjs';
@@ -17,9 +17,10 @@ process.env.dataLength = 0
 
 const crawler = new PuppeteerCrawler({
     // Use the requestHandler to process each of the crawled pages.
-     requestHandler:handlePageFunction,
-                  launchContext,
-                preNavigationHooks,
+    requestHandler: handlePageFunction,
+    launchContext,
+    preNavigationHooks,
+    maxConcurrency: 1
 
 
 });
@@ -35,4 +36,4 @@ await crawler.run();
 const productsDataset = await Dataset.open(`products`);
 const { items: productItems } = await productsDataset.getData();
 
-console.log('data collected',productItems.length)
+console.log('data collected', productItems.length)

@@ -16,7 +16,7 @@ export default {
             '--disable-site-isolation-trials',
             '--disable-dev-shm-usage',
             //'--lang=en-US,en'
-             '--shm-size=3gb'
+            // '--shm-size=3gb'
 
         ],
         env: { LANGUAGE: "en_US" }
