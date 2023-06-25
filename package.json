@@ -2,21 +2,23 @@
   "name": "crawler-app",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ava",
     "scrape": "node index.mjs",
     "schema": "node typesense/createSchema.mjs",
     "import": "node typesense/importData.mjs",
     "deleteData": "node typesense/deleteDatabase.mjs",
     "deleteByMarka": "node typesense/deleteByMarka.mjs"
-    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ava": "^5.3.1",
     "crawlee": "^3.4.0",
     "dotenv": "^16.3.1",
+    "object-agent": "^1.6.0",
     "puppeteer": "^20.7.3",
     "typesense": "^1.5.4"
   }
