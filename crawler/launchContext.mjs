@@ -3,6 +3,7 @@ export default {
     // If it doesn't, feel free to remove this.
     // useChrome: true,
     launchOptions: {
+        protocolTimeout: 240000,
       //  headless: process.env.HEADLESS === 'true' ? true : false,
          args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
             `--window-size=1200,1250`,
