@@ -1,5 +1,5 @@
 
-import { RequestQueue  } from 'crawlee';
+const { RequestQueue  } =require ('crawlee');
 
 async function handler(page, context) {
     const requestQueue = await RequestQueue.open();

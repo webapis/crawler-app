@@ -21,10 +21,8 @@ const crawler = new PuppeteerCrawler({
     launchContext,
     preNavigationHooks,
     maxConcurrency: 1,
-    handleRequestTimeoutSecs:3600,
     requestHandlerTimeoutSecs:3600,
     navigationTimeoutSecs:240
-
 
 });
 for (let obj of urls) {
