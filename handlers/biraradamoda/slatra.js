@@ -34,7 +34,7 @@ async function handler(page, context) {
     console.log('data length_____', data.length, 'url:', url)
     debugger
 
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } }).filter(f => f.imageUrl !== null && f.title.length > 5)
 }
 
 

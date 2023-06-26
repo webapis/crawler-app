@@ -1,14 +1,14 @@
 
-const Apify = require('apify');
+const { RequestQueue  } =require ('crawlee');
 async function handler(page, context) {
     const { request: { userData: { start } } } = context
-
+    const requestQueue = await RequestQueue.open();
     const url = await page.url()
     if (start) {
         const total = await page.evaluate(() => parseInt(document.querySelector('.filter-pagination').innerHTML.replace(/[^\d]/g, '')))
         debugger
         const updatedUrl = url + `?sort=stock&image-size=small&image=model&offset=0&page-size=${total}`
-        const requestQueue = await Apify.openRequestQueue();
+    
         debugger;
         requestQueue.addRequest({ url: updatedUrl, userData: { start: false } })
         return []

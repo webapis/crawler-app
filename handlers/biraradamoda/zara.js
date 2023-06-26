@@ -1,10 +1,10 @@
-const Apify = require('apify');
+const { Dataset  } =require ('crawlee');
 async function handler(page, context) {
     const { request: { userData: { } } } = context
-
+    const productsDataset = await Dataset.open(`products`);
     const url = await page.url()
     await page.waitForSelector('.product-grid-block-dynamic.product-grid-block-dynamic__container')
-    const dataset = await Apify.openDataset();
+
     await page.evaluate(async () => {
         var totalHeight = 0;
         var distance = 100;
@@ -15,7 +15,7 @@ async function handler(page, context) {
     });
 
     await page.waitFor(5000)
-    const { items } = await dataset.getData()
+    const { items } = await productsDataset.getData()
     const data = items.filter(f => f.productGroups).map(m => [...m.productGroups]).flat().map(m => {
 
         return [...m.elements]
