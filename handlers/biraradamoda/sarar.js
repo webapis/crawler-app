@@ -1,8 +1,9 @@
 
-const Apify = require('apify');
+import { RequestQueue  } from 'crawlee';
+const requestQueue = await RequestQueue.open();
 async function handler(page, context) {
     const { request: { userData: { start } } } = context
-    const requestQueue = await Apify.openRequestQueue();
+
     const url = await page.url()
     let data = []
     await page.waitForSelector('.catalogWrapper')
