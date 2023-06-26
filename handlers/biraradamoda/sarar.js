@@ -1,7 +1,8 @@
 
 import { RequestQueue  } from 'crawlee';
-const requestQueue = await RequestQueue.open();
+
 async function handler(page, context) {
+    const requestQueue = await RequestQueue.open();
     const { request: { userData: { start } } } = context
 
     const url = await page.url()
