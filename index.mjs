@@ -11,7 +11,6 @@ const { urls } = require(`./urls/biraradamoda/${process.env.GENDER}/${marka}`)
 debugger
 
 
-
 await Dataset.open();
 process.env.dataLength = 0
 
@@ -22,7 +21,8 @@ const crawler = new PuppeteerCrawler({
     preNavigationHooks,
     maxConcurrency: 1,
     requestHandlerTimeoutSecs:3600,
-    navigationTimeoutSecs:240
+    navigationTimeoutSecs:240,
+
 
 });
 for (let obj of urls) {
@@ -38,3 +38,20 @@ const productsDataset = await Dataset.open(`products`);
 const { items: productItems } = await productsDataset.getData();
 
 console.log('data collected', productItems.length)
+
+
+
+// PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install --production
+
+/*
+class CustomPuppeteerCrawler extends PuppeteerCrawler {
+  async launchPuppeteer() {
+    const browser = await puppeteer.connect({
+      browserWSEndpoint: 'wss://chrome.browserless.io?token=b3560d69-34cb-48de-84fe-cd346f63b0c4',
+      // Add any other Puppeteer options as needed
+    });
+
+    return browser;
+  }
+}
+*/
