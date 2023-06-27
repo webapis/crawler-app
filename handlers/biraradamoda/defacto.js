@@ -1,11 +1,11 @@
 
 async function handler(page, context) {
-    const { request: { userData: { } } } = context
 
+debugger
     const url = await page.url()
 
     await page.waitForSelector('.catalog-products')
-
+debugger
 
     const data = await page.$$eval('.catalog-products .product-card', (productCards) => {
         return productCards.map(productCard => {
@@ -28,7 +28,7 @@ async function handler(page, context) {
             }
         }).filter(f => f.imageUrl !== null && f.title.length > 5)
     })
-
+debugger
     console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
 
 

@@ -1,22 +1,15 @@
 import EventEmitter from 'events';
 import { Semaphore } from 'async-mutex';
 import puppeteer from 'puppeteer';
-
-class UrlEmitter extends EventEmitter {}
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+require('dotenv').config()
+class UrlEmitter extends EventEmitter { }
 
 const urlEmitter = new UrlEmitter();
-const urls = [
-  { url: 'https://example.com' },
-  { url: 'https://example.org' },
-  { url: 'https://example.net' },
-  { url: 'https://demo.com' },
-  { url: 'https://demo.org' },
-  { url: 'https://demo.net' },
-  { url: 'https://test.com' },
-  { url: 'https://test.org' },
-  { url: 'https://test.net' },
-  { url: 'https://sample.com' }
-];
+const marka = process.env.marka
+const { urls} = require(`./urls/biraradamoda/${process.env.GENDER}/${marka}`)
+
 
 const processedUrls = new Set(); // Track processed URLs
 const MAX_PARALLEL_EXECUTIONS = 3; // Maximum parallel executions
@@ -40,9 +33,19 @@ async function scrape(urlObj, handler, maxRetries = 3) {
 async function customHandler(urlObj) {
   const { url } = urlObj;
   const page = await browser.newPage();
-
   try {
     await page.goto(url);
+
+    const { handler, getUrls } = require(`${process.cwd()}/handlers/biraradamoda/${process.env.marka}`);
+    const { pageUrls } = await getUrls(page)
+    const data = await handler(page, { addUrl })
+
+    for (let url of pageUrls) {
+      if (pageUrls.length > 0) {
+        addUrl({ url, userData: { start: false } })
+      }
+    }
+
     // Perform page scraping using Puppeteer
     // Add your scraping logic here
     const pageTitle = await page.title();
@@ -53,13 +56,7 @@ async function customHandler(urlObj) {
     await page.close();
   }
 
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  }).then(() => {
-    addUrl({ url: 'https://www.dericeket.com.tr/yelek-28' });
-  });
+  return
 }
 
 function addUrl(urlObj) {
@@ -82,11 +79,11 @@ urlEmitter.on('urlAdded', async (urlObj) => {
 });
 
 (async () => {
+
   browser = await puppeteer.launch({ executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' });
 
   for (const urlObj of urls) {
     await semaphore.acquire();
-
     try {
       await scrape(urlObj, customHandler);
     } finally {
