@@ -1,57 +1,79 @@
-import puppeteer from'puppeteer';
+import EventEmitter from 'events';
+import { Semaphore } from 'async-mutex';
 
-async function scrapeWebsite(url) {
-  const maxRetries = 3;
-  let retryCount = 0;
-  let success = false;
+class UrlEmitter extends EventEmitter {}
 
-  while (retryCount < maxRetries && !success) {
-    const browser = await puppeteer.launch({headless:false,executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\chrome.exe'});
-    const page = await browser.newPage();
+const urlEmitter = new UrlEmitter();
+const urls = [
+  'https://example.com',
+  'https://example.org',
+  'https://example.net',
+  'https://demo.com',
+  'https://demo.org',
+  'https://demo.net',
+  'https://test.com',
+  'https://test.org',
+  'https://test.net',
+  'https://sample.com'
+];
+
+const processedUrls = new Set(); // Track processed URLs
+const MAX_PARALLEL_EXECUTIONS = 5; // Maximum parallel executions
+const semaphore = new Semaphore(MAX_PARALLEL_EXECUTIONS); // Create a semaphore instance
+
+async function scrape(url, handler, maxRetries = 3) {
+  for (let retryCount = 1; retryCount <= maxRetries; retryCount++) {
+    try {
+      await handler(url);
+      return; // Successful, exit the function
+    } catch (error) {
+      console.log(`Scraping failed for ${url}. Retrying (${retryCount}/${maxRetries})...`);
+    }
+  }
+  console.log(`Scraping failed for ${url} after ${maxRetries} retries.`);
+}
+
+async function customHandler(url) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Hello, " + url + "!");
+      resolve();
+    }, 1000);
+  }).then(() => {
+    addUrl('https://example-new.com+5');
+  });
+}
+
+function addUrl(url) {
+  if (!processedUrls.has(url)) { // Check if URL is not already processed
+    processedUrls.add(url); // Mark URL as processed
+    urls.push(url);
+    urlEmitter.emit('urlAdded', url);
+  }
+}
+
+urlEmitter.on('urlAdded', async (url) => {
+  await semaphore.acquire(); // Acquire a permit from the semaphore
+  try {
+    await scrape(url, customHandler);
+  } finally {
+    semaphore.release(); // Release the permit back to the semaphore
+  }
+});
+
+(async () => {
+  const locks = [];
+
+  for (const url of urls) {
+    await semaphore.acquire(); // Acquire a permit from the semaphore
 
     try {
-      await page.goto(url);
-      const pageTitle = await page.title();
-      console.log(`Page title (${url}):`, pageTitle);
-
-      // Take a screenshot of the page
-      await page.screenshot({ path: `screenshot_${url.replace(/[^a-zA-Z0-9]/g, '')}.png` });
-
-      success = true;
-    } catch (error) {
-      console.error(`An error occurred (${url}):`, error);
-      retryCount++;
-      console.log(`Retrying (${url}) - attempt ${retryCount} of ${maxRetries}...`);
+      await scrape(url, customHandler);
     } finally {
-      await page.close();
-      await browser.close();
+      semaphore.release(); // Release the permit back to the semaphore
     }
   }
+})();
 
-  if (!success) {
-    console.error(`The operation failed for (${url}) after maximum retries.`);
-  } else {
-    // Add additional URLs to scrape if success
-    const additionalUrls = [
-      'https://www.example.com/page1',
-      'https://www.example.com/page2',
-      'https://www.example.com/page3',
-    ];
-    for (const additionalUrl of additionalUrls) {
-      await scrapeWebsite(additionalUrl);
-    }
-  }
-}
+console.log(urls);
 
-async function runDemo() {
-  const urls = [
-    'https://www.example.com',
-    'https://www.google.com',
-    'https://www.openai.com',
-  ];
-
-  const promises = urls.map(url => scrapeWebsite(url));
-  await Promise.all(promises);
-}
-
-export default runDemo
