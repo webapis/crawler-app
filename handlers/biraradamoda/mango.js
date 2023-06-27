@@ -1,10 +1,10 @@
 
-const Apify = require('apify');
+const { Dataset  } =require ('crawlee');
 async function handler(page, context) {
     const { request: { userData: {  } } } = context
     debugger;
 
-    const dataset = await Apify.openDataset();
+    const productsDataset = await Dataset.open(`products`);
     const url = await page.url()
 
     debugger;
@@ -14,7 +14,7 @@ async function handler(page, context) {
     debugger
     await autoScroll(page);
 
-    const { items } = await dataset.getData()
+    const { items } = await productsDataset.getData()
     debugger
     const data = items.filter(f=>f.version && f.groups).map(m => {
 

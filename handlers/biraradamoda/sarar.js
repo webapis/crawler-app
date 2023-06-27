@@ -1,8 +1,10 @@
 
-const Apify = require('apify');
+const { RequestQueue  } =require ('crawlee');
+
 async function handler(page, context) {
+    const requestQueue = await RequestQueue.open();
     const { request: { userData: { start } } } = context
-    const requestQueue = await Apify.openRequestQueue();
+
     const url = await page.url()
     let data = []
     await page.waitForSelector('.catalogWrapper')

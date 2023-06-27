@@ -1,4 +1,4 @@
-const Apify = require('apify');
+const { RequestQueue  } =require ('crawlee');
 var convert = require('xml-js');
 var fetch = require('node-fetch')
 async function convertXMLToJSON({ url }) {
@@ -23,7 +23,7 @@ async function handler(page, context) {
         const jsondata = await convertXMLToJSON({ url })
         const sitemapUrl = jsondata['urlset']['url'].filter((f, i) => i > 0).map(m => m.loc._text)
 
-        const requestQueue = await Apify.openRequestQueue();
+        const requestQueue = await RequestQueue.open();
         debugger;
         for (let u of sitemapUrl) {
 
