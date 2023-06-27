@@ -9,8 +9,10 @@ class UrlEmitter extends EventEmitter { }
 
 const urlEmitter = new UrlEmitter();
 const marka = process.env.marka
-const { urls } = require(`./urls/biraradamoda/${process.env.GENDER}/${marka}`)
-
+const { urls: links } = require(`./urls/biraradamoda/${process.env.GENDER}/${marka}`)
+const urls = links.map((m) => {
+  return { ...m, start: true }
+})
 const processedUrls = new Set(); // Track processed URLs
 const MAX_PARALLEL_EXECUTIONS = 3; // Maximum parallel executions
 const semaphore = new Semaphore(MAX_PARALLEL_EXECUTIONS); // Create a semaphore instance
@@ -31,7 +33,7 @@ async function scrape(urlObj, handler, maxRetries = 3) {
 }
 
 async function customHandler(urlObj) {
-  const { url } = urlObj;
+  const { url, start } = urlObj;
   const page = await browser.newPage();
 
   try {
@@ -109,11 +111,14 @@ async function customHandler(urlObj) {
     const data = await handler(page, { addUrl, dataset: datasetDefault })
     const dataset = await Dataset.open('products')
     await dataset.pushData(data)
-    for (let url of pageUrls) {
-      if (pageUrls.length > 0) {
-        addUrl({ url, userData: { start: false } })
+    if (start) {
+      for (let url of pageUrls) {
+        if (pageUrls.length > 0) {
+        addUrl({ url, start: false  })
+        }
       }
     }
+
 
     // Perform page scraping using Puppeteer
     // Add your scraping logic here
@@ -141,7 +146,10 @@ function addUrl(urlObj) {
 urlEmitter.on('urlAdded', async (urlObj) => {
   await semaphore.acquire();
   try {
-    await scrape(urlObj, customHandler);
+    if(!processedUrls.has(urlObj.url)){
+      await scrape(urlObj, customHandler);
+    }
+  
   } finally {
     semaphore.release();
   }
