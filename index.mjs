@@ -9,7 +9,7 @@ class UrlEmitter extends EventEmitter { }
 
 const urlEmitter = new UrlEmitter();
 const marka = process.env.marka
-const { urls} = require(`./urls/biraradamoda/${process.env.GENDER}/${marka}`)
+const { urls } = require(`./urls/biraradamoda/${process.env.GENDER}/${marka}`)
 
 const processedUrls = new Set(); // Track processed URLs
 const MAX_PARALLEL_EXECUTIONS = 3; // Maximum parallel executions
@@ -42,72 +42,72 @@ async function customHandler(urlObj) {
     await page.setDefaultNavigationTimeout(0);
     await page.setRequestInterception(true);
     page.on('request', req => {
-   
-        const resourceType = req.resourceType();
 
-        if (resourceType === 'image' || (resourceType === 'fetch')) {
-            req.respond({
-                status: 200,
-                contentType: 'image/jpeg',
-                body: buffer
-            });
+      const resourceType = req.resourceType();
+
+      if (resourceType === 'image' || (resourceType === 'fetch')) {
+        req.respond({
+          status: 200,
+          contentType: 'image/jpeg',
+          body: buffer
+        });
 
 
-        } else {
-            req.continue();
-        }
+      } else {
+        req.continue();
+      }
     });
     page.on('response', async response => {
-        const request = response.request();
-
-     
-        const status = response.status()
-        const url=response.url()
-     
-    
-        if (status === 200) {
-            try {
-                const text = await response.text()
-                if (isJsonString(text)) {
+      const request = response.request();
 
 
-                    const json = JSON.parse(text);
-                    if (Array.isArray(json)) {
-
-                        await randonjsonDataset.pushData({ arr: json });
-                        //   response.continue();
-
-                    } else {
-
-                        await randonjsonDataset.pushData(json);
-                        //   response.continue();
-                    }
+      const status = response.status()
+      const url = response.url()
 
 
+      if (status === 200) {
+        try {
+          const text = await response.text()
+          if (isJsonString(text)) {
 
-                }
-            } catch (error) {
 
+            const json = JSON.parse(text);
+            if (Array.isArray(json)) {
+
+              await randonjsonDataset.pushData({ arr: json });
+              //   response.continue();
+
+            } else {
+
+              await randonjsonDataset.pushData(json);
+              //   response.continue();
             }
 
+
+
+          }
+        } catch (error) {
+
         }
+
+      }
 
     })
     function isJsonString(str) {
-        try {
-            JSON.parse(str);
-        } catch (e) {
-            return false;
-        }
-        return true;
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
     }
     await page.goto(url);
 
     const { handler, getUrls } = require(`${process.cwd()}/handlers/biraradamoda/${process.env.marka}`);
     const { pageUrls } = await getUrls(page)
-
-    const data = await handler(page, { addUrl })
-    const dataset= await Dataset.open('products')
+    const datasetDefault = await Dataset.open()
+    const data = await handler(page, { addUrl, dataset: datasetDefault })
+    const dataset = await Dataset.open('products')
     await dataset.pushData(data)
     for (let url of pageUrls) {
       if (pageUrls.length > 0) {
@@ -149,7 +149,7 @@ urlEmitter.on('urlAdded', async (urlObj) => {
 
 (async () => {
 
-  browser = await puppeteer.launch({headless:false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' });
+  browser = await puppeteer.launch({ headless: false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' });
 
   for (const urlObj of urls) {
     await semaphore.acquire();
