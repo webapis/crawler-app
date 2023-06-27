@@ -1,6 +1,6 @@
 
 async function handler(page, context) {
-    const { request: { userData: { } } } = context
+
     debugger;
     const url = await page.url()
     await page.waitForSelector('.products__items')

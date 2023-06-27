@@ -1,7 +1,7 @@
 
 
 async function handler(page, context) {
-    const { request: { userData: { } } } = context
+ 
 
     const url = await page.url()
 

@@ -2,7 +2,7 @@
 
 
 async function handler(page, context) {
-    const { request: { userData: {start } } } = context
+
     debugger;
 //close-button-1545222288830
 

@@ -2,12 +2,6 @@
 async function handler(page, context) {
 
 
-
-    const { request: { userData: {  } } } = context
-
-
-
-debugger
     await page.waitForSelector('.list-content')
 
    await autoScroll(page)

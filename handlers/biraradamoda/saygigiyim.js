@@ -1,7 +1,7 @@
 
 
 async function handler(page, context) {
-    const { request: { userData: { } } } = context
+
     const url = await page.url()
     await page.waitForSelector('.appliedFilter.FiltrelemeUrunAdet span')
     const data = await page.$$eval('.productItem', (productCards) => {

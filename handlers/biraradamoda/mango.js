@@ -1,7 +1,7 @@
 
 const { Dataset  } =require ('crawlee');
 async function handler(page, context) {
-    const { request: { userData: {  } } } = context
+
     debugger;
 
     const productsDataset = await Dataset.open(`products`);

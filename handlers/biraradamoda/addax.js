@@ -2,9 +2,6 @@
 
 const { Dataset  } =require ('crawlee');
 async function handler(page, context) {
-    const { request: { userData: { } } } = context
-    debugger;
-
 
     const url = await page.url()
 
@@ -12,8 +9,7 @@ async function handler(page, context) {
 
     await page.waitForSelector('.PrdContainer')
     await autoScroll(page);
-    const productsDataset = await Dataset.open(`products`);
-    const { items } = await productsDataset.getData()
+
     debugger
     const data = await page.$$eval('.Prd', (productCards) => {
         return productCards.map(productCard => {
