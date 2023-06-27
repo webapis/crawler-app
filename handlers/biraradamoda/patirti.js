@@ -1,10 +1,10 @@
 
 var convert = require('xml-js');
-const Apify = require('apify');
+const { RequestQueue  } =require ('crawlee');
 
 async function handler(page, context) {
     const { request: { userData: { start } } } = context
-    const requestQueue = await Apify.openRequestQueue();
+    const requestQueue = await RequestQueue.open();
     let data = []
     const url = await page.url()
 

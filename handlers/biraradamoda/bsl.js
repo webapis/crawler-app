@@ -1,6 +1,6 @@
 
 
-const Apify = require('apify');
+const { RequestQueue  } =require ('crawlee');
 async function handler(page, context) {
     const { request: { userData: { start } } } = context
     debugger;
@@ -13,7 +13,7 @@ async function handler(page, context) {
     await page.waitForSelector('.ProductList')
 
 
-    const requestQueue = await Apify.openRequestQueue();
+    const requestQueue = await RequestQueue.open();
     debugger
     const data = await page.$$eval('.Prd', (productCards) => {
         return productCards.map(document => {
