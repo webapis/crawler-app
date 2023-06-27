@@ -1,0 +1,43 @@
+{
+  // These tasks will run in order when initializing your CodeSandbox project.
+  "setupTasks": [
+    {
+      "name": "Install Dependencies",
+      "command": "npm install"
+    }
+  ],
+
+  // These tasks can be run from CodeSandbox. Running one will open a log in the app.
+  "tasks": {
+    "test": {
+      "name": "test",
+      "command": "npm run test",
+      "runAtStart": false
+    },
+    "scrape": {
+      "name": "scrape",
+      "command": "npm run scrape",
+      "runAtStart": true
+    },
+    "schema": {
+      "name": "schema",
+      "command": "npm run schema",
+      "runAtStart": false
+    },
+    "import": {
+      "name": "import",
+      "command": "npm run import",
+      "runAtStart": false
+    },
+    "deleteData": {
+      "name": "deleteData",
+      "command": "npm run deleteData",
+      "runAtStart": false
+    },
+    "deleteByMarka": {
+      "name": "deleteByMarka",
+      "command": "npm run deleteByMarka",
+      "runAtStart": false
+    }
+  }
+}
