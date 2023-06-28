@@ -14,7 +14,7 @@ await client.collections('products').documents().delete({'filter_by': `marka:${p
 
 const { items: data } = await productsDataset.getData();
 debugger
-   const mappedData=   data.map((m) => {
+   const mappedData=   data.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
           marka: m.marka,
           gender: m.gender
