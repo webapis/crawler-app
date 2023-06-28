@@ -31,7 +31,7 @@ async function handler(page, context) {
     })
 
 debugger
-    return formatprice
+    return formatprice.filter(f => f.imageUrl !== null  && f.imageUrl.length>0 )
 
 
 
