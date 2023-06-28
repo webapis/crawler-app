@@ -1,10 +1,10 @@
 
-const { Dataset  } =require ('crawlee');
-async function handler(page, context) {
 
+async function handler(page, context) {
+const {dataset} =context
     debugger;
 
-    const productsDataset = await Dataset.open(`products`);
+
     const url = await page.url()
 
     debugger;
@@ -14,7 +14,7 @@ async function handler(page, context) {
     debugger
     await autoScroll(page);
 
-    const { items } = await productsDataset.getData()
+    const { items } = await dataset.getData()
     debugger
     const data = items.filter(f=>f.version && f.groups).map(m => {
 
