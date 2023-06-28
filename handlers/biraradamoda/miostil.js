@@ -1,4 +1,4 @@
-const Apify = require('apify');
+
 
 async function handler(page, context) {
 
