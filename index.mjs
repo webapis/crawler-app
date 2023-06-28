@@ -14,7 +14,7 @@ const urls = links.map((m) => {
   return { ...m, start: true }
 })
 const processedUrls = new Set(); // Track processed URLs
-const MAX_PARALLEL_EXECUTIONS = 3; // Maximum parallel executions
+const MAX_PARALLEL_EXECUTIONS = 1; // Maximum parallel executions
 const semaphore = new Semaphore(MAX_PARALLEL_EXECUTIONS); // Create a semaphore instance
 let browser; // Puppeteer browser instance
 
