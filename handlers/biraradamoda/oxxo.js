@@ -14,7 +14,6 @@ async function handler(page, context) {
     debugger
     const data = await page.$$eval('.Prd', (productCards) => {
         return productCards.map(productCard => {
-
             const longImgUrl = productCard.querySelector('a[data-product] img').getAttribute('data-src') ? productCard.querySelector('a[data-product] img').getAttribute('data-src') : productCard.querySelector('a[data-product] img').src
             const title = productCard.querySelector('a[data-product] img').alt
             const priceNew = productCard.querySelector('.PriceArea').querySelectorAll('span').length === 1 ? productCard.querySelector('.PriceArea').querySelectorAll('span')[0].innerHTML.trim().replace('₺', '').trim() : productCard.querySelector('.PriceArea').querySelectorAll('span')[1].innerHTML.trim().replace('TL', '').trim()
