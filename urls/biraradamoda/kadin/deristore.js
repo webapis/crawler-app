@@ -1,6 +1,6 @@
 const urls = [
 
-    { url: 'https://www.deristore.com.tr/kadin'},
+   // { url: 'https://www.deristore.com.tr/kadin'},
 
 
 
