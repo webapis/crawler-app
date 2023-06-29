@@ -54,7 +54,13 @@ let schema = {
         type: "string",
         facet: true,
         sortable:true
-      }
+      },
+      {
+        name: "altKategori",
+        type: "string",
+        facet: true,
+        sortable:true
+      },
     ],
     // default_sorting_field: "index",
   };
