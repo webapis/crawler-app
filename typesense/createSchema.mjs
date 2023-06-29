@@ -16,7 +16,8 @@ let schema = {
         name: "marka",
         type: "string",
         facet: true,
-        optional:false
+        optional:false,
+        sortable:true
       },
       {
         name: "gender",
@@ -63,5 +64,5 @@ let schema = {
     ],
     // default_sorting_field: "index",
   };
-  const rest =await client.collections().create(schema);
+  const rest =await client.collections().update(schema);
   console.log('create schema',rest)
