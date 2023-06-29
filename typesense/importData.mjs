@@ -36,6 +36,7 @@ debugger
           price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
 
           kategori: ['çapraz,bel,sırt,omuz,spor,outdoor'].find((f)=>m.title.includes(f))?['çapraz,bel,sırt,omuz,spor,outdoor'].find((f)=>m.title.includes(f)):'diger',
+          renk: ['sarı,beyaz,kırmızı,siyah,fuşya,turuncu','yeşil','mavi','kahve'].find((f)=>m.title.includes(f))?['sarı,beyaz,kırmızı,siyah,fuşya,turuncu','yeşil','mavi','kahve'].find((f)=>m.title.includes(f)):'diger',
           altKategori:'depricated'
         };
       })
