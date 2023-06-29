@@ -35,7 +35,8 @@ debugger
           imageUrl: m.imageUrl,
           price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
 
-          kategori: ['çapraz,bel,sırt,omuz,spor,outdoor'].find((f)=>m.title.includes(f))?['çapraz,bel,sırt,omuz,spor,outdoor'].find((f)=>m.title.includes(f)):'diger'
+          kategori: ['çapraz,bel,sırt,omuz,spor,outdoor'].find((f)=>m.title.includes(f))?['çapraz,bel,sırt,omuz,spor,outdoor'].find((f)=>m.title.includes(f)):'diger',
+          altKategori:'depricated'
         };
       })
 
