@@ -39,10 +39,10 @@ debugger
         };
       })
 
-      // await client
-      // .collections("products")
-      // .documents()
-      // .import(mappedData, { action: "create" });
+      await client
+      .collections("products")
+      .documents()
+      .import(mappedData, { action: "create" });
    
 
  
