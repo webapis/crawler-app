@@ -64,5 +64,5 @@ let schema = {
     ],
     // default_sorting_field: "index",
   };
- // const rest =await client.collections().create(schema);
- // console.log('create schema',rest)
+  const rest =await client.collections().create(schema);
+ console.log('create schema',rest)
