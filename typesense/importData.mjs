@@ -11,11 +11,11 @@ console.log("process.env.marka------", process.env.marka === true);
 
 
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
-
-
+await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
+await client.collections('products').delete()
 const { items: data } = await productsDataset.getData();
 debugger
-   const mappedData=   data.filter(f=>f.title.includes('çanta')).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
+   const mappedData=   data.filter(f=>f.includes('çanta')).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
           marka: m.marka,
           gender: m.gender
@@ -35,14 +35,14 @@ debugger
           imageUrl: m.imageUrl,
           price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
 
-          ...genegateNavigation({ title: m.title })
+          kategori: ['çapraz,bel,sırt,omuz,spor,outdoor'].find(m.includes(f))?['çapraz,bel,sırt,omuz,spor,outdoor'].find(m.includes(f)):'diger'
         };
       })
 
-      await client
-      .collections("products")
-      .documents()
-      .import(mappedData, { action: "create" });
+      // await client
+      // .collections("products")
+      // .documents()
+      // .import(mappedData, { action: "create" });
    
 
  
