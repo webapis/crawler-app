@@ -12,6 +12,7 @@ console.log("process.env.marka------", process.env.marka === true);
 
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
+await client.collections('products').documents().delete({'filter_by': `gender:_erkek`});
 const { items: data } = await productsDataset.getData();
 debugger
    const mappedData=   data.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
