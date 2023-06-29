@@ -13,11 +13,11 @@ jobs:
       WEBSITE: 'biraradamoda'
       marka: 'vakko'
     secrets: inherit
-  erkek_job:
-    uses: ./.github/workflows/reusable.yml
-    with:
-      GENDER: erkek
-      maxconcurrency: '5'
-      WEBSITE: 'biraradamoda'
-      marka: 'vakko'
-    secrets: inherit
+  # erkek_job:
+  #   uses: ./.github/workflows/reusable.yml
+  #   with:
+  #     GENDER: erkek
+  #     maxconcurrency: '5'
+  #     WEBSITE: 'biraradamoda'
+  #     marka: 'vakko'
+  #   secrets: inherit

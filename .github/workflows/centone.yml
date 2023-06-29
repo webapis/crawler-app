@@ -1,15 +1,15 @@
-name: centone
-on:
-  schedule:
-    - cron:  '0 0 * * 3,5'
-env:
-  GH_TOKEN: ${{secrets.GH_TOKEN}}
-jobs:
-  erkek_job:
-    uses: ./.github/workflows/reusable.yml
-    with:
-      GENDER: erkek
-      maxconcurrency: '1'
-      WEBSITE: 'biraradamoda'
-      marka: 'centone'
-    secrets: inherit
+# name: centone
+# on:
+#   schedule:
+#     - cron:  '0 0 * * 3,5'
+# env:
+#   GH_TOKEN: ${{secrets.GH_TOKEN}}
+# jobs:
+#   erkek_job:
+#     uses: ./.github/workflows/reusable.yml
+#     with:
+#       GENDER: erkek
+#       maxconcurrency: '1'
+#       WEBSITE: 'biraradamoda'
+#       marka: 'centone'
+#     secrets: inherit

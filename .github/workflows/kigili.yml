@@ -1,15 +1,15 @@
-name: kigili
-on:
-  schedule:
-    - cron:  '0 0 * * 4,6'
-env:
-  GH_TOKEN: ${{secrets.GH_TOKEN}}
-jobs:
-  erkek_job:
-    uses: ./.github/workflows/reusable.yml
-    with:
-      GENDER: erkek
-      maxconcurrency: '1'
-      WEBSITE: 'biraradamoda'
-      marka: 'kigili'
-    secrets: inherit
+# name: kigili
+# on:
+#   schedule:
+#     - cron:  '0 0 * * 4,6'
+# env:
+#   GH_TOKEN: ${{secrets.GH_TOKEN}}
+# jobs:
+#   erkek_job:
+#     uses: ./.github/workflows/reusable.yml
+#     with:
+#       GENDER: erkek
+#       maxconcurrency: '1'
+#       WEBSITE: 'biraradamoda'
+#       marka: 'kigili'
+#     secrets: inherit
