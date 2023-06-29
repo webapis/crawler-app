@@ -1,6 +1,6 @@
 const urls = [
 
-    { url: 'https://www.fashionfriends.com/kadin-hirka/'},
+   // { url: 'https://www.fashionfriends.com/kadin-hirka/'},
 
  
  
