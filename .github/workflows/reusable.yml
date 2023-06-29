@@ -63,9 +63,6 @@ jobs:
       - name: aggregation step
         id: collection
         run: node index.mjs
-      - name: update schema
-        id: impdschemaata
-        run: node typesense/createSchema.mjs
       - name: import data
         id: impdata
         run: node typesense/importData.mjs
