@@ -16,7 +16,8 @@ await client.collections('products').documents().delete({'filter_by': `marka:${p
 const { items: data } = await productsDataset.getData();
 debugger
 const kategoriler =['bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
-   const mappedData=   data.filter(f=>f.title.includes('çanta')).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
+const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
+const mappedData=   data.filter(f=>f.title.includes('çanta')).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
           marka: m.marka,
           gender: m.gender
@@ -37,7 +38,7 @@ const kategoriler =['bez','kot','abiye','portföy','gece','kol','telefon','çapr
           price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
 
           kategori: kategoriler.find((f)=>m.title.includes(f))?kategoriler.find((f)=>m.title.includes(f)):'diger',
-          renk: ['gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve'].find((f)=>m.title.includes(f))?['gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve'].find((f)=>m.title.includes(f)):'diger',
+          renk:renkler.find((f)=>m.title.includes(f))?renkler.find((f)=>m.title.includes(f)):'diger',
           altKategori:'dericated'
         };
       })
