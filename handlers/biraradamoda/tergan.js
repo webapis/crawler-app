@@ -51,12 +51,8 @@ async function getUrls(page) {
     debugger
         let pagesLeft = totalPages
         for (let i = 2; i <= totalPages; i++) {
-    
-    
-    
             pageUrls.push(`${url}?rpg=` + i)
             --pagesLeft
-    
     
         }
     }
