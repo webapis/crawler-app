@@ -1,7 +1,7 @@
 const urls = [
 
-    { url: 'https://www.patirti.com/kadin-giyim' },
-     { url: 'https://www.patirti.com/ayakkabi'},
+    // { url: 'https://www.patirti.com/kadin-giyim' },
+    //  { url: 'https://www.patirti.com/ayakkabi'},
     // { url: 'https://www.patirti.com/kadin-hirka'},
     // { url: 'https://www.patirti.com/kadin-pantolon-salvar'},
     // { url: 'https://www.patirti.com/kadin-sort-kapri'},
