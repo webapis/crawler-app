@@ -1,5 +1,5 @@
 
-const urls = [{ url: 'https://www.pierrecardin.com.tr/kadin'}
+const urls = [{ url: 'https://www.pierrecardin.com.tr/kadin-canta-modelleri'}
 
 ]
 
