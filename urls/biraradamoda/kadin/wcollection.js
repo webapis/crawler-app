@@ -1,6 +1,6 @@
 const urls = [
   
-    { url: 'https://www.wcollection.com.tr/kadin'},
+    // { url: 'https://www.wcollection.com.tr/kadin'},
 
 
 
