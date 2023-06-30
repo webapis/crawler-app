@@ -1,6 +1,6 @@
 const urls = [
     
-    { url: 'https://miostil.com/kadin-giyim-2/' },
+  //  { url: 'https://miostil.com/kadin-giyim-2/' },
 
 
 
