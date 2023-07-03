@@ -1,9 +1,9 @@
 
-const Apify = require('apify');
+
 async function handler(page, context) {
-    const { request: { userData: { start, detailPage } } } = context
+    const {  start, detailPage,addUrl  } = context
     const url = await page.url()
-    const requestQueue = await Apify.openRequestQueue();
+
 
     if (start) {
         await page.waitForSelector('.result.-only-desktop')
@@ -18,7 +18,7 @@ async function handler(page, context) {
             if (pagesLeft > 0) {
 
                 pageUrls.push(`${url}?page=` + i)
-                await requestQueue.addRequest({ url:`${url}?page=` + i, userData: { start: false } })
+               addUrl({ url:`${url}?page=` + i,  start: false  })
                 --pagesLeft
             }
 
@@ -38,7 +38,7 @@ async function handler(page, context) {
             })
         })
         for (let url of data) {
-            await requestQueue.addRequest({ url: url.link, userData: { start: false, detailPage: true } })
+           addUrl({ url: url.link, start: false, detailPage: true  })
         }
         return []
     }
