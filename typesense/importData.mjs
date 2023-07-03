@@ -17,7 +17,8 @@ const { items: data } = await productsDataset.getData();
 debugger
 const kategoriler =['clutch','kova','Postacı','baskılı','el çanta','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
-const mappedData=   data.filter(f=>f.title.toLowerCase().includes('çanta')).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
+//filter(f=>f.title.toLowerCase().includes('çanta'))
+const mappedData=   data.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
           marka: m.marka,
           gender: m.gender
