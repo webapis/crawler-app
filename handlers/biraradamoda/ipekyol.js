@@ -45,7 +45,6 @@ debugger
 
     return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
 }
-
 async function autoScroll(page) {
     await page.evaluate(async () => {
 
@@ -55,13 +54,12 @@ async function autoScroll(page) {
             var distance = 100;
             let inc = 0
             var timer = setInterval(() => {
+                var scrollHeight = document.body.scrollHeight;
 
-                const totalItems = parseInt(document.querySelector('.prd-qty').innerText.replace(/[^\d]/ig, ''))
-                const totalCollected = document.querySelector('[data-product-id]').length
                 window.scrollBy(0, distance);
                 totalHeight += distance;
                 inc = inc + 1
-                if (totalItems === totalCollected) {
+                if (totalHeight >= scrollHeight - window.innerHeight) {
                     clearInterval(timer);
                     resolve();
                 }
@@ -69,6 +67,29 @@ async function autoScroll(page) {
         });
     });
 }
+// async function autoScroll(page) {
+//     await page.evaluate(async () => {
+
+
+//         await new Promise((resolve, reject) => {
+//             var totalHeight = 0;
+//             var distance = 100;
+//             let inc = 0
+//             var timer = setInterval(() => {
+
+//                 const totalItems = parseInt(document.querySelector('.prd-qty').innerText.replace(/[^\d]/ig, ''))
+//                 const totalCollected = document.querySelector('[data-product-id]').length
+//                 window.scrollBy(0, distance);
+//                 totalHeight += distance;
+//                 inc = inc + 1
+//                 if (totalItems === totalCollected) {
+//                     clearInterval(timer);
+//                     resolve();
+//                 }
+//             }, 150);
+//         });
+//     });
+// }
 async function getUrls(page, param) {
 
     return { pageUrls: [], productCount: 0, pageLength: 0 }
