@@ -1,4 +1,4 @@
-const { RequestQueue  } =require ('crawlee');
+
 var convert = require('xml-js');
 var fetch = require('node-fetch')
 async function convertXMLToJSON({ url }) {
@@ -16,18 +16,18 @@ async function convertXMLToJSON({ url }) {
 
 async function handler(page, context) {
 
-    const { request: { userData: { start } } } = context
+    const {  start,addUrl   } = context
     const url = await page.url()
     if (start) {
 
         const jsondata = await convertXMLToJSON({ url })
         const sitemapUrl = jsondata['urlset']['url'].filter((f, i) => i > 0).map(m => m.loc._text)
 
-        const requestQueue = await RequestQueue.open();
+     
         debugger;
         for (let u of sitemapUrl) {
 
-            requestQueue.addRequest({ url: u, userData: { start: false } })
+           addUrl({ url: u,  start: false  })
         }
 
         return []
