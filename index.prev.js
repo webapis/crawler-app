@@ -23,7 +23,7 @@ async function scrape(urlObj, handler, maxRetries = 3) {
 
   for (let retryCount = 1; retryCount <= maxRetries; retryCount++) {
     try {
-      await customHandler(urlObj);
+      await handler(urlObj);
       return; // Successful, exit the function
     } catch (error) {
       console.log(`Scraping failed for ${url}. Retrying (${retryCount}/${maxRetries})...`);
@@ -108,13 +108,13 @@ async function customHandler(urlObj) {
     const { handler, getUrls } = require(`${process.cwd()}/handlers/biraradamoda/${process.env.marka}`);
     const { pageUrls } = await getUrls(page)
     const datasetDefault = await Dataset.open()
-    const data = await handler(page, { addUrl, dataset: datasetDefault, start: true })
+    const data = await handler(page, { addUrl, dataset: datasetDefault })
     const dataset = await Dataset.open('products')
     await dataset.pushData(data)
     if (start) {
       for (let url of pageUrls) {
         if (pageUrls.length > 0) {
-          addUrl({ url, start: false })
+        addUrl({ url, start: false  })
         }
       }
     }
@@ -146,10 +146,10 @@ function addUrl(urlObj) {
 urlEmitter.on('urlAdded', async (urlObj) => {
   await semaphore.acquire();
   try {
-    if (!processedUrls.has(urlObj.url)) {
-      await scrape(urlObj);
+    if(!processedUrls.has(urlObj.url)){
+      await scrape(urlObj, customHandler);
     }
-
+  
   } finally {
     semaphore.release();
   }
@@ -157,12 +157,12 @@ urlEmitter.on('urlAdded', async (urlObj) => {
 
 (async () => {
 
-  // browser = await puppeteer.launch({ headless: false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' });
-  browser = process.env.LOCAL === 'TRUE' ? await puppeteer.launch({ headless: false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }) : await puppeteer.launch()
+ // browser = await puppeteer.launch({ headless: false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' });
+ browser = await puppeteer.launch()
   for (const urlObj of urls) {
     await semaphore.acquire();
     try {
-      await scrape(urlObj);
+      await scrape(urlObj, customHandler);
     } finally {
       semaphore.release();
     }

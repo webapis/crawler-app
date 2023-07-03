@@ -1,70 +1,68 @@
 
-var convert = require('xml-js');
-var fetch = require('node-fetch')
-async function convertXMLToJSON({ url }) {
-    const response = await fetch(url)
-
-    const xml = await response.text()
-
-    var result1 = convert.xml2json(xml, { compact: true, spaces: 4 });
-
-    const jsondata = JSON.parse(result1)
-    debugger
-    return jsondata
-}
-
-
 async function handler(page, context) {
 
-    const {  start,addUrl   } = context
+    const {  addUrl,start } = context
     const url = await page.url()
-    if (start) {
 
-        const jsondata = await convertXMLToJSON({ url })
-        const sitemapUrl = jsondata['urlset']['url'].filter((f, i) => i > 0).map(m => m.loc._text)
+    debugger;//
+    await page.waitForSelector('.prd-list')
+    debugger;
+    const data = await page.evaluate(() => {
+  
+        const items = Array.from(document.querySelectorAll('.prd-list'))
+        return items.map(item => {
 
-     
-        debugger;
-        for (let u of sitemapUrl) {
+            const priceNew = item.querySelector('.prd-list .prd-price .urunListe_satisFiyat') && item.querySelector('.prd-list .prd-price .urunListe_satisFiyat').textContent.replace('\n', '').replace('₺', '').trim()
 
-           addUrl({ url: u,  start: false  })
-        }
-
-        return []
-    } else {
-        //collect data
-        debugger
-        await page.waitForSelector('.ems-page-product-detail')
-        debugger
-        const data = await page.evaluate(() => {
-           // const titleDetail = document.querySelectorAll('.urun-detay-ul li') ? Array.from(document.querySelectorAll('.urun-detay-ul li')).map(m => m.innerText).join(' ').replace('|', '') : ''
-            const title = document.querySelector('.emos_H1').innerText
-            const color = document.querySelector('.listeUrunDetayGrup_listeBaslik') ? document.querySelector('.listeUrunDetayGrup_listeBaslik').innerText.replace('Renk:', '').trim() : ''
-            const priceNew = document.querySelector('[data-product-price]').innerText.replace('₺', '').trim()
-            const imageUrl = document.querySelector('img[data-image-src]').src
+            debugger;
+       
+            const longlink =item.querySelector('a.prd-lnk.clicked-item')&& item.querySelector('a.prd-lnk.clicked-item').href
+            const link =longlink&& longlink.substring(longlink.indexOf('https://www.ipekyol.com.tr/')+27)
+            const longImgUrl =  item.querySelector('[data-image-src]') && item.querySelector('[data-image-src]').getAttribute('data-image-src')
+            const imageUrlshort = longImgUrl&& longImgUrl.substring(longImgUrl.indexOf('https://img2-ipekyol.mncdn.com/mnresize/')+40)
             return {
-                title: title  + " " + color,
-                priceNew,
-                imageUrl: imageUrl.substring(imageUrl.indexOf('https://img2-ipekyol.mncdn.com/mnresize') + 39),
-                link: location.href,
+                title: item.querySelector('.prd-name span') && 'ipekyol '+ item.querySelector('.prd-name span').innerHTML.replace(/İ/g,'i').toLowerCase(),
+        
+                priceNew,//:priceNew.replace('.','').replace(',00','').trim(),
+  
+                imageUrl:imageUrlshort,
+                link,
+     
                 timestamp: Date.now(),
+      
                 marka: 'ipekyol',
-            }
-        })
-        debugger
-        console.log('data length_____', [data].length, 'url:', url)
 
-        return [data].map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+
+
+            }
+        }).filter(f => f.imageUrl !== null)
+    } )
+
+    console.log('data length_____', data.length)
+    const nextPageExists = await page.$('.btnDefault.load-next')
+    debugger;
+    if (nextPageExists && start) {
+
+debugger
+        const nextPage = `${url}?page=2`
+  
+        debugger;
+     addUrl({ url: nextPage,  start: false  })
+    } else if (nextPageExists && !start) {
+        debugger;
+        const pageUrl = url.slice(0, url.lastIndexOf("=") + 1)
+        const pageNumber = parseInt(url.substr(url.indexOf("=") + 1)) + 1
+        const nextPage = pageUrl + pageNumber
+   
+        debugger;
+        addUrl({ url: nextPage, start: false})
 
     }
 
+    console.log('data length_____', data.length, 'url:', url)
 
-
-
-
-
+    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
 }
-
 
 async function getUrls(page, param) {
 
