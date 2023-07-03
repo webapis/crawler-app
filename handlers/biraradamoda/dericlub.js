@@ -1,7 +1,7 @@
 
 
 async function handler(page, context) {
-    const { request: {  start, detailPage,addUrl }  } = context
+    const {  start, detailPage,addUrl  } = context
 
     const url = await page.url()
     debugger
