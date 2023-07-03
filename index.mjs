@@ -35,6 +35,7 @@ async function scrape(urlObj, handler, maxRetries = 3) {
 async function customHandler(urlObj) {
   const { url, start } = urlObj;
   const page = await browser.newPage();
+  await page.setJavaScriptEnabled(true);
 
   try {
     const randonjsonDataset = await Dataset.open();
