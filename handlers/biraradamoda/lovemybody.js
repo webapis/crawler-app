@@ -31,7 +31,7 @@ async function handler(page, context) {
     debugger
 
     console.log('data length_____', data.length, 'url:', url)
-    const formatedData =data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+    const formatedData =data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }}).filter(f=>f.title.toLowerCase().includes('çanta'))
 
 
     debugger

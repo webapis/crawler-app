@@ -1,5 +1,5 @@
 const urls = [
-    
+    {url:'https://www.lovemybody.com.tr/kadin-aksesuar'}
     // { url: 'https://www.lovemybody.com.tr/tum-ust-giyim'},
 
     //  { url: 'https://www.lovemybody.com.tr/tum-alt-giyim'},
