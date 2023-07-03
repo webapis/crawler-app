@@ -7,9 +7,9 @@ async function handler(page, context) {
     await page.waitForSelector('.item-grid')
     debugger
 
-    const data = await page.$$eval('[data-productid]', (productCards) => {
+    const data = await page.$$eval('.product', (productCards) => {
         return productCards.map(document => {
-            const obj = document.innerHTML
+            const obj = document.querySelector('.product__inside__name')
             // const imageUrl = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box .product-card__image--item.swiper-slide img').getAttribute('data-srcset')
             const title = obj
             // const priceNew = productCard.querySelector('.product-card__price--new') && productCard.querySelector('.product-card__price--new').textContent.trim().replace('₺', '').replace('TL', '')
