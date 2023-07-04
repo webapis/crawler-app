@@ -4,31 +4,30 @@ async function handler(page, context) {
     const { request:{userData:{ start, detailPage}}  } = context
     const url = await page.url()
     const requestQueue = await RequestQueue.open();
-
+debugger
     if (start) {
     debugger
         await page.waitForSelector('.result.-only-desktop')
         const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
-        const totalPages = Math.ceil(productCount / 59)
-        const pageUrls = []
+       debugger
+  const scroll=  await   autoScroll(page)
+  debugger
+       console.log('scroll',scroll)
+        // const totalPages = Math.ceil(productCount / 59)
+        // const pageUrls = []
 
-        let pagesLeft = totalPages
-        for (let i = 1; i <= totalPages; i++) {
+        // let pagesLeft = totalPages
+        // for (let i = 1; i <= totalPages; i++) {
 
 
-            if (pagesLeft > 0) {
+        //     if (pagesLeft > 0) {
 
-                pageUrls.push(`${url}?page=` + i)
-               await requestQueue.addRequest({ url:`${url}?page=` + i, userData:{ start: false}  })
-                --pagesLeft
-            }
+        //         pageUrls.push(`${url}?page=` + i)
+        //        await requestQueue.addRequest({ url:`${url}?page=` + i, userData:{ start: false}  })
+        //         --pagesLeft
+        //     }
 
-        }
-    
-    }
-
-    if (!detailPage) {
-debugger
+        // }
         await page.waitForSelector('.list__products')
         const data = await page.evaluate(() => {
             const productCards = Array.from(document.querySelectorAll('.js-product-wrapper.product-item'))
@@ -42,9 +41,11 @@ debugger
         for (let url of data) {
            await requestQueue.addRequest({ url:url.link, userData:{ start: false,detailPage: true}  })
         }
-
+debugger
         return []
     }
+
+
 
     if (detailPage) {
         try {
@@ -77,6 +78,35 @@ debugger
 
 
     }
+}
+
+
+
+async function autoScroll(page) {
+    await page.evaluate(async () => {
+        const totalItems = parseInt(document.querySelector('.result.-only-desktop').textContent.replace(/[^\d]/g, '').trim())
+
+
+   return      await new Promise((resolve, reject) => {
+            var totalHeight = 0;
+            var distance = 100;
+            let inc = 0
+            var timer = setInterval(() => {
+    
+                const totalCollected = document.querySelectorAll('.product-item').length
+          
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                inc = inc + 1
+                if (totalCollected === totalItems) {
+                    window.scrollBy(0, distance);
+             
+                    clearInterval(timer);
+                    resolve({totalCollected,totalItems});
+                }
+            }, 200);
+        });
+    });
 }
 async function getUrls(page) {
 

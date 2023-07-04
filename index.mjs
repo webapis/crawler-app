@@ -67,7 +67,7 @@ require('dotenv').config()
         // requestList,
         requestQueue,
         maxConcurrency: parseInt(process.env.MAX_CONCURRENCY) || 1,
-      //  handlePageTimeoutSecs: 3600,
+      requestHandlerTimeoutSecs: 3600,
         //   maxRequestRetries:4,
         navigationTimeoutSecs: 240,
         launchContext: {
