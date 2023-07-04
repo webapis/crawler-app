@@ -1,8 +1,9 @@
 
 
+const {  RequestQueue } =require('crawlee');
 async function handler(page, context) {
-    const {  start, detailPage,addUrl  } = context
-
+    const { request:{userData:{start,detailPage}}  } = context
+    const requestQueue = await RequestQueue.open();
     const url = await page.url()
     debugger
     if (start) {
@@ -19,7 +20,7 @@ async function handler(page, context) {
             //pageUrls.push(`${url}?sayfa=` + i)
             //--pagesLeft
             debugger
-           addUrl({ url: `${url}?sayfa=` + i,  start: false  })
+           await requestQueue.addRequest({ url: `${url}?sayfa=` + i,userData:{  start: false}  })
         }
 
 
@@ -32,8 +33,8 @@ async function handler(page, context) {
             }).filter(f => f.link !== null)
         })
         for (let url of data) {
-            debugger
-           addUrl({ url: url.link, start: false, detailPage: true  })
+      
+            await requestQueue.addRequest({ url: url.link,userData:{ start: false, detailPage: true } })
         }
         return []
     }
@@ -72,7 +73,7 @@ async function handler(page, context) {
 
         for (let url of data) {
             debugger
-           addUrl({ url: url.link,  start: false, detailPage: true  })
+           await requestQueue.addRequest({ url: url.link,userData:{  start: false, detailPage: true}  })
         }
         return []
     }

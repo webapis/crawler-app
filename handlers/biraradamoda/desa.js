@@ -1,7 +1,7 @@
 
 
 
-async function handler(page, context) {
+async function handler(page) {
 
 
 

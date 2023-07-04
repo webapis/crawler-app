@@ -1,5 +1,5 @@
 
-async function handler(page, context) {
+async function handler(page) {
 
 debugger
     const url = await page.url()

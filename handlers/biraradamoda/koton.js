@@ -1,12 +1,12 @@
 
-
+const {  RequestQueue } =require('crawlee');
 async function handler(page, context) {
-    const {  start, detailPage,addUrl  } = context
+    const { request:{userData:{ start, detailPage}}  } = context
     const url = await page.url()
+    const requestQueue = await RequestQueue.open();
 
-debugger
     if (start) {
-    
+    debugger
         await page.waitForSelector('.result.-only-desktop')
         const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
         const totalPages = Math.ceil(productCount / 59)
@@ -19,7 +19,7 @@ debugger
             if (pagesLeft > 0) {
 
                 pageUrls.push(`${url}?page=` + i)
-               addUrl({ url:`${url}?page=` + i,  start: false  })
+               await requestQueue.addRequest({ url:`${url}?page=` + i, userData:{ start: false}  })
                 --pagesLeft
             }
 
@@ -28,7 +28,7 @@ debugger
     }
 
     if (!detailPage) {
-
+debugger
         await page.waitForSelector('.list__products')
         const data = await page.evaluate(() => {
             const productCards = Array.from(document.querySelectorAll('.js-product-wrapper.product-item'))
@@ -40,7 +40,7 @@ debugger
             })
         })
         for (let url of data) {
-           addUrl({ url: url.link, start: false, detailPage: true  })
+           await requestQueue.addRequest({ url:url.link, userData:{ start: false,detailPage: true}  })
         }
 
         return []

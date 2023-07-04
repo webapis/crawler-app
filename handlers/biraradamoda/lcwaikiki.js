@@ -1,4 +1,4 @@
-async function handler(page,context) {
+async function handler(page) {
 
     const url = await page.url()
     await page.waitForSelector('.product-grid .product-card')
