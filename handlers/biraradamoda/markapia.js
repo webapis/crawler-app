@@ -12,7 +12,7 @@ async function handler(page, context) {
     const data = await page.$$eval('.productItem', (productCards) => {
         return productCards.map(document => {
 
-            const imageUrl = document.querySelector('a img').src
+            const imageUrl = document.querySelector('span.imgInner img.stImage').src
             const title = document.querySelector('.productDetails a').innerText
             const priceNew = document.querySelector('.currentPrice').innerText.replace('TL', '').trim()
             const longlink = document.querySelector('.productDetails a').href
@@ -28,7 +28,7 @@ async function handler(page, context) {
                 timestamp: Date.now(),
                 marka: 'markapia',
             }
-        }).filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
+        })//.filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
@@ -55,7 +55,7 @@ async function autoScroll(page) {
             var distance = 100;
             let inc = 0
             var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
+    
                 const totalCollected = document.querySelectorAll('.productItem').length
                 const totalItems = parseInt(document.querySelector('.totalPr').innerText.replace(/[^\d]/g, '').trim())
 
@@ -66,7 +66,7 @@ async function autoScroll(page) {
                     clearInterval(timer);
                     resolve();
                 }
-            }, 100);
+            }, 300);
         });
     });
 }

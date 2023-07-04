@@ -1,5 +1,5 @@
 const urls = [
-
+{url:'https://www.markapia.com/kadin-canta'}
     // { url: 'https://www.markapia.com/kadin-giyim'},
     // { url: 'https://www.markapia.com/kadin-alt-giyim'},
     // { url: 'https://www.markapia.com/kadin-spor-outdoor'},
