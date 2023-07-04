@@ -8,6 +8,7 @@ const require = createRequire(import.meta.url);
 require('dotenv').config()
 const {client} =require('./client.js')
 console.log("process.env.marka------", process.env.marka === true);
+const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[key] === curr[key]) ? prev : prev.push(curr) && prev, []);
 
 
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
@@ -18,7 +19,8 @@ debugger
 const kategoriler =['clutch','kova','Postacı','baskılı','el çanta','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 //filter(f=>f.title.toLowerCase().includes('çanta'))
-const mappedData=   data.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
+const uniqueProductCollection = uniqify(data, 'imageUrl')
+const mappedData=   uniqueProductCollection.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
           marka: m.marka,
           gender: m.gender
