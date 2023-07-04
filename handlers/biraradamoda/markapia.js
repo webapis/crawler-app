@@ -9,10 +9,14 @@ async function handler(page, context) {
     debugger
 
     await autoScroll(page)
+
+
+    debugger
+
     const data = await page.$$eval('.productItem', (productCards) => {
         return productCards.map(document => {
 
-            const imageUrl = document.querySelector('span.imgInner img.stImage').src
+            const imageUrl =document.querySelector('[data-src]')?document.querySelector('[data-src]').getAttribute('data-src'):  document.querySelector('img.stImage').src
             const title = document.querySelector('.productDetails a').innerText
             const priceNew = document.querySelector('.currentPrice').innerText.replace('TL', '').trim()
             const longlink = document.querySelector('.productDetails a').href
@@ -63,6 +67,8 @@ async function autoScroll(page) {
                 totalHeight += distance;
                 inc = inc + 1
                 if (totalCollected === totalItems) {
+                    window.scrollBy(0, distance);
+             
                     clearInterval(timer);
                     resolve();
                 }
