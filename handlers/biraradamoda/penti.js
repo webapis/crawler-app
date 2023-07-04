@@ -38,6 +38,7 @@ async function handler(page, context) {
 }
 
 async function getUrls(page) {
+    
     const url = await page.url()
     debugger;
     await page.waitForSelector('.plp-info')
@@ -48,15 +49,9 @@ async function getUrls(page) {
 
     let pagesLeft = totalPages
     for (let i = 0; i <= totalPages; i++) {
-
-
-
         pageUrls.push(`${url}?page=` + i)
         --pagesLeft
-
-
     }
-
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
 
