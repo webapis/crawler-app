@@ -158,7 +158,7 @@ urlEmitter.on('urlAdded', async (urlObj) => {
 (async () => {
 
  // browser = await puppeteer.launch({ headless: false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' });
- browser = await puppeteer.launch()
+ browser = process.env.LOCAL==='TRUE'? await puppeteer.launch({ headless: false, executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe' }): await puppeteer.launch()
   for (const urlObj of urls) {
     await semaphore.acquire();
     try {

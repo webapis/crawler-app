@@ -26,7 +26,7 @@ async function handler(page, context) {
     }
 
     if (!detailPage) {
-
+debugger
         await page.waitForSelector('.list__products')
         const data = await page.evaluate(() => {
             const productCards = Array.from(document.querySelectorAll('.js-product-wrapper.product-item'))
