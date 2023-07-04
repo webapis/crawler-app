@@ -17,13 +17,13 @@ async function handler(page, context) {
             const priceNew = document.querySelector('.price')? document.querySelector('.price').innerText.replace('TL', '').trim():document.querySelector('.ins-product-price').innerText.replace('TL', '')
             const longlink = document.querySelector('.product-card-info').href
             const link = longlink.substring(longlink.indexOf('https://www.mavi.com/') + 21)
-            const longImgUrl = document.querySelector('.swiper-slide').querySelector('a img').getAttribute('data-main-src')
-            const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('//sky-static.mavi.com/') + 22)
+            const imageUrlshort = document.querySelector('.product-item span img').getAttribute('data-large-src')
+         
 
             return {
                 title: 'mavijeans ' + productTitle.replace(/\n/g, '').trim() + ' ' + productDesc.replace(/\n/g, '').trim(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl: imageUrlshort.substring(22),
                 link,
                 timestamp: Date.now(),
                 marka: 'mavijeans',
