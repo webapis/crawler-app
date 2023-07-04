@@ -6,10 +6,10 @@ async function handler(page, context) {
     const url = await page.url()
     await page.waitForSelector('.product-list-cards')
 
-    await page.waitForSelector('.product-item')
+    await page.waitForSelector('.product-card-container')
 
     debugger;
-    const data = await page.$$eval('.product-item', (items) => {
+    const data = await page.$$eval('.product-card-container', (items) => {
 
         return items.map(document => {
             let productTitle = document.querySelector('.product-title').textContent
