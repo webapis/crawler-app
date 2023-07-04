@@ -1,0 +1,23 @@
+# name: patirti
+# on:
+#   schedule:
+#     - cron:  '0 0 * * 2,4'
+# env:
+#   GH_TOKEN: ${{secrets.GH_TOKEN}}
+# jobs:
+#   kadin_job:
+#     uses: ./.github/workflows/reusable.yml
+#     with:
+#       GENDER: kadin
+#       maxconcurrency: '5'
+#       WEBSITE: 'biraradamoda'
+#       marka: 'patirti'
+#     secrets: inherit
+  # erkek_job:
+  #   uses: ./.github/workflows/reusable.yml
+  #   with:
+  #     GENDER: erkek
+  #     maxconcurrency: '5'
+  #     WEBSITE: 'biraradamoda'
+  #     marka: 'patirti'
+  #   secrets: inherit
