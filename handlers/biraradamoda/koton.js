@@ -4,8 +4,9 @@ async function handler(page, context) {
     const {  start, detailPage,addUrl  } = context
     const url = await page.url()
 
-
+debugger
     if (start) {
+    
         await page.waitForSelector('.result.-only-desktop')
         const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
         const totalPages = Math.ceil(productCount / 59)
@@ -23,10 +24,11 @@ async function handler(page, context) {
             }
 
         }
+    
     }
 
     if (!detailPage) {
-debugger
+
         await page.waitForSelector('.list__products')
         const data = await page.evaluate(() => {
             const productCards = Array.from(document.querySelectorAll('.js-product-wrapper.product-item'))
@@ -40,27 +42,36 @@ debugger
         for (let url of data) {
            addUrl({ url: url.link, start: false, detailPage: true  })
         }
+
         return []
     }
 
     if (detailPage) {
+        try {
+            debugger
+            await page.waitForSelector('.product-media__slider img')
+            debugger
+                    const data = await page.evaluate(() => {
+                            const imageUrl =document.querySelector('.product-media__slider img').src
+                        return [{
+                            title: 'koton ' + document.querySelector('.product-info__header-title').innerText.toLowerCase() + ' ' + document.querySelector('.pz-variant__selected').innerText.substring(6),
+                            priceNew: document.querySelector('pz-price').innerText.replace('TL', '').trim(),//: newPrice.replace(',', '.').trim(),
+                            imageUrl:imageUrl.substring(imageUrl.indexOf('https://ktnimg2.mncdn.com/')+26) ,
+                            link: location.href.substring(location.href.indexOf('https://www.koton.com/')+22),
+                            timestamp: Date.now(),
+                            marka: 'koton',
+                        }]
+                    })
+            debugger
+                    console.log('data length_____', data.length, 'url:', url)
+                    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+        } catch (error) {
+            debugger
+
+            return error
+        }
 debugger
-        await page.waitForSelector('.product-media__slider img')
 
-        const data = await page.evaluate(() => {
-                const imageUrl =document.querySelector('.product-media__slider img').src
-            return [{
-                title: 'koton ' + document.querySelector('.product-info__header-title').innerText.toLowerCase() + ' ' + document.querySelector('.pz-variant__selected').innerText.substring(6),
-                priceNew: document.querySelector('pz-price').innerText.replace('TL', '').trim(),//: newPrice.replace(',', '.').trim(),
-                imageUrl:imageUrl.substring(imageUrl.indexOf('https://ktnimg2.mncdn.com/')+26) ,
-                link: location.href.substring(location.href.indexOf('https://www.koton.com/')+22),
-                timestamp: Date.now(),
-                marka: 'koton',
-            }]
-        })
-
-        console.log('data length_____', data.length, 'url:', url)
-        return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
 
 
 
