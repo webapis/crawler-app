@@ -26,7 +26,7 @@ async function handler(page, context) {
                 timestamp: Date.now(),
                 marka: 'matras',
             }
-        }).filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
+        })//.filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
