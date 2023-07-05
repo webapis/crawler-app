@@ -47,31 +47,44 @@ async function handler(page) {
     return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
 }
 
+
 async function getUrls(page) {
+    const url = await page.url()
+    await page.waitForSelector('.Pagination__Nav a')
 
-    return { pageUrls: [], productCount: 0, pageLength: 0 }
+    const totalPages = await page.evaluate(()=>Math.max(...Array.from(document.querySelectorAll('.Pagination__Nav a')).map(m=>m.innerText).filter(Number)))
+    const pageUrls = []
+
+    let pagesLeft = totalPages
+    for (let i = 2; i <= totalPages; i++) {
+
+        pageUrls.push(`https://www.bagmori.com/search?options%5Bprefix%5D=last&page=${i}&q=Canta&type=product`)
+        --pagesLeft
+
+
+    }
+
+    return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
 }
-
 async function autoScroll(page) {
     await page.evaluate(async () => {
 
-        const totalProducts= parseInt( document.querySelector("[for^=sidebar-filter-p-product_type]").innerText.replace(/[^\d]/g,""))
+
         await new Promise((resolve, reject) => {
             var totalHeight = 0;
             var distance = 100;
             let inc = 0
             var timer = setInterval(() => {
-          
-            const totalCollected =document.querySelectorAll(".ProductItem").length
+                var scrollHeight = document.body.scrollHeight;
+
                 window.scrollBy(0, distance);
                 totalHeight += distance;
                 inc = inc + 1
-                if (totalProducts===totalCollected) {
-                  
+                if (totalHeight >= scrollHeight - window.innerHeight) {
                     clearInterval(timer);
                     resolve();
                 }
-            }, 150);
+            }, 50);
         });
     });
 }
