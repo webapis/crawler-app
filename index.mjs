@@ -66,7 +66,7 @@ require('dotenv').config()
     const crawler = new PuppeteerCrawler({
         // requestList,
         requestQueue,
-        maxConcurrency: parseInt(process.env.MAX_CONCURRENCY) || 1,
+        maxConcurrency: 1,
       requestHandlerTimeoutSecs: 3600,
     //  maxRequestRetries:4,
         navigationTimeoutSecs: 240,
@@ -79,7 +79,7 @@ require('dotenv').config()
                 // increase protocolTimeout value to a higher timeout
                 // depending on your requirements
                 // For example, set it to 30000 (30 seconds)
-                protocolTimeout: 600000,
+                protocolTimeout:process.env.marka==="bagmori"?600000:60000,
                 headless: process.env.HEADLESS === 'true' ? true : false, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
                     `--window-size=1200,1250`,
                     "--allow-insecure-localhost",
