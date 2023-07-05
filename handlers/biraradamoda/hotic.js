@@ -7,24 +7,24 @@ async function handler(page, context) {
     await page.waitForSelector('.item-grid')
     debugger
 
-    const data = await page.$$eval('.product', (productCards) => {
+    const data = await page.$$eval('.product.product--zoom.product-box', (productCards) => {
         return productCards.map(document => {
-            const obj = document.querySelector('.product__inside__name')
-            // const imageUrl = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box .product-card__image--item.swiper-slide img').getAttribute('data-srcset')
-            const title = obj
-            // const priceNew = productCard.querySelector('.product-card__price--new') && productCard.querySelector('.product-card__price--new').textContent.trim().replace('₺', '').replace('TL', '')
-            // const longlink = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box a').href
-            // const link = longlink.substring(longlink.indexOf("defacto.com.tr/") + 15)
-            // const longImgUrl = imageUrl && 'https:' + imageUrl.substring(imageUrl.lastIndexOf('//'), imageUrl.lastIndexOf('.jpg') + 4)
-            // const imageUrlshort = imageUrl && longImgUrl.substring(longImgUrl.indexOf("https://dfcdn.defacto.com.tr/") + 29)
+            const obj = document.innerHTML
+             const imageUrl =document.querySelector('[data-original]').getAttribute('data-original')
+            const title = document.querySelector('.product__inside__name a').innerText
+             const priceNew = document.querySelector('.product-price-general').innerText.replace('TL','').trim()
+               const longlink = document.querySelector('.product__inside__name a').href
+             const link = longlink.substring(longlink.indexOf("https://www.hotic.com.tr/")+25)
+  
+            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://img2-hotic.mncdn.com/") + 29)
 
             return {
                 title, //'hotiç ' + title.replace(/İ/g, 'i').toLowerCase(),
-                // priceNew,
-                // imageUrl: imageUrlshort,
-                //  link,
-             //   timestamp: Date.now(),
-              //  marka: 'hotiç',
+                 priceNew,
+             imageUrl: imageUrlshort,
+                  link,
+                timestamp: Date.now(),
+                marka: 'hotiç',
             }
         })//.filter(f => f.imageUrl !== null && f.title.length > 5)
     })
