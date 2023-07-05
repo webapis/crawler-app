@@ -34,7 +34,7 @@ async function handler(page) {
             }
         
         })
-    })
+    }).filter(f=>f.priceNew !=="")
 
 
 
@@ -60,7 +60,6 @@ async function getUrls(page) {
 
         pageUrls.push(`https://www.bagmori.com/search?options%5Bprefix%5D=last&page=${i}&q=Canta&type=product`)
         --pagesLeft
-
 
     }
 
