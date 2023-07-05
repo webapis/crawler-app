@@ -40,8 +40,8 @@ const mappedData=   uniqueProductCollection.map((m => { return { ...m, gender: m
           imageUrl: m.imageUrl,
           price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
 
-          kategori: kategoriler.find((f)=>m.title.includes(f))?kategoriler.find((f)=>m.title.includes(f)):'diger',
-          renk:renkler.find((f)=>m.title.includes(f))?renkler.find((f)=>m.title.includes(f)):'diger',
+          kategori: kategoriler.find((f)=>m.title.split(' ').includes(f))?kategoriler.find((f)=>m.title.split(' ').includes(f)):'diger',
+          renk:renkler.find((f)=>m.title.split(' ').includes(f))?renkler.find((f)=>m.title.split(' ').includes(f)):'diger',
           altKategori:'dericated'
         };
       })
