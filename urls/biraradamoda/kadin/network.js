@@ -1,5 +1,5 @@
 const urls = [
-    
+    {url:"https://www.network.com.tr/canta-731"}
     //    { url: 'https://www.network.com.tr/kadin-ust-giyim-689' },
     //    { url: 'https://www.network.com.tr/kadin-alt-giyim-690' },
     //    { url: 'https://www.network.com.tr/kadin-dis-giyim-691' },
