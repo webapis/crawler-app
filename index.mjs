@@ -68,13 +68,18 @@ require('dotenv').config()
         requestQueue,
         maxConcurrency: parseInt(process.env.MAX_CONCURRENCY) || 1,
       requestHandlerTimeoutSecs: 3600,
-        //   maxRequestRetries:4,
+    //  maxRequestRetries:4,
         navigationTimeoutSecs: 240,
         launchContext: {
             // Chrome with stealth should work for most websites.
             // If it doesn't, feel free to remove this.
             useChrome: process.env.LOCAL==='TRUE'?true:false,
             launchOptions: {
+                timeout: 0, // Set timeout to 0 to disable it
+                // increase protocolTimeout value to a higher timeout
+                // depending on your requirements
+                // For example, set it to 30000 (30 seconds)
+                protocolTimeout: 300000,
                 headless: process.env.HEADLESS === 'true' ? true : false, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
                     `--window-size=1200,1250`,
                     "--allow-insecure-localhost",

@@ -7,7 +7,7 @@ async function handler(page) {
 
     debugger;
 
-    await page.waitForSelector('.ProductList')
+    await page.waitForSelector('.ProductList',{timeout:180000})
   // const totalProducts= await page.evaluate(()=>parseInt(document.querySelector("[for^=sidebar-filter-p-product_type]").innerText.replace(/[^\d]/g,"")))
     await autoScroll(page);
 
