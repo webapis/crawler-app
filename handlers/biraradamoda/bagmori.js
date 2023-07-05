@@ -34,7 +34,7 @@ async function handler(page) {
             }
         
         })
-    }).filter(f=>f.priceNew !=="")
+    })
 
 
 
@@ -44,7 +44,7 @@ async function handler(page) {
 
 
 
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }}).filter(f=>f.priceNew !=="")
 }
 
 
@@ -83,7 +83,7 @@ async function autoScroll(page) {
                     clearInterval(timer);
                     resolve();
                 }
-            }, 50);
+            }, 150);
         });
     });
 }
