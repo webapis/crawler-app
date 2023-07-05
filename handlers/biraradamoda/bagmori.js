@@ -24,7 +24,7 @@ async function handler(page) {
                 return {
                     title: 'bagmori ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl: imageUrlshort.replace('{width}',600),
                     link,
                     timestamp: Date.now(),
                     marka: 'bagmori',
