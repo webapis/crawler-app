@@ -6,12 +6,12 @@ async function handler(page) {
     
         await page.waitForSelector('#ProductPageProductList')
     debugger
-    
+    await autoScroll(page)
     const data = await page.$$eval('#ProductPageProductList .ItemOrj.col-4', (productCards) => {
         return productCards.map(document => {
             try {
-                // 
-                const imageUrl = document.querySelector('[data-original]')? document.querySelector('[data-original]').getAttribute('data-original'):document.querySelector('.productSliderImage').src
+
+                const imageUrl = document.querySelector('.productSliderImage')? document.querySelector('.productSliderImage').src: document.querySelector('[data-original]').getAttribute('data-original')
                 const title = document.querySelector('.productName.detailUrl a').innerHTML.trim()
                 const priceNew = document.querySelector('.discountPrice span').innerHTML.replace('₺', '').replace(/\n/g, '').trim()
                 const longlink = document.querySelector('.productName.detailUrl a').href
@@ -45,6 +45,28 @@ async function handler(page) {
         return formatprice
     }
     
+async function autoScroll(page) {
+    await page.evaluate(async () => {
+
+
+        await new Promise((resolve, reject) => {
+            var totalHeight = 0;
+            var distance = 100;
+            let inc = 0
+            var timer = setInterval(() => {
+                var scrollHeight = document.body.scrollHeight;
+    
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                inc = inc + 1
+                if (totalHeight >= scrollHeight - window.innerHeight) {
+                    clearInterval(timer);
+                    resolve();
+                }
+            }, 150);
+        });
+    });
+}
     async function getUrls(page) {
         const url = await page.url()
        const nextPageExits = await page.$('.totalItems')
