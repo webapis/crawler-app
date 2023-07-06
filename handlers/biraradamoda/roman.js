@@ -14,7 +14,7 @@ try {
     const priceNew = document.querySelector('.product-price').innerText.replace('₺', '').trim()
     const longlink = document.querySelector('a.product-title').href
     const link = longlink.substring(longlink.indexOf("https://www.roman.com.tr/") + 25)
-    const longImgUrl = document.querySelector('source[data-srcset]').getAttribute('data-srcset')
+    const longImgUrl = Array.from(document.querySelector("a.image-wrapper picture").querySelectorAll("source")).reverse()[0].getAttribute("srcset")
     const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://cache.roman.com.tr/") + 27)
     return {
         title: 'roman ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' '),
