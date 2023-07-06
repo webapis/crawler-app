@@ -124,7 +124,7 @@
         },
         "imagePrefix": "",
         "placeholder": "./placeholder-img/placeholder.jpg",
-        "imageHost": "https://www.roman.com.tr/",
+        "imageHost": "https://cache.roman.com.tr/",
         "detailHost": "https://www.roman.com.tr/",
         "postfix": "",
         "imgPostFix": ""
