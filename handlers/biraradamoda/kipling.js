@@ -12,7 +12,7 @@ debugger
             try {
                 const imageUrl =document.querySelector('[data-original]').getAttribute('data-original')
                 const title = document.querySelector(".product-box-detail-image-link").getAttribute('title')
-                 const priceNew =document.querySelector('.vl-basket-price')? document.querySelector('.vl-basket-price').innerText.replace('TL','').trim():document.querySelector('.product-prices').innerText.replace('TL','').trim()
+                 const priceNew =document.querySelector('.vl-basket-price')? document.querySelector('.vl-basket-price').innerText.replace('TL','').trim():Array.from(document.querySelector('.product-prices').querySelectorAll('li')).reverse()[0].innerText.replace('TL','').trim()
                    const longlink = document.querySelector('.product__inside__name a').href
                  const link = longlink.substring(longlink.indexOf("https://www.kipling.com.tr/")+27)
       
