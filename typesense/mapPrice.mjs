@@ -66,6 +66,9 @@ function mapPrice(price) {
                 case /^\d\d\d[.]\d\d\d[,]\d\d$/.test(trimPrice)://189.950,00
 
                 return parseFloat(trimPrice.replace('.', '').replace(',', '.'))
+
+                case /^\d\d\d\d\d[,]\d\d$/.test(trimPrice)://14918,00
+                return parseFloat(trimPrice.replace(',', '.'))
             case /^\d\d\d\d\d$/.test(trimPrice)://11499
 
                 return parseFloat(trimPrice)
