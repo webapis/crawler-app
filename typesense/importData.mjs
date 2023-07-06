@@ -16,7 +16,7 @@ await client.collections('products').documents().delete({'filter_by': `marka:${p
 // await client.collections('products').delete()
 const { items: data } = await productsDataset.getData();
 debugger
-const kategoriler =['laptop','okul','bebek','clutch','kova','Postacı','baskılı','el çanta','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
+const kategoriler =['kartlık','cüzdan','valiz','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 //filter(f=>f.title.toLowerCase().includes('çanta'))
 const uniqueProductCollection = uniqify(data, 'imageUrl')
