@@ -9,21 +9,25 @@ async function handler(page, context) {
 
     const data = await page.$$eval('.product-item', (productCards) => {
         return productCards.map(document => {
-
-            const title = document.querySelector('a.product-title') && document.querySelector('a.product-title').innerText
-            const priceNew = document.querySelector('.product-price').innerText.replace('₺', '').trim()
-            const longlink = document.querySelector('a.product-title').href
-            const link = longlink.substring(longlink.indexOf("https://www.roman.com.tr/") + 25)
-            const longImgUrl = document.querySelector('img[data-src]').getAttribute('data-src')
-            const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://www.roman.com.tr/") + 25)
-            return {
-                title: 'roman ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' '),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'roman',
-            }
+try {
+    const title = document.querySelector('a.product-title') && document.querySelector('a.product-title').innerText
+    const priceNew = document.querySelector('.product-price').innerText.replace('₺', '').trim()
+    const longlink = document.querySelector('a.product-title').href
+    const link = longlink.substring(longlink.indexOf("https://www.roman.com.tr/") + 25)
+    const longImgUrl = document.querySelector('source[data-srcset]').getAttribute('data-srcset')
+    const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://cache.roman.com.tr/") + 27)
+    return {
+        title: 'roman ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' '),
+        priceNew,
+        imageUrl: imageUrlshort,
+        link,
+        timestamp: Date.now(),
+        marka: 'roman',
+    }
+} catch (error) {
+    return {error:error.toString(),content:document.innerHTML}
+}
+        
         })
     })
 
