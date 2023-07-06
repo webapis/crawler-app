@@ -4,29 +4,33 @@ async function handler(page) {
 debugger
     const url = await page.url()
 
-    await page.waitForSelector('.catalog-products')
-debugger
+    await page.waitForSelector('.item-grid')
+    debugger
 
-    const data = await page.$$eval('.catalog-products .product-card', (productCards) => {
-        return productCards.map(productCard => {
-
-            const imageUrl = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box .product-card__image--item.swiper-slide img').getAttribute('data-srcset')
-            const title = productCard.querySelector('.product-card__title a').getAttribute('title').trim()
-            const priceNew = productCard.querySelector('.product-card__price--new') && productCard.querySelector('.product-card__price--new').textContent.trim().replace('₺', '').replace('TL', '')
-            const longlink = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box a').href
-            const link = longlink.substring(longlink.indexOf("defacto.com.tr/") + 15)
-            const longImgUrl = imageUrl && 'https:' + imageUrl.substring(imageUrl.lastIndexOf('//'), imageUrl.lastIndexOf('.jpg') + 4)
-            const imageUrlshort = imageUrl && longImgUrl.substring(longImgUrl.indexOf("https://dfcdn.defacto.com.tr/") + 29)
-
-            return {
-                title: 'defacto ' + title.replace(/İ/g,'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'defacto',
+    const data = await page.$$eval('.product.product--zoom', (productCards) => {
+        return productCards.map(document => {
+            try {
+                const imageUrl =document.querySelector('[data-original]').getAttribute('data-original')
+                const title = document.querySelector(".product-box-detail-image-link").getAttribute('title')
+                 const priceNew =document.querySelector('.vl-basket-price')? document.querySelector('.vl-basket-price').innerText.replace('TL','').trim():document.querySelector('.product-prices').innerText.replace('TL','').trim()
+                   const longlink = document.querySelector('.product__inside__name a').href
+                 const link = longlink.substring(longlink.indexOf("https://www.kipling.com.tr/")+27)
+      
+                const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://img-kipling.mncdn.com/") + 30)
+    
+                return {
+                    title:'kipling ' + title,
+                     priceNew,
+                 imageUrl: imageUrlshort,
+                      link,
+                    timestamp: Date.now(),
+                    marka: 'kipling',
+                }
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
-        }).filter(f => f.imageUrl !== null && f.title.length > 5)
+         
+        })
     })
 debugger
     console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
@@ -43,22 +47,26 @@ debugger
 
 async function getUrls(page) {
     const url = await page.url()
-    await page.waitForSelector('.catalog__meta--product-count span')
-    const productCount = await page.$eval('.catalog__meta--product-count span', element => parseInt(element.innerHTML))
-    const totalPages = Math.ceil(productCount / 60)
+
+    const nextPageExist =await page.$(".pagination a")
     const pageUrls = []
+    if(nextPageExist){
+        const totalPages = await page.evaluate(()=>Math.max(...Array.from(document.querySelectorAll('.pagination a')).map(m=>m.innerHTML).filter(Number)))
 
-    let pagesLeft = totalPages
-    for (let i = 2; i <= totalPages; i++) {
-
-
-
-        pageUrls.push(`${url}?page=` + i)
-        --pagesLeft
-
-
+    
+        let pagesLeft = totalPages
+        for (let i = 2; i <= totalPages; i++) {
+    
+    
+    
+            pageUrls.push(`${url}?pagenumber=` + i)
+            --pagesLeft
+    
+    
+        }
     }
 
-    return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
+
+    return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
 }
 module.exports = { handler, getUrls }

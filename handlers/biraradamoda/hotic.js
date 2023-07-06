@@ -9,7 +9,7 @@ async function handler(page, context) {
 
     const data = await page.$$eval('.product.product--zoom.product-box', (productCards) => {
         return productCards.map(document => {
-            const obj = document.innerHTML
+  
              const imageUrl =document.querySelector('[data-original]').getAttribute('data-original')
             const title = document.querySelector('.product__inside__name a').innerText
              const priceNew = document.querySelector('.product-price-general').innerText.replace('TL','').trim()
@@ -19,7 +19,7 @@ async function handler(page, context) {
             const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://img2-hotic.mncdn.com/") + 29)
 
             return {
-                title, //'hotiç ' + title.replace(/İ/g, 'i').toLowerCase(),
+                title:'hotiç ' + title,
                  priceNew,
              imageUrl: imageUrlshort,
                   link,

@@ -1,5 +1,5 @@
 const urls = [
-     { url: 'kipling.com.tr/c/kadin-cantasi-589'},
+     { url: 'https://www.kipling.com.tr/c/kadin-cantasi-589'},
 
 
 
