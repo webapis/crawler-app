@@ -6,13 +6,13 @@ async function handler(page) {
     
         await page.waitForSelector('.js-list-products')
     debugger
-    
+    //
         const data = await page.$$eval('.product-item', (productCards) => {
             return productCards.map(document => {
     try {
         const imageUrl = document.querySelector(".slider-item img").getAttribute('data-src')
         const title = document.querySelector(".slider-item img").alt
-       const priceNew = document.querySelector(".product-info__offer-price").innerText.replace("TL",'').trim()
+       const priceNew =document.querySelector(".product-info__offer-price")? document.querySelector(".product-info__offer-price").innerText.replace("TL",'').trim(): document.querySelector(".product-info__current-price").innerText.replace("TL",'').trim()
         const longlink = document.querySelector(".product-item a").href
        const link = longlink.substring(longlink.indexOf("https://www.tamertanca.com.tr/") + 30)
 
