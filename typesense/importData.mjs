@@ -20,7 +20,8 @@ const kategoriler =['kartlık','cüzdan','valiz','laptop','okul','bebek','clutch
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 //filter(f=>f.title.toLowerCase().includes('çanta'))
 const uniqueProductCollection = uniqify(data, 'imageUrl')
-const mappedData=   uniqueProductCollection.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
+const regex = /^(çorap|blink optic shine|sungerı)$/i; 
+const mappedData=   uniqueProductCollection.filter(item=>item => !regex.test(item.title)).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
           marka: m.marka,
           gender: m.gender
