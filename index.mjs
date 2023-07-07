@@ -75,6 +75,10 @@ require('dotenv').config()
             // If it doesn't, feel free to remove this.
             useChrome: process.env.LOCAL==='TRUE'?true:false,
             launchOptions: {
+                defaultViewport: {
+                    width: 1920, // Desired width of the viewport
+                    height: 1080, // Desired height of the viewport
+                  },
               //  timeout: 0, // Set timeout to 0 to disable it
                 // increase protocolTimeout value to a higher timeout
                 // depending on your requirements
@@ -109,7 +113,7 @@ require('dotenv').config()
                 const { page } = crawlingContext;
 
                 await page.setDefaultNavigationTimeout(0);
-
+   
 
                 await page.setRequestInterception(true);
                 page.on('request', req => {
