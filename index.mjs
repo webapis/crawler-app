@@ -83,7 +83,7 @@ require('dotenv').config()
                 // increase protocolTimeout value to a higher timeout
                 // depending on your requirements
                 // For example, set it to 30000 (30 seconds)
-              //  protocolTimeout:process.env.marka==="bagmori"?600000:60000,
+               protocolTimeout:process.env.marka==="bershka"?600000:60000,
                 headless: process.env.HEADLESS === 'true' ? true : false, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
                     `--window-size=1200,1250`,
                     "--allow-insecure-localhost",
