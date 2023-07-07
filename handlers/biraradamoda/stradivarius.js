@@ -2,7 +2,7 @@ async function handler(page) {
   debugger;
   const url = await page.url();
 
-  await page.waitForSelector("#pageContentWrapper",{timeout:60000});
+  await page.waitForSelector("#pageContentWrapper",{timeout:120000});
   debugger;
   //   await page.click('span.bskico-filter')
   await autoScroll(page);
