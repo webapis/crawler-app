@@ -203,6 +203,7 @@ require('dotenv').config()
     const { items: productItems } = await productsDataset.getData();
     const withError =productItems.filter(f=>f.error)
     if(withError.length>0){
+        console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
     }
