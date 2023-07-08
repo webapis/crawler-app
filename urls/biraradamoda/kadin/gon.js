@@ -1,9 +1,9 @@
 const urls = [
-    { url: 'https://www.gon.com.tr/canta'},
-    { url: 'https://www.gon.com.tr/omuz-cantasi'},
-    { url: 'https://www.gon.com.tr/sirt-cantasi'},
-    { url: 'https://www.gon.com.tr/kadin-laptop-cantasi'},
-
+    { url: 'https://www.gon.com.tr/canta?currency=try'},
+    { url: 'https://www.gon.com.tr/omuz-cantasi?currency=try'},
+    { url: 'https://www.gon.com.tr/sirt-cantasi?currency=try'},
+    { url: 'https://www.gon.com.tr/kadin-laptop-cantasi?currency=try'},
+    { url: 'https://www.gon.com.tr/kadin-cuzdan?currency=try'},
   
   ]
   
