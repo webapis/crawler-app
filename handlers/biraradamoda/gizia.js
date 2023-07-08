@@ -5,6 +5,16 @@ async function handler(page) {
     const url = await page.url()
 debugger
     await page.waitForSelector('.fl.col-12.catalogWrapper')
+    debugger
+    await page.hover('.countryChange')
+    await page.click('[data-value=TL]')
+    await page.waitForNavigation()
+    debugger
+    await page.waitForSelector('.countryChange')
+     await page.hover('.countryChange')
+     await page.click('[data-value=tr]')
+     await page.waitForNavigation()
+    debugger
     const products = await page.evaluate(()=>window.PRODUCT_DATA)
 
     debugger;
