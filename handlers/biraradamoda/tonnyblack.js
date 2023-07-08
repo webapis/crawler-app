@@ -12,7 +12,7 @@ async function handler(page) {
                 try {
                  const imageUrl =document.querySelector('.detailLink.detailUrl img').src
                 const title = document.querySelector('.detailLink.detailUrl').getAttribute('title')
-                 const priceNew = document.querySelector('.discountPrice').innerText.replace('₺','').trim()
+                 const priceNew = document.querySelector('.discountPrice').innerText.replace('₺',' ').trim()
                      const longlink = document.querySelector('.detailLink.detailUrl').href
                      const link = longlink.substring(longlink.indexOf("https://www.tonnyblack.com.tr") + 29)
    
