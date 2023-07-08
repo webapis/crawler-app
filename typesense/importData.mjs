@@ -9,7 +9,16 @@ require('dotenv').config()
 const {client} =require('./client.js')
 console.log("process.env.marka------", process.env.marka === true);
 const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[key] === curr[key]) ? prev : prev.push(curr) && prev, []);
+function generateId() {
+  // Get the current time in milliseconds.
+  const now = Date.now();
 
+  // Generate a random number between 0 and 10000.
+  const random = Math.floor(Math.random() * 10000);
+
+  // Combine the current time and the random number to create a unique ID.
+  return `${now}${random}`;
+}
 
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
@@ -23,6 +32,7 @@ const uniqueProductCollection = uniqify(data, 'imageUrl')
 const regex = /^(çorap|blink optic shine|sungerı)$/i; 
 const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title)).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
+          id: generateId(),
           marka: m.marka,
           gender: m.gender
             ? m.gender
@@ -50,7 +60,7 @@ const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title
       await client
       .collections("products")
       .documents()
-      .import(mappedData, { action: 'upsert' });
+      .import(mappedData, { action: "create" });
    
 
  
