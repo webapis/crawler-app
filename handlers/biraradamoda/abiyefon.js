@@ -7,22 +7,29 @@ async function handler(page) {
     await page.waitForSelector('.products')
 
 
-    const data = await page.$$eval('.products li', (productCards) => {
-        return productCards.map(productCard => {
-            const priceNew = productCard.querySelector("span[data-price]") ? productCard.querySelector("span[data-price]").getAttribute('data-price').replace(/\n/g, '').trim().replace('₺', '').replace('TL', '').trim() : productCard.outerHTML
-            const longlink = productCard.querySelector('.product-link') ? productCard.querySelector('.product-link').getAttribute('data-purehref') : null
-            const link = longlink.substring(longlink.indexOf("/") + 1)
-            const longImgUrl = productCard.querySelector('.product-list-image') ? productCard.querySelector('.product-list-image').src : productCard.outerHTML
-            const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf('https://www.abiyefon.com/') + 25)
-            const title = productCard.querySelector(".img-options img") ? productCard.querySelector(".img-options img").alt : productCard.outerHTML
-            return {
-                title: 'abiyefon ' + title.replace(/İ/g,'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'abiyefon'
-            }
+    const data = await page.$$eval('.product-link', (productCards) => {
+        return productCards.map(document => {
+            try {
+                const priceNew = document.querySelector("span[data-price]").innerHTML
+                const longlink = document.href
+                const link = longlink.substring(longlink.indexOf("https://www.abiyefon.com/") + 25)
+                const longImgUrl = document.querySelector('img.product-list-image').src
+                const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf('https://www.abiyefon.com/') + 25)
+                const title = document.querySelector('img.product-list-image').alt
+                return {
+                    title: 'abiyefon ' + title.toLowerCase(),
+                    priceNew,
+                    imageUrl: imageUrlshort,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'abiyefon'
+                }  
+            } catch (error) {
+             
+                    return {error:error.toString(),content:document.innerHTML}
+                }
+            
+
         }).filter(f => f.imageUrl !== null  && f.link !==null)
     })
 

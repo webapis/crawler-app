@@ -206,6 +206,7 @@ require('dotenv').config()
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
+        throw 'Error when scraping'
     }
 
     console.log('Crawl finished.');
