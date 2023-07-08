@@ -200,6 +200,12 @@ require('dotenv').config()
 
     await crawler.run();
   
+    const { items: productItems } = await productsDataset.getData();
+    const withError =productItems.filter(f=>f.error)
+    if(withError.length>0){
+        console.log('withError:error', withError[0].error)
+        console.log('withError:content', withError[0].content)
+    }
 
     console.log('Crawl finished.');
 
