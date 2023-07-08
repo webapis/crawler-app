@@ -50,7 +50,7 @@ const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title
       await client
       .collections("products")
       .documents()
-      .import(mappedData, { action: "create" });
+      .import(mappedData, { action: 'upsert' });
    
 
  
