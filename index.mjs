@@ -115,73 +115,73 @@ require('dotenv').config()
                 await page.setDefaultNavigationTimeout(0);
                 await page.setRequestInterception(true);
 
-                page.on('request', async (interceptedRequest) => {
-                  const url = interceptedRequest.url();
+                // page.on('request', async (interceptedRequest) => {
+                //   const url = interceptedRequest.url();
               
-                  if (url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif')|| url.endsWith('.webp')||url.endsWith("imformat=chrome")) {
+                //   if (url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif')|| url.endsWith('.webp')||url.endsWith("imformat=chrome")) {
                  
                  
-                    interceptedRequest.respond({
-                      status: 200,
-                      contentType: 'image/jpeg',
-                      body:buffer// Buffer.from(placeholderImage.split(',')[1], 'base64'),
-                    });
-                  } else {
-                    // Continue with the original request for non-image URLs
-                    interceptedRequest.continue();
-                  }
-                });
+                //     interceptedRequest.respond({
+                //       status: 200,
+                //       contentType: 'image/jpeg',
+                //       body:buffer// Buffer.from(placeholderImage.split(',')[1], 'base64'),
+                //     });
+                //   } else {
+                //     // Continue with the original request for non-image URLs
+                //     interceptedRequest.continue();
+                //   }
+                // });
 
               //  await page.setRequestInterception(true);
-                // page.on('request', req => {
-                //     const resourceType = req.resourceType();
-
-                //     if (resourceType === 'image' || (resourceType === 'fetch')) {
-                //         req.respond({
-                //             status: 200,
-                //             contentType: 'image/jpeg',
-                //             body: buffer
-                //         });
-
-
-                //     } else {
-                //         req.continue();
-                //     }
-                // });
-                // page.on('response', async response => {
-                //     const request = response.request();
+                page.on('request', req => {
+                    const resourceType = req.resourceType();
+                    const url = req.url();
+                    if (resourceType === 'image' || (resourceType === 'fetch') ||url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif')|| url.endsWith('.webp')||url.endsWith("imformat=chrome")) {
+                        req.respond({
+                            status: 200,
+                            contentType: 'image/jpeg',
+                            body: buffer
+                        });
 
 
-
-                //     const status = response.status()
-                //     if (status === 200) {
-                //         try {
-                //             const text = await response.text()
-                //             if (isJsonString(text)) {
-
-
-                //                 const json = JSON.parse(text);
-                //                 if (Array.isArray(json)) {
-
-                //                     await Dataset.pushData({ arr: json });
-                //                     //   response.continue();
-
-                //                 } else {
-
-                //                     await Dataset.pushData(json);
-                //                     //   response.continue();
-                //                 }
+                    } else {
+                        req.continue();
+                    }
+                });
+                page.on('response', async response => {
+                    const request = response.request();
 
 
 
-                //             }
-                //         } catch (error) {
+                    const status = response.status()
+                    if (status === 200) {
+                        try {
+                            const text = await response.text()
+                            if (isJsonString(text)) {
 
-                //         }
 
-                //     }
+                                const json = JSON.parse(text);
+                                if (Array.isArray(json)) {
 
-                // })
+                                    await Dataset.pushData({ arr: json });
+                                    //   response.continue();
+
+                                } else {
+
+                                    await Dataset.pushData(json);
+                                    //   response.continue();
+                                }
+
+
+
+                            }
+                        } catch (error) {
+
+                        }
+
+                    }
+
+                })
                 function isJsonString(str) {
                     try {
                         JSON.parse(str);

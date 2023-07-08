@@ -10,13 +10,13 @@ async function handler(page) {
         const data = await page.$$eval('.productItem', (productCards) => {
             return productCards.map(document => {
                 try {
-                 const imageUrl =document.querySelector('.detailLink.detailUrl img')? document.querySelector('.detailLink.detailUrl img').getAttribute('data-src'):document.querySelector('.detailLink.detailUrl img').src
+                 const imageUrl =document.querySelector('.detailLink.detailUrl img').src
                 const title = document.querySelector('.detailLink.detailUrl').getAttribute('title')
                  const priceNew = document.querySelector('.discountPrice').innerText.replace('₺','')
                      const longlink = document.querySelector('.detailLink.detailUrl').href
                      const link = longlink.substring(longlink.indexOf("https://www.tonnyblack.com.tr") + 29)
    
-                     const imageUrlshort = imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") + 29)
+                    const imageUrlshort = imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") + 29)
        
                    return {
                          title: 'tonnyblack ' + title.toLowerCase(),
