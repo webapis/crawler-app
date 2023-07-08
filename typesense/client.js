@@ -1,6 +1,6 @@
 require('dotenv').config()
 const Typesense = require("typesense");
-
+debugger
 let client = new Typesense.Client({
   nodes: [
     {
