@@ -44,9 +44,9 @@ async function handler(page, context) {
 
 async function getUrls(page) {
     const url = await page.url()
-    await page.waitForSelector('.page_numbers span')
-    // const productCount = await page.$eval('.catalog__meta--product-count span', element => parseInt(element.innerHTML))
-    const totalPages = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.page_numbers span')).map(m => m.innerHTML).filter(Number)))
+    await page.waitForSelector('.product_box')
+     const productCount = await page.evaluate(()=>parseInt(document.querySelectorAll('.product_box').length))
+     const totalPages = Math.ceil(productCount / 32)
     const pageUrls = []
 
     let pagesLeft = totalPages

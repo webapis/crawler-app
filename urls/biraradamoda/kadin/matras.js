@@ -1,5 +1,7 @@
 const urls = [
-   {url:"https://www.matras.com/canta-modelleri"}
+   {url:"https://www.matras.com/canta-modelleri"},
+   {url:"https://www.matras.com/cuzdan-modelleri"},
+   {url:"https://www.matras.com/seyahat"}
    //{url:'https://www.matras.com/canta-modelleri'}
    // { url: 'https://www.matras.com/kadin/giyim'},
 
