@@ -24,7 +24,7 @@ function generateId() {
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
 await client.collections('products').delete()
-const rest =await client.collections().create(schema);
+//const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
 const kategoriler =['kartlık','cüzdan','valiz','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
@@ -59,10 +59,10 @@ const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title
         };
       })
 
-      await client
-      .collections("products")
-      .documents()
-      .import(mappedData, { action: "create" });
+      // await client
+      // .collections("products")
+      // .documents()
+      // .import(mappedData, { action: "create" });
    
 
  
