@@ -12,8 +12,8 @@ console.log("process.env.marka------", process.env.marka === true);
 const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[key] === curr[key]) ? prev : prev.push(curr) && prev, []);
 
 
-// await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
-// await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
+ await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
+ await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
 // await client.collections('products').delete()
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
