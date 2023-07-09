@@ -1,5 +1,5 @@
 import { genegateNavigation } from "./genegateNavigation.mjs";
-
+//import {schema} from './createSchema.mjs'
 import mapPrice from "./mapPrice.mjs";
 
 import { createRequire } from "module";
@@ -15,7 +15,7 @@ const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[ke
 // await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
 // await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
 // await client.collections('products').delete()
-
+const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
 const kategoriler =['kartlık','cüzdan','valiz','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
