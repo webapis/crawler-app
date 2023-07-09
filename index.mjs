@@ -184,7 +184,7 @@ require('dotenv').config()
                 })
         
 
-                console.log('loc',location);
+        
                 function isJsonString(str) {
                     try {
                         JSON.parse(str);
