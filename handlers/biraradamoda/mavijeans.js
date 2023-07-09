@@ -4,9 +4,9 @@ async function handler(page, context) {
 
     debugger;
     const url = await page.url()
-    await page.waitForSelector('.product-list-cards')
+    await page.waitForSelector('.js-product-list-cards')
 
-
+await autoScroll(page)
 
     debugger;
     const data = await page.$$eval('.product-item', (items) => {
@@ -17,13 +17,12 @@ try {
         const priceNew = document.querySelector('.price')? document.querySelector('.price').innerText.replace('TL', '').trim():document.querySelector('.ins-product-price').innerText.replace('TL', '')
         const longlink = document.querySelector('.product-card-info').href
         const link = longlink.substring(longlink.indexOf('https://www.mavi.com/') + 21)
-        const imageUrlshort = document.querySelector('.product-item span img').getAttribute('data-large-src')
-     
-
+        const imageUrlshort = Array.from(document.querySelectorAll('[data-main-src]')).map(m=>m.getAttribute('data-main-src')).join(',')//.filter(f=>f.includes('jpg_Default-MainProductImage'))[0]
         return {
+           
             title: 'mavijeans ' + productTitle.replace(/\n/g, '').trim() + ' ' + productDesc.replace(/\n/g, '').trim(),
             priceNew,
-            imageUrl: imageUrlshort.substring(22),
+            imageUrl:imageUrlshort.substring(22),
             link,
             timestamp: Date.now(),
             marka: 'mavijeans',
@@ -44,7 +43,36 @@ try {
 
 
 }
+async function autoScroll(page) {
+    page.on("console", (message) => {
+        console.log("Message from Puppeteer page:", message.text());
+      });
+    await page.evaluate(async () => {
 
+
+        await new Promise((resolve, reject) => {
+            var totalHeight = 0;
+            var distance = 100;
+            let inc = 0
+            var timer = setInterval(() => {
+                var scrollHeight = document.body.scrollHeight;
+
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                inc = inc + 1;
+                console.log("inc", inc);
+                if (totalHeight >= scrollHeight - window.innerHeight) {
+                    if (inc === 50) {
+                      clearInterval(timer);
+                      resolve();
+                    }
+                  } else {
+                    inc = 0;
+                  }
+            }, 500);
+        });
+    });
+}
 async function getUrls(page) {
     const url = await page.url()
     await page.waitForSelector('.right-menu-item.product-number')

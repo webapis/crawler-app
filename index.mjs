@@ -186,7 +186,9 @@ require('dotenv').config()
 
 
     await crawler.run();
-  
+    const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[key] === curr[key]) ? prev : prev.push(curr) && prev, []);
+
+
     const { items: productItems } = await productsDataset.getData();
     const withError =productItems.filter(f=>f.error)
     if(withError.length>0){
@@ -196,10 +198,13 @@ require('dotenv').config()
         throw 'Error when scraping'
     }else{
         console.log('total collected',productItems.length)
+        const uniqueProductCollection = uniqify(productItems, 'imageUrl')
+        console.log('uniqueProductCollection',uniqueProductCollection.length)
         productItems.forEach((f)=>{
             console.log('obj',f)
         })
         console.log('total collected--',productItems.length)
+        console.log('uniqueProductCollection',uniqueProductCollection.length)
     }
 
 
