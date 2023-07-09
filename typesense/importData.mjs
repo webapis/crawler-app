@@ -13,7 +13,7 @@ const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[ke
 
 
  await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
- await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
+ await client.collections('products').documents().delete({'filter_by': `marka:gon`});
 // await client.collections('products').delete()
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
