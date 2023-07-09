@@ -22,7 +22,7 @@ function generateId() {
 
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka}`});
 await client.collections('products').documents().delete({'filter_by': `marka:${process.env.marka},gender:unknown`});
-//await client.collections('products').delete()
+await client.collections('products').delete()
 const { items: data } = await productsDataset.getData();
 debugger
 const kategoriler =['kartlık','cüzdan','valiz','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
@@ -32,7 +32,7 @@ const uniqueProductCollection = uniqify(data, 'imageUrl')
 const regex = /^(çorap|blink optic shine|sungerı)$/i; 
 const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title)).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
-          id: generateId(),
+       //   id: generateId(),
           marka: m.marka,
           gender: m.gender
             ? m.gender
@@ -57,10 +57,10 @@ const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title
         };
       })
 
-      await client
-      .collections("products")
-      .documents()
-      .import(mappedData, { action: "create" });
+      // await client
+      // .collections("products")
+      // .documents()
+      // .import(mappedData, { action: "create" });
    
 
  
