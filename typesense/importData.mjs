@@ -18,9 +18,9 @@ const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[ke
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
-const kategoriler =['kartlık','cüzdan','valiz','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
+const kategoriler =['göğüs','kartlık','cüzdan','valiz','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
-//filter(f=>f.title.toLowerCase().includes('çanta'))
+
 const uniqueProductCollection = uniqify(data, 'imageUrl')
 const regex = /^(çorap|blink optic shine|sungerı)$/i; 
 const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title)).map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
