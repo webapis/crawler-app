@@ -12,7 +12,7 @@ async function handler(page, context) {
             try {
                 const imageUrl = productCard.querySelector('.product img') && productCard.querySelector('.product img').getAttribute('src')
                 const title = productCard.querySelector(".product .description a").innerHTML.trim()
-                const priceNew = productCard.querySelector('.price-sales') ? productCard.querySelector('.price-sales').textContent.trim().replace('TL', '').trim() : productCard.querySelector('.p-value').textContent.trim().replace('TL', '').trim()
+                const priceNew = productCard.querySelector('.p-value') ? productCard.querySelector('.p-value').textContent.trim().replace('TL', '').trim() : productCard.querySelector('.price-sales').textContent.trim().replace('TL', '').trim()
                 const longlink = productCard.querySelector(".product .description a").href
                 const link = longlink.substring(longlink.indexOf("https://www.tergan.com.tr/") + 26)
                 //const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://www.tergan.com.tr/") + 26)
