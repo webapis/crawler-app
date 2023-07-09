@@ -1,5 +1,5 @@
 import { genegateNavigation } from "./genegateNavigation.mjs";
-import {schema} from './createSchema.mjs'
+//import {schema} from './createSchema.mjs'
 import mapPrice from "./mapPrice.mjs";
 
 import { createRequire } from "module";
