@@ -182,7 +182,7 @@ require('dotenv').config()
                     }
 
                 })
-                const location = await page.evaluate(() => navigator.geolocation.getCurrentPosition());
+        
 
                 console.log('loc',location);
                 function isJsonString(str) {
@@ -211,7 +211,7 @@ require('dotenv').config()
         console.log('withError:content', withError[0].content)
         throw 'Error when scraping'
     }else{
-        productItems.filter((d,i)=>i<200).forEach((f)=>{
+        productItems.forEach((f)=>{
             console.log('obj',f)
         })
     }
