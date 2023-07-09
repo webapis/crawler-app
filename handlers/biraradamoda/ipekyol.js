@@ -3,7 +3,7 @@ async function handler(page, context) {
 
     const url = await page.url()
 
-    await page.waitForSelector('.prd-list')
+    await page.waitForSelector('[data-product-id]')
     debugger;
 
     await autoScroll(page)
@@ -37,7 +37,7 @@ async function handler(page, context) {
 
 
             }
-        }).filter(f => f.imageUrl !== null)
+        })
     })
 
 debugger
@@ -48,18 +48,20 @@ debugger
 async function autoScroll(page) {
     await page.evaluate(async () => {
 
-
+ const totalProducts =parseInt(document.querySelector('.categories-title span').innerText.replace(/[^\d]/g,''))
         await new Promise((resolve, reject) => {
             var totalHeight = 0;
             var distance = 100;
             let inc = 0
             var timer = setInterval(() => {
+
+                const totalCollected =document.querySelectorAll('[data-product-id]').length
                 var scrollHeight = document.body.scrollHeight;
 
                 window.scrollBy(0, distance);
                 totalHeight += distance;
                 inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
+                if (totalCollected===totalProducts) {
                     clearInterval(timer);
                     resolve();
                 }
