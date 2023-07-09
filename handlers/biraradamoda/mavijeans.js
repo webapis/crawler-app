@@ -6,30 +6,34 @@ async function handler(page, context) {
     const url = await page.url()
     await page.waitForSelector('.product-list-cards')
 
-    await page.waitForSelector('.product-card-container')
+
 
     debugger;
-    const data = await page.$$eval('.product-card-container', (items) => {
+    const data = await page.$$eval('.product-item', (items) => {
+try {
+    return items.map(document => {
+        let productTitle = document.querySelector('.product-title').textContent
+        let productDesc = document.querySelector('.product-desc').textContent
+        const priceNew = document.querySelector('.price')? document.querySelector('.price').innerText.replace('TL', '').trim():document.querySelector('.ins-product-price').innerText.replace('TL', '')
+        const longlink = document.querySelector('.product-card-info').href
+        const link = longlink.substring(longlink.indexOf('https://www.mavi.com/') + 21)
+        const imageUrlshort = document.querySelector('.product-item span img').getAttribute('data-large-src')
+     
 
-        return items.map(document => {
-            let productTitle = document.querySelector('.product-title').textContent
-            let productDesc = document.querySelector('.product-desc').textContent
-            const priceNew = document.querySelector('.price')? document.querySelector('.price').innerText.replace('TL', '').trim():document.querySelector('.ins-product-price').innerText.replace('TL', '')
-            const longlink = document.querySelector('.product-card-info').href
-            const link = longlink.substring(longlink.indexOf('https://www.mavi.com/') + 21)
-            const imageUrlshort = document.querySelector('.product-item span img').getAttribute('data-large-src')
-         
+        return {
+            title: 'mavijeans ' + productTitle.replace(/\n/g, '').trim() + ' ' + productDesc.replace(/\n/g, '').trim(),
+            priceNew,
+            imageUrl: imageUrlshort.substring(22),
+            link,
+            timestamp: Date.now(),
+            marka: 'mavijeans',
 
-            return {
-                title: 'mavijeans ' + productTitle.replace(/\n/g, '').trim() + ' ' + productDesc.replace(/\n/g, '').trim(),
-                priceNew,
-                imageUrl: imageUrlshort.substring(22),
-                link,
-                timestamp: Date.now(),
-                marka: 'mavijeans',
-
-            }
-        })
+        }
+    })
+} catch (error) {
+    return {error:error.toString(),content:document.innerHTML}
+}
+    
     });
 
     debugger
