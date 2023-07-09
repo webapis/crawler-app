@@ -19,12 +19,12 @@ async function handler(page, context) {
             const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://img2-hotic.mncdn.com/") + 29)
 
             return {
-                title:'hotiç ' + title,
+                title:'hotic ' + title,
                  priceNew,
              imageUrl: imageUrlshort,
                   link,
                 timestamp: Date.now(),
-                marka: 'hotiç',
+                marka: 'hotic',
             }
         })//.filter(f => f.imageUrl !== null && f.title.length > 5)
     })
