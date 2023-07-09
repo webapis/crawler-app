@@ -5,7 +5,7 @@ async function handler(page) {
         const url = await page.url()
     
         await page.waitForSelector('.productItem')
-    debugger
+
     
         const data = await page.$$eval('.productItem', (productCards) => {
             return productCards.map(document => {
@@ -58,7 +58,7 @@ async function handler(page) {
     
     
     
-            pageUrls.push(`${url}?sayfa=` + i)
+            pageUrls.push(`${url}&sayfa=` + i)
             --pagesLeft
     
     

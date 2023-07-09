@@ -1,8 +1,7 @@
 const urls = [
   
 
-
-     { url: 'https://www.tonnyblack.com.tr/canta' }
+     { url: 'https://www.tonnyblack.com.tr/canta?currency=try' }
 
 
 ]

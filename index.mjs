@@ -96,6 +96,7 @@ require('dotenv').config()
                     '--disable-yuv420-biplanar',
                     '--disable-site-isolation-trials',
                     '--disable-dev-shm-usage',
+                    '--deviceScaleFactor=0.50',
                     //'--lang=en-US,en'
                     // '--shm-size=3gb'
                     '--window-size=1920,1080', '--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36"'
@@ -166,7 +167,7 @@ require('dotenv').config()
 
                 })
         
-
+          
         
                 function isJsonString(str) {
                     try {
