@@ -199,7 +199,7 @@ require('dotenv').config()
         productItems.forEach((f)=>{
             console.log('obj',f)
         })
-        console.log('total collected',productItems.length)
+        console.log('total collected--',productItems.length)
     }
 
 
