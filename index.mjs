@@ -195,9 +195,11 @@ require('dotenv').config()
         console.log('withError:content', withError[0].content)
         throw 'Error when scraping'
     }else{
+        console.log('total collected',productItems.length)
         productItems.forEach((f)=>{
             console.log('obj',f)
         })
+        console.log('total collected',productItems.length)
     }
 
 

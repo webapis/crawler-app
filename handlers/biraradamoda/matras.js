@@ -9,10 +9,10 @@ async function handler(page, context) {
     debugger
     const data = await page.$$eval('.product_box', (productCards) => {
         return productCards.map(productCard => {
-
-            const imageUrl = productCard.querySelector('.product_image img').src
-            const title = productCard.querySelector('.product_name') ? productCard.querySelector('.product_name').textContent.replaceAll('\n','') : null
-            const priceNew = productCard.querySelector('.turkcell-price span') ? productCard.querySelector('.turkcell-price span').innerHTML.replaceAll('\n', '').replace('TL', '') : null
+            try {
+                const imageUrl = productCard.querySelector('.product_image img').src
+            const title = productCard.querySelector('.product_name').textContent.replaceAll('\n','') 
+            const priceNew = productCard.querySelector('.turkcell-price span').innerHTML.replaceAll('\n', '').replace('TL', '')
             const longlink = productCard.querySelector('.product_image a').href
             const link = longlink.substring(longlink.indexOf("https://www.matras.com/") + 23)
 
@@ -25,7 +25,13 @@ async function handler(page, context) {
                 link,
                 timestamp: Date.now(),
                 marka: 'matras',
+            }   
+            } catch (error) {
+                return {
+                    error:error.toString(),content:document.innerHTML
+                }
             }
+         
         })//.filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
     })
 
@@ -44,8 +50,8 @@ async function handler(page, context) {
 
 async function getUrls(page) {
     const url = await page.url()
-    await page.waitForSelector('.product_box')
-     const productCount = await page.evaluate(()=>parseInt(document.querySelectorAll('.product_box').length))
+    await page.waitForSelector('.filtreurun')
+     const productCount = await page.evaluate(()=>parseInt(document.querySelector('.filtreurun').innerText.replace(/[^\d]/g,'')))
      const totalPages = Math.ceil(productCount / 32)
     const pageUrls = []
 
