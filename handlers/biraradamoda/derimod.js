@@ -32,7 +32,7 @@ async function handler(page, context) {
                 }
        
         })
-    })
+    }).filter(f => f.imageUrl !== null && f.title.length > 5)
 
     console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
 
