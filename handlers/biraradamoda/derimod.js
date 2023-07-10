@@ -10,22 +10,28 @@ async function handler(page, context) {
 
     const data = await page.$$eval('.list-content-product-item', (productCards) => {
         return productCards.map(productCard => {
-
-            const imageUrl = productCard.querySelector('.img2')&&  productCard.querySelector('.img2').getAttribute('src')
-            const title = productCard.querySelector('.product-name').innerHTML.trim()
-            const priceNew = productCard.querySelector('.product-sale-price-list')? productCard.querySelector('.product-sale-price-list').textContent.trim().replace('TL', ''): productCard.querySelector('.product-sale-price').textContent.trim().replace('TL', '')
-            const longlink = productCard.querySelector('.img-holder a').href
-            const link = longlink.substring(longlink.indexOf("https://www.derimod.com.tr/") + 27)
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://c0a146.cdn.akinoncloud.com/products/") + 44)
-            return {
-                title: 'derimod ' + title.replace(/İ/g,'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'derimod',
-            }
-        }).filter(f => f.imageUrl !== null && f.title.length > 10)
+                try {
+                    const imageUrl = productCard.querySelector('.img2')&&  productCard.querySelector('.img2').getAttribute('src')
+                    const title = productCard.querySelector('.product-name').innerHTML.trim()
+                    const priceNew = productCard.querySelector('.product-sale-price-list')? productCard.querySelector('.product-sale-price-list').textContent.trim().replace('TL', ''): productCard.querySelector('.product-sale-price').textContent.trim().replace('TL', '')
+                    const longlink = productCard.querySelector('.img-holder a').href
+                    const link = longlink.substring(longlink.indexOf("https://www.derimod.com.tr/") + 27)
+                    const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://c0a146.cdn.akinoncloud.com/products/") + 44)
+                    return {
+                        title: 'derimod ' + title.replace(/İ/g,'i').toLowerCase(),
+                        priceNew,
+                        imageUrl: imageUrlshort,
+                        link,
+                        timestamp: Date.now(),
+                        marka: 'derimod',
+                    } 
+                } catch (error) {
+                    return{
+                        error:error.toString(),content:document.innerHTML
+                    }
+                }
+       
+        })
     })
 
     console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
