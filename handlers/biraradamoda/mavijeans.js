@@ -10,7 +10,7 @@ await autoScroll(page)
 const { items: productItems } = await defaultDataset.getData();
 
 
-    // debugger;
+  
     // const data =productItems.filter(f=>f.data).map(m=>[...m.data]).flat().map(m=>{
     //     return {
            
