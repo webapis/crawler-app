@@ -18,13 +18,13 @@ async function handler(page) {
                 const priceNew = document.querySelector('.ProductItem__Price').innerText.replace('TL','')
                 const longlink = document.querySelector(".ProductItem__Title.Heading a").href
                  const link = longlink.substring(longlink.indexOf("https://www.bagmori.com/") + 24)
-                const longImgUrl =Array.from(document.querySelectorAll('.ProductItem__Image')).reverse()[0].getAttribute('data-srcset')? Array.from(document.querySelectorAll('.ProductItem__Image')).reverse()[0].getAttribute('data-srcset').split(",")[5].trim():Array.from(document.querySelectorAll('.ProductItem__Image')).reverse()[0].getAttribute('data-src').trim()
-                 const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("//cdn.shopify.com/") + 18)//https://cdn3.sorsware.com/
+                const longImgUrl =document.querySelector('.ProductItem__Image').srcset.split(' ').filter(f=>f.includes('www.'))[3]
+                 const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("//www.bagmori.com/") + 18)//https://cdn3.sorsware.com/
                 const title = document.querySelector(".ProductItem__Title.Heading a").innerText
                 return {
                     title: 'bagmori ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
-                    imageUrl: imageUrlshort.replace('{width}',600),
+                    imageUrl: imageUrlshort,
                     link,
                     timestamp: Date.now(),
                     marka: 'bagmori',
@@ -36,7 +36,7 @@ async function handler(page) {
         })
     })
 
-
+debugger
 
     //----------
 
