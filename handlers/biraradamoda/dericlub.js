@@ -46,11 +46,12 @@ async function handler(page, context) {
         const data = await page.evaluate(() => {
             try {
                 const renk = document.querySelector('.size_box.selected').innerHTML.replace('/', '-')
+                const imageUrl=document.querySelector('#imgUrunResim').src
                 return [{
                     title: 'dericlub ' + document.querySelector('.ProductName span').textContent.replaceAll('\n', '').toLowerCase() + ' ' + renk,
                     priceNew: document.querySelector('.spanFiyat').textContent.replace('₺', ''),
-                    imageUrl: document.querySelector('#imgUrunResim').src,
-                    link: location.href,
+                    imageUrl:imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") +29) ,
+                    link: location.href.substring(location.href.indexOf("https://www.dericlub.com.tr/")+28),
                     timestamp: Date.now(),
                     marka: 'dericlub',
                 }]
