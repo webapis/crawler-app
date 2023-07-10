@@ -51,7 +51,8 @@ require('dotenv').config()
             console.log('withError:length', withError.length)
             console.log('withError:error', withError[0].error)
             console.log('withError:content', withError[0].content)
-            throw 'Error when scraping'
+           // throw 'Error when scraping'
+            process.exit(1)
         }
             
         if (dataCollected.length > 0) {
