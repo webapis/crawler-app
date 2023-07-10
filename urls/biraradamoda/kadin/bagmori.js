@@ -1,6 +1,7 @@
 const urls = [
 
-{url:"https://www.bagmori.com/search?q=Canta&type=product&options%5Bprefix%5D=last"}
+{url:"https://www.bagmori.com/search?q=Canta&type=product&options%5Bprefix%5D=last"},
+{url:"https://www.bagmori.com/search?q=cuzdan&type=product&options%5Bprefix%5D=last"}
 
  //   { url: 'https://www.bagmori.com/collections/bel-cantasi'},
     // { url: 'https://www.bagmori.com/collections/askili-canta'},
