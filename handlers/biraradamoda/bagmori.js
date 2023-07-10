@@ -30,7 +30,7 @@ async function handler(page) {
                     marka: 'bagmori',
                 }
             } catch (error) {
-                return {error,content:document.innerHTML}
+                return {error:error.toString(),content:document.innerHTML}
             }
         
         })
