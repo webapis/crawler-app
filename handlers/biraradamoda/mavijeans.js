@@ -1,39 +1,53 @@
-
+const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
 
 async function handler(page, context) {
-
+    const defaultDataset = await Dataset.open();
     debugger;
     const url = await page.url()
     await page.waitForSelector('.js-product-list-cards')
 
 await autoScroll(page)
+const { items: productItems } = await defaultDataset.getData();
+
 
     debugger;
-    const data = await page.$$eval('.product-item', (items) => {
-try {
-    return items.map(document => {
-        let productTitle = document.querySelector('.product-title').textContent
-        let productDesc = document.querySelector('.product-desc').textContent
-        const priceNew = document.querySelector('.price')? document.querySelector('.price').innerText.replace('TL', '').trim():document.querySelector('.ins-product-price').innerText.replace('TL', '')
-        const longlink = document.querySelector('.product-card-info').href
-        const link = longlink.substring(longlink.indexOf('https://www.mavi.com/') + 21)
-        const imageUrlshort = Array.from(document.querySelectorAll('[data-main-src]')).map(m=>m.getAttribute('data-main-src')).join(',')//.filter(f=>f.includes('jpg_Default-MainProductImage'))[0]
+    const data =productItems.filter(f=>f.data).map(m=>[...m.data]).flat().map(m=>{
         return {
            
-            title: 'mavijeans ' + productTitle.replace(/\n/g, '').trim() + ' ' + productDesc.replace(/\n/g, '').trim(),
-            priceNew,
-            imageUrl:imageUrlshort.substring(22),
-            link,
+            title: 'mavijeans ' +m.name.toLowerCase(),
+            priceNew:m.price.TRY,
+            imageUrl:m.image_url.substring(m.image_url.indexOf("https://sky-static.mavi.com/")+28),
+            link: m.url.substring(m.url.indexOf("https://www.mavi.com/")+21),
             timestamp: Date.now(),
             marka: 'mavijeans',
-
         }
     })
-} catch (error) {
-    return {error:error.toString(),content:document.innerHTML}
-}
+    debugger
+//     const data = await page.$$eval('.product-item', (items) => {
+// try {
+//     return items.map(document => {
+//         let productTitle = document.querySelector('.product-title').textContent
+//         let productDesc = document.querySelector('.product-desc').textContent
+//         const priceNew = document.querySelector('.price')? document.querySelector('.price').innerText.replace('TL', '').trim():document.querySelector('.ins-product-price').innerText.replace('TL', '')
+//         const longlink = document.querySelector('.product-card-info').href
+//         const link = longlink.substring(longlink.indexOf('https://www.mavi.com/') + 21)
+//         const imageUrlshort = Array.from(document.querySelectorAll('[data-main-src]')).map(m=>m.getAttribute('data-main-src')).join(',')//.filter(f=>f.includes('jpg_Default-MainProductImage'))[0]
+//         return {
+           
+//             title: 'mavijeans ' + productTitle.replace(/\n/g, '').trim() + ' ' + productDesc.replace(/\n/g, '').trim(),
+//             priceNew,
+//             imageUrl:imageUrlshort.substring(22),
+//             link,
+//             timestamp: Date.now(),
+//             marka: 'mavijeans',
+
+//         }
+//     })
+// } catch (error) {
+//     return {error:error.toString(),content:document.innerHTML}
+// }
     
-    });
+//     });
 
     debugger
 
