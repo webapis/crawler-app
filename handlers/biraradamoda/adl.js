@@ -10,7 +10,7 @@ async function handler(page, context) {
 //price__new 
 
             const title = productCard.querySelector('.product-item__name.d-block').innerText.trim()
-            const priceNew = Array.from(document.querySelectorAll('.price__new')).reverse()[0].innerText.replace('TL','').trim()
+            const priceNew = Array.from(productCard.querySelectorAll('.price__new')).reverse()[0].innerText.replace('TL','').trim()
             const longlink = productCard.querySelector('.d-block.list-slider-item__link').href
             const link = longlink.substring(longlink.indexOf('https://www.adl.com.tr/') + 23)
             const longImgUrl = productCard.querySelector('.d-block.list-slider-item__link img').src
