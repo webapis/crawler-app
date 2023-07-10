@@ -214,6 +214,25 @@ require('dotenv').config()
         })
         console.log('total collected--',productItems.length)
         console.log('uniqueProductCollection',uniqueProductCollection.length)
+
+        var groupBy = function (xs, key) {
+            return xs.reduce(function (rv, x) {
+                (rv[x[key]] = rv[x[key]] || []).push(x);
+                return rv;
+            }, {});
+        };
+        const groupByimageUrl = groupBy(productItems, 'imageUrl')
+
+        for (let image in groupByimageUrl) {
+            const curr = groupByimageUrl[image]
+            image
+            debugger
+            if(curr.length>1){
+                console.log('similar images',image,': ',curr.length)
+            }
+       
+       
+        }
     }
 
 
