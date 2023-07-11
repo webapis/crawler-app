@@ -65,7 +65,7 @@ async function handler(page) {
           } else {
             inc = 0;
           }
-        }, 50);
+        }, 80);
       });
     });
   }
