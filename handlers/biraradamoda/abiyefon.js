@@ -7,7 +7,7 @@ async function handler(page) {
     await page.waitForSelector('.products')
 
 
-    const data = await page.$$eval('.product-link', (productCards) => {
+    const data = await page.$$eval('.products .product-link', (productCards) => {
         return productCards.map(document => {
             try {
                 const priceNew = document.querySelector("span[data-price]").innerHTML
