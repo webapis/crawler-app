@@ -5,6 +5,7 @@ debugger
     const url = await page.url()
 
     await page.waitForSelector('.item-grid')
+    await page.waitForSelector('.vl-basket-price')
     debugger
 
     const data = await page.$$eval('.product.product--zoom', (productCards) => {
