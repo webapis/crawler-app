@@ -16,9 +16,7 @@ debugger
                  const priceNew =document.querySelector('.vl-basket-price')? document.querySelector('.vl-basket-price').innerText.replace('TL','').trim():Array.from(document.querySelector('.product-prices').querySelectorAll('li')).reverse()[0].innerText.replace('TL','').trim()
                    const longlink = document.querySelector('.product__inside__name a').href
                  const link = longlink.substring(longlink.indexOf("https://www.kipling.com.tr/")+27)
-      
                 const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://img-kipling.mncdn.com/") + 30)
-    
                 return {
                     title:'kipling ' + title,
                      priceNew,
