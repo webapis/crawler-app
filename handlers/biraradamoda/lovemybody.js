@@ -9,20 +9,25 @@ async function handler(page) {
       let   data = await page.$$eval('.product-item-box', (items) => {
 
             return items.map(document => {
-                const priceNew = document.querySelector('.product-item-box a[data-price]').getAttribute('data-price')
-                const longlink = document.querySelector('.info a').href
-                const link = longlink.substring(longlink.indexOf('https://www.lovemybody.com.tr/') + 30)
-                const longImgUrl = document.querySelector('.product-item-box a[data-image]').getAttribute('data-image')
-                const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://akn-lmb.b-cdn.net/') + 26)
-                return {
-                    title: 'lovemybody ' + document.querySelector('.product-item-box a[data-name]').getAttribute('data-name'),
-                    priceNew,//: priceNew.replace('.', '').replace(',00', '').trim(),
-                    imageUrl: imageUrlshort,
-                    link,
-                    timestamp: Date.now(),
-                    marka: 'lovemybody',
-    
+                try {
+                    const priceNew = document.querySelector('.product-item-box a[data-price]').getAttribute('data-price')
+                    const longlink = document.querySelector('.info a').href
+                    const link = longlink.substring(longlink.indexOf('https://www.lovemybody.com.tr/') + 30)
+                    const longImgUrl = document.querySelector('.product-item-box a[data-image]').getAttribute('data-image')
+                    const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://akn-lmb.b-cdn.net/') + 26)
+                    return {
+                        title: 'lovemybody ' + document.querySelector('.product-item-box a[data-name]').getAttribute('data-name'),
+                        priceNew,//: priceNew.replace('.', '').replace(',00', '').trim(),
+                        imageUrl: imageUrlshort,
+                        link,
+                        timestamp: Date.now(),
+                        marka: 'lovemybody',
+        
+                    }
+                } catch (error) {
+                    return {error:error.toString(),content:document.innerHTML}
                 }
+            
             })
         });
     
