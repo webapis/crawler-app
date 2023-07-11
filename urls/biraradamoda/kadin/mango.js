@@ -1,5 +1,5 @@
 const urls = [
-  
+  {url:"https://shop.mango.com/tr/kadin/canta_c18162733"}
     // { url: 'https://shop.mango.com/tr/kadin/elbise-ve-tulum_c20249297',     subcategory: ['elbise'], category: 'üst-giyim',node:'dream' },
 
 
