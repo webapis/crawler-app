@@ -1,5 +1,6 @@
 const urls = [
-  {url:"https://example.com/"}
+  {url:"https://shop.mango.com/services/productlist/products/TR/she/sections_she_rebajas.accesorios_she/?pageNum=1&rowsPerPage=1000&columnsPerRow=2&family=40&idSubSection=bolsos_she"},
+
     // { url: 'https://shop.mango.com/tr/kadin/elbise-ve-tulum_c20249297',     subcategory: ['elbise'], category: 'üst-giyim',node:'dream' },
 
 

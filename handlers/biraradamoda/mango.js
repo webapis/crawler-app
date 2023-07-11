@@ -1,9 +1,9 @@
 const fetch =require('node-fetch')
 
 async function handler(page, context) {
-
+const url =await page.url()
     debugger;
-    const response =await fetch('https://shop.mango.com/services/productlist/products/TR/she/sections_she_rebajas.accesorios_she/?pageNum=1&rowsPerPage=1000&columnsPerRow=2&family=40&idSubSection=bolsos_she')
+    const response =await fetch(url)
 debugger
 const jsonData =await response.json()
 debugger
@@ -16,13 +16,13 @@ const data = Object.values( jsonData.groups[0].garments).map(m=>m.colors).flat()
     title:'mango '+m.images[0].
     altText,
     priceNew:m.price. salePriceNoCurrency,
-    link:m.linkAnchor,
+    link:m.linkAnchor.substring(1),
 
     timestamp: Date.now(),
     marka: 'mango',
 }})
 debugger
-    const url = await page.url()
+
 
     debugger;
 
