@@ -4,19 +4,23 @@ async function handler(page) {
 
     const url = await page.url()
     await page.waitForSelector('.list-content')
-
+    await page.waitForTimeout(5000);
    
       let   data = await page.$$eval('.product-item-box', (items) => {
 
             return items.map(document => {
                 try {
-                    const priceNew = Array.from(document.querySelector('.product-item-info').querySelectorAll('span')).reverse()[0].innerHTML.replace('TL','').trim()//document.querySelector('.product-item-box a[data-price]').getAttribute('data-price')
+                    // var decimalRegex = /\d+\.\d+/;
+                    // const pricecontent = document.querySelector('.product-item__campaign').innerText
+                    // var result = pricecontent.match(decimalRegex);
+                    // Array.from(document.querySelector('.product-item-info').querySelectorAll('span')).reverse()[0].innerHTML.replace('TL','').trim()/
+                    const priceNew =document.querySelector('.product-item__campaign span')?  document.querySelector('.product-item__campaign span').nextSibling.textContent.replaceAll('\n','').trim().replace('TL','').trim(): document.querySelector('.product-item-box a[data-price]').getAttribute('data-price')
                     const longlink = document.querySelector('.info a').href
                     const link = longlink.substring(longlink.indexOf('https://www.lovemybody.com.tr/') + 30)
                     const longImgUrl = document.querySelector('.product-item-box a[data-image]').getAttribute('data-image')
                     const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://akn-lmb.b-cdn.net/') + 26)
                     return {
-                        title: 'lovemybody ' + document.querySelector('.product-item-box a[data-name]').getAttribute('data-name'),
+                        title: 'lovemybody ' +document.querySelector('.product-name').innerText,
                         priceNew,//: priceNew.replace('.', '').replace(',00', '').trim(),
                         imageUrl: imageUrlshort,
                         link,
