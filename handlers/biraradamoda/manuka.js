@@ -5,7 +5,13 @@ async function handler(page) {
   
     await page.waitForSelector(".catalogWrapper");
     debugger;
-    //   await page.click('span.bskico-filter')
+
+  await page.click('.dropdown a')
+  debugger
+  await page.click('span[value="tr"]')
+  debugger
+  await page.waitForNavigation()
+  debugger
     await autoScroll(page);
     debugger;
   
