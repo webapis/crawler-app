@@ -10,7 +10,7 @@ async function handler(page) {
 
             return items.map(document => {
                 try {
-                    const priceNew = document.querySelector('.product-item-box a[data-price]').getAttribute('data-price')
+                    const priceNew = Array.from(document.querySelector('.product-item-info').querySelectorAll('span')).reverse()[0].innerHTML.replace('TL','').trim()//document.querySelector('.product-item-box a[data-price]').getAttribute('data-price')
                     const longlink = document.querySelector('.info a').href
                     const link = longlink.substring(longlink.indexOf('https://www.lovemybody.com.tr/') + 30)
                     const longImgUrl = document.querySelector('.product-item-box a[data-image]').getAttribute('data-image')
