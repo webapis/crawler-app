@@ -10,7 +10,7 @@ async function handler(page) {
         const data = await page.$$eval('.products__item', (productCards) => {
             return productCards.map(document => {
                 try {
-                    const imageUrl = Array.from(document.querySelectorAll(".product__imageList img")).reverse().map(m=>m.getAttribute("data-original"))[0]
+                    const imageUrl = Array.from(document.querySelectorAll(".product__imageList img")).map(m=>m.getAttribute("data-original"))[0]
                     const title = document.querySelector("a.product__imageWrapper").getAttribute("title").trim()
                     const priceNew = document.querySelector(".product__price.-actual").innerText.replace("TL",'').trim()
                     const longlink = document.querySelector("a.product__imageWrapper").href
