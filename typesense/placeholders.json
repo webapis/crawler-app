@@ -410,7 +410,7 @@
         },
         "imagePrefix": "https://ik.imagekit.io/mumrjdehaou/",
         "placeholder": "./placeholder-img/placeholder.jpg",
-        "imageHost": "https://www.manuka.com.tr/",
+        "imageHost": "https://cache.manuka.com.tr/",
         "detailHost": "https://www.manuka.com.tr/",
         "postfix": "",
         "imgPostFix": ""
