@@ -1,20 +1,37 @@
-
+const fetch =require('node-fetch')
 
 async function handler(page, context) {
 
     debugger;
+    const response =await fetch('https://shop.mango.com/services/productlist/products/TR/she/sections_she_rebajas.accesorios_she/?pageNum=1&rowsPerPage=1000&columnsPerRow=2&family=40&idSubSection=bolsos_she')
+debugger
+const jsonData =await response.json()
+debugger
+//https://st.mngbcn.com/
+const data = Object.values( jsonData.groups[0].garments).map(m=>m.colors).flat().map(m=>{
+    
+    const imageUrl=m.images[0].img1Src
+    return {
+    imageUrl:imageUrl.substring(imageUrl.indexOf('https://st.mngbcn.com/')+22),
+    title:'mango '+m.images[0].
+    altText,
+    priceNew:m.price. salePriceNoCurrency,
+    link:m.linkAnchor,
 
-
+    timestamp: Date.now(),
+    marka: 'mango',
+}})
+debugger
     const url = await page.url()
 
     debugger;
 
-    await page.waitForSelector('.catalog')
+   // await page.waitForSelector('.catalog')
 
     debugger
-    await autoScroll(page);
+  //  await autoScroll(page);
 
-    const data = await page.$$eval('.catalog .page li[data-testid]', (productCards) => {
+/*     const data = await page.$$eval('.catalog .page li[data-testid]', (productCards) => {
         return productCards.map(productCard => {
 
             // const imageUrl = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box .product-card__image--item.swiper-slide img').getAttribute('data-srcset')
@@ -34,7 +51,7 @@ async function handler(page, context) {
                 marka: 'mango',
             }
         }).filter(f => f.imageUrl !== null && f.title.length > 5)
-    })
+    }) */
 debugger
     console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
 
