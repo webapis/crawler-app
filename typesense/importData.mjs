@@ -15,13 +15,55 @@ function findMatchingCategory(title, categories) {
 
   for (const category of categories) {
     for (const keyword of category.keywords) {
-      if (titleWords.some(word => word.toLowerCase().localeCompare(keyword.toLowerCase()) )) {
+      if (titleWords.some(word => deaccent(word.toLowerCase())==deaccent( keyword.toLowerCase()) )) {
         return category;
       }
     }
   }
 
   return null;
+}
+function deaccent(str) {
+  var accents = {
+    'à': 'a',
+    'á': 'a',
+    'â': 'a',
+    'ã': 'a',
+    'ä': 'a',
+    'ç': 'c',
+    'è': 'e',
+    'é': 'e',
+    'ê': 'e',
+    'ë': 'e',
+    'ì': 'i',
+    'í': 'i',
+    'î': 'i',
+    'ï': 'i',
+    'ñ': 'n',
+    'ò': 'o',
+    'ó': 'o',
+    'ô': 'o',
+    'õ': 'o',
+    'ö': 'o',
+    'ß': 's',
+    'ù': 'u',
+    'ú': 'u',
+    'û': 'u',
+    'ü': 'u',
+    'ÿ': 'y',
+  };
+
+  var newStr = '';
+  for (var i = 0; i < str.length; i++) {
+    var char = str[i];
+    if (accents[char]) {
+      newStr += accents[char];
+    } else {
+      newStr += char;
+    }
+  }
+
+  return newStr;
 }
 function removeMatchingValues(array, wordsToExclude) {
   return array.filter(item => !wordsToExclude.some(word => item.title.includes(word)));
@@ -32,7 +74,7 @@ function removeMatchingValues(array, wordsToExclude) {
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
-const anaKategoriler =[{title:'telefonluk ',keywords:['telefonluk',"telefon"]},{title:'çanta',keywords:['çanta',"çantası",'çantasi','saplı','baget','bag','çantaasi']},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı','cüzdanı','cüzdani']},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık",'kartlik','kartvizitlik']},{title:"anahtarlık",keywords:["anahtarlık"]},{title:"clutch",keywords:["clutch"]},{title:"portföy",keywords:["portföy",'portföyü']}]
+const anaKategoriler =[{title:'telefonluk',keywords:['telefonluk',"telefon"]},{title:'çanta',keywords:['çanta',"çantası",'çantasi','saplı','baget','bag','çantaasi']},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı','cüzdanı','cüzdani']},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık",'kartlik','kartvizitlik']},{title:"anahtarlık",keywords:["anahtarlık"]},{title:"clutch",keywords:["clutch"]},{title:"portföy",keywords:["portföy",'portföyü']}]
 const kategoriler =['göğüs','laptop','okul','bebek','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 
