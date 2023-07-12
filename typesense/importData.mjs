@@ -33,7 +33,7 @@ function removeMatchingValues(array, wordsToExclude) {
 const { items: data } = await productsDataset.getData();
 debugger
 const anaKategoriler =[{title:'çanta',keywords:['çanta',"çantası",'çantasi','portföy','saplı','baget','portföyü']},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı']},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık",'kartlik']},{title:"anahtarlık",keywords:["anahtarlık"]},{title:"clutch",keywords:["clutch"]},{title:"portföy",keywords:["portföy",'portföyü']}]
-const kategoriler =['göğüs','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
+const kategoriler =['göğüs','laptop','okul','bebek','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 
 const uniqueProductCollection = uniqify(data, 'imageUrl')
