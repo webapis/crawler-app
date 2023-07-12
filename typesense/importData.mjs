@@ -45,7 +45,7 @@ const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title
           link: m.link,
           imageUrl: m.imageUrl,
           price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
-          anaKagegori: anaKategoriler.find((f)=>m.title.split(' ').includes(f))?anaKategoriler.find((f)=>m.title.split(' ').includes(f)):'diger',
+          anaKategori: anaKategoriler.find((f)=>m.title.split(' ').includes(f))?anaKategoriler.find((f)=>m.title.split(' ').includes(f)):'diger',
           kategori: kategoriler.find((f)=>m.title.split(' ').includes(f))?kategoriler.find((f)=>m.title.split(' ').includes(f)):'diger',
           renk:renkler.find((f)=>m.title.split(' ').includes(f))?renkler.find((f)=>m.title.split(' ').includes(f)):'diger',
           altKategori:'depicated'
