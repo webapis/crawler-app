@@ -4,10 +4,10 @@ async function handler(page, context) {
 
 
     const url = await page.url()
-
-    await page.waitForSelector('.product-grid')
-    await autoScroll(page)
-
+debugger
+    await page.waitForSelector('.product-card')
+ await autoScroll(page)
+debugger
     const data = await page.$$eval('.product-card', (productCards) => {
         return productCards.map(document => {
 
@@ -42,29 +42,34 @@ debugger
     return formatprice
 }
 async function autoScroll(page) {
-    await page.evaluate(async () => {
-
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-                const totalItems = parseInt(document.querySelector('.wall-header__item_count').innerText.replace(/[^\d]/g, ''))
-                const collectedItems = document.querySelectorAll('.product-card').length
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalItems === collectedItems) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 100);
-        });
+    page.on("console", (message) => {
+      console.log("Message from Puppeteer page:", message.text());
     });
-}
+    await page.evaluate(async () => {
+      await new Promise((resolve, reject) => {
+        var totalHeight = 0;
+        var distance = 100;
+        let inc = 0;
+  
+        var timer = setInterval(() => {
+          var scrollHeight = document.body.scrollHeight;
+  
+          window.scrollBy(0, distance);
+          totalHeight += distance;
+          inc = inc + 1;
+          console.log("inc", inc);
+          if (totalHeight >= scrollHeight - window.innerHeight) {
+            if (inc === 50) {
+              clearInterval(timer);
+              resolve();
+            }
+          } else {
+            inc = 0;
+          }
+        }, 200);
+      });
+    });
+  }
 async function getUrls(page) {
     const url = await page.url()
     const pageUrls = []
