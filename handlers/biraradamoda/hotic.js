@@ -34,7 +34,7 @@ async function handler(page, context) {
 
     console.log("process.env.GENDER ")
     const formatprice = data.map((m) => {
-        return { ...m, title: m.title + " _" + process.env.GENDER }
+        return { ...m, title: m.title.replaceAll('(',' ').replaceAll(')',' ') + " _" + process.env.GENDER }
     })
 
 
