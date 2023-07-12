@@ -25,7 +25,7 @@ function findMatchingCategory(title, categories) {
 }
 function deaccent(str) {
   var accents = {
-    'à': 'a',
+    'ı': 'i',
     'á': 'a',
     'â': 'a',
     'ã': 'a',
