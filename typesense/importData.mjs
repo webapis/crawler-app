@@ -15,7 +15,7 @@ function findMatchingCategory(title, categories) {
 
   for (const category of categories) {
     for (const keyword of category.keywords) {
-      if (titleWords.some(word => word.replaceAll(/ı|I/gi,'').replaceAll(/ç|Ç/gi,'').toLowerCase() === keyword.toLowerCase())) {
+      if (titleWords.some(word => word.toLowerCase().localeCompare(keyword.toLowerCase()) )) {
         return category;
       }
     }
@@ -32,7 +32,7 @@ function removeMatchingValues(array, wordsToExclude) {
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
-const anaKategoriler =[{title:'telefonluk ',keywords:['telefonluk',"telefon"]},{title:'çanta',keywords:['anta',"antasi",'cantası','saplı','baget','bag','antaasi']},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı','cüzdanı','cüzdani']},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık",'kartlik','kartvizitlik']},{title:"anahtarlık",keywords:["anahtarlık"]},{title:"clutch",keywords:["clutch"]},{title:"portföy",keywords:["portföy",'portföyü']}]
+const anaKategoriler =[{title:'telefonluk ',keywords:['telefonluk',"telefon"]},{title:'çanta',keywords:['çanta',"çantası",'çantasi','saplı','baget','bag','cantaasi']},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı','cüzdanı','cüzdani']},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık",'kartlik','kartvizitlik']},{title:"anahtarlık",keywords:["anahtarlık"]},{title:"clutch",keywords:["clutch"]},{title:"portföy",keywords:["portföy",'portföyü']}]
 const kategoriler =['göğüs','laptop','okul','bebek','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 
