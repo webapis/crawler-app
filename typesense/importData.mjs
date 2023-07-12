@@ -15,7 +15,7 @@ function findMatchingCategory(title, categories) {
 
   for (const category of categories) {
     for (const keyword of category.keywords) {
-      if (titleWords.some(word => word.toLowerCase() === keyword.toLowerCase())) {
+      if (titleWords.some(word => word.replaceAll('Ç','C').replaceAll('ç','c').toLowerCase() === keyword.toLowerCase())) {
         return category;
       }
     }
