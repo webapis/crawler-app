@@ -18,7 +18,8 @@ const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[ke
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
-const kategoriler =['göğüs','kartlık','cüzdan','valiz','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
+const anaKategoriler =['çanta',"çüzdan","valiz","kartlık"]
+const kategoriler =['göğüs','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 
 const uniqueProductCollection = uniqify(data, 'imageUrl')
@@ -44,10 +45,10 @@ const mappedData=   uniqueProductCollection.filter(item=> !regex.test(item.title
           link: m.link,
           imageUrl: m.imageUrl,
           price: m.priceNew ? mapPrice(m.priceNew.toString()) : 0,
-
+          anaKagegori: anaKategoriler.find((f)=>m.title.split(' ').includes(f))?anaKategoriler.find((f)=>m.title.split(' ').includes(f)):'diger',
           kategori: kategoriler.find((f)=>m.title.split(' ').includes(f))?kategoriler.find((f)=>m.title.split(' ').includes(f)):'diger',
           renk:renkler.find((f)=>m.title.split(' ').includes(f))?renkler.find((f)=>m.title.split(' ').includes(f)):'diger',
-          altKategori:'dericated'
+          altKategori:'depicated'
         };
       })
 

@@ -56,7 +56,7 @@ let schema = {
         sortable:true
       },
       {
-        name: "altKategori",
+        name: "anaKategori",
         type: "string",
         facet: true,
         sortable:true
