@@ -9,22 +9,26 @@ async function handler(page, context) {
 
     const data = await page.$$eval('.js-product-list-item', (productCards) => {
         return productCards.map(document => {
-
-            const imageUrl = document.querySelectorAll('a img[data-src]').length >0? document.querySelectorAll('a img[data-src]')[0].getAttribute('data-src'):null
-            const title = document.querySelector('.product__listing--content a').text.trim()
-            const priceNew = document.querySelector('.product__listing--basket-price span')? document.querySelector('.product__listing--basket-price span').innerText.replace('TL','').trim():(document.querySelector('.product__listing--price ins')?document.querySelector('.product__listing--price ins').innerText.replace('TL','').trim() :document.querySelector('.lone-price').innerText.replace('TL','').trim() )
-            const longlink = document.querySelector('.product__listing--content a').href
-            const link = longlink.substring(longlink.indexOf("https://www.pierrecardin.com.tr") + 32)
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://aydinli-pc.b-cdn.net/") + 29)
-            return {
-                title: 'pierrecardin ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'pierrecardin',
-            }
-        }).filter(f => f.imageUrl !== null && f.title.length > 10)
+                try {
+                    const imageUrl = document.querySelectorAll('a img[data-src]').length >0? document.querySelectorAll('a img[data-src]')[0].getAttribute('data-src'):null
+                    const title = document.querySelector('.product__listing--content a').text.trim()
+                    const priceNew = document.querySelector('.product__listing--basket-price span')? document.querySelector('.product__listing--basket-price span').innerText.replace('TL','').trim():(document.querySelector('.product__listing--price ins')?document.querySelector('.product__listing--price ins').innerText.replace('TL','').trim() :document.querySelector('.lone-price').innerText.replace('TL','').trim() )
+                    const longlink = document.querySelector('.product__listing--content a').href
+                    const link = longlink.substring(longlink.indexOf("https://www.pierrecardin.com.tr") + 32)
+                    const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://aydinli-pc.b-cdn.net/") + 29)
+                    return {
+                        title: 'pierrecardin ' + title.replace(/İ/g, 'i').toLowerCase(),
+                        priceNew,
+                        imageUrl: imageUrlshort,
+                        link,
+                        timestamp: Date.now(),
+                        marka: 'pierrecardin',
+                    }   
+                } catch (error) {
+                    return {error:error.toString(),content:document.innerHTML}
+                }
+      
+        }).filter(f => f.imageUrl !== null && f.title.length > 5)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
