@@ -15,12 +15,12 @@ debugger
             const priceNew = document.querySelector('.product__listing--basket-price span').innerText.replace('TL','').trim()
             const longlink = document.querySelector('.product__name a').href
             const link = longlink.substring(longlink.indexOf('https://tr.uspoloassn.com/') + 26)
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://aydinli-polo.b-cdn.net/") +31)
+            //const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://aydinli-polo.b-cdn.net/") +31)
 
             return {
                 title: 'uspoloassn ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl, //imageUrlshort,
                 link,
                 timestamp: Date.now(),
                 marka: 'uspoloassn',
