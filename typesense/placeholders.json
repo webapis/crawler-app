@@ -873,7 +873,7 @@
         },
         "imagePrefix": "https://ik.imagekit.io/mumrjdehaou/",
         "placeholder": "./placeholder-img/placeholder.jpg",
-        "imageHost": "https://cdn.sarar.com/",
+        "imageHost": "",
         "detailHost": "https://sarar.com/",
         "postfix": "",
         "imgPostFix": ""
