@@ -15,11 +15,11 @@ async function handler(page, context) {
                     const priceNew = document.querySelector('.product__listing--basket-price span')? document.querySelector('.product__listing--basket-price span').innerText.replace('TL','').trim():(document.querySelector('.product__listing--price ins')?document.querySelector('.product__listing--price ins').innerText.replace('TL','').trim() :document.querySelector('.lone-price').innerText.replace('TL','').trim() )
                     const longlink = document.querySelector('.product__listing--content a').href
                     const link = longlink.substring(longlink.indexOf("https://www.pierrecardin.com.tr") + 32)
-                    const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://aydinli-pc.b-cdn.net/") + 29)
+                    //const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://aydinli-pc.b-cdn.net/") + 29)
                     return {
                         title: 'pierrecardin ' + title.replace(/İ/g, 'i').toLowerCase(),
                         priceNew,
-                        imageUrl: imageUrlshort,
+                        imageUrl,
                         link,
                         timestamp: Date.now(),
                         marka: 'pierrecardin',

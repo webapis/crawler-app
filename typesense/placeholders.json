@@ -717,7 +717,7 @@
         },
         "imagePrefix": "https://ik.imagekit.io/mumrjdehaou/",
         "placeholder": "./placeholder-img/placeholder.jpg",
-        "imageHost": "https://aydinli-pc.b-cdn.net/",
+        "imageHost": "",
         "detailHost": "https://www.pierrecardin.com.tr/",
         "postfix": "",
         "imgPostFix": ""
