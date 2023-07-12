@@ -32,14 +32,14 @@ function removeMatchingValues(array, wordsToExclude) {
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
-const anaKategoriler =[{title:'çanta',keywords:['çanta',"çantası"]},{title:"cüzdan",keywords:["cüzdan"]},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık"]}]
+const anaKategoriler =[{title:'çanta',keywords:['çanta',"çantası",'çantasi','portföy','saplı','baget']},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı']},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık",'kartlik']},{title:"anahtarlık",keywords:["anahtarlık"]}]
 const kategoriler =['göğüs','laptop','okul','bebek','clutch','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','portföy','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 
 const uniqueProductCollection = uniqify(data, 'imageUrl')
 console.log('uniqueProductCollection',uniqueProductCollection.length)
 const regex = /^(çorap|blink optic shine|sungerı|kemer|şal|fular|şapka|pareo)$/i; 
-const filteredPrds = removeMatchingValues(uniqueProductCollection,['kemer','şal','şapka','fular','pareo','cargo fee']);
+const filteredPrds = removeMatchingValues(uniqueProductCollection,['kemer','şal','şapka','fular','pareo','cargo fee','havlusu']);
 const mappedData=   filteredPrds.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } })).map((m) => {
         return {
 
