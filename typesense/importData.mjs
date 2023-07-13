@@ -74,7 +74,7 @@ function removeMatchingValues(array, wordsToExclude) {
 //const rest =await client.collections().create(schema);
 const { items: data } = await productsDataset.getData();
 debugger
-const anaKategoriler =[{title:'telefonluk',keywords:['telefonluk',"telefon"]},{title:'çanta',keywords:['çanta',"çantası",'çantasi','saplı','baget','bag','çantaasi']},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı','cüzdanı','cüzdani']},{title:"valiz",keywords:["valiz"]},{title:"kartlık",keywords:["kartlık",'kartlik','kartvizitlik']},{title:"anahtarlık",keywords:["anahtarlık"]},{title:"clutch",keywords:["clutch"]},{title:"portföy",keywords:["portföy",'portföyü']}]
+const anaKategoriler =[{title:'telefonluk',keywords:['telefonluk',"telefon"]},{title:'çanta',keywords:['çanta',"çantası",'çantasi','saplı','baget','bag','çantaasi','backpack',"omuz"]},{title:"cüzdan",keywords:["cüzdan",'cuzdan','cüzdanı','cüzdanı','cüzdani']},{title:"valiz",keywords:["valiz",'bavul']},{title:"kartlık",keywords:["kartlık",'kartlik','kartvizitlik']},{title:"anahtarlık",keywords:["anahtarlık"]},{title:"clutch",keywords:["clutch"]},{title:"portföy",keywords:["portföy",'portföyü']},{title:"kılıf",keywords:["kılıf",'kılıfı']}]
 const kategoriler =['göğüs','laptop','okul','bebek','kova','Postacı','baskılı','el','plaj','tote','gece','baget','alışveriş','bez','kot','abiye','gece','kol','telefon','çapraz','bel','sırt','omuz','spor','outdoor']
 const renkler =  ['rose','vişne','mor','platin','altın','gümüş','gold','indigo','haki','gri','lacivert','bej','pembe','sarı','beyaz','kırmızı','siyah','fuşya','turuncu','yeşil','mavi','kahve']
 
