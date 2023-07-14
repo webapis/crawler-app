@@ -3,6 +3,7 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
+import { uploadCollection } from'./utils/uploadCollection.mjs'
 require('dotenv').config()
 
     const requestQueue = await RequestQueue.open();
@@ -233,6 +234,19 @@ require('dotenv').config()
        
        
         }
+        const mapGender = uniqueProductCollection.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } }))
+        const groupByGender = groupBy(mapGender, 'gender')
+   
+        for (let gender in groupByGender) {
+            const curr = groupByGender[gender]
+            let gnd = gender.replace('_', "")
+            debugger
+            await uploadCollection({ fileName: `${marka}`, data: curr, gender: gnd, marka })
+            debugger
+        }
+
+        console.log('uploading git state')
+        
     }
 
 
