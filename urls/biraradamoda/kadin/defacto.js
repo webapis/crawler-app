@@ -4,7 +4,7 @@ const urls = [
    { url: 'https://www.defacto.com.tr/kadin-cuzdan'},
    { url: 'https://www.defacto.com.tr/kadin-valiz'},
 
-//    { url: 'https://www.defacto.com.tr/kadin-giyim'},
+   { url: 'https://www.defacto.com.tr/kadin-giyim'},
 //  //{ url: 'https://www.defacto.com.tr/kadin-jean-etek'}
 //    { url: 'https://www.defacto.com.tr/kadin-ayakkabi' },
 
