@@ -21,10 +21,10 @@ debugger
         await makeDir(`zipped-files/${marka}`)
         await getSingleContent(`${gender}/${marka}.json.gz`)
         await unzipSingleContent(`single-content/${gender}/${marka}.json.gz`)
-        const prevDataRaw = fs.readFileSync(`single-content/${gender}/${marka}.json`, { encoding: 'utf8' })
-        const prevData = JSON.parse(prevDataRaw)
-        const updatedData = mergePrevData({ gender, marka, data, prevData })
-        await compressFile({ fileName, data: updatedData, gender })
+  //      const prevDataRaw = fs.readFileSync(`single-content/${gender}/${marka}.json`, { encoding: 'utf8' })
+    //    const prevData = JSON.parse(prevDataRaw)
+   //     const updatedData = mergePrevData({ gender, marka, data, prevData })
+        await compressFile({ fileName, data, gender })
         let buff = fs.readFileSync(`${fileName}.json.gz`);
         let base64data = buff.toString('base64');
 
