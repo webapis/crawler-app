@@ -1,7 +1,7 @@
 const urls = [
-    // { url: 'https://www.koton.com/kadin-giyim'},
+     { url: 'https://www.koton.com/kadin-giyim'},
 
-    // { url: 'https://www.koton.com/kadin-ayakkabi'},
+     { url: 'https://www.koton.com/kadin-ayakkabi'},
     { url: 'https://www.koton.com/kadin-canta'},
     {url:'https://www.koton.com/kadin-cuzdan'}
     // { url: 'https://www.koton.com/kadin-parfum'},
