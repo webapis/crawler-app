@@ -6,18 +6,18 @@ const urls = [
    {url:"https://www.matras.com/canta-modelleri/postaci-cantasi"},
    {url:"https://www.matras.com/canta-modelleri/bel-cantasi"},
    {url:"https://www.matras.com/canta-modelleri/evrak-cantasi"},
-   // {url:"https://www.matras.com/cuzdan-modelleri"},
-   // {url:"https://www.matras.com/seyahat"}
-   //{url:'https://www.matras.com/canta-modelleri'}
-   // { url: 'https://www.matras.com/kadin/giyim'},
+   {url:"https://www.matras.com/cuzdan-modelleri"},
+   {url:"https://www.matras.com/seyahat"},
+   {url:'https://www.matras.com/canta-modelleri'},
+   { url: 'https://www.matras.com/kadin/giyim'},
 
-   // { url: 'https://www.matras.com/kadin/canta-modelleri'},
-   // { url: 'https://www.matras.com/kadin/ayakkabi-modelleri'},
-   // { url: 'https://www.matras.com/kadin/cuzdan-modelleri'},
+   { url: 'https://www.matras.com/kadin/canta-modelleri'},
+   { url: 'https://www.matras.com/kadin/ayakkabi-modelleri'},
+   { url: 'https://www.matras.com/kadin/cuzdan-modelleri'},
  
-   // { url: 'https://www.matras.com/kadin/kemer-modelleri'},
-   // { url: 'https://www.matras.com/kadin/aksesuar'},
-   // { url: 'https://www.matras.com/kadin/seyahat'},
+   { url: 'https://www.matras.com/kadin/kemer-modelleri'},
+   { url: 'https://www.matras.com/kadin/aksesuar'},
+   { url: 'https://www.matras.com/kadin/seyahat'},
 
 ]
 

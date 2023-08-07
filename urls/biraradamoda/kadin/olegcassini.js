@@ -1,11 +1,11 @@
 const urls = [
-  {url:'https://www.olegcassini.com.tr/abiye-canta'}
-// { url: 'https://www.olegcassini.com.tr/abiye', subcategory: ['elbise'], category: 'üst-giyim' ,opts:{keyword:'abiye'} ,node:'dream'},
-// { url: 'https://www.olegcassini.com.tr/gelinlik', subcategory: ['elbise'], category: 'üst-giyim' ,opts:{keyword:'abiye'} ,node:'dream'},
+  {url:'https://www.olegcassini.com.tr/abiye-canta'},
+{ url: 'https://www.olegcassini.com.tr/abiye'},
+{ url: 'https://www.olegcassini.com.tr/gelinlik'},
  
-// { url: 'https://www.olegcassini.com.tr/ayakkabi', subcategory: ['aksesuar'], category: 'üst-giyim' ,opts:{keyword:'abiye'} ,node:'dream'},
+{ url: 'https://www.olegcassini.com.tr/ayakkabi'},
 
-// { url: 'https://www.olegcassini.com.tr/aksesuar', subcategory: ['aksesuar'], category: 'üst-giyim' ,opts:{keyword:'abiye'} ,node:'dream'},
+{ url: 'https://www.olegcassini.com.tr/aksesuar'},
 
 ]
 
