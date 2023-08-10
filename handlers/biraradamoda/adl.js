@@ -14,12 +14,12 @@ async function handler(page, context) {
             const longlink = productCard.querySelector('.d-block.list-slider-item__link').href
             const link = longlink.substring(longlink.indexOf('https://www.adl.com.tr/') + 23)
             const longImgUrl = productCard.querySelector('.d-block.list-slider-item__link img').src
-            const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://lmb-adl.akinoncdn.com/products/') + 39)
+          //  const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://lmb-adl.akinoncdn.com/products/') + 39)
             debugger;
             return {
                 title: 'adl ' + title.replace(/İ/g,'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl: longImgUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'adl',
