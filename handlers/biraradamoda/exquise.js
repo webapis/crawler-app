@@ -21,7 +21,7 @@ async function handler(page, context) {
                 const priceNew = Array.from(document.querySelector('a h3').previousSibling.childNodes).reverse()[0].innerHTML.replace('₺','').trim()
                 return {
                     title: 'exquise ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' ') + color,
-                    priceNew: priceNew.replace('₺', ''),//.replace(',','.'),
+                    priceNew: priceNew,//.replace('₺', ''),//.replace(',','.'),
                     imageUrl: img,// && img.substring(img.indexOf('https://cdn.myikas.com/') + 23),
                     link: link.substring(link.indexOf('https://exquise.com/') + 20),
                     timestamp: Date.now(),
@@ -30,7 +30,7 @@ async function handler(page, context) {
                 }
             })  
         } catch (error) {
-            return {error:error.toString(),content:document.content}
+            return {error:error.toString(),content:document.innerHTML}
         }
     
     })
