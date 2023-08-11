@@ -5,23 +5,28 @@ async function handler(page, context) {
     const url = await page.url()
     await page.waitForSelector('.appliedFilter.FiltrelemeUrunAdet span')
     const data = await page.$$eval('.productItem', (productCards) => {
-        return productCards.map(productCard => {
-            const priceNew = productCard.querySelector('.discountPrice span').textContent.replace(/\n/g, '').trim().replace('₺', '').replace('TL', '').trim()
-            const longlink = productCard.querySelector('.detailLink').href
-            const link = longlink.substring(longlink.indexOf("https://www.bysaygi.com/") + 24)
-            const longImgUrl = productCard.querySelector('img[data-original]') && productCard.querySelector('img[data-original]').getAttribute('data-original')
-            //const imageUrlshort = longImgUrl&& longImgUrl.substring(longImgUrl.indexOf('https://www.quzu.com.tr/') + 24)
-            const title = productCard.querySelector('.detailLink').getAttribute('title')
-
-            return {
-                title: 'saygigiyim ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,//:priceNew.replace('.','').replace(',','.').trim(),
-                imageUrl: longImgUrl,
-                link,
-                timestamp: Date.now(),
-                marka: 'saygigiyim',
-
+        return productCards.map(document => {
+            try {
+                const priceNew = document.querySelector('.discountPrice span').textContent.replace(/\n/g, '').trim().replace('₺', '').replace('TL', '').trim()
+                const longlink = document.querySelector('.detailLink').href
+                const link = longlink.substring(longlink.indexOf("https://www.bysaygi.com/") + 24)
+                const longImgUrl =  document.querySelector('img[data-original]')&& document.querySelector('img[data-original]').getAttribute('data-original')
+                //const imageUrlshort = longImgUrl&& longImgUrl.substring(longImgUrl.indexOf('https://www.quzu.com.tr/') + 24)
+                const title = productCard.querySelector('.detailLink').getAttribute('title')
+    
+                return {
+                    title: 'saygigiyim ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew,//:priceNew.replace('.','').replace(',','.').trim(),
+                    imageUrl: longImgUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'saygigiyim',
+    
+                }  
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
+       
         }).filter(f => f.imageUrl !== null)
     })
 
