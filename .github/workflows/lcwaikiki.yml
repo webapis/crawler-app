@@ -14,27 +14,27 @@ jobs:
       WEBSITE: 'biraradamoda'
       marka: 'lcwaikiki'
     secrets: inherit
-  # erkek_job:
-  #   uses: ./.github/workflows/reusable.yml
-  #   with:
-  #     GENDER: erkek
-  #     maxconcurrency: '2'
-  #     WEBSITE: 'biraradamoda'
-  #     marka: 'lcwaikiki'
-  #   secrets: inherit
-  # kcocuk_job:
-  #   uses: ./.github/workflows/reusable.yml
-  #   with:
-  #     GENDER: kcocuk
-  #     maxconcurrency: '2'
-  #     WEBSITE: 'biraradamoda'
-  #     marka: 'lcwaikiki'
-  #   secrets: inherit
-  # ecocuk_job:
-  #   uses: ./.github/workflows/reusable.yml
-  #   with:
-  #     GENDER: ecocuk
-  #     maxconcurrency: '2'
-  #     WEBSITE: 'biraradamoda'
-  #     marka: 'lcwaikiki'
-  #   secrets: inherit
+  erkek_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: erkek
+      maxconcurrency: '2'
+      WEBSITE: 'biraradamoda'
+      marka: 'lcwaikiki'
+    secrets: inherit
+  kcocuk_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: kcocuk
+      maxconcurrency: '2'
+      WEBSITE: 'biraradamoda'
+      marka: 'lcwaikiki'
+    secrets: inherit
+  ecocuk_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: ecocuk
+      maxconcurrency: '2'
+      WEBSITE: 'biraradamoda'
+      marka: 'lcwaikiki'
+    secrets: inherit
