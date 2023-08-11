@@ -11,7 +11,7 @@ async function handler(page, context) {
     const data = await page.$$eval('.product-small', (productCards) => {
         return productCards.map(document => {
             try {
-                const imageUrl = document.querySelector('.box-image').querySelectorAll('img')[0].src
+                const imageUrl =   document.querySelector('img[data-srcset]').getAttribute('data-srcset').split(', ')[0].split(' ')[0]
                 const title = document.querySelector('.product-title a').text.trim()
                 const priceNew = document.querySelector('.woocommerce-Price-amount.amount bdi').textContent.trim().replace('₺', '')
                 const longlink = document.querySelector('.product-title a').href
