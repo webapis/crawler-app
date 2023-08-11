@@ -18,7 +18,8 @@ async function handler(page, context) {
         if(productExist){
          productItems = await page.evaluate(() => document.querySelectorAll('.productItem').length)
         }
-    if(productItems.length>20){
+    if(productItems>20){
+        console.log('add next page')
         await requestQueue.addRequest({ url: `${url}?page=2`, userData: { start: false } })
     }
    
@@ -39,6 +40,7 @@ async function handler(page, context) {
     }
 
     if (productItems > 0) {
+        console.log('collecting product items length',productItems)
         data = await page.$$eval('.productItem', (productCards) => {
             return productCards.map(document => {
                     try {
@@ -91,7 +93,35 @@ async function handler(page, context) {
 }
 
 
-
+async function autoScroll(page) {
+    page.on("console", (message) => {
+      console.log("Message from Puppeteer page:", message.text());
+    });
+    await page.evaluate(async () => {
+      await new Promise((resolve, reject) => {
+        var totalHeight = 0;
+        var distance = 100;
+        let inc = 0;
+  
+        var timer = setInterval(() => {
+          var scrollHeight = document.body.scrollHeight;
+  
+          window.scrollBy(0, distance);
+          totalHeight += distance;
+          inc = inc + 1;
+          console.log("inc", inc);
+          if (totalHeight >= scrollHeight - window.innerHeight) {
+            if (inc === 50) {
+              clearInterval(timer);
+              resolve();
+            }
+          } else {
+            inc = 0;
+          }
+        }, 500);
+      });
+    });
+  }
 
 
 
