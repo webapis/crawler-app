@@ -12,9 +12,7 @@ const urls = [
     { url: 'https://www.xint.com.tr/kadin-gomlek' },
     { url: 'https://www.xint.com.tr/kadin-kazak' },
     { url: 'https://www.xint.com.tr/kadin-ayakkabi' },
-    { url: 'https://www.xint.com.tr/erkek-ust-giyim' },
-    { url: 'https://www.xint.com.tr/erkek-aksesuar' },
-    { url: 'https://www.xint.com.tr/erkek-populer-secimler' },
+
 ]
 
 module.exports={urls}

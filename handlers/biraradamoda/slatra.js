@@ -14,27 +14,32 @@ async function handler(page, context) {
 
 
     const data = await page.$$eval('.ItemOrj', (productCards) => {
-        return productCards.map(document => {
-            const title = document.querySelector(".productName.detailUrl a").innerHTML
-            const img =document.querySelector("a .productSliderImage")&& document.querySelector("a .productSliderImage").src
-            const priceNew = document.querySelector(".discountPrice span").innerText.replace('₺', '')
-            const link = document.querySelector(".productName.detailUrl a").href
-
-            return {
-                title: 'slatra ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew: priceNew,//.replace(',','.'),
-                imageUrl: img && img.substring(img.indexOf('https://static.ticimax.cloud/') + 29),
-                link: link.substring(link.indexOf('https://www.slatra.com.tr/') + 26),
-                timestamp: Date.now(),
-                marka: 'slatra',
-
-            }
-        })
+        try {
+            return productCards.map(document => {
+                const title = document.querySelector(".productName.detailUrl a").innerHTML
+                const img =document.querySelector("a .productSliderImage")&& document.querySelector("a .productSliderImage").src
+                const priceNew = document.querySelector(".discountPrice span").innerText.replace('₺', '')
+                const link = document.querySelector(".productName.detailUrl a").href
+    
+                return {
+                    title: 'slatra ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew: priceNew,//.replace(',','.'),
+                    imageUrl: img, // && img.substring(img.indexOf('https://static.ticimax.cloud/') + 29),
+                    link: link.substring(link.indexOf('https://www.slatra.com.tr/') + 26),
+                    timestamp: Date.now(),
+                    marka: 'slatra',
+    
+                }
+            }) 
+        } catch (error) {
+            return {error:error.toString(),content:document.innerHTML}
+        }
+      
     })
     console.log('data length_____', data.length, 'url:', url)
     debugger
 
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } }).filter(f => f.imageUrl !== null && f.title.length > 5)
+    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })//.//filter(f => f.imageUrl !== null && f.title.length > 5)
 }
 
 
