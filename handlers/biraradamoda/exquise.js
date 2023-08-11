@@ -11,22 +11,27 @@ async function handler(page, context) {
 
 
     const data = await page.$$eval('[data-id]', (productCards) => {
-        return productCards.map(document => {
-            const title = document.querySelector('h3[class^="style_nameContainer"]').innerText.trim()
-            const img = document.querySelector('div[class^="style_imageContainer"] img').src
-           // const img = document.querySelector('[srcset]') && document.querySelector('[srcset]').getAttribute('srcset').split(',').reverse()[0].trim()
-            const link = document.querySelector('div[class^="style_imageContainer"] a').href
-            const priceNew = Array.from(document.querySelector('div[class^="style_detailContainer"]').querySelectorAll('div')).map(m => m.innerText).reverse()[0]
-            return {
-                title: 'exquise ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' '),
-                priceNew: priceNew.replace('₺', ''),//.replace(',','.'),
-                imageUrl: img && img.substring(img.indexOf('https://cdn.myikas.com/') + 23),
-                link: link.substring(link.indexOf('https://exquise.com/') + 20),
-                timestamp: Date.now(),
-                marka: 'exquise',
-
-            }
-        })
+        try {
+            return productCards.map(document => {
+                const title = document.querySelector('h3[class^="style_nameContainer"]').innerText.trim()
+                const img = document.querySelector('div[class^="style_imageContainer"] img').src
+               // const img = document.querySelector('[srcset]') && document.querySelector('[srcset]').getAttribute('srcset').split(',').reverse()[0].trim()
+                const link = document.querySelector('div[class^="style_imageContainer"] a').href
+                const priceNew = Array.from(document.querySelector('div[class^="style_detailContainer"]').querySelectorAll('div')).map(m => m.innerText).reverse()[0]
+                return {
+                    title: 'exquise ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' '),
+                    priceNew: priceNew.replace('₺', ''),//.replace(',','.'),
+                    imageUrl: img && img.substring(img.indexOf('https://cdn.myikas.com/') + 23),
+                    link: link.substring(link.indexOf('https://exquise.com/') + 20),
+                    timestamp: Date.now(),
+                    marka: 'exquise',
+    
+                }
+            })  
+        } catch (error) {
+            return {error:error.toString(),content:document.content}
+        }
+    
     })
     console.log('data length_____', data.length, 'url:', url)
     debugger
