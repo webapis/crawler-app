@@ -12,23 +12,28 @@ async function handler(page, context) {
     const data = await page.$$eval('.product-item', (items) => {
 
         return items.map(document => {
-            let productTitle = document.querySelector('.product-item img').alt
+            try {
+                let productTitle = document.querySelector('.product-item img').alt
 
-            const priceNew = document.querySelector('.price').innerText.replace('TL', '').trim()
-            const longlink = document.querySelector('.name a').href
-            const link = longlink.substring(longlink.indexOf('https://miostil.com/') + 20)
-            const longImgUrl = document.querySelector('.product-item img').src
-            const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://miostil.com/') + 20)
-
-            return {
-                title: 'miostil ' + productTitle.replace(/\n/g, '').trim(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'miostil',
-
+                const priceNew = document.querySelector('.price').innerText.replace('TL', '').trim()
+                const longlink = document.querySelector('.name a').href
+                const link = longlink.substring(longlink.indexOf('https://miostil.com/') + 20)
+                const longImgUrl = document.querySelector('.product-item img').src
+                const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://miostil.com/') + 20)
+    
+                return {
+                    title: 'miostil ' + productTitle.replace(/\n/g, '').trim(),
+                    priceNew,
+                    imageUrl: imageUrlshort,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'miostil',
+    
+                } 
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
+    
         })
     });
 
