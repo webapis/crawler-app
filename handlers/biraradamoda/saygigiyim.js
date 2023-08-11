@@ -12,7 +12,7 @@ async function handler(page, context) {
                 const link = longlink.substring(longlink.indexOf("https://www.bysaygi.com/") + 24)
                 const longImgUrl =  document.querySelector('img[data-original]')&& document.querySelector('img[data-original]').getAttribute('data-original')
                 //const imageUrlshort = longImgUrl&& longImgUrl.substring(longImgUrl.indexOf('https://www.quzu.com.tr/') + 24)
-                const title = productCard.querySelector('.detailLink').getAttribute('title')
+                const title = document.querySelector('.detailLink').getAttribute('title')
     
                 return {
                     title: 'saygigiyim ' + title.replace(/İ/g, 'i').toLowerCase(),
