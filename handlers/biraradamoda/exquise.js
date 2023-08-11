@@ -13,16 +13,16 @@ async function handler(page, context) {
     const data = await page.$$eval('article', (productCards) => {
         try {
             return productCards.map(document => {
-                const color=document.querySelector('article a h3 ~ span').innerText
-                const title = document.querySelector('article a h3').innerText
-                const img = document.querySelector('article a picture source').getAttribute('srcset')
+                const color=document.querySelector('a h3 ~ span').innerText
+                const title = document.querySelector('a h3').innerText
+                const img = document.querySelector('a picture source').getAttribute('srcset')
                // const img = document.querySelector('[srcset]') && document.querySelector('[srcset]').getAttribute('srcset').split(',').reverse()[0].trim()
-                const link = document.querySelector('article a').href
-                const priceNew = Array.from(document.querySelector('article a h3').previousSibling.childNodes).reverse()[0].innerHTML.replace('₺','').trim()
+                const link = document.querySelector('a').href
+                const priceNew = Array.from(document.querySelector('a h3').previousSibling.childNodes).reverse()[0].innerHTML.replace('₺','').trim()
                 return {
                     title: 'exquise ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' ') + color,
                     priceNew: priceNew.replace('₺', ''),//.replace(',','.'),
-                    imageUrl: img && img.substring(img.indexOf('https://cdn.myikas.com/') + 23),
+                    imageUrl: img,// && img.substring(img.indexOf('https://cdn.myikas.com/') + 23),
                     link: link.substring(link.indexOf('https://exquise.com/') + 20),
                     timestamp: Date.now(),
                     marka: 'exquise',
