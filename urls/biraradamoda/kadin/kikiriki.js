@@ -1,6 +1,6 @@
 const urls = [
 
-    { url: 'https://tr.kikiriki.com/elbiseler', subcategory: ['elbise'], category: 'üst-giyim',node:'dream' },
+    { url: 'https://tr.kikiriki.com/elbiseler' },
 
 
     { url: 'https://tr.kikiriki.com/etekler', subcategory: ['elbise'], category: 'alt-giyim',node:'dream' },

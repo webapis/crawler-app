@@ -8,26 +8,28 @@ async function handler(page, context) {
 
 
     const data = await page.$$eval('.product-list-item', (productCards) => {
-        return productCards.map(productCard => {
-
-
-            const title = productCard.querySelector('.product-title a[title]').getAttribute('title').trim()
-            const priceNew = productCard.querySelector('.product-price span').textContent.replace('TL', '').trim()
-            const longlink = productCard.querySelector('.product-image a').href
-            const link = longlink.substring(longlink.indexOf("https://tr.kikiriki.com/") + 24)
-            const longImgUrl = productCard.querySelector('.product-image img') ===null ? productCard.querySelector('amp-img').getAttribute('src'): productCard.querySelector('.product-image img').src
-            const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf("https://cdn.vebigo.com/") + 23)
-            return {
-                title: 'kikiriki ' + title.replace(/İ/g,'i').toLowerCase(),
-                priceNew,//: priceNew.replace('.','').replace(',','.').trim(),
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'kikiriki',
-
-
+        return productCards.map(document => {
+            try {
+                const title = document.querySelector('.product-title a[title]').getAttribute('title').trim()
+                const priceNew = document.querySelector('.product-price span').textContent.replace('TL', '').trim()
+                const longlink = document.querySelector('.product-image a').href
+                const link = longlink.substring(longlink.indexOf("https://tr.kikiriki.com/") + 24)
+                const longImgUrl = document.querySelector('.product-image img') ===null ? document.querySelector('amp-img').getAttribute('src'): document.querySelector('.product-image img').src
+              //  const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf("https://cdn.vebigo.com/") + 23)
+                return {
+                    title: 'kikiriki ' + title.replace(/İ/g,'i').toLowerCase(),
+                    priceNew,//: priceNew.replace('.','').replace(',','.').trim(),
+                    imageUrl: longImgUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'kikiriki',
+                }
+            } catch (error) {
+                    return {error:error.toString(),content:document.innerHTML}
             }
-        }).filter(f => f.imageUrl !== null  && f.imageUrl.length>0 )
+
+       
+        })//.filter(f => f.imageUrl !== null  && f.imageUrl.length>0 )
     })
 
     console.log('data length_____', data.length, 'url:', url)
