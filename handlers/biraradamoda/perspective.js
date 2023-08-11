@@ -22,13 +22,13 @@ async function handler(page, context) {
             const longlink = productCard.querySelector('.carousel-item a').href
             const link = longlink.substring(longlink.indexOf("https://www.perspective.com.tr/") + 31)
 
-            const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf("https://cdn.sorsware.com/") + 25)
+           // const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf("https://cdn.sorsware.com/") + 25)
             return {
                 title: 'perspective ' + title.replace(/İ/g,'i').toLowerCase(),
 
                 priceNew,//: priceNew.replace('.', '').replace(',', '.').trim(),
 
-                imageUrl: imageUrlshort,
+                imageUrl: longImgUrl,
                 link,
 
                 timestamp: Date.now(),
