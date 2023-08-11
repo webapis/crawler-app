@@ -12,7 +12,8 @@ async function handler(page, context) {
    
     debugger
     if (start) {
-     
+        await page.waitForSelector('#Katalog')
+     console.log('start page')
         const productExist = await page.$('.productItem')
         if(productExist){
          productItems = await page.evaluate(() => document.querySelectorAll('.productItem').length)
@@ -23,6 +24,7 @@ async function handler(page, context) {
    
 
     } else if (!start) {
+        console.log('next page')
         const productExist = await page.$('.productItem')
         if(productExist){
             productItems = await page.evaluate(() => document.querySelectorAll('.productItem').length)
