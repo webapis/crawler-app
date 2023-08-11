@@ -40,33 +40,61 @@ async function handler(page, context) {
 }
 
 
-
-
-
 async function autoScroll(page) {
-    await page.evaluate(async () => {
-
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-                const items = document.querySelectorAll('[data-id]').length
-                const total = parseInt(document.querySelector('div[class^="style_productCount"]').innerText.replace(/[^\d]/g, ''))
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (items >= total) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 200);
-        });
+    page.on("console", (message) => {
+      console.log("Message from Puppeteer page:", message.text());
     });
-}
+    await page.evaluate(async () => {
+      await new Promise((resolve, reject) => {
+        var totalHeight = 0;
+        var distance = 100;
+        let inc = 0;
+  
+        var timer = setInterval(() => {
+          var scrollHeight = document.body.scrollHeight;
+  
+          window.scrollBy(0, distance);
+          totalHeight += distance;
+          inc = inc + 1;
+          console.log("inc", inc);
+          if (totalHeight >= scrollHeight - window.innerHeight) {
+            if (inc === 50) {
+              clearInterval(timer);
+              resolve();
+            }
+          } else {
+            inc = 0;
+          }
+        }, 500);
+      });
+    });
+  }
+
+
+// async function autoScroll(page) {
+//     await page.evaluate(async () => {
+
+
+//         await new Promise((resolve, reject) => {
+//             var totalHeight = 0;
+//             var distance = 100;
+//             let inc = 0
+//             var timer = setInterval(() => {
+//                 var scrollHeight = document.body.scrollHeight;
+//                 const items = document.querySelectorAll('[data-id]').length
+//                 const total = parseInt(document.querySelector('div[class^="style_productCount"]').innerText.replace(/[^\d]/g, ''))
+
+//                 window.scrollBy(0, distance);
+//                 totalHeight += distance;
+//                 inc = inc + 1
+//                 if (items >= total) {
+//                     clearInterval(timer);
+//                     resolve();
+//                 }
+//             }, 200);
+//         });
+//     });
+// }
 async function getUrls(page) {
 
     const pageUrls = []
