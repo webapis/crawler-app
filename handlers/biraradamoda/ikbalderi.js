@@ -10,22 +10,26 @@ async function handler(page, context) {
 
     const data = await page.$$eval('.product-small', (productCards) => {
         return productCards.map(document => {
-
-            const imageUrl = document.querySelector('.box-image').querySelectorAll('img')[0].src
-            const title = document.querySelector('.product-title a').text.trim()
-            const priceNew = document.querySelector('.woocommerce-Price-amount.amount bdi').textContent.trim().replace('₺', '')
-            const longlink = document.querySelector('.product-title a').href
-            const link = longlink.substring(longlink.indexOf("https://ikbalderi.com/") + 22)
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://ikbalderi.com/") + 22)
-            return {
-                title: 'ikbalderi ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'ikbalderi',
+            try {
+                const imageUrl = document.querySelector('.box-image').querySelectorAll('img')[0].src
+                const title = document.querySelector('.product-title a').text.trim()
+                const priceNew = document.querySelector('.woocommerce-Price-amount.amount bdi').textContent.trim().replace('₺', '')
+                const longlink = document.querySelector('.product-title a').href
+                const link = longlink.substring(longlink.indexOf("https://ikbalderi.com/") + 22)
+                const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://ikbalderi.com/") + 22)
+                return {
+                    title: 'ikbalderi ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew,
+                    imageUrl: imageUrlshort,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'ikbalderi',
+                }  
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
-        }).filter(f => f.imageUrl !== null && f.title.length > 10)
+        
+        })//.filter(f => f.imageUrl !== null && f.title.length > 10)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)

@@ -1,7 +1,7 @@
 
 async function handler(page, context) {
 
-
+debugger
     await page.waitForSelector('.list-content')
 
    await autoScroll(page)
@@ -29,7 +29,9 @@ async function handler(page, context) {
      
         })
     })
+debugger
 
+console.log('data length_____', data.length, 'url:', url)
     const formatprice = data.map((m) => {
         return { ...m, title: m.title + " _" + process.env.GENDER }
     })
