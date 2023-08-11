@@ -11,24 +11,28 @@ async function handler(page, context) {
     await autoScroll(page)
     const data = await page.$$eval('.productItem', (productCards) => {
         return productCards.map(document => {
-
-            const imageUrl = document.querySelector('a img').src
-            const title = document.querySelector('.productItem a[title]').innerText
-            const priceNew = document.querySelector('.currentPrice').innerText.replace('TL', '').trim()
-            const longlink = document.querySelector('.productItem a[title]').href
-         const link = longlink.substring(longlink.indexOf("https://www.tommylife.com.tr/") + 29)
-
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://cdn.tommylife.com.tr/") + 29)
-
-            return {
-                title: 'tommylife ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'tommylife',
+            try {
+                const imageUrl = document.querySelector('a img').src
+                const title = document.querySelector('.productItem a[title]').innerText
+                const priceNew = document.querySelector('.currentPrice').innerText.replace('TL', '').trim()
+                const longlink = document.querySelector('.productItem a[title]').href
+             const link = longlink.substring(longlink.indexOf("https://www.tommylife.com.tr/") + 29)
+    
+               // const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://cdn.tommylife.com.tr/") + 29)
+    
+                return {
+                    title: 'tommylife ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew,
+                    imageUrl, //imageUrlshort,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'tommylife',
+                }
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
-        }).filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
+      
+        })//.filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)

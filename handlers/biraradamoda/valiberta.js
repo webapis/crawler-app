@@ -11,13 +11,13 @@ async function handler(page, context) {
                 const longlink = document.querySelector('.detailLink').href
                 const link = longlink.substring(longlink.indexOf("https://www.valiberta.com/") + 26)
                 const longImgUrl = document.querySelector('img[data-original]') && document.querySelector('img[data-original]').getAttribute('data-original')
-                const imageUrlshort = longImgUrl&& longImgUrl.substring(longImgUrl.indexOf('https://static.ticimax.cloud/') + 29)
+               // const imageUrlshort = longImgUrl&& longImgUrl.substring(longImgUrl.indexOf('https://static.ticimax.cloud/') + 29)
                 const title = document.querySelector('.detailLink').getAttribute('title')
     
                 return {
                     title: 'valiberta ' + title.replace(/İ/g, 'i').toLowerCase(),
                     priceNew,//:priceNew.replace('.','').replace(',','.').trim(),
-                    imageUrl: imageUrlshort,
+                    imageUrl: longImgUrl,
                     link,
                     timestamp: Date.now(),
                     marka: 'valiberta',
