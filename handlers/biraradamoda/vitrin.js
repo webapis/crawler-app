@@ -5,7 +5,7 @@ async function handler(page, context) {
   debugger;
   await page.waitForSelector(".fl.col-12.catalogWrapper");
   const products = await page.evaluate(() => window.PRODUCT_DATA);
-  
+
 
   debugger;
 
@@ -37,27 +37,28 @@ async function handler(page, context) {
 }
 
 async function getUrls(page) {
-  debugger;
-  const url = await page.url();
-  await page.waitForSelector(".productPager");
-
-  const totalPages = await page.evaluate(() =>
-    Math.max(
-      ...Array.from(document.querySelectorAll(".productPager a[title]"))
-        .map((m) => m.getAttribute("title").replace(/[^\d]/g, ""))
-        .filter(Number)
-        .map((m) => parseInt(m))
-    )
-  );
-  debugger;
-  const pageUrls = [];
-
-  let pagesLeft = totalPages;
-  for (let i = 2; i <= totalPages; i++) {
-    pageUrls.push(`${url}?pg=` + i);
-    --pagesLeft;
+    debugger;
+    const url = await page.url();
+    const hasNextPage = await page.$(".productPager");
+    const pageUrls = [];
+    if (hasNextPage) {
+      const totalPages = await page.evaluate(() =>
+        Math.max(
+          ...Array.from(document.querySelectorAll(".productPager a[title]"))
+            .map((m) => m.getAttribute("title").replace(/[^\d]/g, ""))
+            .filter(Number)
+            .map((m) => parseInt(m))
+        )
+      );
+      debugger;
+  
+      let pagesLeft = totalPages;
+      for (let i = 2; i <= totalPages; i++) {
+        pageUrls.push(`${url}?pg=` + i);
+        --pagesLeft;
+      }
+    }
+  
+    return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
   }
-
-  return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
-}
 module.exports = { handler, getUrls };
