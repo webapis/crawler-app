@@ -8,23 +8,29 @@ async function handler(page, context) {
    
       let   data = await page.$$eval('.ems-prd', (items) => {
 
-            return items.map(item => {
-                const priceNew = item.querySelector('.ems-prd-price-last') && item.querySelector('.ems-prd-price-last').innerText.replace('₺', '').trim()
+            return items.map(document => {
+
+                try {
+                    const priceNew = document.querySelector('.ems-prd-price-last') && document.querySelector('.ems-prd-price-last').innerText.replace('₺', '').trim()
     
-                const longlink = item.querySelector('.ems-prd-link.btn-full').href
-                const link = longlink.substring(longlink.indexOf('https://www.machka.com.tr/urun/') + 31)
-                const longImgUrl = item.querySelector('.ems-responsive-item').getAttribute('data-image-src')
-                const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://machka.mncdn.com/mnresize/660/-//Machka/products/') + 57)
-    
-                return {
-                    title: 'machka ' + item.querySelector('.ems-prd-title').innerText.replace(/İ/g,'i').toLowerCase(),
-                    priceNew,//: priceNew.replace('.', '').replace(',00', '').trim(),
-                    imageUrl: imageUrlshort,
-                    link,
-                    timestamp: Date.now(),
-                    marka: 'machka',
-    
+                    const longlink = document.querySelector('.ems-prd-link.btn-full').href
+                    const link = longlink.substring(longlink.indexOf('https://www.machka.com.tr/urun/') + 31)
+                    const longImgUrl = document.querySelector('.ems-responsive-item').getAttribute('data-image-src')
+                  //  const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://machka.mncdn.com/mnresize/660/-//Machka/products/') + 57)
+        
+                    return {
+                        title: 'machka ' + document.querySelector('.ems-prd-title').innerText.replace(/İ/g,'i').toLowerCase(),
+                        priceNew,//: priceNew.replace('.', '').replace(',00', '').trim(),
+                        imageUrl: longImgUrl,
+                        link,
+                        timestamp: Date.now(),
+                        marka: 'machka',
+        
+                    }
+                } catch (error) {
+                    return {error:error.toString(),context:document.innerHTML}
                 }
+           
             })
         });
     

@@ -19,12 +19,12 @@ async function handler(page, context) {
                 const longlink = document.querySelector('.name a').href
                 const link = longlink.substring(longlink.indexOf('https://miostil.com/') + 20)
                 const longImgUrl = document.querySelector('.product-item img').src
-                const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://miostil.com/') + 20)
+              //  const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://miostil.com/') + 20)
     
                 return {
                     title: 'miostil ' + productTitle.replace(/\n/g, '').trim(),
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl: longImgUrl,
                     link,
                     timestamp: Date.now(),
                     marka: 'miostil',
