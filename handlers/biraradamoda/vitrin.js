@@ -1,8 +1,11 @@
 async function handler(page, context) {
+    const { request: { userData: { start } } } = context
+
   const url = await page.url();
   debugger;
   await page.waitForSelector(".fl.col-12.catalogWrapper");
   const products = await page.evaluate(() => window.PRODUCT_DATA);
+  
 
   debugger;
 
