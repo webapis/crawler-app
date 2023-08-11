@@ -8,21 +8,25 @@ async function handler(page, context) {
     debugger
     const data = await page.$$eval('.product-item-wrapper', (productCards) => {
         return productCards.map(document => {
-
-            const title = document.querySelector('.product-name a').innerText
-            const img= document.querySelector(".product-item-image-link [data-default-img]")?document.querySelector(".product-item-image-link [data-default-img]").getAttribute('data-default-img'):(document.querySelector(".product-item-image-link .product-item-image")?document.querySelector(".product-item-image-link .product-item-image").src: null)
-            const priceNew =document.querySelector('.product-sale-price').innerText.replace('TL','').trim()
-            const link = document.querySelector('.product-name a').href
-
-            return {
-                title: 'kigili '+title.replace(/İ/g,'i').replaceAll('-',' ').toLowerCase(),
-                priceNew,//:priceNew.replace(',','.'),
-                imageUrl:img&& img.substring(img.indexOf('https://kigili.akinoncdn.com/')+29),
-                link:link.substring(link.indexOf('https://www.kigili.com/')+23),
-                timestamp: Date.now(),
-                marka: 'kigili',
-
-            }
+                try {
+                    const title = document.querySelector('.product-name a').innerText
+                    const img= document.querySelector(".product-item-image-link [data-default-img]")?document.querySelector(".product-item-image-link [data-default-img]").getAttribute('data-default-img'):(document.querySelector(".product-item-image-link .product-item-image")?document.querySelector(".product-item-image-link .product-item-image").src: null)
+                    const priceNew =document.querySelector('.product-sale-price').innerText.replace('TL','').trim()
+                    const link = document.querySelector('.product-name a').href
+        
+                    return {
+                        title: 'kigili '+title.replace(/İ/g,'i').replaceAll('-',' ').toLowerCase(),
+                        priceNew,//:priceNew.replace(',','.'),
+                        imageUrl:img,//&& img.substring(img.indexOf('https://kigili.akinoncdn.com/')+29),
+                        link:link.substring(link.indexOf('https://www.kigili.com/')+23),
+                        timestamp: Date.now(),
+                        marka: 'kigili',
+        
+                    } 
+                } catch (error) {
+                    return {error:error.toString(),content:document.innerHTML}
+                }
+     
         })
     })
 
@@ -31,7 +35,7 @@ async function handler(page, context) {
     })
 
 debugger
-    return formatprice.filter(f => f.imageUrl !== null  && f.imageUrl.length>0 )
+    return formatprice//.filter(f => f.imageUrl !== null  && f.imageUrl.length>0 )
 
 
 
