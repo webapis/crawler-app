@@ -5,8 +5,8 @@ async function handler(page, context) {
 
     const { request: { userData: { start } } } = context
     const url = await page.url()
-    const nextPageExists =await page.$('.category-product')
-    if(nextPageExists){
+    const nextPageExists =await page.evaluate(()=>document.querySelector('[data-dllist="category"] .listitempage').childNodes.length)
+    if(nextPageExists>2){
 
         const requestQueue = await RequestQueue.open();
         debugger
