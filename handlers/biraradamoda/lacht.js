@@ -10,24 +10,29 @@ async function handler(page, context) {
     await autoScroll(page)
     const data = await page.$$eval('.card-product', (productCards) => {
         return productCards.map(document => {
-
+            try {
+              
             const imageUrl = document.querySelector('.image img').src
             const title = document.querySelector('.card-product-inner .title').innerText.trim()
             const priceNew = document.querySelector('.sale-price').innerText.replace('TL', '').trim()
             const longlink = document.querySelector('a.c-p-i-link').href
             const link = longlink.substring(longlink.indexOf("https://www.lacht.com.tr") + 24)
 
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://cdn.qukasoft.com") + 24)
+          //  const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://cdn.qukasoft.com") + 24)
 
             return {
                 title: 'lacht ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'lacht',
+            }  
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
-        }).filter(f => f.imageUrl !== null && f.title.length > 5)
+
+        })//.filter(f => f.imageUrl !== null && f.title.length > 5)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
