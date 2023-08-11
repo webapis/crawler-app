@@ -94,7 +94,7 @@ require('dotenv').config()
                 // depending on your requirements
                 // For example, set it to 30000 (30 seconds)
              //  protocolTimeout:process.env.marka==="bershka"?600000:60000,
-                headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
+                headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
                    // `--window-size=1200,1250`,
                     "--allow-insecure-localhost",
                     //  "--user-data-dir=/tmp/foo",
