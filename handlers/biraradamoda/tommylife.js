@@ -6,9 +6,10 @@ async function handler(page, context) {
     const url = await page.url()
     debugger
     await page.waitForSelector('.catalogWrapper')
+    await page.waitForSelector('span b')
     debugger
 
-    await autoScroll(page)
+  //  await autoScroll(page)
     const data = await page.$$eval('.productItem', (productCards) => {
         return productCards.map(document => {
             try {
@@ -76,22 +77,13 @@ async function autoScroll(page) {
     });
 }
 async function getUrls(page) {
-    //  const url = await page.url()
-    //  await page.waitForSelector('.page_numbers span')
-    // const productCount = await page.$eval('.catalog__meta--product-count span', element => parseInt(element.innerHTML))
-    //const totalPages = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.page_numbers span')).map(m => m.innerHTML).filter(Number)))
+  const url = await page.url()
+      await page.waitForSelector('span b')
+     const productCount = await page.$eval('span b', element => parseInt(element.innerText))
+    const totalPages =  Math.round(productCount/4) //await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.page_numbers span')).map(m => m.innerHTML).filter(Number)))
     const pageUrls = []
+    pageUrls.push(`${url}?ps=` + totalPages)
 
-    // let pagesLeft = totalPages
-    // for (let i = 2; i <= totalPages; i++) {
-
-
-
-    //     pageUrls.push(`${url}?page=` + i)
-    //     --pagesLeft
-
-
-    // }
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
