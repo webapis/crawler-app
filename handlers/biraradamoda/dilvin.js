@@ -5,51 +5,58 @@ async function handler(page, context) {
 
     const { request: { userData: { start } } } = context
     const url = await page.url()
-    await page.waitForSelector('.category-product')
+    const nextPageExists =await page.$('.category-product')
+    if(nextPageExists){
 
-    const requestQueue = await RequestQueue.open();
-debugger
-if(start){
-
-    await requestQueue.addRequest({ url: `${url}?rpg=2`, userData: { start: false } })
-}else{
-
-    const currentPage = url.substring(url.indexOf('='))
-    const nextPage = parseInt(url.substring(url.indexOf('=') + 1)) + 1
-    const nextUrl = url.replace(currentPage, `=${nextPage}`)
-    debugger
-    await requestQueue.addRequest({ url: nextUrl, userData: { start: false } })
-}
-   
-debugger
-    const data = await page.$$eval('.product', (productCards) => {
-        return productCards.map(document => {
-                try {
-                    const title = document.querySelector('.dl-event')? document.querySelector('.dl-event').getAttribute('title'): document.querySelector('.image-hover.hover-nav a').getAttribute('title')
-                    const img= document.querySelector('.dl-event img')? document.querySelector('.dl-event img').getAttribute('data-src'):document.querySelector('.image-hover.hover-nav a img').src
-                    const priceNew =document.querySelector('.price-sales') ?document.querySelector('.price-sales').innerHTML.replace('TL','').trim():(document.querySelector('.camp-price') ? document.querySelector('.camp-price').innerHTML.replace('TL','').trim():null)
-                    const link = document.querySelector('.dl-event')? document.querySelector('.dl-event').href:document.querySelector('.image-hover.hover-nav a').href
+        const requestQueue = await RequestQueue.open();
+        debugger
+        if(start){
         
-                    return {
-                        title: 'dilvin '+title.replace(/İ/g,'i').replaceAll('-',' ').toLowerCase(),
-                        priceNew,//:priceNew.replace(',','.'),
-                        imageUrl: img.substring(img.indexOf('https://kvyfm6d9dll6.merlincdn.net/productimages/')+49),
-                        link:link.substring(link.indexOf('https://www.dilvin.com.tr/')+26),
-                        timestamp: Date.now(),
-                        marka: 'dilvin',
+            await requestQueue.addRequest({ url: `${url}?rpg=2`, userData: { start: false } })
+        }else{
         
-                    }    
-                } catch (error) {
-                    return {error:error.toString(),content:document.innerHTML}
-                }
-    
-        }).filter(f => f.priceNew !== null)
-    })
+            const currentPage = url.substring(url.indexOf('='))
+            const nextPage = parseInt(url.substring(url.indexOf('=') + 1)) + 1
+            const nextUrl = url.replace(currentPage, `=${nextPage}`)
+            debugger
+            await requestQueue.addRequest({ url: nextUrl, userData: { start: false } })
+        }
+           
+        debugger
+            const data = await page.$$eval('.product', (productCards) => {
+                return productCards.map(document => {
+                        try {
+                            const title = document.querySelector('.dl-event')? document.querySelector('.dl-event').getAttribute('title'): document.querySelector('.image-hover.hover-nav a').getAttribute('title')
+                            const img= document.querySelector('.dl-event img')? document.querySelector('.dl-event img').getAttribute('data-src'):document.querySelector('.image-hover.hover-nav a img').src
+                            const priceNew =document.querySelector('.price-sales') ?document.querySelector('.price-sales').innerHTML.replace('TL','').trim():(document.querySelector('.camp-price') ? document.querySelector('.camp-price').innerHTML.replace('TL','').trim():null)
+                            const link = document.querySelector('.dl-event')? document.querySelector('.dl-event').href:document.querySelector('.image-hover.hover-nav a').href
+                
+                            return {
+                                title: 'dilvin '+title.replace(/İ/g,'i').replaceAll('-',' ').toLowerCase(),
+                                priceNew,//:priceNew.replace(',','.'),
+                                imageUrl: img.substring(img.indexOf('https://kvyfm6d9dll6.merlincdn.net/productimages/')+49),
+                                link:link.substring(link.indexOf('https://www.dilvin.com.tr/')+26),
+                                timestamp: Date.now(),
+                                marka: 'dilvin',
+                
+                            }    
+                        } catch (error) {
+                            return {error:error.toString(),content:document.innerHTML}
+                        }
+            
+                }).filter(f => f.priceNew !== null)
+            })
+        
+            console.log('data length_____', data.length, 'url:', url)
+        
+        debugger
+            return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+    }else{
 
-    console.log('data length_____', data.length, 'url:', url)
+        return []
+    }
 
-debugger
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+
 }
 async function autoScroll(page) {
     await page.evaluate(async () => {
