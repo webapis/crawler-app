@@ -9,22 +9,26 @@ debugger
 
     debugger;
 
-   const data = products.map(product => {
-   
-            const longImage =product.image
-            const title = product.name
-            const priceNew = product.total_sale_price//.toString().replace('.',',')
-            const link = product.url
-  
-            return {
-                title:'xint '+title.replace(/İ/g,'i').toLowerCase(),
-                priceNew,
-                imageUrl: longImage.substring(longImage.indexOf('https://www.xint.com.tr/') + 24),
-                link,
-                timestamp: Date.now(),
-                marka: 'xint',
+   const data = products.map(document => {
+   try {
+    const longImage =document.image
+    const title = document.name
+    const priceNew = document.total_sale_price//.toString().replace('.',',')
+    const link = document.url
 
-            }
+    return {
+        title:'xint '+title.replace(/İ/g,'i').toLowerCase(),
+        priceNew,
+        imageUrl: longImage,//.substring(longImage.indexOf('https://www.xint.com.tr/') + 24),
+        link,
+        timestamp: Date.now(),
+        marka: 'xint',
+
+    }
+   } catch (error) {
+    return {error:error.toString(),content:document.innerHTML}
+   }
+          
         })
 
 
