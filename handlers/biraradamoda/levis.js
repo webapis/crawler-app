@@ -9,24 +9,28 @@ async function handler(page, context) {
 
     const data = await page.$$eval('[data-js="p-item"]', (productCards) => {
         return productCards.map(document => {
-
-            const imageUrl = document.querySelector('.image img') ? document.querySelector('.image img').src : null
-            const title = document.querySelector('.image a').getAttribute('title')
-            const priceNew = document.querySelector('.one-price') ? document.querySelector('.one-price').innerText.replace('TL', '').trim() : document.querySelector('.new-price').innerText.replace('TL', '').trim()
-            const longlink = document.querySelector('.image a').href
-            const link = longlink.substring(longlink.indexOf("https://www.levis.com.tr/") + 25)
-
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://st-levis.mncdn.com/") + 27)
-
-            return {
-                title: 'levis ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'levis',
+            try {
+                const imageUrl = document.querySelector('.image img') ? document.querySelector('.image img').src : null
+                const title = document.querySelector('.image a').getAttribute('title')
+                const priceNew = document.querySelector('.one-price') ? document.querySelector('.one-price').innerText.replace('TL', '').trim() : document.querySelector('.new-price').innerText.replace('TL', '').trim()
+                const longlink = document.querySelector('.image a').href
+                const link = longlink.substring(longlink.indexOf("https://www.levis.com.tr/") + 25)
+    
+             //   const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://st-levis.mncdn.com/") + 27)
+    
+                return {
+                    title: 'levis ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew,
+                    imageUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'levis',
+                }
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
-        }).filter(f => f.imageUrl !== null && f.title.length > 5)
+       
+        }) //.filter(f => f.imageUrl !== null && f.title.length > 5)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
