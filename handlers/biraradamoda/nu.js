@@ -16,12 +16,12 @@ async function handler(page, context) {
             const longlink = document.querySelector('.product--item-title a').href
             const link = longlink.substring(longlink.indexOf("https://www.nu.com.tr/") + 22)
             const longImgUrl = imageUrl && imageUrl.substring(imageUrl.indexOf('//cdn.shopify.com/')+18)
-            const imageUrlshort = imageUrl && longImgUrl.substring(longImgUrl.indexOf("//") + 1)
+          //  const imageUrlshort = imageUrl && longImgUrl.substring(longImgUrl.indexOf("//") + 1)
 
             return {
                 title: 'nu ' + title.replace(/İ/g,'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl: longImgUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'nu',
