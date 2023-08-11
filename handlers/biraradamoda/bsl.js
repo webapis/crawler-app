@@ -21,12 +21,12 @@ async function handler(page, context) {
             const longlink =document.querySelector('button.AddToCart')? document.querySelector('button.AddToCart').getAttribute('data-producturl'):null
             const link = longlink?longlink.substring(1):null
             const longImgUrl =document.querySelector('[data-src]')? document.querySelector('[data-src]').getAttribute('data-src'):null
-            const imageUrlshort =longImgUrl? longImgUrl.substring(longImgUrl.indexOf("https://cdn3.sorsware.com/") + 26):null
+        //    const imageUrlshort =longImgUrl? longImgUrl.substring(longImgUrl.indexOf("https://cdn3.sorsware.com/") + 26):null
             const title =document.querySelector('button.AddToCart')? document.querySelector('button.AddToCart').getAttribute('data-productname') + ' ' + document.querySelector('button.AddToCart').getAttribute('data-colorname'):null
             return {
                 title: 'bsl ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl: longImgUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'bsl',
