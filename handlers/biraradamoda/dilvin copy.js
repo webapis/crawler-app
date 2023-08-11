@@ -1,26 +1,12 @@
 
-
-const { RequestQueue  } =require ('crawlee');
 async function handler(page, context) {
 
-    const { request: { userData: { start } } } = context
+
     const url = await page.url()
-    await page.waitForSelector('.category-product')
-
-    const requestQueue = await RequestQueue.open();
 debugger
-if(start){
-
-    await requestQueue.addRequest({ url: `${url}?rpg=2`, userData: { start: false } })
-}else{
-
-    const currentPage = url.substring(url.indexOf('='))
-    const nextPage = parseInt(url.substring(url.indexOf('=') + 1)) + 1
-    const nextUrl = url.replace(currentPage, `=${nextPage}`)
+    await page.waitForSelector('.category-product')
     debugger
-    await requestQueue.addRequest({ url: nextUrl, userData: { start: false } })
-}
-   
+  await autoScroll(page)
 debugger
     const data = await page.$$eval('.product', (productCards) => {
         return productCards.map(document => {
