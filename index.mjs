@@ -198,9 +198,11 @@ require('dotenv').config()
     await crawler.run();
     const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[key] === curr[key]) ? prev : prev.push(curr) && prev, []);
 
-
+debugger
     const { items: productItems } = await productsDataset.getData();
+    debugger
     const withError =productItems.filter(f=>f.error)
+    debugger
     if(withError.length>0){
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)

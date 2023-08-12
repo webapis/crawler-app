@@ -4,10 +4,10 @@ async function handler(page, context) {
 
 
     const url = await page.url()
-    debugger
+
     await page.waitForSelector('.catalogWrapper')
     await page.waitForSelector('span b')
-    debugger
+
 
   //  await autoScroll(page)
     const data = await page.$$eval('.productItem', (productCards) => {
@@ -38,7 +38,7 @@ async function handler(page, context) {
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
 
-    debugger
+
     console.log("process.env.GENDER ")
 
     const formatprice = data.map((m) => {

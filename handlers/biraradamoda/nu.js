@@ -22,7 +22,7 @@ async function handler(page, context) {
                 title: 'nu ' + title.replace(/İ/g,'i').toLowerCase(),
                 priceNew,
                 imageUrl: longImgUrl,
-                link,
+                link:longlink,
                 timestamp: Date.now(),
                 marka: 'nu',
             }
