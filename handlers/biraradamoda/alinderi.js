@@ -17,12 +17,12 @@ async function handler(page, context) {
             const longlink = document.querySelector('.product-title a').href
             const link = longlink.substring(longlink.indexOf("https://www.alinderi.com.tr/") + 28)
 
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://www.alinderi.com.tr/") + 28)
+          //  const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://www.alinderi.com.tr/") + 28)
 
             return {
                 title: 'alinderi ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'alinderi',
