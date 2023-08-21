@@ -14,6 +14,7 @@ const urls = [
     { url: 'https://www.koton.com/kadin-sac-aksesuarlari'},
     { url: 'https://www.koton.com/kadin-kozmetik'},
     { url: 'https://www.koton.com/kadin-sal'},
+    {url:'https://www.koton.com/kadife-elbise-kadin'}
 
 
 ]
