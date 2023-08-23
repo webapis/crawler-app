@@ -70,7 +70,7 @@ async function autoScroll(page) {
     
           const collectedItems = document.querySelectorAll(".list__products .product-item").length;
        
-          if (collectedItems === totalItems) {
+          if (collectedItems >= totalItems) {
             clearInterval(timer);
             resolve();
           }
