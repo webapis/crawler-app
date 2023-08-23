@@ -60,7 +60,18 @@ async function autoScroll(page) {
       });
   await page.evaluate(async () => {
     const totalItems = parseInt( document.querySelector(".result.-only-desktop").textContent.replace(/[^\d]/g, ""))
-
+    function percentageDifference(a, b) {
+      // Calculate the absolute difference between the two numbers.
+      let difference = a - b;
+    
+      // Calculate the average of the two numbers.
+      let average = (a + b) / 2;
+    
+      // Calculate the percentage difference.
+      let percentage = difference / average * 100;
+    
+      return percentage;
+    }
     await new Promise((resolve, reject) => {
       var totalHeight = 0;
       var distance = 100;
@@ -70,7 +81,7 @@ async function autoScroll(page) {
     
           const collectedItems = document.querySelectorAll(".list__products .product-item").length;
        
-          if (collectedItems >= totalItems) {
+          if (Math.round(percentageDifference(totalItems,collectedItems) )<=1) {
             clearInterval(timer);
             resolve();
           }
