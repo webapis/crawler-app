@@ -72,7 +72,9 @@ require('dotenv').config()
 
     }
 
-
+const longertimeconsumers =['koton']
+const protocolTimeout =longertimeconsumers.find(f=>f===marka)? 600000:120000
+console.log('protocolTimeout',protocolTimeout)
     const crawler = new PuppeteerCrawler({
         // requestList,
         requestQueue,
@@ -93,7 +95,7 @@ require('dotenv').config()
                 // increase protocolTimeout value to a higher timeout
                 // depending on your requirements
                 // For example, set it to 30000 (30 seconds)
-               protocolTimeout: 600000,//process.env.marka==="bershka"?600000:60000,
+               protocolTimeout,
                 headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
                    // `--window-size=1200,1250`,
                     "--allow-insecure-localhost",
