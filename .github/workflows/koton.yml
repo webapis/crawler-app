@@ -9,7 +9,7 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       GENDER: kadin
-      maxconcurrency: '5'
+      maxconcurrency: '1'
       WEBSITE: 'biraradamoda'
       marka: 'koton'
     secrets: inherit
@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       GENDER: erkek
-      maxconcurrency: '5'
+      maxconcurrency: '1'
       WEBSITE: 'biraradamoda'
       marka: 'koton'
     secrets: inherit
@@ -25,7 +25,7 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       GENDER: kcocuk
-      maxconcurrency: '5'
+      maxconcurrency: '1'
       WEBSITE: 'biraradamoda'
       marka: 'koton'
     secrets: inherit
@@ -33,7 +33,7 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       GENDER: ecocuk
-      maxconcurrency: '5'
+      maxconcurrency: '1'
       WEBSITE: 'biraradamoda'
       marka: 'koton'
     secrets: inherit
