@@ -14,30 +14,30 @@ debugger
   const data = await page.$$eval('.list__products .product-item', (productCards) => {
 
     
-function extractColorWordFromString(inputString) {
-  // List of color words in Turkish
-  const colorWords = [
-    'siyah', 'beyaz', 'kırmızı', 'mavi', 'yeşil', 'sarı', 'turuncu', 'mor',
-    'pembe', 'bordo', 'kahverengi', 'beyaz', 'lacivert', 'gri', 'krem', 'bej',
-    'buz mavisi', 'açık mavi', 'koyu mavi', 'fuşya', 'antrasit', 'kumral',
-    'altın rengi', 'gümüş rengi', 'bronz', 'gül rengi', 'haki', 'açık yeşil',
-    'koyu yeşil', 'açık pembe', 'koyu pembe', 'turkuaz', 'lavanta', 'eflatun',
-    'nane yeşili', 'somon', 'mercan', 'misket limonu', 'zümrüt yeşili',
-    'safir mavisi', 'çikolata kahvesi', 'teknede mavi', 'tüy rengi', 'zeytin yeşili',
-    'gök mavisi', 'menekşe rengi', 'soluk mavi', 'briket kırmızısı', 'peach',
-    'açık gri', 'koyu gri', 'lila', 'çam rengi', 'mürdüm', 'parlament mavisi',
-    'zambak rengi', 'buz mavisi', 'hardal', 'hardal sarısı', 'fuşya', 'antik beyaz',
-    'antik pembe', 'pastel yeşil', 'pastel mavi', 'pastel mor', 'pastel sarı',
-    'pastel turuncu', 'pastel pembe', 'pastel kırmızı', 'pastel gri', 'pastel kahverengi'
-    // Add even more color words as needed
-  ];
+// function extractColorWordFromString(inputString) {
+//   // List of color words in Turkish
+//   const colorWords = [
+//     'siyah', 'beyaz', 'kırmızı', 'mavi', 'yeşil', 'sarı', 'turuncu', 'mor',
+//     'pembe', 'bordo', 'kahverengi', 'beyaz', 'lacivert', 'gri', 'krem', 'bej',
+//     'buz mavisi', 'açık mavi', 'koyu mavi', 'fuşya', 'antrasit', 'kumral',
+//     'altın rengi', 'gümüş rengi', 'bronz', 'gül rengi', 'haki', 'açık yeşil',
+//     'koyu yeşil', 'açık pembe', 'koyu pembe', 'turkuaz', 'lavanta', 'eflatun',
+//     'nane yeşili', 'somon', 'mercan', 'misket limonu', 'zümrüt yeşili',
+//     'safir mavisi', 'çikolata kahvesi', 'teknede mavi', 'tüy rengi', 'zeytin yeşili',
+//     'gök mavisi', 'menekşe rengi', 'soluk mavi', 'briket kırmızısı', 'peach',
+//     'açık gri', 'koyu gri', 'lila', 'çam rengi', 'mürdüm', 'parlament mavisi',
+//     'zambak rengi', 'buz mavisi', 'hardal', 'hardal sarısı', 'fuşya', 'antik beyaz',
+//     'antik pembe', 'pastel yeşil', 'pastel mavi', 'pastel mor', 'pastel sarı',
+//     'pastel turuncu', 'pastel pembe', 'pastel kırmızı', 'pastel gri', 'pastel kahverengi'
+//     // Add even more color words as needed
+//   ];
 
-  const lowerCaseInput = inputString.toLowerCase();
+//   const lowerCaseInput = inputString.toLowerCase();
 
-  const matchedColorWord = colorWords.find(color => lowerCaseInput.includes(color));
+//   const matchedColorWord = colorWords.find(color => lowerCaseInput.includes(color));
 
-  return matchedColorWord || null;
-}
+//   return matchedColorWord || null;
+// }
 
     return productCards.map(document => {
 try {
@@ -104,14 +104,14 @@ async function autoScroll(page) {
       let inc = 0;
       var timer = setInterval(() => {
         
-        const loading = document.querySelector('.js-loader-area.list__products-loadmore-container.passive')
+       // const loading = document.querySelector('.js-loader-area.list__products-loadmore-container.passive')
     
           const collectedItems = document.querySelectorAll(".list__products .product-item").length;
   
           const percentage =percentageDifference(totalItems,collectedItems)
      
 
-          if(percentage ===NaN || percentage>1){
+          if(percentage ===NaN || percentage>1 || collectedItems >=1500){
 
             window.scrollBy(0, distance);
             totalHeight += distance;
