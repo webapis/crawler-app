@@ -3,7 +3,7 @@ async function handler(page, context) {
 
   const url = await page.url();
 
-
+console.log('url--start--',url)
   await page.waitForSelector(".result.-only-desktop");
   //   const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
   debugger;
