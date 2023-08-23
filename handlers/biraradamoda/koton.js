@@ -1,173 +1,115 @@
 
-const {  RequestQueue } =require('crawlee');
 async function handler(page, context) {
-    const { request:{userData:{ start, detailPage}}  } = context
-    const url = await page.url()
-    const requestQueue = await RequestQueue.open();
-debugger
-    if (start) {
-    debugger
-        await page.waitForSelector('.result.-only-desktop')
-        const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
-       debugger
-  const scroll=  await   autoScroll(page)
-  debugger
-       console.log('scroll',scroll)
-        // const totalPages = Math.ceil(productCount / 59)
-        // const pageUrls = []
 
-        // let pagesLeft = totalPages
-        // for (let i = 1; i <= totalPages; i++) {
+  const url = await page.url();
 
 
-        //     if (pagesLeft > 0) {
+  await page.waitForSelector(".result.-only-desktop");
+  //   const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
+  debugger;
 
-        //         pageUrls.push(`${url}?page=` + i)
-        //        await requestQueue.addRequest({ url:`${url}?page=` + i, userData:{ start: false}  })
-        //         --pagesLeft
-        //     }
-
-        // }
-        await page.waitForSelector('.list__products')
-        const data = await page.evaluate(() => {
-            const productCards = Array.from(document.querySelectorAll('.js-product-wrapper.product-item'))
-            return productCards.map(productCard => {
-                const longLink = productCard.querySelector('.js-product-wrapper.product-item a').href
-                return {
-                    link: longLink,
-                }
-            })
-        })
-        for (let url of data) {
-           await requestQueue.addRequest({ url:url.link, userData:{ start: false,detailPage: true}  })
-        }
-debugger
-        return []
-    }
-
-
-
-    if (detailPage) {
-        try {
-            debugger
-            await page.waitForSelector('.product-media__slider img')
-            debugger
-                    const data = await page.evaluate(() => {
-                            const imageUrl =document.querySelector('.product-media__slider img').src
-                        return [{
-                            title: 'koton ' + document.querySelector('.product-info__header-title').innerText.toLowerCase() + ' ' + document.querySelector('.pz-variant__selected').innerText.substring(6),
-                            priceNew: document.querySelector('pz-price').innerText.replace('TL', '').trim(),//: newPrice.replace(',', '.').trim(),
-                            imageUrl:imageUrl.substring(imageUrl.indexOf('https://ktnimg2.mncdn.com/')+26) ,
-                            link: location.href.substring(location.href.indexOf('https://www.koton.com/')+22),
-                            timestamp: Date.now(),
-                            marka: 'koton',
-                        }]
-                    })
-            debugger
-                    console.log('data length_____', data.length, 'url:', url)
-                    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
-        } catch (error) {
-            debugger
-
-            return error
-        }
+  await autoScroll(page);
 debugger
 
+  const data = await page.$$eval('.list__products .product-item', (productCards) => {
+    return productCards.map(document => {
+try {
+    const imageUrl = document.querySelector('img').src
+    const title = document.querySelector('.product-item__info-name a').innerHTML.trim()
+    const priceNew = document.querySelector('.product-item__info-price pz-price').innerText.replace('TL','').trim()
+    const longlink = document.querySelector('.product-item__info-name a').href
+    const link = longlink.substring(longlink.indexOf("koton.com/") + 10)
+//    const longImgUrl = imageUrl && 'https:' + imageUrl.substring(imageUrl.lastIndexOf('//'), imageUrl.lastIndexOf('.jpg') + 4)
+ //   const imageUrlshort = imageUrl && longImgUrl.substring(longImgUrl.indexOf("https://dfcdn.defacto.com.tr/") + 29)
 
-
-
-
-    }
+    return {
+        title: 'koton ' + title.replace(/İ/g,'i').toLowerCase(),
+        priceNew,
+        imageUrl,
+        link,
+        timestamp: Date.now(),
+        marka: 'koton',
+    } 
+} catch (error) {
+    return {error:error.toString(),content:document.innerHTML}
 }
+
+    }).filter(f => f.imageUrl.length>0 && f.title.length > 5)
+})
+debugger
+console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
+
+
+console.log("process.env.GENDER ")
+const formatprice = data.map((m) => {
+    return { ...m, title: m.title + " _" + process.env.GENDER }
+})
+
+
+return formatprice
+}
+
+
 
 
 
 async function autoScroll(page) {
-    await page.evaluate(async () => {
-        const totalItems = parseInt(document.querySelector('.result.-only-desktop').textContent.replace(/[^\d]/g, '').trim())
+    debugger
+    page.on("console", (message) => {
+        console.log("Message from Puppeteer page:", message.text());
+      });
+  await page.evaluate(async () => {
+    const totalItems = parseInt( document.querySelector(".result.-only-desktop").textContent.replace(/[^\d]/g, ""))
 
-
-   return      await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
+    await new Promise((resolve, reject) => {
+      var totalHeight = 0;
+      var distance = 100;
+      let inc = 0;
+      var timer = setInterval(() => {
+        const loading = document.querySelector('.js-loader-area.list__products-loadmore-container.passive')
     
-                const totalCollected = document.querySelectorAll('.product-item').length
-          
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalCollected === totalItems) {
-                    window.scrollBy(0, distance);
-             
-                    clearInterval(timer);
-                    resolve({totalCollected,totalItems});
-                }
-            }, 200);
-        });
+          const collectedItems = document.querySelectorAll(".list__products .product-item").length;
+       
+          if (collectedItems === totalItems) {
+            clearInterval(timer);
+            resolve();
+          }
+          else{
+         //   if(loading===null){
+              window.scrollBy(0, distance);
+              totalHeight += distance;
+              inc = inc + 1;
+              console.log("inc", inc,totalItems,collectedItems);
+
+           // }
+
+          }
+        
+     
+   
+      }, 200);
     });
+  });
 }
 async function getUrls(page) {
+  const url = await page.url();
+  // await page.waitForSelector('.result.-only-desktop')
+  // const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
+  // const totalPages = Math.ceil(productCount / 59)
+  const pageUrls = [];
 
-    const url = await page.url()
-    // await page.waitForSelector('.result.-only-desktop')
-    // const productCount = await page.$eval('.result.-only-desktop', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
-    // const totalPages = Math.ceil(productCount / 59)
-     const pageUrls = []
+  // let pagesLeft = totalPages
+  // for (let i = 1; i <= totalPages; i++) {
 
-    // let pagesLeft = totalPages
-    // for (let i = 1; i <= totalPages; i++) {
+  //     if (pagesLeft > 0) {
 
+  //         pageUrls.push(`${url}?page=` + i)
+  //         --pagesLeft
+  //     }
 
-    //     if (pagesLeft > 0) {
+  // }
 
-    //         pageUrls.push(`${url}?page=` + i)
-    //         --pagesLeft
-    //     }
-
-    // }
-
-    return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
-
+  return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
 }
-module.exports = { handler, getUrls }
+module.exports = { handler, getUrls };
 
-
-/*
-async function getUrls(page) {
-
-    await page.waitForSelector('.plt-count')
-    const productCount = await page.$eval('.plt-count', element => parseInt(element.textContent.replace(/[^\d]/g, "")))
-    debugger;
-    const withMultipage = await page.$('.pagingBar .paging')
-    if (withMultipage) {
-
-        const urls = await page.evaluate(() => {
-            const arr = Array.from(document.querySelector('.pagingBar .paging').querySelectorAll('a')).map(t => t.href)
-            const remdub = arr.filter(function (item, pos) {
-                return arr.indexOf(item) == pos;
-            })
-            const lastURL = remdub[remdub.length - 1]
-            const lastPage = parseInt(lastURL.substring(lastURL.lastIndexOf('=') + 1))
-            const totalPages = lastPage
-            const pageUrls = []
-            const urlTemplate = lastURL.substring(0, lastURL.lastIndexOf('=') + 1)
-            let pagesLeft = totalPages
-            for (let i = 1; i <= totalPages; i++) {
-
-                if (pagesLeft > 0) {
-                    pageUrls.push(`${urlTemplate}` + i)
-                    --pagesLeft
-                }
-            }
-
-            return pageUrls
-        })
-        return { pageUrls: urls, productCount, pageLength: urls.length + 1 }
-    } else
-        return { pageUrls: [], productCount, pageLength: 1 }
-
-}
-module.exports = { handler, getUrls }
-*/
