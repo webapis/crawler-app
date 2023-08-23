@@ -83,7 +83,7 @@ async function autoScroll(page) {
           const collectedItems = document.querySelectorAll(".list__products .product-item").length;
   
           const percentage =percentageDifference(totalItems,collectedItems)
-          console.log("inc----", inc,percentage ,totalItems,collectedItems);
+     
 
           if(percentage ===NaN || percentage>1){
 
