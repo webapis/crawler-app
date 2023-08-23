@@ -90,7 +90,7 @@ async function autoScroll(page) {
               window.scrollBy(0, distance);
               totalHeight += distance;
               inc = inc + 1;
-              console.log("inc", Math.round(percentageDifference(totalItems,collectedItems) )'%','total:',totalItems,'collected:',collectedItems);
+              console.log("inc", Math.round(percentageDifference(totalItems,collectedItems) ),'%','total:',totalItems,'collected:',collectedItems);
 
            // }
 
