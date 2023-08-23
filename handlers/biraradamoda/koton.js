@@ -70,31 +70,33 @@ async function autoScroll(page) {
       // Calculate the percentage difference.
       let percentage = difference / average * 100;
     
-      return percentage;
+      return Math.round(percentage);
     }
     await new Promise((resolve, reject) => {
       var totalHeight = 0;
       var distance = 100;
       let inc = 0;
       var timer = setInterval(() => {
+        
         const loading = document.querySelector('.js-loader-area.list__products-loadmore-container.passive')
     
           const collectedItems = document.querySelectorAll(".list__products .product-item").length;
-       
-          if (Math.round(percentageDifference(totalItems,collectedItems) )<=1) {
+  
+          const percentage =percentageDifference(totalItems,collectedItems)
+          console.log("inc----", inc,percentage ,totalItems,collectedItems);
+
+          if(percentage ===NaN || percentage>1){
+
+            window.scrollBy(0, distance);
+            totalHeight += distance;
+            inc = inc + 1;
+            console.log("inc", inc,totalItems,collectedItems);
+
+          }else{
             clearInterval(timer);
             resolve();
           }
-          else{
-         //   if(loading===null){
-              window.scrollBy(0, distance);
-              totalHeight += distance;
-              inc = inc + 1;
-              console.log("inc", Math.round(percentageDifference(totalItems,collectedItems) ),'%','total:',totalItems,'collected:',collectedItems);
-
-           // }
-
-          }
+  
         
      
    
