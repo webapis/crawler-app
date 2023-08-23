@@ -126,7 +126,7 @@ async function autoScroll(page) {
         
      
    
-      }, 100);
+      }, 200);
     });
   });
 }
