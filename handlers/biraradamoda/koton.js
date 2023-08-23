@@ -111,7 +111,7 @@ async function autoScroll(page) {
           const percentage =percentageDifference(totalItems,collectedItems)
      
 
-          if(percentage ===NaN || percentage>1 || collectedItems >=1500){
+          if(percentage ===NaN || percentage>1 || collectedItems >=1000){
 
             window.scrollBy(0, distance);
             totalHeight += distance;
