@@ -47,14 +47,14 @@ require('dotenv').config()
         }
 
         const dataCollected = await handler(page, context)
-        const withError =dataCollected.filter(f=>f.error)
-        if(withError.length>0){
-            console.log('withError:length', withError.length)
-            console.log('withError:error', withError[0].error)
-            console.log('withError:content', withError[0].content)
-           // throw 'Error when scraping'
-            process.exit(1)
-        }
+        // const withError =dataCollected.filter(f=>f.error)
+        // if(withError.length>0){
+        //     console.log('withError:length', withError.length)
+        //     console.log('withError:error', withError[0].error)
+        //     console.log('withError:content', withError[0].content)
+        //    // throw 'Error when scraping'
+        //     process.exit(1)
+        // }
             
         if (dataCollected.length > 0) {
             await productsDataset.pushData(dataCollected)

@@ -13,16 +13,16 @@ async function handler(page, context) {
     const data = await page.$$eval('.product', (productCards) => {
         return productCards.map(productCard => {
               const title = productCard.querySelector(".product-info .name a").innerHTML.replace(/\n/g, '').trim()
-             const img= productCard.querySelector(".product-image").src
-                        const priceNew =productCard.querySelector(".price").innerHTML.replace('TL', '').replace(/\n/g, '').trim()
+              const img= productCard.querySelector(".product-image").src
+              const priceNew =productCard.querySelector(".price").innerHTML.replace('TL', '').replace(/\n/g, '').trim()
               const link = productCard.querySelector(".image a").href
 
             return {
                   title:'tiffanytomato '+title.replace(/İ/g,'i').toLowerCase().replaceAll('-',' '),
                   priceNew:priceNew,//.replace(',','.'),
-                 imageUrl: img.substring(img.indexOf('https://www.tiffanytomato.com.tr/')+33) ,
-                 link:link.substring(link.indexOf('https://www.tiffanytomato.com.tr/')+33),
-                 timestamp: Date.now(),
+                  imageUrl: img.substring(img.indexOf('https://www.tiffanytomato.com.tr/')+33) ,
+                  link:link.substring(link.indexOf('https://www.tiffanytomato.com.tr/')+33),
+                  timestamp: Date.now(),
                   marka: 'tiffanytomato',
 
             }

@@ -15,7 +15,7 @@ async function handler(page, context) {
             try {
                 const imageUrl = document.querySelector('span[itemprop="image"]').getAttribute('content')
                 const title = document.querySelector('.productItem a[title]').innerText
-                const priceNew = document.querySelector('.currentPrice').innerText.replace('TL', '').trim()
+                const priceNew = document.querySelector('.currentPrice')? document.querySelector('.currentPrice').innerHTML.replace('TL', '').trim():null
                 const longlink = document.querySelector('.productItem a[title]').href
              const link = longlink.substring(longlink.indexOf("https://www.tommylife.com.tr/") + 29)
     
@@ -33,7 +33,7 @@ async function handler(page, context) {
                 return {error:error.toString(),content:document.innerHTML}
             }
       
-        })//.filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
+        }).filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
     })
 
     console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
