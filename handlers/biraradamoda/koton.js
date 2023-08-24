@@ -110,7 +110,7 @@ async function autoScroll(page) {
   
           const percentage =percentageDifference(totalItems,collectedItems)
         
-          if(collectedItems>=200){
+          if(collectedItems>=500){
             clearInterval(timer);
             resolve();
           }
