@@ -109,9 +109,13 @@ async function autoScroll(page) {
           const collectedItems = document.querySelectorAll(".list__products .product-item").length;
   
           const percentage =percentageDifference(totalItems,collectedItems)
-     
+        
+          if(collectedItems>=200){
+            clearInterval(timer);
+            resolve();
+          }
 
-          if(percentage ===NaN || percentage>1 || collectedItems >=1000){
+          if(percentage ===NaN || percentage>=1){
 
             window.scrollBy(0, distance);
             totalHeight += distance;
@@ -122,9 +126,6 @@ async function autoScroll(page) {
             clearInterval(timer);
             resolve();
           }
-  
-        
-     
    
       }, 300);
     });
