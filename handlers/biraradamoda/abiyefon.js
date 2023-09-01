@@ -7,7 +7,7 @@ async function handler(page,context) {
 
         if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('abiyefon')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.abiyefon.com/')) ) 
             debugger
             for(let l of links){
             
