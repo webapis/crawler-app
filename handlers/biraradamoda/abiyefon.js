@@ -5,16 +5,16 @@ async function handler(page,context) {
     const { request: { userData: { start } } } = context
     const requestQueue = await RequestQueue.open();
 
-      //  if(start){
+        if(start){
 
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.abiyefon.com/')) ) 
             debugger
             for(let l of links){
             
-                await  requestQueue.addRequest({url:l,  userData:{start:false} })
+                await  requestQueue.addRequest({url:l+'?currency=TL',  userData:{start:false} })
             }
       
-      //  }
+        }
     const url = await page.url()
    // await page.waitForSelector('.products')
     const productPage = await page.$('.products')

@@ -57,7 +57,7 @@ require('dotenv').config()
         } else {
             console.log('unsuccessfull page data collection',dataCollected)
 
-        
+            // throw 'unsuccessfull data collection'
         }
 
 
