@@ -47,15 +47,7 @@ require('dotenv').config()
         }
 
         const dataCollected = await handler(page, context)
-        // const withError =dataCollected.filter(f=>f.error)
-        // if(withError.length>0){
-        //     console.log('withError:length', withError.length)
-        //     console.log('withError:error', withError[0].error)
-        //     console.log('withError:content', withError[0].content)
-        //    // throw 'Error when scraping'
-        //     process.exit(1)
-        // }
-            
+   
         if (dataCollected.length > 0) {
             await productsDataset.pushData(dataCollected)
 
@@ -65,7 +57,7 @@ require('dotenv').config()
         } else {
             console.log('unsuccessfull page data collection',dataCollected)
 
-            // throw 'unsuccessfull data collection'
+        
         }
 
 
@@ -199,8 +191,7 @@ console.log('protocolTimeout',protocolTimeout)
 
     await crawler.run();
     debugger
-    const uniqify = (array, key) => array.reduce((prev, curr) => prev.find(a => a[key] === curr[key]) ? prev : prev.push(curr) && prev, []);
-
+ 
 debugger
     const { items: productItems } = await productsDataset.getData();
     debugger
@@ -213,43 +204,10 @@ debugger
         console.log('withError:content', withError[0].content)
         throw 'Error when scraping'
     }else{
-        console.log('total collected',productItems.length)
-        const uniqueProductCollection = uniqify(productItems, 'imageUrl')
-        console.log('uniqueProductCollection',uniqueProductCollection.length)
-        productItems.forEach((f)=>{
-            console.log('obj',f)
-        })
-        console.log('total collected--',productItems.length)
-        console.log('uniqueProductCollection',uniqueProductCollection.length)
-
-        var groupBy = function (xs, key) {
-            return xs.reduce(function (rv, x) {
-                (rv[x[key]] = rv[x[key]] || []).push(x);
-                return rv;
-            }, {});
-        };
-        const groupByimageUrl = groupBy(productItems, 'imageUrl')
-
-        for (let image in groupByimageUrl) {
-            const curr = groupByimageUrl[image]
-            image
+    
+            await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
-            if(curr.length>1){
-                console.log('similar images',image,': ',curr.length)
-            }
-       
-       
-        }
-        const mapGender = uniqueProductCollection.map((m => { return { ...m, gender: m.title.substring(m.title.lastIndexOf('_')) } }))
-        const groupByGender = groupBy(mapGender, 'gender')
-   
-        for (let gender in groupByGender) {
-            const curr = groupByGender[gender]
-            let gnd = gender.replace('_', "")
-            debugger
-            await uploadCollection({ fileName: `${marka}`, data: curr, gender: gnd, marka })
-            debugger
-        }
+        
 
         console.log('uploading git state')
         
