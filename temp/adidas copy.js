@@ -1,37 +1,11 @@
 
-const { RequestQueue  } =require ('crawlee');
-async function handler(page,context) {
-    const { request: { userData: { start } } } = context
-    const requestQueue = await RequestQueue.open();
-debugger
-    if(start){
+async function handler(page) {
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.adidas.com.tr/')) ) 
-            debugger
-            for(let l of links){
-            
-                await  requestQueue.addRequest({url:l,  userData:{start:false} })
-            }
-      
-        }
+
     const url = await page.url()
-    const productPage = await page.$('[data-auto-id="product_container"]')
-    if(productPage){
-debugger
-        await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
-        await page.click('[data-auto-id="filter-panel-cta-btn"]')
-        debugger
-        const pageInfo = await page.evaluate(()=>{
-            return {
-                title :document.title,
-                minPrice:document.querySelector('[data-auto-id=price-wrapper]').innerText.split('-')[0].replace('TL','').trim(),
-                maxPrice:document.querySelector('[data-auto-id=price-wrapper]').innerText.split('-')[1].replace('TL','').trim(),
-                total:0,
-                link:document.baseURI
-            }
-        })
-  
-  
+
+    await page.waitForSelector('.plp-grid___hCUwO')
+    await autoScroll(page)
     debugger;
     const data = await page.$$eval('.grid-item', (productCards) => {
         return productCards.map(productCard => {
@@ -55,17 +29,49 @@ debugger
     console.log('data length_____', data.length, 'url:', url)
 
 
-    return [{pageInfo,products:data.filter((f,i)=>i<7)}]
-
-}else{
-
-    return []
+    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
 }
-}
+async function autoScroll(page) {
+    await page.evaluate(async () => {
 
+
+        await new Promise((resolve, reject) => {
+            var totalHeight = 0;
+            var distance = 100;
+            let inc = 0
+            var timer = setInterval(() => {
+                var scrollHeight = document.body.scrollHeight;
+
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                inc = inc + 1
+                if (totalHeight >= scrollHeight - window.innerHeight) {
+                    clearInterval(timer);
+                    resolve();
+                }
+            }, 100);
+        });
+    });
+}
 async function getUrls(page) {
-   
+    const url = await page.url()
+    await page.waitForSelector('[data-auto-id="pagination-pages-container"]')
+    const totalPages = await page.$eval('[data-auto-id="pagination-pages-container"]', element => parseInt(element.innerHTML.replace(/[^\d]/i, '').trim()))
 
-    return { pageUrls:[], productCount: 0, pageLength: 0 }
+    const pageUrls = []
+
+    let pagesLeft = totalPages
+    let countProds = 0
+    for (let i = 2; i <= totalPages; i++) {
+
+        countProds = countProds + 48
+
+        pageUrls.push(`${url}?start=` + countProds)
+        --pagesLeft
+
+
+    }
+
+    return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
 module.exports = { handler, getUrls }
