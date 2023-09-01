@@ -1,38 +1,12 @@
 
-const { RequestQueue  } =require ('crawlee');
-async function handler(page,context) {
-    debugger
-    const { request: { userData: { start } } } = context
-    const requestQueue = await RequestQueue.open();
+async function handler(page) {
 
-        if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('abiyefon')) ) 
-            debugger
-            for(let l of links){
-            
-                await  requestQueue.addRequest({url:l,  userData:{start:false} })
-            }
-      
-        }
     const url = await page.url()
-   // await page.waitForSelector('.products')
-    const productPage = await page.$('.products')
-    if(productPage){
 
-        await page.waitForSelector('.minPrice')
-        await page.waitForSelector('.maxPrice')
-        const pageInfo = await page.evaluate(()=>{
-            return {
-                title :document.title,
-                minPrice:document.querySelector('.minPrice').innerHTML.replace('TL','').trim(),
-                maxPrice:document.querySelector('.maxPrice').innerHTML.replace('TL','').trim(),
-                total:document.querySelector('.count-info strong').innerHTML,
-                link:document.baseURI
-            }
-        })
+    await page.waitForSelector('.products')
 
-debugger
+
     const data = await page.$$eval('.products .product-link', (productCards) => {
         return productCards.map(document => {
             try {
@@ -50,10 +24,12 @@ debugger
                     timestamp: Date.now(),
                     marka: 'abiyefon'
                 }  
-            }
-            catch (error) {
+            } catch (error) {
+             
                     return {error:error.toString(),content:document.innerHTML}
                 }
+            
+
         }).filter(f => f.imageUrl !== null  && f.link !==null)
     })
 
@@ -63,40 +39,32 @@ debugger
         return { ...m,title:m.title+" _"+process.env.GENDER }
     })
 
-    return [{pageInfo,products:formatprice.filter((f,i)=>i<7)}]
-}else{
-    return []
-}
 
+
+    return formatprice
 
 }
 
 async function getUrls(page) {
- 
+    const url = await page.url()
+    await page.waitForSelector('.count-info-text strong')
+    const productCount = await page.$eval('.count-info-text strong', element => parseInt(element.textContent))
+    const totalPages = Math.ceil(productCount / 100)
+    const pageUrls = []
 
-    return { pageUrls:[], productCount:0, pageLength:0 }
+    let pagesLeft = totalPages
+    for (let i = 2; i <= totalPages; i++) {
+
+
+
+        pageUrls.push(`${url}?page=` + i)
+        --pagesLeft
+
+
+    }
+
+    return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-
-// async function getUrls(page) {
-//     const url = await page.url()
-//     await page.waitForSelector('.count-info-text strong')
-//     const productCount = await page.$eval('.count-info-text strong', element => parseInt(element.textContent))
-//     const totalPages = Math.ceil(productCount / 100)
-//     const pageUrls = []
-
-//     let pagesLeft = totalPages
-//     for (let i = 2; i <= totalPages; i++) {
-
-
-
-//         pageUrls.push(`${url}?page=` + i)
-//         --pagesLeft
-
-
-//     }
-
-//     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
-// }
 module.exports = { handler, getUrls }
 
 
