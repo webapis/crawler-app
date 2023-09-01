@@ -60,7 +60,7 @@ debugger
     console.log('data length_____', data.length, 'url:', url)
 
     const formatprice = data.map((m) => {
-        return { ...m,title:m.title+" _"+process.env.GENDER }
+        return { ...m,title:m.title }
     })
 
     return [{pageInfo,products:formatprice.filter((f,i)=>i<7)}]

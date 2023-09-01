@@ -1,14 +1,39 @@
 
 
+const { RequestQueue  } =require ('crawlee');
+async function handler(page,context) {
 
-async function handler(page) {
+    const { request: { userData: { start } } } = context
+    const requestQueue = await RequestQueue.open();
 
+        if(start){
+
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.addax.com.tr/')) ) 
+            debugger
+            for(let l of links){
+            
+                await  requestQueue.addRequest({url:l,  userData:{start:false} })
+            }
+      
+        }
     const url = await page.url()
 
     debugger;
 
-    await page.waitForSelector('.PrdContainer')
-    await autoScroll(page);
+    const productPage = await page.$('.PrdContainer')
+if(productPage){
+
+    await page.waitForSelector('#MinPrice')
+    await page.waitForSelector('#MaxPrice')
+    const pageInfo = await page.evaluate(()=>{
+        return {
+            title :document.title,
+            minPrice:document.querySelector('#MinPrice').value.trim(),
+            maxPrice:document.querySelector('#MaxPrice').value.trim(),
+            total:0,
+            link:document.baseURI
+        }
+    })
 
     debugger
     const data = await page.$$eval('.Prd', (productCards) => {
@@ -41,9 +66,15 @@ async function handler(page) {
 
     console.log('data length_____', data.length, 'url:', url)
 
+debugger
+    return [{pageInfo,products:data.filter((f,i)=>i<7)}]
+}
+
+else{
+    return []
+}
 
 
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
 }
 
 async function getUrls(page) {
@@ -51,27 +82,27 @@ async function getUrls(page) {
     return { pageUrls: [], productCount: 0, pageLength: 0 }
 }
 
-async function autoScroll(page) {
-    await page.evaluate(async () => {
+// async function autoScroll(page) {
+//     await page.evaluate(async () => {
 
 
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
+//         await new Promise((resolve, reject) => {
+//             var totalHeight = 0;
+//             var distance = 100;
+//             let inc = 0
+//             var timer = setInterval(() => {
+//                 var scrollHeight = document.body.scrollHeight;
 
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 150);
-        });
-    });
-}
+//                 window.scrollBy(0, distance);
+//                 totalHeight += distance;
+//                 inc = inc + 1
+//                 if (totalHeight >= scrollHeight - window.innerHeight) {
+//                     clearInterval(timer);
+//                     resolve();
+//                 }
+//             }, 150);
+//         });
+//     });
+// }
 module.exports = { handler, getUrls }
 
