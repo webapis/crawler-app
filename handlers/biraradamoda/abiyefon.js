@@ -11,7 +11,7 @@ async function handler(page,context) {
             debugger
             for(let l of links){
             
-                await  requestQueue.addRequest({url:l+'?currency=TL',  userData:{start:false} })
+                await  requestQueue.addRequest({url:l+'/?currency=TL',  userData:{start:false} })
             }
       
         }
