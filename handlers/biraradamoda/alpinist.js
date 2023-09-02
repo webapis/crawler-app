@@ -11,7 +11,7 @@ let totalPage =0
     debugger;
     if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://alinderi.com.tr/')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.alpinist.com.tr/')) ) 
             debugger
             console.log('links',links)
             totalPage =links.length
@@ -22,36 +22,40 @@ let totalPage =0
             }
       
         }
+        debugger
     const url = await page.url()
-    const productPage = await page.$('#js-product-list')
+
+    const productPage = await page.$('.showcase-container')
     if(productPage){
         const pageInfo = await page.evaluate(()=>{
             return {
-                title :document.querySelector('.category-title .title').innerText,
-                minPrice:Math.min(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),
-                maxPrice:Math.max(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),
-                total:parseInt(document.querySelector('.products-listed').innerText.replace(/[^\d]/g, "")),
+                title :document.title,
+                minPrice:0,
+                maxPrice:0,
+                total:parseInt(document.querySelector('.record-count').innerText.replace(/[^\d]/g, "")),
                 link:document.baseURI
             }
         })
-console.log('pageInfo',pageInfo)
-        const data = await page.$$eval('.js-product-miniature-wrapper', (productCards) => {
+        debugger
+        console.log('pageInfo',pageInfo)
+        const data = await page.$$eval('.showcase-container .row', (productCards) => {
             return productCards.map(document => {
-    
-                const imageUrl = document.querySelector('[data-full-size-image-url]').getAttribute('data-full-size-image-url')
-                const title = document.querySelector('.product-title').innerText.trim()
-                const priceNew = document.querySelector('.product-price').innerText.trim().replace('₺', '')
-                const longlink = document.querySelector('.product-title a').href
-                const link = longlink.substring(longlink.indexOf("https://www.alinderi.com.tr/") + 28)
+                const brand =document.querySelector('.showcase-brand a').innerText
+                const imageUrl = document.querySelector('.showcase-image img').getAttribute('data-src')
+                const title = brand +' '+ document.querySelector('.showcase-title').innerText
+          
+                const priceNew = document.querySelector('.showcase-price-new').innerText.replace('TL','').trim()
+                const longlink = document.querySelector('.showcase-image a').href
+             
     
     
                 return {
-                    title: 'alinderi ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    title: 'alpinist ' + title.replace(/İ/g, 'i').toLowerCase(),
                     priceNew,
                     imageUrl,
-                    link,
+                    link:longlink,
                     timestamp: Date.now(),
-                    marka: 'alinderi',
+                    marka: 'alpinist',
                 }
             }).filter(f => f.imageUrl !== null && f.title.length > 5)
         })
