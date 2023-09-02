@@ -42,7 +42,7 @@ debugger
                     link:document.baseURI
                 }
             } catch (error) {
-                console.log('error',error.toString(),document.baseURI)
+                console.log('error',error.toString(),document.baseURI,document.querySelector('[data-auto-id="price-wrapper"]'))
                 return {error:error.toString(),url:document.baseURI}
             }
           
