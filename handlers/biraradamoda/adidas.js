@@ -31,7 +31,7 @@ console.log('clicking filter')
                 title :document.title,
                 minPrice:document.querySelector('[data-auto-id=price-wrapper]').innerText.split('-')[0].replace('TL','').trim(),
                 maxPrice:document.querySelector('[data-auto-id=price-wrapper]').innerText.split('-')[1].replace('TL','').trim(),
-                total:0,
+                total:parseInt( document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerText.replace(/[^\d]/g, "")),
                 link:document.baseURI
             }
         })
