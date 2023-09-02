@@ -1,30 +1,33 @@
 
 const { RequestQueue  } =require ('crawlee');
 async function handler(page,context) {
-    const { request: { userData: { start } } } = context
+    const { request: { userData: { start,pageOrder } } } = context
     const requestQueue = await RequestQueue.open();
+    let i =0
+    let totalPage =0
 debugger
     if(start){
 
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.adidas.com.tr/')) ) 
             debugger
-            console.log('links',links)
+            console.log('links',links.length)
+            totalPage=  links.length
             for(let l of links){
-            
-                await  requestQueue.addRequest({url:l,  userData:{start:false} })
+                i =i+1
+                await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
             }
       
         }
     const url = await page.url()
     console.log('url----',url)
     const productPage = await page.$('[data-auto-id="product_container"]')
-    console.log('productPage exists',url,productPage)
+
     if(productPage){
 debugger
-console.log('clicking filter')
+
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
-        console.log('filter clicked')
+ 
         debugger
         const pageInfo = await page.evaluate(()=>{
             return {
@@ -35,7 +38,7 @@ console.log('clicking filter')
                 link:document.baseURI
             }
         })
-        console.log('pageInfo',pageInfo)
+ 
   
     debugger;
     const data = await page.$$eval('.grid-item', (productCards) => {
@@ -59,7 +62,7 @@ console.log('clicking filter')
 
     console.log('data length_____', data.length, 'url:', url)
 
-    console.log('data line one')
+    console.log('data line one',pageOrder ,'of', totalPage)
     return [{pageInfo,products:data.filter((f,i)=>i<7)}]
 
 }else{
