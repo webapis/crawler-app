@@ -39,24 +39,31 @@ debugger
             }
         })
  
-  
+        page.on("console", (message) => {
+            console.log("Message from Puppeteer page:", message.text());
+          });
     debugger;
     const data = await page.$$eval('.glass-product-card-container', (productCards) => {
         return productCards.map(productCard => {
-
-            const longImage = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').srcset.split('w,')[5].replace('\n', '').replace('766w', '').trim()
-            const title = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').alt
-            const priceNew = productCard.querySelector('[ data-auto-id="gl-price-item"] div') && productCard.querySelector('[ data-auto-id="gl-price-item"] div').innerHTML.replace('TL', '').trim()
-            const link = productCard.querySelector('[data-auto-id="glass-hockeycard-link"]').href
-
-            return {
-                title: 'adidas '+ title.replace(/İ/g,'i').toLowerCase(),
-                priceNew,
-                imageUrl: longImage.substring(longImage.indexOf('https://assets.adidas.com/images/') + 33),
-                link: link.substring(link.indexOf('https://www.adidas.com.tr/tr/') + 29),
-                timestamp: Date.now(),
-                marka: 'adidas'
+            try {
+                const longImage = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').srcset.split('w,')[5].replace('\n', '').replace('766w', '').trim()
+                const title = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').alt
+                const priceNew = productCard.querySelector('[ data-auto-id="gl-price-item"] div') && productCard.querySelector('[ data-auto-id="gl-price-item"] div').innerHTML.replace('TL', '').trim()
+                const link = productCard.querySelector('[data-auto-id="glass-hockeycard-link"]').href
+    
+                return {
+                    title: 'adidas '+ title.replace(/İ/g,'i').toLowerCase(),
+                    priceNew,
+                    imageUrl: longImage.substring(longImage.indexOf('https://assets.adidas.com/images/') + 33),
+                    link: link.substring(link.indexOf('https://www.adidas.com.tr/tr/') + 29),
+                    timestamp: Date.now(),
+                    marka: 'adidas'
+                }
+            } catch (error) {
+                console.log('error',productCard.innerHTML)
+                return {error:error.toString(),content:productCard.innerHTML}
             }
+          
         }).filter(f => f.priceNew !== null)
     })
 
