@@ -27,6 +27,7 @@ debugger
     const productExits = await page.$('[data-auto-id=price-wrapper]')
     if(productPage  && productExits){
 debugger
+        await autoScroll(pagge)
 
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
@@ -85,7 +86,30 @@ debugger
 }
 }
 
+async function autoScroll(page) {
+    await page.evaluate(async () => {
+
+
+        await new Promise((resolve, reject) => {
+            var totalHeight = 0;
+            var distance = 100;
+            let inc = 0
+            var timer = setInterval(() => {
+                var scrollHeight = document.body.scrollHeight;
+
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+                inc = inc + 1
+                if (totalHeight >= scrollHeight - window.innerHeight) {
+                    clearInterval(timer);
+                    resolve();
+                }
+            }, 150);
+        });
+    });
+}
 async function getUrls(page) {
+
    
 
     return { pageUrls:[], productCount: 0, pageLength: 0 }
