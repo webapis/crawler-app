@@ -56,7 +56,7 @@ debugger
                 const longImage = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').srcset.split('w,')[5].replace('\n', '').replace('766w', '').trim()
                 const title = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').alt
                 const priceNew = productCard.querySelector('[ data-auto-id="gl-price-item"] div') && productCard.querySelector('[ data-auto-id="gl-price-item"] div').innerHTML.replace('TL', '').trim()
-                const link = productCard.querySelector('[data-auto-id="glass-hockeycard-link"]').href
+                const link =  productCard.querySelector('[data-auto-id="glass-hockeycard-link"]').href
     
                 return {
                     title: 'adidas '+ title.replace(/İ/g,'i').toLowerCase(),
@@ -68,7 +68,7 @@ debugger
                 }
             } catch (error) {
                 console.log('error body',productCard.baseURL,productCard.innerHTML)
-                return {error:error.toString(),link,content:productCard.innerHTML}
+                return {error:error.toString(),content:productCard.innerHTML}
             }
           
         }).filter(f => f.priceNew !== null)
