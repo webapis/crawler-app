@@ -43,7 +43,7 @@ debugger
             console.log("Message from Puppeteer page:", message.text());
           });
     debugger;
-    const data = await page.$$eval('.glass-product-card-container', (productCards) => {
+    const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
             try {
                 const longImage = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').srcset.split('w,')[5].replace('\n', '').replace('766w', '').trim()
@@ -60,8 +60,8 @@ debugger
                     marka: 'adidas'
                 }
             } catch (error) {
-                console.log('error',productCard.innerHTML)
-                return {error:error.toString(),content:productCard.innerHTML}
+                console.log('error',productCard.baseURI(),productCard.innerHTML)
+                return {error:error.toString(),link,content:productCard.innerHTML}
             }
           
         }).filter(f => f.priceNew !== null)
