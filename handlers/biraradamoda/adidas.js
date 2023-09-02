@@ -27,7 +27,7 @@ debugger
     const productExits = await page.$('[data-auto-id=price-wrapper]')
     if(productPage  && productExits){
 debugger
-        await autoScroll(page)
+      //  await autoScroll(page)
 
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
@@ -49,36 +49,36 @@ debugger
           
         })
  
-    
+        console.log('pageInfo',pageInfo)
     debugger;
-    const data = await page.$$eval('.glass-product-card', (productCards) => {
-        return productCards.map(productCard => {
-            try {
-                const longImage =  productCard.querySelector('.glass-product-card__assets-link img').srcset.split('w,')[5].replace('\n', '').replace('766w', '').trim()
-                const title =  productCard.querySelector('.glass-product-card__assets-link img').alt
-                const priceNew = productCard.querySelector('[ data-auto-id="gl-price-item"] div') && productCard.querySelector('[ data-auto-id="gl-price-item"] div').innerHTML.replace('TL', '').trim()
-                const link =  productCard.querySelector('[data-auto-id="glass-hockeycard-link"]').href
+    // const data = await page.$$eval('.glass-product-card', (productCards) => {
+    //     return productCards.map(productCard => {
+    //         try {
+    //             const longImage =  productCard.querySelector('.glass-product-card__assets-link img').srcset.split('w,')[5].replace('\n', '').replace('766w', '').trim()
+    //             const title =  productCard.querySelector('.glass-product-card__assets-link img').alt
+    //             const priceNew = productCard.querySelector('[ data-auto-id="gl-price-item"] div') && productCard.querySelector('[ data-auto-id="gl-price-item"] div').innerHTML.replace('TL', '').trim()
+    //             const link =  productCard.querySelector('[data-auto-id="glass-hockeycard-link"]').href
     
-                return {
-                    title: 'adidas '+ title.replace(/İ/g,'i').toLowerCase(),
-                    priceNew,
-                    imageUrl: longImage.substring(longImage.indexOf('https://assets.adidas.com/images/') + 33),
-                    link: link.substring(link.indexOf('https://www.adidas.com.tr/tr/') + 29),
-                    timestamp: Date.now(),
-                    marka: 'adidas'
-                }
-            } catch (error) {
-                console.log('error body',error.toString(),productCard.baseURL,productCard.innerHTML)
-                return {error:error.toString(),content:productCard.innerHTML}
-            }
+    //             return {
+    //                 title: 'adidas '+ title.replace(/İ/g,'i').toLowerCase(),
+    //                 priceNew,
+    //                 imageUrl: longImage.substring(longImage.indexOf('https://assets.adidas.com/images/') + 33),
+    //                 link: link.substring(link.indexOf('https://www.adidas.com.tr/tr/') + 29),
+    //                 timestamp: Date.now(),
+    //                 marka: 'adidas'
+    //             }
+    //         } catch (error) {
+    //             console.log('error body',error.toString(),productCard.baseURL,productCard.innerHTML)
+    //             return {error:error.toString(),content:productCard.innerHTML}
+    //         }
           
-        }).filter(f => f.priceNew !== null)
-    })
+    //     }).filter(f => f.priceNew !== null)
+    // })
 
     console.log('url completed successfully ----',url)
 
     console.log('data line one',pageOrder)
-    return [{pageInfo,products:data.filter((f,i)=>i<7)}]
+    return [{pageInfo,products:[]}]
 
 }else{
     console.log('data line two')
