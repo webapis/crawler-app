@@ -1,5 +1,5 @@
 const urls = [
-    { url: 'https://www.adidas.com.tr'},
+    { url: 'https://www.adidas.com.tr/tr'},
  
 
 

@@ -8,6 +8,7 @@ debugger
 
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.adidas.com.tr/')) ) 
             debugger
+            console.log('links',links)
             for(let l of links){
             
                 await  requestQueue.addRequest({url:l,  userData:{start:false} })
@@ -15,11 +16,15 @@ debugger
       
         }
     const url = await page.url()
+    console.log('url----',url)
     const productPage = await page.$('[data-auto-id="product_container"]')
+    console.log('productPage exists',url,productPage)
     if(productPage){
 debugger
+console.log('clicking filter')
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
+        console.log('filter clicked')
         debugger
         const pageInfo = await page.evaluate(()=>{
             return {
@@ -30,7 +35,7 @@ debugger
                 link:document.baseURI
             }
         })
-  
+        console.log('pageInfo',pageInfo)
   
     debugger;
     const data = await page.$$eval('.grid-item', (productCards) => {
@@ -54,11 +59,11 @@ debugger
 
     console.log('data length_____', data.length, 'url:', url)
 
-
+    console.log('data line one',data)
     return [{pageInfo,products:data.filter((f,i)=>i<7)}]
 
 }else{
-
+    console.log('data line two')
     return []
 }
 }
