@@ -3,39 +3,26 @@
 const { RequestQueue  } =require ('crawlee');
 async function handler(page, context) {
 
-    const { request: { userData: { start,pageOrder } } } = context
-    const requestQueue = await RequestQueue.open();
-debugger
-let i =0
+    const { request: { userData: { start } } } = context
+    const url = await page.url()
+    const nextPageExists =await page.evaluate(()=>document.querySelector('[data-dllist="category"] .listitempage').childNodes.length)
+    if(nextPageExists>2){
 
-if(start){
-
-    const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.dilvin.com.tr/')) ) 
+        const requestQueue = await RequestQueue.open();
         debugger
-        console.log('links',links)
-    
-        for(let l of links){
+        if(start){
         
-            i =i+1
-            await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
+            await requestQueue.addRequest({ url: `${url}?rpg=2`, userData: { start: false } })
+        }else{
+        
+            const currentPage = url.substring(url.indexOf('='))
+            const nextPage = parseInt(url.substring(url.indexOf('=') + 1)) + 1
+            const nextUrl = url.replace(currentPage, `=${nextPage}`)
+            debugger
+            await requestQueue.addRequest({ url: nextUrl, userData: { start: false } })
         }
-  
-    }
-const url = await page.url()
-console.log('url----',url)
-const productPage = await page.$('.category-product')
-
-    if(productPage){
-        const pageInfo = await page.evaluate(()=>{
-            return {
-                title :document.title,
-                minPrice:0,
-                maxPrice:0,
-                total:0,
-                link:document.baseURI
-            }
-        })
-console.log('pageInfo',pageInfo)
+           
+        debugger
             const data = await page.$$eval('.product', (productCards) => {
                 return productCards.map(document => {
                         try {
@@ -60,14 +47,15 @@ console.log('pageInfo',pageInfo)
                 }).filter(f => f.priceNew !== null)
             })
         
+            console.log('data length_____', data.length, 'url:', url)
+        
         debugger
-        console.log('data line one',pageOrder ,'of')
-        return [{pageInfo,products:data.filter((f,i)=>i<7)}]
-    
-        }else{
+            return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+    }else{
 
-            return []
-        }
+        return []
+    }
+
 
 }
 async function autoScroll(page) {
