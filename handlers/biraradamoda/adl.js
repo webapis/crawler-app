@@ -4,6 +4,8 @@ async function handler(page, context) {
     const { request: { userData: { start } } } = context
     const requestQueue = await RequestQueue.open();
 debugger
+let i =0
+let totalPage =0
     debugger;
     if(start){
 
@@ -12,7 +14,8 @@ debugger
             console.log('links',links)
             for(let l of links){
             
-                await  requestQueue.addRequest({url:l,  userData:{start:false} })
+                i =i+1
+                await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
             }
       
         }
@@ -56,7 +59,8 @@ debugger
         debugger;
         console.log('data length_____', data.length, 'url:', url)
     
-        console.log('data line one')
+      
+        console.log('data line one',pageOrder ,'of', totalPage)
         return [{pageInfo,products:data.filter((f,i)=>i<7)}]
 
     } else{
