@@ -27,13 +27,13 @@ debugger
 
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
-        await page.waitForSelector('[data-auto-id=price-wrapper]')
+        await page.waitForSelector('[data-auto-id="price-wrapper"]')
         debugger
         const pageInfo = await page.evaluate(()=>{
             return {
                 title :document.title,
-                minPrice:document.querySelector('[data-auto-id=price-wrapper]').innerText.split('-')[0].replace('TL','').trim(),
-                maxPrice:document.querySelector('[data-auto-id=price-wrapper]').innerText.split('-')[1].replace('TL','').trim(),
+                minPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[0].replace('TL','').trim(),
+                maxPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[1].replace('TL','').trim(),
                 total:parseInt( document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerText.replace(/[^\d]/g, "")),
                 link:document.baseURI
             }
