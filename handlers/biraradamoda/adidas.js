@@ -19,6 +19,9 @@ debugger
       
         }
     const url = await page.url()
+    page.on("console", (message) => {
+        console.log("Message from Puppeteer page:", message.text());
+      });
     console.log('url----',url)
     const productPage = await page.$('[data-auto-id="product_container"]')
     const productExits = await page.$('[data-auto-id=price-wrapper]')
@@ -30,18 +33,22 @@ debugger
         await page.waitForSelector('[data-auto-id="price-wrapper"]')
         debugger
         const pageInfo = await page.evaluate(()=>{
-            return {
-                title :document.title,
-                minPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[0].replace('TL','').trim(),
-                maxPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[1].replace('TL','').trim(),
-                total:parseInt( document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerText.replace(/[^\d]/g, "")),
-                link:document.baseURI
+            try {
+                return {
+                    title :document.title,
+                    minPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[0].replace('TL','').trim(),
+                    maxPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[1].replace('TL','').trim(),
+                    total:parseInt( document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerText.replace(/[^\d]/g, "")),
+                    link:document.baseURI
+                }
+            } catch (error) {
+                console.log('error',error.toString(),document.baseURI)
+                return {error:error.toString(),url:document.baseURI}
             }
+          
         })
  
-        page.on("console", (message) => {
-            console.log("Message from Puppeteer page:", message.text());
-          });
+    
     debugger;
     const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
