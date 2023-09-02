@@ -27,7 +27,7 @@ debugger
     const productExits = await page.$('[data-auto-id=price-wrapper]')
     if(productPage  && productExits){
 debugger
-        await autoScroll(pagge)
+        await autoScroll(page)
 
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
