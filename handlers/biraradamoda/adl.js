@@ -30,8 +30,8 @@ debugger
         const pageInfo = await page.evaluate(()=>{
             return {
                 title :document.title,
-                minPrice:Math.min( ...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/[^\d]/g, '')).filter(Number)),
-                maxPrice:Math.max( ...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/[^\d]/g, '')).filter(Number)),
+                minPrice:Math.min(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),
+                maxPrice:Math.max(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),
                 total:parseInt(document.querySelector('.products-listed').innerText.replace(/[^\d]/g, "")),
                 link:document.baseURI
             }
