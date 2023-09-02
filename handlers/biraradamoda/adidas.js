@@ -41,7 +41,7 @@ debugger
  
   
     debugger;
-    const data = await page.$$eval('.grid-item', (productCards) => {
+    const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
 
             const longImage = productCard.querySelector('.glass-product-card__assets-link img') && productCard.querySelector('.glass-product-card__assets-link img').srcset.split('w,')[5].replace('\n', '').replace('766w', '').trim()
