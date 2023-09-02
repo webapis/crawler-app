@@ -21,8 +21,8 @@ debugger
     const url = await page.url()
     console.log('url----',url)
     const productPage = await page.$('[data-auto-id="product_container"]')
-
-    if(productPage){
+    const productExits = await page.$('[data-auto-id=price-wrapper]')
+    if(productPage  && productExits){
 debugger
 
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
