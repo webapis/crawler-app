@@ -70,7 +70,7 @@ console.log('protocolTimeout',protocolTimeout)
     const crawler = new PuppeteerCrawler({
         // requestList,
         requestQueue,
-        maxConcurrency: 3,
+        maxConcurrency: 1,
      //// requestHandlerTimeoutSecs: 3600,
     //  maxRequestRetries:4,
        navigationTimeoutSecs: 240,
