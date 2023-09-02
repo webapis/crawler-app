@@ -4,14 +4,14 @@ async function handler(page,context) {
     const { request: { userData: { start,pageOrder } } } = context
     const requestQueue = await RequestQueue.open();
     let i =0
-    let totalPage =0
+    global.totalPage =0
 debugger
     if(start){
 
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.adidas.com.tr/')) ) 
             debugger
-            console.log('links',links.length)
-            totalPage=  links.length
+            console.log('links',links)
+            global.totalPage =links.length
             for(let l of links){
                 i =i+1
                 await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
@@ -62,7 +62,7 @@ debugger
 
     console.log('data length_____', data.length, 'url:', url)
 
-    console.log('data line one',pageOrder ,'of', totalPage)
+    console.log('data line one',pageOrder ,'of', global.totalPage)
     return [{pageInfo,products:data.filter((f,i)=>i<7)}]
 
 }else{

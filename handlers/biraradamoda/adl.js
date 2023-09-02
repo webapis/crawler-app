@@ -12,6 +12,7 @@ let totalPage =0
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.adl.com.tr/')) ) 
             debugger
             console.log('links',links)
+            totalPage =links.length
             for(let l of links){
             
                 i =i+1
