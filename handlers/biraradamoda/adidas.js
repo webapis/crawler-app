@@ -67,7 +67,7 @@ debugger
                     marka: 'adidas'
                 }
             } catch (error) {
-                console.log('error body',productCard.baseURL,productCard.innerHTML)
+                console.log('error body',error.toString(),productCard.baseURL,productCard.innerHTML)
                 return {error:error.toString(),content:productCard.innerHTML}
             }
           
