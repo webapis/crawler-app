@@ -29,7 +29,7 @@ debugger
 
         const pageInfo = await page.evaluate(()=>{
             return {
-                title :document.title,
+                title :document.querySelector('.category-title .title').innerText,
                 minPrice:Math.min(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),
                 maxPrice:Math.max(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),
                 total:parseInt(document.querySelector('.products-listed').innerText.replace(/[^\d]/g, "")),
