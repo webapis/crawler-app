@@ -42,7 +42,7 @@ debugger
                     link:document.baseURI
                 }
             } catch (error) {
-                console.log('error',error.toString(),document.baseURI,document.querySelector('[data-auto-id="price-wrapper"]').innerHTML,'---',document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerHTML )
+                console.log('error head',error.toString(),document.baseURI,document.querySelector('[data-auto-id="price-wrapper"]').innerHTML,'---',document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerHTML )
                 return {error:error.toString(),url:document.baseURI}
             }
           
@@ -67,7 +67,7 @@ debugger
                     marka: 'adidas'
                 }
             } catch (error) {
-                console.log('error',productCard.baseURL,productCard.innerHTML)
+                console.log('error body',productCard.baseURL,productCard.innerHTML)
                 return {error:error.toString(),link,content:productCard.innerHTML}
             }
           
