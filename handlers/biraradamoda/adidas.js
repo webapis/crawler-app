@@ -59,7 +59,7 @@ console.log('clicking filter')
 
     console.log('data length_____', data.length, 'url:', url)
 
-    console.log('data line one',data)
+    console.log('data line one')
     return [{pageInfo,products:data.filter((f,i)=>i<7)}]
 
 }else{
