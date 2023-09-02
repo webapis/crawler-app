@@ -22,7 +22,7 @@ debugger
     page.on("console", (message) => {
         console.log("Message from Puppeteer page:", message.text());
       });
-    console.log('url----',url)
+ 
     const productPage = await page.$('[data-auto-id="product_container"]')
     const productExits = await page.$('[data-auto-id=price-wrapper]')
     if(productPage  && productExits){
@@ -74,9 +74,9 @@ debugger
         }).filter(f => f.priceNew !== null)
     })
 
-    console.log('data length_____', data.length, 'url:', url)
+    console.log('url completed successfully ----',url)
 
-    console.log('data line one',pageOrder ,'of', global.totalPage)
+    console.log('data line one',pageOrder)
     return [{pageInfo,products:data.filter((f,i)=>i<7)}]
 
 }else{
