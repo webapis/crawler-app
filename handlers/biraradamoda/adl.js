@@ -36,7 +36,7 @@ debugger
                 link:document.baseURI
             }
         })
-
+console.log('pageInfo',pageInfo)
         debugger
         const data = await page.$$eval('.products__items .product-item', (productCards) => {
             return productCards.map(productCard => {
