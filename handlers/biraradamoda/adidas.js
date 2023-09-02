@@ -27,7 +27,7 @@ debugger
 
         await page.waitForSelector('[data-auto-id="filter-panel-cta-btn"]')
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
- 
+        await page.waitForSelector('[data-auto-id=price-wrapper]')
         debugger
         const pageInfo = await page.evaluate(()=>{
             return {
