@@ -36,13 +36,13 @@ debugger
             try {
                 return {
                     title :document.title,
-                    minPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[0].replace('TL','').trim(),
-                    maxPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerText.split('-')[1].replace('TL','').trim(),
-                    total:parseInt( document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerText.replace(/[^\d]/g, "")),
+                    minPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerHTML.split('-')[0].replace('TL','').trim(),
+                    maxPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerHTML.split('-')[1].replace('TL','').trim(),
+                    total:parseInt( document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerHTML.replace(/[^\d]/g, "")),
                     link:document.baseURI
                 }
             } catch (error) {
-                console.log('error',error.toString(),document.baseURI,document.querySelector('[data-auto-id="price-wrapper"]').innerHTML )
+                console.log('error',error.toString(),document.baseURI,document.querySelector('[data-auto-id="price-wrapper"]').innerHTML,'---',document.querySelector('[data-auto-id="plp-header-bar-products-count"]').innerHTML )
                 return {error:error.toString(),url:document.baseURI}
             }
           
