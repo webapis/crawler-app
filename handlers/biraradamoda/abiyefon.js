@@ -32,7 +32,7 @@ async function handler(page,context) {
                 link:document.baseURI
             }
         },title)
-
+        console.log('pageInfo',pageInfo)
 debugger
     const data = await page.$$eval('.products .product-link', (productCards) => {
         return productCards.map(document => {
