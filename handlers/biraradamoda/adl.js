@@ -9,7 +9,7 @@ let totalPage =0
     debugger;
     if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText}}).filter(f=>f.href.includes('https://www.adl.com.tr/')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim() }}).filter(f=>f.href.includes('https://www.adl.com.tr/')) ) 
             debugger
             console.log('links',links)
             totalPage =links.length
