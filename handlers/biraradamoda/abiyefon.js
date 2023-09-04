@@ -22,7 +22,7 @@ async function handler(page,context) {
 
         await page.waitForSelector('.minPrice')
         await page.waitForSelector('.maxPrice')
-        const pageInfo = await page.evaluate(()=>{
+        const pageInfo = await page.evaluate((title)=>{
             return {
                 hrefText:title ,
                 title:document.title,
@@ -31,7 +31,7 @@ async function handler(page,context) {
                 total:document.querySelector('.count-info strong').innerHTML,
                 link:document.baseURI
             }
-        })
+        },title)
 
 debugger
     const data = await page.$$eval('.products .product-link', (productCards) => {

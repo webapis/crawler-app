@@ -27,7 +27,7 @@ let totalPage =0
 
     const productPage = await page.$('.showcase-container')
     if(productPage){
-        const pageInfo = await page.evaluate(()=>{
+        const pageInfo = await page.evaluate((title)=>{
             return {
                 hrefText:title ? title: 'none' ,
                 title :document.title,
@@ -36,7 +36,7 @@ let totalPage =0
                 total:parseInt(document.querySelector('.record-count').innerText.replace(/[^\d]/g, "")),
                 link:document.baseURI
             }
-        })
+        },title)
         debugger
         console.log('pageInfo',pageInfo)
         const data = await page.$$eval('.showcase-container .row', (productCards) => {

@@ -27,7 +27,7 @@ let totalPage =0
 
 debugger
 
-        const pageInfo = await page.evaluate(()=>{
+        const pageInfo = await page.evaluate((title)=>{
             return {
                 hrefText:title ,
                 title :document.querySelector('.category-title .title').innerText,
@@ -36,7 +36,7 @@ debugger
                 total:parseInt(document.querySelector('.products-listed').innerText.replace(/[^\d]/g, "")),
                 link:document.baseURI
             }
-        })
+        },title)
 console.log('pageInfo',pageInfo)
         debugger
         const data = await page.$$eval('.products__items .product-item', (productCards) => {

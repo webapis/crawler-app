@@ -33,7 +33,7 @@ debugger
         await page.click('[data-auto-id="filter-panel-cta-btn"]')
         await page.waitForSelector('[data-auto-id="price-wrapper"]')
         debugger
-        const pageInfo = await page.evaluate(()=>{
+        const pageInfo = await page.evaluate((title)=>{
             try {
                 return {
                     hrefText:title ,
@@ -48,7 +48,7 @@ debugger
                 return {error:error.toString(),url:document.baseURI}
             }
           
-        })
+        },title)
  
         console.log('pageInfo',pageInfo)
     debugger;

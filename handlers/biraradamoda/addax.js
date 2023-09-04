@@ -25,7 +25,7 @@ if(productPage){
 
     await page.waitForSelector('#MinPrice')
     await page.waitForSelector('#MaxPrice')
-    const pageInfo = await page.evaluate(()=>{
+    const pageInfo = await page.evaluate((title)=>{
         return {
             hrefText:title ,
             title :document.title,
@@ -34,7 +34,7 @@ if(productPage){
             total:0,
             link:document.baseURI
         }
-    })
+    },title)
 
     debugger
     const data = await page.$$eval('.Prd', (productCards) => {
