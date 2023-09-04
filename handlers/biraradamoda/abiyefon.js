@@ -2,16 +2,16 @@
 const { RequestQueue  } =require ('crawlee');
 async function handler(page,context) {
     debugger
-    const { request: { userData: { start } } } = context
+    const { request: { userData: { start,title } } } = context
     const requestQueue = await RequestQueue.open();
 
         if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.abiyefon.com/')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerHTML}}).filter(f=>f.href.includes('https://www.abiyefon.com/')) ) 
             debugger
             for(let l of links){
             
-                await  requestQueue.addRequest({url:l+'/?currency=TL',  userData:{start:false} })
+                await  requestQueue.addRequest({url:l.href+'/?currency=TL',  userData:{start:false,title:l.title} })
             }
       
         }
@@ -24,7 +24,8 @@ async function handler(page,context) {
         await page.waitForSelector('.maxPrice')
         const pageInfo = await page.evaluate(()=>{
             return {
-                title :document.title,
+                hrefText:title ,
+                title:document.title,
                 minPrice:document.querySelector('.minPrice').innerHTML.replace('TL','').trim(),
                 maxPrice:document.querySelector('.maxPrice').innerHTML.replace('TL','').trim(),
                 total:document.querySelector('.count-info strong').innerHTML,

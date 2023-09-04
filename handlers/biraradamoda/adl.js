@@ -1,7 +1,7 @@
 
 const { RequestQueue  } =require ('crawlee');
 async function handler(page, context) {
-    const { request: { userData: { start,pageOrder } } } = context
+    const { request: { userData: { start,pageOrder,title } } } = context
     const requestQueue = await RequestQueue.open();
 debugger
 let i =0
@@ -9,14 +9,14 @@ let totalPage =0
     debugger;
     if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.adl.com.tr/')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerHTML}}).filter(f=>f.href.includes('https://www.adl.com.tr/')) ) 
             debugger
             console.log('links',links)
             totalPage =links.length
             for(let l of links){
             
                 i =i+1
-                await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
+                await  requestQueue.addRequest({url:l.href,  userData:{start:false,pageOrder:i,title:l.title} })
             }
       
         }
@@ -29,6 +29,7 @@ debugger
 
         const pageInfo = await page.evaluate(()=>{
             return {
+                hrefText:title ,
                 title :document.querySelector('.category-title .title').innerText,
                 minPrice:Math.min(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),
                 maxPrice:Math.max(...Array.from(document.querySelectorAll(".filters .option__label-text")).map(m=>m.innerText).filter(f=>f.includes('TL')).map(m=> m.replace(/\([^)]*\)/g, '').split('-')).flat().map(m=>m.replace('TL','').trim() ).filter(Number)),

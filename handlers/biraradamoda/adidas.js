@@ -1,20 +1,20 @@
 
 const { RequestQueue  } =require ('crawlee');
 async function handler(page,context) {
-    const { request: { userData: { start,pageOrder } } } = context
+    const { request: { userData: { start,pageOrder,title } } } = context
     const requestQueue = await RequestQueue.open();
     let i =0
     global.totalPage =0
 debugger
     if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.adidas.com.tr/')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerHTML}}).filter(f=>f.href.includes('https://www.adidas.com.tr/')) ) 
             debugger
             console.log('links',links)
             global.totalPage =links.length
             for(let l of links){
                 i =i+1
-                await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
+                await  requestQueue.addRequest({url:l.href,  userData:{start:false,pageOrder:i,title:l.title} })
             }
       
         }
@@ -36,6 +36,7 @@ debugger
         const pageInfo = await page.evaluate(()=>{
             try {
                 return {
+                    hrefText:title ,
                     title :document.title,
                     minPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerHTML.split('-')[0].replace('TL','').trim(),
                     maxPrice:document.querySelector('[data-auto-id="price-wrapper"]').innerHTML.split('-')[1].replace('TL','').trim(),

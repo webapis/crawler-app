@@ -3,16 +3,16 @@
 const { RequestQueue  } =require ('crawlee');
 async function handler(page,context) {
 
-    const { request: { userData: { start } } } = context
+    const { request: { userData: { start,title } } } = context
     const requestQueue = await RequestQueue.open();
 
         if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.addax.com.tr/')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerHTML}}).filter(f=>f.href.includes('https://www.addax.com.tr/')) ) 
             debugger
             for(let l of links){
             
-                await  requestQueue.addRequest({url:l,  userData:{start:false} })
+                await  requestQueue.addRequest({url:l.href,  userData:{start:false,title:l.title} })
             }
       
         }
@@ -27,6 +27,7 @@ if(productPage){
     await page.waitForSelector('#MaxPrice')
     const pageInfo = await page.evaluate(()=>{
         return {
+            hrefText:title ,
             title :document.title,
             minPrice:document.querySelector('#MinPrice').value.trim(),
             maxPrice:document.querySelector('#MaxPrice').value.trim(),

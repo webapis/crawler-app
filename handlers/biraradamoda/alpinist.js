@@ -3,7 +3,7 @@
 const { RequestQueue  } =require ('crawlee');
 async function handler(page, context) {
 
-    const { request: { userData: { start,pageOrder } } } = context
+    const { request: { userData: { start,pageOrder,title } } } = context
     const requestQueue = await RequestQueue.open();
 debugger
 let i =0
@@ -11,14 +11,14 @@ let totalPage =0
     debugger;
     if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.alpinist.com.tr/')) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerHTML}}).filter(f=>f.href.includes('https://www.alpinist.com.tr/')) ) 
             debugger
             console.log('links',links)
             totalPage =links.length
             for(let l of links){
             
                 i =i+1
-                await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
+                await  requestQueue.addRequest({url:l.href,  userData:{start:false,pageOrder:i,title:l.title} })
             }
       
         }
@@ -29,6 +29,7 @@ let totalPage =0
     if(productPage){
         const pageInfo = await page.evaluate(()=>{
             return {
+                hrefText:title ,
                 title :document.title,
                 minPrice:0,
                 maxPrice:0,
@@ -43,13 +44,13 @@ let totalPage =0
                 const brand =document.querySelector('.showcase-brand a').innerText
                 const imageUrl = document.querySelector('.showcase-image img').getAttribute('data-src')
                 const title = brand +' '+ document.querySelector('.showcase-title').innerText
-          
                 const priceNew = document.querySelector('.showcase-price-new').innerText.replace('TL','').trim()
                 const longlink = document.querySelector('.showcase-image a').href
              
     
     
                 return {
+                    hrefText:title ,
                     title: 'alpinist ' + title.replace(/İ/g, 'i').toLowerCase(),
                     priceNew,
                     imageUrl,
