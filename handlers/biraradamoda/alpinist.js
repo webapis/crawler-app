@@ -11,7 +11,7 @@ let totalPage =0
     debugger;
     if(start){
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.alpinist.com.tr/') && f.innerHTML.length> 2 ))
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.alpinist.com.tr/') && f.innerText.length> 2 ))
             debugger
             console.log('links',links)
             totalPage =links.length
