@@ -8,7 +8,8 @@
     "schema": "node typesense/createSchema.mjs",
     "import": "node typesense/importData.mjs",
     "deleteData": "node typesense/deleteDatabase.mjs",
-    "deleteByMarka": "node typesense/deleteByMarka.mjs"
+    "deleteByMarka": "node typesense/deleteByMarka.mjs",
+    "snap":"node snap.js"
   },
   "keywords": [],
   "author": "",
