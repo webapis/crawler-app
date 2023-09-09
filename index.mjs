@@ -4,6 +4,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
 import { uploadCollection } from'./utils/uploadCollection.mjs'
+const {extractPagekeywords}=require('./utils/extractPagekeywords')
 require('dotenv').config()
 
     const requestQueue = await RequestQueue.open();
@@ -205,7 +206,12 @@ debugger
         console.log('withError:content', withError[0].content)
         throw 'Error when scraping'
     }else{
-    
+        const pageDataset = await Dataset.open(`pageInfo`);
+        const { items: pageItems } = await pageDataset.getData();
+        const mapped= pageItems.map((m)=>{
+            return {...m, keywords:''}
+        })
+
             await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         
