@@ -1,39 +1,38 @@
+const {  Dataset,RequestQueue } =require('crawlee');
+const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 
-const { RequestQueue  } =require ('crawlee');
 async function handler(page,context) {
-    debugger
     const { request: { userData: { start,title } } } = context
     const requestQueue = await RequestQueue.open();
 
         if(start){
 
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.abiyefon.com/')) ) 
-            debugger
+   
             for(let l of links){
             
-                await  requestQueue.addRequest({url:l.href+'/?currency=TL',  userData:{start:false,title:l.title} })
+                await  requestQueue.addRequest({url:l.href+'/?currency=TL',  userData:{start:true,title:l.title} })
             }
       
         }
     const url = await page.url()
    // await page.waitForSelector('.products')
-    const productPage = await page.$('.products')
+    const productPage = await page.$('ul.products')
     if(productPage){
-
-        await page.waitForSelector('.minPrice')
-        await page.waitForSelector('.maxPrice')
-        const pageInfo = await page.evaluate((title)=>{
-            return {
-                hrefText:title ,
-                title:document.title,
-                minPrice:document.querySelector('.minPrice').innerHTML.replace('TL','').trim(),
-                maxPrice:document.querySelector('.maxPrice').innerHTML.replace('TL','').trim(),
-                total:document.querySelector('.count-info strong').innerHTML,
-                link:document.baseURI
-            }
-        },title)
-        console.log('pageInfo',pageInfo)
 debugger
+        if(start){
+            const pageDataset = await Dataset.open(`pageInfo`);
+            const hrefText =title
+            const docTitle  = await page.evaluate(()=>document.title)
+            const link = await page.evaluate(()=>document.baseURI)
+            const id = generateUniqueKey({hrefText,docTitle,link},['hrefText','docTitle','link'])
+            debugger
+            await pageDataset.pushData({hrefText,docTitle,link,id})
+            debugger
+        }
+   
+
+
     const data = await page.$$eval('.products .product-link', (productCards) => {
         return productCards.map(document => {
             try {
@@ -64,7 +63,7 @@ debugger
         return { ...m,title:m.title }
     })
 
-    return [{pageInfo,products:formatprice.filter((f,i)=>i<7)}]
+    return [{products:formatprice.filter((f,i)=>i<7)}]
 }else{
     return []
 }
