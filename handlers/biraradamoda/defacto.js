@@ -7,21 +7,21 @@ const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 async function handler(page,context) {
     const { request: { userData: { start,title } } } = context
     const requestQueue = await RequestQueue.open();
-debugger
+
     const url = await page.url()
     let i =0
 
     if(start){
-    debugger
+ 
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.defacto.com.tr/')) ) 
-            debugger
+         
             console.log('links',links)
         
             for(let l of links){
             
                 i =i+1
     
-                await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
+            //    await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
               
             }
       
@@ -35,9 +35,9 @@ debugger
             if(start){
                 const pageDataset = await Dataset.open(`pageInfo`);
                 await pageDataset.pushData({hrefText,docTitle,link,id})
-                debugger
+                
             }
-            debugger
+           
             const data = await page.$$eval('.catalog-products .product-card', (productCards) => {
                 return productCards.map( productCard => {
                     try {
@@ -64,10 +64,10 @@ debugger
             })
 
             const withId = data.map((m)=>{
-                debugger
-                const id = generateUniqueKey({imageUrl:m.imageUrl,marka:m.marka,link:m.link})
-                debugger
-                return {...m,id,pid:id}
+              
+                const prodId = generateUniqueKey({imageUrl:m.imageUrl,marka:m.marka,link:m.link})
+         
+                return {...m,id:prodId,pid:id}
             })
  
 

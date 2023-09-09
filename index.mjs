@@ -208,11 +208,17 @@ debugger
     }else{
         const pageDataset = await Dataset.open(`pageInfo`);
         const { items: pageItems } = await pageDataset.getData();
-        const mapped= pageItems.map((m)=>{
-            return {...m, keywords:''}
-        })
 
-            await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
+   
+        for( let p of pageItems){
+
+            const foundProducts =productItems.filter(f=>f.pid === p.id)
+            const keywords = extractPagekeywords({products:foundProducts})
+            p.keywords= keywords
+debugger
+        }
+debugger
+       //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         
 

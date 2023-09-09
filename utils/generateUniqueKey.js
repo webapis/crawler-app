@@ -6,10 +6,10 @@ function generateUniqueKey(obj) {
 
   // Combine the property values into a string.
   var keyString = propertyValues.join("-");
-debugger
+
   // Convert the string to a hash.
   var key = hash(keyString);
-debugger
+
   return key;
 }
 
