@@ -1,23 +1,26 @@
 
 
-const { RequestQueue  } =require ('crawlee');
+const {  Dataset,RequestQueue } =require('crawlee');
+const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 async function handler(page, context) {
 
-    const { request: { userData: { start,pageOrder } } } = context
+    const { request: { userData: { start,title } } } = context
     const requestQueue = await RequestQueue.open();
 debugger
 let i =0
 
 if(start){
-
-    const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>m.href).filter(f=>f.includes('https://www.dilvin.com.tr/')) ) 
+debugger
+    const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.dilvin.com.tr/')) ) 
         debugger
         console.log('links',links)
     
         for(let l of links){
         
             i =i+1
-            await  requestQueue.addRequest({url:l,  userData:{start:false,pageOrder:i} })
+
+            await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
+          
         }
   
     }
@@ -26,16 +29,18 @@ console.log('url----',url)
 const productPage = await page.$('.category-product')
 
     if(productPage){
-        const pageInfo = await page.evaluate(()=>{
-            return {
-                title :document.title,
-                minPrice:0,
-                maxPrice:0,
-                total:0,
-                link:document.baseURI
-            }
-        })
-console.log('pageInfo',pageInfo)
+        if(start){
+            debugger
+            const pageDataset = await Dataset.open(`pageInfo`);
+            const hrefText =title
+            const docTitle  = await page.evaluate(()=>document.title)
+            const link = await page.evaluate(()=>document.baseURI)
+            const id = generateUniqueKey({hrefText,docTitle,link},['hrefText','docTitle','link'])
+            debugger
+            await pageDataset.pushData({hrefText,docTitle,link,id})
+            debugger
+        }
+
             const data = await page.$$eval('.product', (productCards) => {
                 return productCards.map(document => {
                         try {
@@ -62,7 +67,7 @@ console.log('pageInfo',pageInfo)
         
         debugger
         console.log('data line one',pageOrder ,'of')
-        return [{pageInfo,products:data.filter((f,i)=>i<7)}]
+        return [{products:data.filter((f,i)=>i<7)}]
     
         }else{
 

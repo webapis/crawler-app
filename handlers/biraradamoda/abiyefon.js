@@ -12,6 +12,7 @@ async function handler(page,context) {
             for(let l of links){
             
                 await  requestQueue.addRequest({url:l.href+'/?currency=TL',  userData:{start:true,title:l.title} })
+          
             }
       
         }

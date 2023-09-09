@@ -9,7 +9,7 @@
     "import": "node typesense/importData.mjs",
     "deleteData": "node typesense/deleteDatabase.mjs",
     "deleteByMarka": "node typesense/deleteByMarka.mjs",
-    "snap":"node snap.js"
+    "snap": "node snap.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "make-dir": "^4.0.0",
     "node-fetch": "2.6.1",
     "object-agent": "^1.6.0",
+    "object-hash": "^3.0.0",
     "puppeteer": "20.7.3",
     "typesense": "1.5.4",
     "xml-js": "1.6.11"
