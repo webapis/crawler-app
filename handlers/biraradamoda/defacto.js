@@ -105,7 +105,7 @@ async function handler(page,context) {
            
             return withId
         } else{
-
+            console.log( '[]:', url)
                 return[]
             }
  
