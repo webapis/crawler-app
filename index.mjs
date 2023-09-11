@@ -29,14 +29,14 @@ require('dotenv').config()
     const handlePageFunction = async (context) => {
 
 
-        const { page, request: { userData: { start, opts } } } = context
+        const { page, request: { userData: { start, opts,firstPage } } } = context
 
 
         const { handler, getUrls } = require(`./handlers/biraradamoda/${process.env.marka}`);
         const { pageUrls, productCount } = await getUrls(page)
         process.env.productCount = productCount
 
-        if (start) {
+        if (start || firstPage) {
             let order = 1
             for (let url of pageUrls) {
                 if (pageUrls.length === order) {

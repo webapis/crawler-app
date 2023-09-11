@@ -136,11 +136,8 @@ async function getUrls(page) {
     let pagesLeft = totalPages
     for (let i = 2; i <= totalPages; i++) {
 
-
-
         pageUrls.push(`${url}?page=` + i)
         --pagesLeft
-
 
     }
    }
