@@ -12,9 +12,9 @@ async function handler(page,context) {
     let i =0
 
     if(start){
-        await page.waitForSelector('header')
+   
         debugger
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('.header a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),list:m.getAttribute('data-category') }}).filter(f=>f.href.includes('https://www.defacto.com.tr/') && f.list===null) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('header a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),list:m.getAttribute('data-category') }}).filter(f=>f.href.includes('https://www.defacto.com.tr/') && f.list===null) ) 
         const linksToRemove =[
         // 'https://www.defacto.com.tr/kadin',
         // 'https://www.defacto.com.tr/erkek',
