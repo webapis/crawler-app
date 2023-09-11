@@ -14,7 +14,7 @@ async function handler(page,context) {
     if(start){
         await page.waitForSelector('.menu-top__list')
         debugger
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),list:m.getAttribute('data-category') }}).filter(f=>f.href.includes('https://www.defacto.com.tr/') && f.list===null) ) 
+        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('.header a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),list:m.getAttribute('data-category') }}).filter(f=>f.href.includes('https://www.defacto.com.tr/') && f.list===null) ) 
         const linksToRemove =[
         // 'https://www.defacto.com.tr/kadin',
         // 'https://www.defacto.com.tr/erkek',
@@ -47,7 +47,9 @@ async function handler(page,context) {
         'https://www.defacto.com.tr/hepsipay-odeme-yontemi',
         'https://www.defacto.com.tr/statik/sikca-sorulan-sorular',
         'https://www.defacto.com.tr/ziyaretci/siparisler',
-        'https://www.defacto.com.tr/Login?returnUrl=%2Fcustomer%2Faddress'
+        'https://www.defacto.com.tr/Login?returnUrl=%2Fcustomer%2Faddress',
+        "https://www.defacto.com.tr/Login/FacebookLogin?returnurl=%2Fcustomer%2Fnewsletter",
+        "https://www.defacto.com.tr/Login/FacebookLogin?returnurl=%2Fcustomer%2Fmyreview"
 
     ]
     debugger
