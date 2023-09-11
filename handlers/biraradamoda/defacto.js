@@ -28,12 +28,12 @@ async function handler(page,context) {
             console.log('links',links)
         
             for(let l of links){
-                if(linksToRemove.find(f=> f===l.href)===-1 ){
+             //   if(linksToRemove.find(f=> f===l.href)===-1 ){
                     i =i+1
     
                   await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
                       
-                }
+              //  }
   
             }
       
