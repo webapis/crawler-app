@@ -19,6 +19,7 @@ env:
   WEBSITE: biraradamoda
   MONGODB_URL: ${{secrets.MONGODB_URL}}
   GH_TOKEN: ${{secrets.GH_TOKEN}}
+  ALGOLIAKEY: ${{secrets.ALGOLIAKEY}}
   # GENDER: ${{inputs.gender}}
 jobs:
   penti_job:
