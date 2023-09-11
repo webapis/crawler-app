@@ -5,7 +5,7 @@ const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 
 
 async function handler(page,context) {
-    const { request: { userData: { start,title } } } = context
+    const { request: { userData: { start,title,firstPage } } } = context
     const requestQueue = await RequestQueue.open();
 
     const url = await page.url()
@@ -37,7 +37,16 @@ async function handler(page,context) {
         'https://www.defacto.com.tr/blog',
         'https://www.defacto.com.tr/Login/Logout',
         'https://www.defacto.com.tr/Customer/Account',
-        'https://www.defacto.com.tr/Login?newUser=True&ReturnUrl=%2F'
+        'https://www.defacto.com.tr/Login?newUser=True&ReturnUrl=%2F',
+        'https://www.defacto.com.tr/okula-donus',
+        'https://www.defacto.com.tr/giftclub,',
+        'https://www.defacto.com.tr/param-odeme-yontemi',
+        'https://www.defacto.com.tr/papara-odeme-yontemi',
+        'https://www.defacto.com.tr/nays-odeme-yontemi',
+        'https://www.defacto.com.tr/hepsipay-odeme-yontemi',
+        'https://www.defacto.com.tr/statik/sikca-sorulan-sorular',
+        'https://www.defacto.com.tr/ziyaretci/siparisler',
+        'https://www.defacto.com.tr/Login?returnUrl=%2Fcustomer%2Faddress'
 
     ]
     debugger
@@ -49,7 +58,7 @@ async function handler(page,context) {
                 if(linksToRemove.find(f=> f===l.href)===undefined ){
                     i =i+1
     
-                  await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
+                  await  requestQueue.addRequest({url:l.href,  userData:{start:false,title:l.title,firstPage:true} })
                       
                }
   
@@ -62,7 +71,7 @@ async function handler(page,context) {
             const docTitle  = await page.evaluate(()=>document.title)
             const link = await page.evaluate(()=>document.baseURI)
             const id = generateUniqueKey({hrefText,docTitle,link})
-            if(start){
+            if(firstPage){
                 const pageDataset = await Dataset.open(`pageInfo`);
                 await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:'defacto'})
                 
