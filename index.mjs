@@ -220,7 +220,7 @@ debugger
         }
 debugger
          await  importLinkData({data:pageItems})
-
+        console.log('productItems----',productItems.length)
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         
