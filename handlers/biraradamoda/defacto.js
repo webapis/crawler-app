@@ -22,18 +22,36 @@ async function handler(page,context) {
         'https://www.defacto.com.tr/kadin-giyim',
         'https://www.defacto.com.tr/erkek',
         'https://www.defacto.com.tr/kiz-cocuk-genc-kiz',
-        'https://www.defacto.com.tr/erkek-cocuk-genc-erkek'
+        'https://www.defacto.com.tr/erkek-cocuk-genc-erkek',
+        'https://www.defacto.com.tr/tum-urunler',
+        'https://www.defacto.com.tr/Customer/CustomerMobileMenu',
+        'https://www.defacto.com.tr/statik/gizlilik-politikasi',
+        'https://www.defacto.com.tr/customer/cookiesetting',
+        'https://www.defacto.com.tr/statik/gizlilik-politikasi',
+        'https://www.defacto.com.tr/kurumsal/iletisim',
+        'https://www.defacto.com.tr/magazalar',
+        'https://www.defacto.com.tr/statik/islem-rehberi',
+        'https://www.defacto.com.tr/giftclub/sikca-sorulan-sorular',
+        'https://www.defacto.com.tr/statik/iade-degisim-islemleri',
+        'https://www.defacto.com.tr/statik/siparis-takip',
+        'https://www.defacto.com.tr/blog',
+        'https://www.defacto.com.tr/Login/Logout',
+        'https://www.defacto.com.tr/Customer/Account',
+        'https://www.defacto.com.tr/Login?newUser=True&ReturnUrl=%2F'
 
     ]
-            console.log('links',links)
+    debugger
+          //  console.log('links',links)
         
             for(let l of links){
-             //   if(linksToRemove.find(f=> f===l.href)===-1 ){
+                const notMct = linksToRemove.find(f=> f===l.href)
+                debugger
+                if(linksToRemove.find(f=> f===l.href)===undefined ){
                     i =i+1
     
                   await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
                       
-              //  }
+               }
   
             }
       
