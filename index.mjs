@@ -5,6 +5,7 @@ const require = createRequire(import.meta.url);
 const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
 import { uploadCollection } from'./utils/uploadCollection.mjs'
 const {extractPagekeywords}=require('./utils/extractPagekeywords')
+const {importLinkData}=require('./utils/importData.js')
 require('dotenv').config()
 
     const requestQueue = await RequestQueue.open();
@@ -212,12 +213,14 @@ debugger
    
         for( let p of pageItems){
 
-            const foundProducts =productItems.filter(f=>f.pid === p.id)
+            const foundProducts =productItems.filter(f=>f.pid === p.objectID)
             const keywords = extractPagekeywords({products:foundProducts})
             p.keywords= keywords
 debugger
         }
 debugger
+         await  importLinkData({data:pageItems})
+
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         

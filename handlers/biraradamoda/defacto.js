@@ -14,27 +14,39 @@ async function handler(page,context) {
     if(start){
  
         const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.defacto.com.tr/')) ) 
-         
+        const linksToRemove =[
+        'https://www.defacto.com.tr/kadin',
+        'https://www.defacto.com.tr/erkek',
+        'https://www.defacto.com.tr/cocuk',
+        'https://www.defacto.com.tr/bebek',
+        'https://www.defacto.com.tr/kadin-giyim',
+        'https://www.defacto.com.tr/erkek',
+        'https://www.defacto.com.tr/kiz-cocuk-genc-kiz',
+        'https://www.defacto.com.tr/erkek-cocuk-genc-erkek'
+
+    ]
             console.log('links',links)
         
             for(let l of links){
-            
-                i =i+1
+                if(linksToRemove.find(f=> f===l.href)===-1 ){
+                    i =i+1
     
-            //    await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
-              
+               //    await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
+                      
+                }
+  
             }
       
         }
         const productPage = await page.$('.catalog-products')
         if(productPage){
-            const hrefText =title
+            const hrefText =title ? title:""
             const docTitle  = await page.evaluate(()=>document.title)
             const link = await page.evaluate(()=>document.baseURI)
             const id = generateUniqueKey({hrefText,docTitle,link})
             if(start){
                 const pageDataset = await Dataset.open(`pageInfo`);
-                await pageDataset.pushData({hrefText,docTitle,link,id})
+                await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:'defacto'})
                 
             }
            

@@ -65,7 +65,7 @@ debugger
     })
 
     return [{products:formatprice.filter((f,i)=>i<7)}]
-}else{
+}else {
     return []
 }
 
