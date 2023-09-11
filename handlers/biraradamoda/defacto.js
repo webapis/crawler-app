@@ -5,7 +5,7 @@ const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 
 
 async function handler(page,context) {
-    const { request: { userData: { start,title,firstPage } } } = context
+    const { request: { userData: { start,title } } } = context
     const requestQueue = await RequestQueue.open();
 
     const url = await page.url()
@@ -59,7 +59,7 @@ async function handler(page,context) {
                 if(linksToRemove.find(f=> f===l.href)===undefined ){
                     i =i+1
     
-                  await  requestQueue.addRequest({url:l.href,  userData:{start:false,title:l.title,firstPage:true} })
+                  await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
                       
                }
   
@@ -72,7 +72,7 @@ async function handler(page,context) {
             const docTitle  = await page.evaluate(()=>document.title)
             const link = await page.evaluate(()=>document.baseURI)
             const id = generateUniqueKey({hrefText,docTitle,link})
-            if(firstPage){
+            if(start){
                 const pageDataset = await Dataset.open(`pageInfo`);
                 await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:'defacto'})
                 
