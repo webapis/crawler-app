@@ -24,7 +24,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
     if(start){
    
         debugger
-        const links = await page.evaluate((linkSelector)=>Array.from( document.querySelectorAll(linkSelector,hostname)).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes(hostname)),linkSelector,hostname ) 
+        const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes(hostname)),linkSelector,hostname ) 
 
             for(let l of links){
              
