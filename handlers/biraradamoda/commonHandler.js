@@ -38,7 +38,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
                     }
                 }
          
-                if(linksToRemove.find(f=> f===l.href)===undefined && !negative ){
+                if(linksToRemove.find(f=> f===l.href)===undefined && !negative && l.href.length<=150 ){
                     debugger
                     i =i+1
     

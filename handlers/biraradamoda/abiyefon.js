@@ -30,7 +30,19 @@ const  extractor=async (page,marka)=> {
 }
  const productPageSelector='.products'
  const linkSelector='a:not(.product-link)'
- const linksToRemove=[]
+ const linksToRemove=['https://www.abiyefon.com/iletisim.html'
+ ,'https://www.abiyefon.com/hesabim/register',
+ 'https://www.abiyefon.com/hesabim/login',
+ 'https://www.abiyefon.com/sepetim',
+ 'https://www.abiyefon.com/begendiklerim',
+ 'https://www.abiyefon.com/hakkimizda.shtm',
+ 'https://www.abiyefon.com/musteri-hizmetleri.shtm',
+ 'https://www.abiyefon.com/teslimat-kosullari.shtm',
+ 'https://www.abiyefon.com/iade-kosullari',
+ 'https://www.abiyefon.com/sikca-sorulan-sorular',
+ 'https://www.abiyefon.com/yasal-uyari.shtm'
+
+]
  const hostname='https://www.abiyefon.com/'
  const productItemsSelector='.products .product-link'
 const exclude=['USD','EUR','GBP','&uzunluk=uzun&uzunluk=uzun&']
