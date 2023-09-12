@@ -32,7 +32,7 @@ require('dotenv').config()
         const { page, request: { userData: { start, opts } } } = context
 
 
-        const {  getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector } = require(`./handlers/biraradamoda/${process.env.marka}`);
+        const {  getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix } = require(`./handlers/biraradamoda/${process.env.marka}`);
         const {commonHandler}=require(`./handlers/biraradamoda/commonHandler.js`)
         const { pageUrls, productCount } = await getUrls(page)
         process.env.productCount = productCount
@@ -49,7 +49,7 @@ require('dotenv').config()
             }
         }
 
-        const dataCollected = await commonHandler({page, context,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector})
+        const dataCollected = await commonHandler({page, context,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix})
    
         if (dataCollected.length > 0) {
             await productsDataset.pushData(dataCollected)
@@ -58,6 +58,7 @@ require('dotenv').config()
 
 
         } else {
+
             console.log('unsuccessfull page data collection',dataCollected)
 
             // throw 'unsuccessfull data collection'

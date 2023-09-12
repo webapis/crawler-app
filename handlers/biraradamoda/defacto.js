@@ -65,7 +65,8 @@ const linksToRemove=[
 ]
 const hostname='https://www.defacto.com.tr/'
 const productItemsSelector='.catalog-products .product-card'
-
+const exclude=[]
+const postFix =''
 async function getUrls(page) {
     const url = await page.url()
    const nextPage = await page.$('.catalog__meta--product-count span')
@@ -88,4 +89,4 @@ async function getUrls(page) {
 
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix }

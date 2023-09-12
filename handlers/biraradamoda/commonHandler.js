@@ -4,7 +4,7 @@ const {  Dataset,RequestQueue } =require('crawlee');
 const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 const marka =process.env.marka
 
-async function commonHandler({page,context,productPageSelector, linkSelector, linksToRemove, hostname}){
+async function commonHandler({page,context,productPageSelector, linkSelector, linksToRemove, hostname, exclude,postFix}){
     const { request: { userData: { start,title } } } = context
     const requestQueue = await RequestQueue.open();
  
@@ -24,14 +24,25 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
     if(start){
    
         debugger
-        const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes(hostname)),linkSelector,hostname ) 
+        const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
 
-            for(let l of links){
-             
-                if(linksToRemove.find(f=> f===l.href)===undefined ){
+            for(let l of links.filter(f=>f)){
+                let negative =false
+                debugger
+                if(exclude.length>0){
+                    for(let e of exclude){
+                        if(l.href.indexOf(e) !==-1){
+                            debugger
+                            negative=true
+                        }
+                    }
+                }
+         
+                if(linksToRemove.find(f=> f===l.href)===undefined && !negative ){
+                    debugger
                     i =i+1
     
-             await  requestQueue.addRequest({url:l.href,  userData:{start:true,title:l.title} })
+             await  requestQueue.addRequest({url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title} })
                       
                }
   
