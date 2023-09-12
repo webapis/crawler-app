@@ -33,7 +33,7 @@ const  extractor=async (page,marka)=> {
  const linksToRemove=[]
  const hostname='https://www.abiyefon.com/'
  const productItemsSelector='.products .product-link'
-const exclude=['USD','EUR','GBP']
+const exclude=['USD','EUR','GBP','&uzunluk=uzun&uzunluk=uzun&']
 const postFix ='?currency=TL'
 
 
