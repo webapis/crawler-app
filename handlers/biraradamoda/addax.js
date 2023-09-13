@@ -35,7 +35,11 @@ return data
 const productPageSelector='.PrdContainer'
 //const linkSelector='a:not(.Prd a)'
 const linkSelector='#MainMenu a'
-const linksToRemove=['https://www.addax.com.tr/alt-giyim/','https://www.addax.com.tr/ust-giyim/','https://www.addax.com.tr/dis-giyim/']
+const linksToRemove=['https://www.addax.com.tr/alt-giyim/',
+'https://www.addax.com.tr/ust-giyim/',
+'https://www.addax.com.tr/dis-giyim/',
+'https://adidas.my.salesforce.com/'
+]
 const hostname='https://www.addax.com.tr/'
 const productItemsSelector='.Prd'
 const exclude=[".pdf"]

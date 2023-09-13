@@ -2,7 +2,7 @@
 
 async function extractor(page) {
 
-    autoScroll(page)
+ await  autoScroll(page)
     debugger;
     const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
@@ -27,50 +27,68 @@ async function extractor(page) {
           
         }).filter(f => f.priceNew !== null)
     })
+
 return data
 
 }
 const productPageSelector='[data-auto-id="product_container"]'
-const linkSelector='a:not([class^="product-container"] a)'
-const linksToRemove=[]
+const linkSelector='a:not([class^="_header_container"] a)'
+const linksToRemove=['https://www.adidas.com.tr/tr//help-topics-privacy_policy.html']
 const hostname='https://www.adidas.com.tr/'
 const productItemsSelector='.glass-product-card'
 const exclude=[]
 const postFix =''
 
 async function autoScroll(page) {
-    page.on("console", (message) => {
-      console.log("Message from Puppeteer page:", message.text());
-    });
-    await page.evaluate(async () => {
-      await new Promise((resolve, reject) => {
-        var totalHeight = 0;
-        var distance = 100;
-        let inc = 0;
-  
-        var timer = setInterval(() => {
-          var scrollHeight = document.body.scrollHeight;
-  
-          window.scrollBy(0, distance);
-          totalHeight += distance;
-          inc = inc + 1;
-          console.log("inc", inc);
-          if (totalHeight >= scrollHeight - window.innerHeight) {
-            if (inc === 10) {
-              clearInterval(timer);
-              resolve();
-            }
-          } else {
-            inc = 0;
+  page.on("console", (message) => {
+    console.log("Message from Puppeteer page:", message.text());
+  });
+  await page.evaluate(async () => {
+    await new Promise((resolve, reject) => {
+      var totalHeight = 0;
+      var distance = 100;
+      let inc = 0;
+
+      var timer = setInterval(() => {
+        var scrollHeight = document.body.scrollHeight;
+
+        window.scrollBy(0, distance);
+        totalHeight += distance;
+        inc = inc + 1;
+        console.log("inc", inc);
+        if (totalHeight >= scrollHeight - window.innerHeight) {
+          if (inc === 10) {
+            clearInterval(timer);
+            resolve();
           }
-        }, 150);
-      });
+        } else {
+          inc = 0;
+        }
+      }, 250);
     });
-  }
+  });
+}
 async function getUrls(page) {
 
+  const url = await page.url()
+  const nextPage = await page.$('[data-auto-id=pagination-pages-container]')
+  const pageUrls = []
+  let productCount = 0
+  if(nextPage){
    
+   const totalPages = await page.$eval('[data-auto-id=pagination-pages-container]', element => parseInt(element.innerText.replace(/[^\d]/g,'')))
 
-    return { pageUrls:[], productCount: 0, pageLength: 0 }
+
+   let pagesLeft = totalPages
+   for (let i = 2; i <= totalPages; i++) {
+
+       pageUrls.push(`${url}?start=` + i)
+       --pagesLeft
+
+   }
+  }
+ 
+
+   return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
 module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix }
