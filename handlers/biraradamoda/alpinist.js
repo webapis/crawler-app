@@ -1,45 +1,10 @@
 
 
-const { RequestQueue  } =require ('crawlee');
-async function handler(page, context) {
 
-    const { request: { userData: { start,pageOrder,title } } } = context
-    const requestQueue = await RequestQueue.open();
-debugger
-let i =0
-let totalPage =0
-    debugger;
-    if(start){
+async function extractor(page) {
 
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.alpinist.com.tr/') && f.title.length> 2 ))
-            debugger
-            console.log('links',links)
-            totalPage =links.length
-            for(let l of links){
-            
-                i =i+1
-                await  requestQueue.addRequest({url:l.href,  userData:{start:false,pageOrder:i,title:l.title} })
-            }
-      
-        }
-        debugger
-    const url = await page.url()
 
-    const productPage = await page.$('.showcase-container')
-    if(productPage){
-        const pageInfo = await page.evaluate((title)=>{
-            return {
-                hrefText:title ? title: 'none' ,
-                title :document.title,
-                minPrice:0,
-                maxPrice:0,
-                total:parseInt(document.querySelector('.record-count').innerText.replace(/[^\d]/g, "")),
-                link:document.baseURI
-            }
-        },title)
-        debugger
-        console.log('pageInfo',pageInfo)
-        const data = await page.$$eval('.showcase-container .row', (productCards) => {
+        const data = await page.$$eval('.showcase-container .showcase', (productCards) => {
             return productCards.map(document => {
                 const brand =document.querySelector('.showcase-brand a').innerText
                 const imageUrl = document.querySelector('.showcase-image img').getAttribute('data-src')
@@ -47,8 +12,6 @@ let totalPage =0
                 const priceNew = document.querySelector('.showcase-price-new').innerText.replace('TL','').trim()
                 const longlink = document.querySelector('.showcase-image a').href
              
-    
-    
                 return {
                     hrefText:title ,
                     title: 'alpinist ' + title.replace(/İ/g, 'i').toLowerCase(),
@@ -61,36 +24,48 @@ let totalPage =0
             }).filter(f => f.imageUrl !== null && f.title.length > 5)
         })
     
-        console.log('data length_____', data.length, 'url:', url)
+ return data
     
-      
-        console.log('data line one',pageOrder ,'of', totalPage)
-        return [{pageInfo,products:data.filter((f,i)=>i<7)}]
-    }
-else
-{
-    return[]
-}
-    
+
    
 }
+const productPageSelector='.showcase-container'
+const linkSelector='#navigation a'
+const linksToRemove=[]
+const hostname='https://www.alpinist.com.tr/'
+const exclude=[]
+const postFix =''
 
 async function getUrls(page) {
     
-//     const url = await page.url()
-//     await page.waitForSelector('.products-nb-per-page')
-//     const productCount = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.dropdown-menu a')).map(m=>m.innerHTML.trim()).filter(Number)))
+    const firstUrl = await page.url()
+    const nextPageExists = await page.$('.paginate a')
+    const pageUrls = []
+    if(nextPageExists){
+        const totalPages = await page.evaluate(() => {
+            return Math.max(...Array.from(document.querySelectorAll('.paginate a')).map(m=>m.innerHTML.trim()).filter(Number))
+        })
+    
+      
+        let pagesLeft = totalPages
+    
+        for (let i = 2; i <= totalPages; i++) {
+            const url = `${firstUrl}?tp=${i}`
+    
+            if (pagesLeft >= 1) {
+                pageUrls.push(url)
+                --pagesLeft
+            }
+        }
 
-//     const pageUrls = []
-
-// debugger
-//     pageUrls.push(`${url}?p?order=product.position.asc&resultsPerPage=` + productCount)
-
-
-
+        console.log('pageUrls!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',pageUrls)
+    }else{
+        console.log('not next page>>>>>>>>>>>>>>')
+    }
+  
 
 
-    return { pageUrls:[], productCount:0, pageLength: 0 }
+    return { pageUrls:[], productCount: 0, pageLength:pageUrls.length }
 
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
