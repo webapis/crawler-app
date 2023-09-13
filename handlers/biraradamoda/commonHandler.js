@@ -25,7 +25,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
    
         debugger
         const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
-
+        console.log('links',links)
             for(let l of links.filter(f=>f)){
                 let negative =false
                 debugger
@@ -69,8 +69,11 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
 
             console.log('data length_____', data.length, 'url:', url)
             if(start){
-                const pageDataset = await Dataset.open(`pageInfo`);
-                await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka ,imageUrl:data[0].imageUrl})
+                if(data.length>0){
+                    const pageDataset = await Dataset.open(`pageInfo`);
+                    await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka ,imageUrl:data[0].imageUrl})
+                }
+             
             }
             return withId
         } else{

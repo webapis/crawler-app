@@ -1,42 +1,8 @@
 
 
-const { RequestQueue  } =require ('crawlee');
-async function handler(page,context) {
 
-    const { request: { userData: { start,title } } } = context
-    const requestQueue = await RequestQueue.open();
-
-        if(start){
-
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.addax.com.tr/')) ) 
-            debugger
-            for(let l of links){
-            
-                await  requestQueue.addRequest({url:l.href,  userData:{start:false,title:l.title} })
-            }
-      
-        }
-    const url = await page.url()
-
-    debugger;
-
-    const productPage = await page.$('.PrdContainer')
-if(productPage){
-
-    await page.waitForSelector('#MinPrice')
-    await page.waitForSelector('#MaxPrice')
-    const pageInfo = await page.evaluate((title)=>{
-        return {
-            hrefText:title ,
-            title :document.title,
-            minPrice:document.querySelector('#MinPrice').value.trim(),
-            maxPrice:document.querySelector('#MaxPrice').value.trim(),
-            total:0,
-            link:document.baseURI
-        }
-    },title)
-    console.log('pageInfo',pageInfo)
-    debugger
+async function extractor(page,marka) {
+    await autoScroll(page);
     const data = await page.$$eval('.Prd', (productCards) => {
         return productCards.map(document => {
             try {
@@ -47,12 +13,12 @@ if(productPage){
                 const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://cdn3.sorsware.com/") + 26)//https://cdn3.sorsware.com/
                 const title = document.querySelector("img[data-src]").alt
                 return {
-                    title: 'addax ' + title.replace(/İ/g,'i').toLowerCase(),
+                    title: marka+' ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
                     imageUrl: imageUrlshort,
                     link,
                     timestamp: Date.now(),
-                    marka: 'addax',
+                    marka,
                 }
             } catch (error) {
                 return {error:error.toString(),content:document.innerHTML}
@@ -61,49 +27,52 @@ if(productPage){
         })
     })
 
-
-
-    //----------
-
-    console.log('data length_____', data.length, 'url:', url)
-
-debugger
-    return [{pageInfo,products:data.filter((f,i)=>i<7)}]
-}
-
-else{
-    return []
-}
-
+return data
 
 }
+
+
+const productPageSelector='.PrdContainer'
+const linkSelector='a:not(.Prd a)'
+const linksToRemove=['https://www.addax.com.tr/alt-giyim/','https://www.addax.com.tr/ust-giyim/','https://www.addax.com.tr/dis-giyim/']
+const hostname='https://www.addax.com.tr/'
+const productItemsSelector='.Prd'
+const exclude=[]
+const postFix =''
 
 async function getUrls(page) {
 
     return { pageUrls: [], productCount: 0, pageLength: 0 }
 }
 
-// async function autoScroll(page) {
-//     await page.evaluate(async () => {
-
-
-//         await new Promise((resolve, reject) => {
-//             var totalHeight = 0;
-//             var distance = 100;
-//             let inc = 0
-//             var timer = setInterval(() => {
-//                 var scrollHeight = document.body.scrollHeight;
-
-//                 window.scrollBy(0, distance);
-//                 totalHeight += distance;
-//                 inc = inc + 1
-//                 if (totalHeight >= scrollHeight - window.innerHeight) {
-//                     clearInterval(timer);
-//                     resolve();
-//                 }
-//             }, 150);
-//         });
-//     });
-// }
-module.exports = { handler, getUrls }
+async function autoScroll(page) {
+    page.on("console", (message) => {
+      console.log("Message from Puppeteer page:", message.text());
+    });
+    await page.evaluate(async () => {
+      await new Promise((resolve, reject) => {
+        var totalHeight = 0;
+        var distance = 100;
+        let inc = 0;
+  
+        var timer = setInterval(() => {
+          var scrollHeight = document.body.scrollHeight;
+  
+          window.scrollBy(0, distance);
+          totalHeight += distance;
+          inc = inc + 1;
+          console.log("inc", inc);
+          if (totalHeight >= scrollHeight - window.innerHeight) {
+            if (inc === 50) {
+              clearInterval(timer);
+              resolve();
+            }
+          } else {
+            inc = 0;
+          }
+        }, 250);
+      });
+    });
+  }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix }
 
