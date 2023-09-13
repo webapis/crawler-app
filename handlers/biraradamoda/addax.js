@@ -3,7 +3,7 @@
 
 async function extractor(page,marka) {
     await autoScroll(page);
-    const data = await page.$$eval('.Prd', (productCards) => {
+    const data = await page.$$eval('.Prd', (productCards,marka) => {
         return productCards.map(document => {
             try {
                 const priceNew = Array.from(document.querySelector('.SalesAmount').querySelectorAll('.PPrice')).reverse()[0].innerHTML.replace('TL', '').trim()
@@ -25,7 +25,7 @@ async function extractor(page,marka) {
             }
   
         })
-    })
+    },marka)
 
 return data
 
@@ -33,11 +33,12 @@ return data
 
 
 const productPageSelector='.PrdContainer'
-const linkSelector='a:not(.Prd a)'
+//const linkSelector='a:not(.Prd a)'
+const linkSelector='#MainMenu a'
 const linksToRemove=['https://www.addax.com.tr/alt-giyim/','https://www.addax.com.tr/ust-giyim/','https://www.addax.com.tr/dis-giyim/']
 const hostname='https://www.addax.com.tr/'
 const productItemsSelector='.Prd'
-const exclude=[]
+const exclude=[".pdf"]
 const postFix =''
 
 async function getUrls(page) {
