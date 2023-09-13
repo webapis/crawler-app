@@ -2,7 +2,7 @@
 
 async function extractor(page) {
 
- await  autoScroll(page)
+ //await  autoScroll(page)
     debugger;
     const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
@@ -64,7 +64,7 @@ async function autoScroll(page) {
         } else {
           inc = 0;
         }
-      }, 250);
+      }, 150);
     });
   });
 }
