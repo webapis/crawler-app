@@ -22,7 +22,7 @@ function setSettings(index) {
 
 async function importLinkData({ data }) {
   const linkIndex = client.initIndex("link");
-  await setSettings(linkIndex);
+//  await setSettings(linkIndex);
   return new Promise((resolve, reject) => {
     try {
       linkIndex
