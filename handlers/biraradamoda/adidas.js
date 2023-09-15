@@ -32,7 +32,7 @@ return data
 
 }
 const productPageSelector='[data-auto-id="product_container"]'
-const linkSelector='a:not([class^="_header_container"] a)'
+const linkSelector='[class^="_header_container"] a'
 const linksToRemove=[
 'https://www.adidas.com.tr/tr//help-topics-privacy_policy.html',
 'https://www.adidas.com.tr/tr',
@@ -41,12 +41,13 @@ const linksToRemove=[
 "https://www.adidas.com.tr/tr/erkek-ayakkabi?price_max=1199&price_min=1",
 "https://www.adidas.com.tr/tr/erkek-giyim?price_max=849&price_min=1",
 "https://www.adidas.com.tr/tr/kadin-ayakkabi?price_max=1080&price_min=1",
-"https://www.adidas.com.tr/tr/kadin-giyim?price_max=949&price_min=1"
+"https://www.adidas.com.tr/tr/kadin-giyim?price_max=949&price_min=1",
+"https://www.adidas.com.tr/erkek"
 
 ]
 const hostname='https://www.adidas.com.tr/'
 const productItemsSelector='.glass-product-card'
-const exclude=[]
+const exclude=['.html']
 const postFix =''
 
 async function autoScroll(page) {
