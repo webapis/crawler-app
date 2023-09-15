@@ -5,6 +5,7 @@ const require = createRequire(import.meta.url);
 const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
 import { uploadCollection } from'./utils/uploadCollection.mjs'
 const {extractPagekeywords}=require('./utils/extractPagekeywords')
+const {importLinkData}=require('./utils/importData.js')
 require('dotenv').config()
 
     const requestQueue = await RequestQueue.open();
@@ -31,7 +32,8 @@ require('dotenv').config()
         const { page, request: { userData: { start, opts } } } = context
 
 
-        const { handler, getUrls } = require(`./handlers/biraradamoda/${process.env.marka}`);
+        const {  getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix } = require(`./handlers/biraradamoda/${process.env.marka}`);
+        const {commonHandler}=require(`./handlers/biraradamoda/commonHandler.js`)
         const { pageUrls, productCount } = await getUrls(page)
         process.env.productCount = productCount
 
@@ -47,7 +49,7 @@ require('dotenv').config()
             }
         }
 
-        const dataCollected = await handler(page, context)
+        const dataCollected = await commonHandler({page, context,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix})
    
         if (dataCollected.length > 0) {
             await productsDataset.pushData(dataCollected)
@@ -56,6 +58,7 @@ require('dotenv').config()
 
 
         } else {
+
             console.log('unsuccessfull page data collection',dataCollected)
 
             // throw 'unsuccessfull data collection'
@@ -65,14 +68,14 @@ require('dotenv').config()
 
     }
 
-const longertimeconsumers =['koton']
+const longertimeconsumers =['koton','addax']
 const protocolTimeout =longertimeconsumers.find(f=>f===marka)? 2000000:120000
 console.log('protocolTimeout',protocolTimeout)
     const crawler = new PuppeteerCrawler({
         // requestList,
         requestQueue,
-        maxConcurrency: 1,
-     //// requestHandlerTimeoutSecs: 3600,
+        maxConcurrency: 2,
+      requestHandlerTimeoutSecs: 3600,
     //  maxRequestRetries:4,
        navigationTimeoutSecs: 240,
         launchContext: {
@@ -113,7 +116,7 @@ console.log('protocolTimeout',protocolTimeout)
         },
         requestHandler:handlePageFunction,
         //  navigationTimeoutSecs:120,
-        preNavigationHooks:['addax'].findIndex(f=>f===marka)!==-1? []: [
+        preNavigationHooks:['adsdsdax'].findIndex(f=>f===marka)!==-1? []: [
             async (crawlingContext, gotoOptions) => {
                 const base64Data = 'UklGRrQCAABXRUJQVlA4WAoAAAAgAAAAMQAAMQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggxgAAADAFAJ0BKjIAMgA+KRSIQqGhIRQEABgChLSAAfEUsMdoQDxm7V7DY8pOCS0L/ZyItlBAAP78SglvPhcQmHd7faO6y1Vj5rGK48w1Px+0DDzmSmSYzbIU4V+7Fe49Jdh1s8ufvov/DhqMdLRQIsmNpwliL2KKjX3y+AjM9IY6ZBHFt/K3ZB9a92c7eC4FhJPj8CGJNQiCXYBrv/s2nqpZap2xm8BBq/aPjDKYsaw5MG8/sgZVfdCc1IZY+bxPEQplrVSOwAAAAA=='
                 const buffer = Buffer.from(base64Data, 'base64');
@@ -126,7 +129,7 @@ console.log('protocolTimeout',protocolTimeout)
                 page.on('request', req => {
                     const resourceType = req.resourceType();
                     const url = req.url();
-                    if (resourceType === 'image' || (resourceType === 'fetch') ||url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif')|| url.endsWith('.webp')||url.endsWith("imformat=chrome")) {
+                    if (resourceType === 'image'  ||url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif')|| url.endsWith('.webp')||url.endsWith("imformat=chrome")) {
                         req.respond({
                             status: 200,
                             contentType: 'image/jpeg',
@@ -212,12 +215,14 @@ debugger
    
         for( let p of pageItems){
 
-            const foundProducts =productItems.filter(f=>f.pid === p.id)
+            const foundProducts =productItems.filter(f=>f.pid === p.objectID)
             const keywords = extractPagekeywords({products:foundProducts})
             p.keywords= keywords
-
+debugger
         }
-
+debugger
+         await  importLinkData({data:pageItems})
+        console.log('productItems----',productItems.length)
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         

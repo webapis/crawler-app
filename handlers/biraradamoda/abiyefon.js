@@ -1,40 +1,8 @@
-const {  Dataset,RequestQueue } =require('crawlee');
-const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 
-async function handler(page,context) {
-    const { request: { userData: { start,title } } } = context
-    const requestQueue = await RequestQueue.open();
-
-        if(start){
-
-        const links = await page.evaluate(()=>Array.from( document.querySelectorAll('a')).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes('https://www.abiyefon.com/')) ) 
-   
-            for(let l of links){
-            
-                await  requestQueue.addRequest({url:l.href+'/?currency=TL',  userData:{start:true,title:l.title} })
-          
-            }
-      
-        }
-    const url = await page.url()
-   // await page.waitForSelector('.products')
-    const productPage = await page.$('ul.products')
-    if(productPage){
-debugger
-        if(start){
-            const pageDataset = await Dataset.open(`pageInfo`);
-            const hrefText =title
-            const docTitle  = await page.evaluate(()=>document.title)
-            const link = await page.evaluate(()=>document.baseURI)
-            const id = generateUniqueKey({hrefText,docTitle,link},['hrefText','docTitle','link'])
-            debugger
-            await pageDataset.pushData({hrefText,docTitle,link,id})
-            debugger
-        }
-   
+const  extractor=async (page,marka)=> {
 
 
-    const data = await page.$$eval('.products .product-link', (productCards) => {
+    const data = await page.$$eval('.products .product-link', (productCards,marka) => {
         return productCards.map(document => {
             try {
                 const priceNew = document.querySelector("span[data-price]").innerHTML
@@ -44,61 +12,65 @@ debugger
                 const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf('https://www.abiyefon.com/') + 25)
                 const title = document.querySelector('img.product-list-image').alt
                 return {
-                    title: 'abiyefon ' + title.toLowerCase(),
+                    title: marka+' ' + title.toLowerCase(),
                     priceNew,
                     imageUrl: imageUrlshort,
                     link,
                     timestamp: Date.now(),
-                    marka: 'abiyefon'
+                    marka
                 }  
             }
             catch (error) {
                     return {error:error.toString(),content:document.innerHTML}
                 }
         }).filter(f => f.imageUrl !== null  && f.link !==null)
-    })
+    },marka)
 
-    console.log('data length_____', data.length, 'url:', url)
-
-    const formatprice = data.map((m) => {
-        return { ...m,title:m.title }
-    })
-
-    return [{products:formatprice.filter((f,i)=>i<7)}]
-}else{
-    return []
+ return data
 }
+ const productPageSelector='.products'
+ const linkSelector='a:not(.product-link)'
+ const linksToRemove=['https://www.abiyefon.com/iletisim.html'
+ ,'https://www.abiyefon.com/hesabim/register',
+ 'https://www.abiyefon.com/hesabim/login',
+ 'https://www.abiyefon.com/sepetim',
+ 'https://www.abiyefon.com/begendiklerim',
+ 'https://www.abiyefon.com/hakkimizda.shtm',
+ 'https://www.abiyefon.com/musteri-hizmetleri.shtm',
+ 'https://www.abiyefon.com/teslimat-kosullari.shtm',
+ 'https://www.abiyefon.com/iade-kosullari',
+ 'https://www.abiyefon.com/sikca-sorulan-sorular',
+ 'https://www.abiyefon.com/yasal-uyari.shtm'
+
+]
+ const hostname='https://www.abiyefon.com/'
+ const productItemsSelector='.products .product-link'
+const exclude=['USD','EUR','GBP','&uzunluk=uzun&uzunluk=uzun&']
+const postFix ='?currency=TL'
 
 
-}
 
 async function getUrls(page) {
- 
+    const url = await page.url()
+    const pageExist =     await page.$('.count-info-text strong')
+    let pageUrls = []
+    let productCount = 0
+    if(pageExist){
+         productCount = await page.$eval('.count-info-text strong', element => parseInt(element.textContent))
+        const totalPages = Math.ceil(productCount / 100)
+    
+        let pagesLeft = totalPages
+        for (let i = 2; i <= totalPages; i++) {
+            pageUrls.push(`${url}?page=` + i)
+            --pagesLeft
+    
+        }
+    }
 
-    return { pageUrls:[], productCount:0, pageLength:0 }
+
+    return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-
-// async function getUrls(page) {
-//     const url = await page.url()
-//     await page.waitForSelector('.count-info-text strong')
-//     const productCount = await page.$eval('.count-info-text strong', element => parseInt(element.textContent))
-//     const totalPages = Math.ceil(productCount / 100)
-//     const pageUrls = []
-
-//     let pagesLeft = totalPages
-//     for (let i = 2; i <= totalPages; i++) {
-
-
-
-//         pageUrls.push(`${url}?page=` + i)
-//         --pagesLeft
-
-
-//     }
-
-//     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
-// }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix }
 
 
 
