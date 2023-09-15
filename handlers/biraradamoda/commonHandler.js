@@ -98,7 +98,7 @@ function filterArray(firstArray, secondArray) {
     // Iterate over the first array.
     for (const element of secondArray) {
       // Check if the element is present in the second array.
-      if (!filterArray.includes(element)) {
+      if (!firstArray.includes(element)) {
         // If the element is not present in the second array, add it to the filtered results array.
         filteredArray.push(element);
       }
