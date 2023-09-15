@@ -32,7 +32,7 @@ return data
 
 }
 const productPageSelector='[data-auto-id="product_container"]'
-const linkSelector='[class^="_header_container"] a'
+const linkSelector='[data-auto-id="main-menu"] a'
 const linksToRemove=[
 'https://www.adidas.com.tr/tr//help-topics-privacy_policy.html',
 'https://www.adidas.com.tr/tr',
