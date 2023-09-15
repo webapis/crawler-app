@@ -2,7 +2,7 @@
 
 async function extractor(page) {
 
- //await  autoScroll(page)
+ await  autoScroll(page)
     debugger;
     const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
@@ -33,7 +33,17 @@ return data
 }
 const productPageSelector='[data-auto-id="product_container"]'
 const linkSelector='a:not([class^="_header_container"] a)'
-const linksToRemove=['https://www.adidas.com.tr/tr//help-topics-privacy_policy.html']
+const linksToRemove=[
+'https://www.adidas.com.tr/tr//help-topics-privacy_policy.html',
+'https://www.adidas.com.tr/tr',
+'https://www.adidas.com.tr/tr/erkek?grid=true',
+"https://www.adidas.com.tr/tr/kosu_ayakkabisi_ara",
+"https://www.adidas.com.tr/tr/erkek-ayakkabi?price_max=1199&price_min=1",
+"https://www.adidas.com.tr/tr/erkek-giyim?price_max=849&price_min=1",
+"https://www.adidas.com.tr/tr/kadin-ayakkabi?price_max=1080&price_min=1",
+"https://www.adidas.com.tr/tr/kadin-giyim?price_max=949&price_min=1"
+
+]
 const hostname='https://www.adidas.com.tr/'
 const productItemsSelector='.glass-product-card'
 const exclude=[]
@@ -55,7 +65,7 @@ async function autoScroll(page) {
         window.scrollBy(0, distance);
         totalHeight += distance;
         inc = inc + 1;
-        console.log("inc", inc);
+      //  console.log("inc", inc);
         if (totalHeight >= scrollHeight - window.innerHeight) {
           if (inc === 10) {
             clearInterval(timer);

@@ -5,7 +5,7 @@ const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 const marka =process.env.marka
 
 async function commonHandler({page,context,productPageSelector, linkSelector, linksToRemove, hostname, exclude,postFix}){
-    const { request: { userData: { start,title } } } = context
+    const { request: { userData: { start,title,order,total } } } = context
     const requestQueue = await RequestQueue.open();
  
     let extractor; // Define extractor function
@@ -19,14 +19,18 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
 
 
     const url = await page.url()
+    console.log('started url',order, 'of',total,url)
     let i =0
 
     if(start){
    
         debugger
-        const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map(m=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim()}}).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
-        console.log('links',links)
-            for(let l of links.filter(f=>f)){
+        const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map((m,i)=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),order:i} }).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
+        const relatedLinks =filterArray(links,linksToRemove)
+        console.log('links.length',relatedLinks.length)
+        const linkDataset = await Dataset.open(`links`);
+        await linkDataset.pushData({links:relatedLinks.map((m,i)=>{return {url:m.href,title:m.title}})})
+            for(let l of relatedLinks ){
                 let negative =false
                 debugger
                 if(exclude.length>0){
@@ -42,7 +46,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
                     debugger
                     i =i+1
     
-             await  requestQueue.addRequest({url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title} })
+             await  requestQueue.addRequest({url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:links.length} })
                       
                }
   
@@ -85,6 +89,21 @@ debugger
 
 }
 
-
+function filterArray(firstArray, secondArray) {
+    // Create a new empty array to store the filtered results.
+    const filteredArray = [];
+  
+    // Iterate over the first array.
+    for (const element of firstArray) {
+      // Check if the element is present in the second array.
+      if (!secondArray.includes(element)) {
+        // If the element is not present in the second array, add it to the filtered results array.
+        filteredArray.push(element);
+      }
+    }
+  
+    // Return the filtered results array.
+    return filteredArray;
+  }
 
 module.exports={commonHandler}
