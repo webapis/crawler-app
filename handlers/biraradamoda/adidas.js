@@ -42,12 +42,15 @@ const linksToRemove=[
 "https://www.adidas.com.tr/tr/erkek-giyim?price_max=849&price_min=1",
 "https://www.adidas.com.tr/tr/kadin-ayakkabi?price_max=1080&price_min=1",
 "https://www.adidas.com.tr/tr/kadin-giyim?price_max=949&price_min=1",
-"https://www.adidas.com.tr/erkek"
+"https://www.adidas.com.tr/erkek",
+"?start=",
+'.html',
+"price_max"
 
 ]
 const hostname='https://www.adidas.com.tr/'
 const productItemsSelector='.glass-product-card'
-const exclude=['.html','?start=']
+const exclude=['.html','?start=','price_max']
 const postFix =''
 
 async function autoScroll(page) {
