@@ -215,9 +215,9 @@ debugger
             const foundProducts =productItems.filter(f=>f.pid === p.id)
             const keywords = extractPagekeywords({products:foundProducts})
             p.keywords= keywords
-debugger
+
         }
-debugger
+
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         
