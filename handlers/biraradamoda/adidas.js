@@ -50,9 +50,9 @@ const exclude=[]
 const postFix =''
 
 async function autoScroll(page) {
-  page.on("console", (message) => {
-    console.log("Message from Puppeteer page:", message.text());
-  });
+  // page.on("console", (message) => {
+  //   console.log("Message from Puppeteer page:", message.text());
+  // });
   await page.evaluate(async () => {
     await new Promise((resolve, reject) => {
       var totalHeight = 0;

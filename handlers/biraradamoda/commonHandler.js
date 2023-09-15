@@ -46,7 +46,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
                     debugger
                     i =i+1
     
-             await  requestQueue.addRequest({url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:links.length} })
+             await  requestQueue.addRequest({url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:relatedLinks.length} })
                       
                }
   
