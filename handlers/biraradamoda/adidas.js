@@ -47,7 +47,7 @@ const linksToRemove=[
 ]
 const hostname='https://www.adidas.com.tr/'
 const productItemsSelector='.glass-product-card'
-const exclude=['.html']
+const exclude=['.html','?start=']
 const postFix =''
 
 async function autoScroll(page) {
