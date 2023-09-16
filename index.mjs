@@ -207,7 +207,15 @@ debugger
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
-        throw 'Error when scraping'
+        const errorPercentate = Math.round( calculatePercentage(productItems.length,withError.length))
+        if(errorPercentate >=5)
+        {
+            throw 'Error when scraping'
+        }else{
+            console.log('Error %',errorPercentate)
+        }
+    
+      
     }else{
         const pageDataset = await Dataset.open(`pageInfo`);
         const { items: pageItems } = await pageDataset.getData();
@@ -234,7 +242,9 @@ debugger
 
     console.log('Crawl finished.');
 
-
+    function calculatePercentage(firstValue, secondValue) {
+        return (secondValue / firstValue) * 100;
+      }
 
 
 
