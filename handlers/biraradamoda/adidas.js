@@ -88,15 +88,15 @@ async function getUrls(page) {
   const nextPage = await page.$('[data-auto-id=pagination-pages-container]')
   const pageUrls = []
   let productCount = 0
-  if(nextPage){
+  if(false){
    
-   const totalPages = await page.$eval('[data-auto-id=pagination-pages-container]', element => parseInt(element.innerText.replace(/[^\d]/g,'')))
+   //const totalPages = await page.$eval('[data-auto-id=pagination-pages-container]', element => parseInt(element.innerText.replace(/[^\d]/g,'')))
 
 
    let pagesLeft = totalPages
    for (let i = 2; i <= totalPages; i++) {
 
-       pageUrls.push(`${url}?start=` + i)
+     //  pageUrls.push(`${url}?start=` + i)
        --pagesLeft
 
    }
