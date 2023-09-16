@@ -1,6 +1,6 @@
 
 
-const {  Dataset,RequestQueue } =require('crawlee');
+const {  Dataset,RequestQueue,enqueueLinks } =require('crawlee');
 const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 const marka =process.env.marka
 
@@ -26,7 +26,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
 
     if(start){
    
- 
+        debugger
         const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map((m,i)=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),order:i} }).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
         const relatedLinks =filterArray(links,linksToRemove)
         console.log('links.length',relatedLinks.length)
@@ -34,23 +34,21 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
         await linkDataset.pushData({links:relatedLinks.map((m,i)=>{return {url:m.href,title:m.title}})})
             for(let l of relatedLinks ){
                 let negative =false
-                if(l.href.includes('start')){
-                    debugger
-                 }
+                debugger
                 if(exclude.length>0){
                     for(let e of exclude){ 
                         if(l.href.indexOf(e) !==-1){
-                         
+                            debugger
                             negative=true
                         }
                     }
-                } 
-         if(l.href.includes('start')){
-            debugger
-         }
-             if(linksToRemove.find(f=> f===l.href)===undefined && !negative && l.href.length<=150 ){
+                }
+         
+                if(linksToRemove.find(f=> f===l.href)===undefined && !negative && l.href.length<=150 ){
+                    debugger
                     i =i+1
-           await  requestQueue.addRequest({ url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:relatedLinks.length} })
+    
+             await  requestQueue.addRequest({ url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:relatedLinks.length} })
                       
                }
   

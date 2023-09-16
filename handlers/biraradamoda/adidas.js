@@ -2,8 +2,8 @@
 
 async function extractor(page) {
 
- await  autoScroll(page)
-    debugger;
+ //await  autoScroll(page)
+
     const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
             try {
