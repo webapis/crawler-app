@@ -39,12 +39,19 @@ require('dotenv').config()
 
         if (start) {
             let order = 1
+            let pageCounter =0
+            let pagesToCollect = calculatePagePercentage(pageUrls.length,5)
             for (let url of pageUrls) {
-                if (pageUrls.length === order) {
-                    requestQueue.addRequest({ url, userData: { start: false, opts, } })
-                } else {
-                    requestQueue.addRequest({ url, userData: { start: false, opts, } })
-                }
+                    
+                    pageCounter= pageCounter+1
+                    if(pageCounter<= pagesToCollect){
+                        if (pageUrls.length === order) {
+                            requestQueue.addRequest({ url, userData: { start: false, opts, } })
+                        } else {
+                            requestQueue.addRequest({ url, userData: { start: false, opts, } })
+                        }
+                    }
+               
                 ++order;
             }
         }
@@ -207,7 +214,7 @@ debugger
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
-        const errorPercentate = Math.round( calculatePercentage(productItems.length,withError.length))
+        const errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
         if(errorPercentate >=5)
         {
             throw 'Error when scraping'
@@ -242,9 +249,11 @@ debugger
 
     console.log('Crawl finished.');
 
-    function calculatePercentage(firstValue, secondValue) {
+    function calculateErrorPercentage(firstValue, secondValue) {
         return (secondValue / firstValue) * 100;
       }
-
+      function calculatePagePercentage(totalPages, percent) {
+        return (percent / 100) * totalPages;
+      }
 
 
