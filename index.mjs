@@ -219,18 +219,18 @@ debugger
     }else{
         const pageDataset = await Dataset.open(`pageInfo`);
         const { items: pageItems } = await pageDataset.getData();
-
+        const productItemsWithoutError =productItems.filter(f=>!f.error)
    
         for( let p of pageItems){
 
-            const foundProducts =productItems.filter(f=>f.pid === p.objectID)
+            const foundProducts =productItemsWithoutError.filter(f=>f.pid === p.objectID)
             const keywords = extractPagekeywords({products:foundProducts})
             p.keywords= keywords
 debugger
         }
 debugger
          await  importLinkData({data:pageItems})
-        console.log('productItems----',productItems.length)
+        console.log('productItems----',productItemsWithoutError.length)
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         
