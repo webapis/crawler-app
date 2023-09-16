@@ -32,11 +32,10 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
         console.log('links.length',relatedLinks.length)
         const linkDataset = await Dataset.open(`links`);
         await linkDataset.pushData({links:relatedLinks.map((m,i)=>{return {url:m.href,title:m.title}})})
+        debugger
             for(let l of relatedLinks ){
                 let negative =false
-                if(l.href.includes('start')){
-                    debugger
-                 }
+              
                 if(exclude.length>0){
                     for(let e of exclude){ 
                         if(l.href.indexOf(e) !==-1){
@@ -45,11 +44,10 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
                         }
                     }
                 } 
-         if(l.href.includes('start')){
-            debugger
-         }
+    
              if(linksToRemove.find(f=> f===l.href)===undefined && !negative && l.href.length<=150 ){
                     i =i+1
+                
            await  requestQueue.addRequest({ url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:relatedLinks.length} })
                       
                }

@@ -1,12 +1,9 @@
 
-async function handler(page) {
+async function extractor(page) {
 
-    debugger
-        const url = await page.url()
-    
-        await page.waitForSelector('#ProductPageProductList')
-    debugger
+
     await autoScroll(page)
+
     const data = await page.$$eval('#ProductPageProductList .ItemOrj.col-4', (productCards) => {
         return productCards.map(document => {
             try {
@@ -33,40 +30,48 @@ async function handler(page) {
         })
     })
     debugger
-        console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
+  
     
-    
-        console.log("process.env.GENDER ")
-        const formatprice = data.map((m) => {
-            return { ...m, title: m.title + " _" + process.env.GENDER }
-        })
-    
-    
-        return formatprice
+        return data
     }
     
-async function autoScroll(page) {
-    await page.evaluate(async () => {
-
-
-        await new Promise((resolve, reject) => {
+    async function autoScroll(page) {
+        // page.on("console", (message) => {
+        //   console.log("Message from Puppeteer page:", message.text());
+        // });
+        await page.evaluate(async () => {
+          await new Promise((resolve, reject) => {
             var totalHeight = 0;
             var distance = 100;
-            let inc = 0
+            let inc = 0;
+      
             var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-    
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
+              var scrollHeight = document.body.scrollHeight;
+      
+              window.scrollBy(0, distance);
+              totalHeight += distance;
+              inc = inc + 1;
+            //  console.log("inc", inc);
+              if (totalHeight >= scrollHeight - window.innerHeight) {
+                if (inc === 10) {
+                  clearInterval(timer);
+                  resolve();
                 }
+              } else {
+                inc = 0;
+              }
             }, 150);
+          });
         });
-    });
-}
+      }
+
+const productPageSelector='#ProductPageProductList'
+const linkSelector='.navigation a'
+const linksToRemove=[]
+const hostname='https://www.armine.com/'
+const exclude=[]
+const postFix =''
+
     async function getUrls(page) {
         const url = await page.url()
        const nextPageExits = await page.$('.totalItems')
@@ -80,16 +85,12 @@ async function autoScroll(page) {
         let pagesLeft = totalPages
         for (let i = 2; i <= totalPages; i++) {
     
-    
-    
             pageUrls.push(`${url}?sayfa=` + i)
             --pagesLeft
-    
     
         }
        }
      
-    
         return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
     }
-    module.exports = { handler, getUrls }
+    module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
