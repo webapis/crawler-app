@@ -3,7 +3,7 @@ const {autoScroll}=require('../../utils/autoscroll')
 async function extractor(page) {
 
 
-    const url = await page.url()
+
 
  
     await autoScroll(page)
@@ -57,7 +57,7 @@ const productPageSelector='#ProductPageProductList'
 const linkSelector='.headerContent a'
 const linksToRemove=[]
 const hostname='https://www.baqa.com.tr/'
-const exclude=['?currency=eur','?currency=gbp','?currency=sar','?currency=usd','?currency=kwd','?currency=aed']
+const exclude=['?currency=eur','?currency=gbp','?currency=sar','?currency=usd','?currency=kwd','?currency=aed','?currency=qar']
 const postFix ='?currency=try'
 async function getUrls(page) {
 
