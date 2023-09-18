@@ -1,10 +1,10 @@
 
-async function handler(page, context) {
+async function extractor(page) {
 
 
-    const url = await page.url()
 
-        await page.waitForSelector('.js-product-wrapper.product-item')
+
+  
         //  await autoScroll(page)
         debugger;
         const data = await page.$$eval('.js-product-wrapper.product-item', (productCards) => {
@@ -28,12 +28,8 @@ async function handler(page, context) {
         })
 
 
-        debugger;
-        console.log('data length_____', data.length, 'url:', url)
-
-        return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+        return data
     
-   
 
 }
 async function autoScroll(page) {
@@ -61,24 +57,36 @@ async function autoScroll(page) {
         });
     });
 }
+
+const productPageSelector='.js-product-wrapper.product-item'
+const linkSelector='.main-nav__list a'
+const linksToRemove=[]
+const hostname='https://www.beyyoglu.com/'
+const exclude=[]
+const postFix =''
 async function getUrls(page) {
     const url = await page.url()
     const modURL = url.substring(0, url.lastIndexOf('/'))
-    debugger;
-    await page.waitForSelector('pz-pagination')
-    const productCount = await page.evaluate(() => parseInt(document.querySelector('pz-pagination').getAttribute('total')))
-    debugger;
-    const totalPages = Math.ceil(productCount / 24)
+    let productCount =0
     const pageUrls = []
-    pageUrls.push(`${modURL}?page=` + totalPages)
-    let pagesLeft = totalPages
-    //  for (let i = 2; i <= totalPages; i++) {
-
-    //      pageUrls.push(`${modURL}?page=` + i)
-    //     --pagesLeft
-
-    //  }
+    debugger;
+    const nextPage = await page.$('pz-pagination')
+    if(nextPage){
+        productCount = await page.evaluate(() => parseInt(document.querySelector('pz-pagination').getAttribute('total')))
+        debugger;
+        const totalPages = Math.ceil(productCount / 24)
+    
+        pageUrls.push(`${modURL}?page=` + totalPages)
+        let pagesLeft = totalPages
+        //  for (let i = 2; i <= totalPages; i++) {
+    
+        //      pageUrls.push(`${modURL}?page=` + i)
+        //     --pagesLeft
+    
+        //  }
+    }
+   
 
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
