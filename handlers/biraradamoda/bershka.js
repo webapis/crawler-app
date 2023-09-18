@@ -1,10 +1,8 @@
-async function handler(page) {
+async function extractor(page) {
   debugger;
   const url = await page.url();
 
-  await page.waitForSelector("span.bskico-filter");
-  debugger;
-  //   await page.click('span.bskico-filter')
+
   await autoScroll(page);
   debugger;
 
@@ -42,15 +40,7 @@ async function handler(page) {
       }
     });
   })
-  debugger;
-  console.log("data length_____", data.length, "url:", url, process.env.GENDER);
-
-  console.log("process.env.GENDER ");
-  const formatprice = data.map((m) => {
-    return { ...m, title: m.title + " _" + process.env.GENDER };
-  }).filter(f=>!f.error);
-
-  return formatprice;
+return data
 }
 
 async function autoScroll(page) {
@@ -82,9 +72,16 @@ async function autoScroll(page) {
     });
   });
 }
+
+const productPageSelector='span.bskico-filter'
+const linkSelector='[class^="menu"] a'
+const linksToRemove=[]
+const hostname='https://www.bershka.com/tr/'
+const exclude=[]
+const postFix =''
 async function getUrls(page) {
   const pageUrls = [];
 
   return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
 }
-module.exports = { handler, getUrls };
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
