@@ -1,12 +1,8 @@
 
-async function handler(page, context) {
+async function extractor(page) {
 
-    debugger;
-    const url = await page.url()
 
-    await page.waitForSelector('#productList')
 
-debugger
     const data = await page.$$eval('#productList div[data-page]', (productCards) => {
         return productCards.map(productCard => {
 
@@ -31,20 +27,27 @@ debugger
         })
     })
 
-    console.log('data length_____', data.length, 'url:', url)
-
-
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+    return data
 }
+
+const productPageSelector='#productList'
+const linkSelector='nav.o-navbar a'
+const linksToRemove=[]
+const hostname='https://www.beymen.com/'
+const exclude=[]
+const postFix =''
 
 async function getUrls(page) {
     const url = await page.url()
     debugger;
-    await page.waitForSelector('.o-productList__top--breadcrumbCount span')
-    const productCount = await page.$eval('.o-productList__top--breadcrumbCount span', element => parseInt(element.textContent))
+   const nextPage =  await page.$('.o-productList__top--breadcrumbCount span')
+   let productCount =0
+   const pageUrls = []
+   if(nextPage){
+    productCount = await page.$eval('.o-productList__top--breadcrumbCount span', element => parseInt(element.textContent))
     debugger;
     const totalPages = Math.ceil(productCount / 48)
-    const pageUrls = []
+
 
     let pagesLeft = totalPages
     for (let i = 2; i <= totalPages; i++) {
@@ -54,6 +57,9 @@ async function getUrls(page) {
 
     }
 
+   }
+  
+
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
