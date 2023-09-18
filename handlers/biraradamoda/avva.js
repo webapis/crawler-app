@@ -1,11 +1,9 @@
 
 
-async function handler(page, context) {
+async function extractor(page, ) {
 
 
     const url = await page.url()
-
-    await page.waitForSelector('#ProductPageProductList')
 
     await autoScroll(page)
     const data = await page.$$eval('.productItem', (productCards) => {
@@ -25,21 +23,13 @@ async function handler(page, context) {
                 link,
                 timestamp: Date.now(),
                 marka: 'avva',
-                gender:'erkek'
             }
         }).filter(f => f.imageUrl !== null && f.title.length > 5)
     })
 
-    console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
-
-debugger
-    console.log("process.env.GENDER ")
-    const formatprice = data.map((m) => {
-        return { ...m, title: m.title + " _" + process.env.GENDER }
-    })
 
 
-    return formatprice
+    return data
 }
 async function autoScroll(page) {
     await page.evaluate(async () => {
@@ -63,12 +53,21 @@ async function autoScroll(page) {
         });
     });
 }
+
+const productPageSelector='#ProductPageProductList'
+const linkSelector='.navigation a'
+const linksToRemove=[]
+const hostname='https://www.avva.com.tr/'
+const exclude=[]
+const postFix =''
 async function getUrls(page) {
     const url = await page.url()
-    await page.waitForSelector('.pageBorder')
 
+const nextPage =    await page.$('.pageBorder')
+const pageUrls = []
+if(nextPage){
     const totalPages = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.pageBorder a')).map(m => m.innerText).filter(Number)))
-    const pageUrls = []
+   
     if (totalPages > 1) {
         let pagesLeft = totalPages
         for (let i = 2; i <= totalPages; i++) {
@@ -79,8 +78,10 @@ async function getUrls(page) {
 
         }
     }
+}
+   
 
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
