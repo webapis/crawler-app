@@ -68,7 +68,7 @@ async function autoScroll(page) {
         } else {
           inc = 0;
         }
-      }, 250);
+      }, 500);
     });
   });
 }
