@@ -5,7 +5,7 @@ async function extractor(page) {
 
 
 
-    await autoScroll(page)
+  //  await autoScroll(page)
     const data = await page.$$eval('.productItem', (productCards) => {
         return productCards.map(document => {
 try {
@@ -64,21 +64,26 @@ const hostname='https://www.bambiayakkabi.com.tr/'
 const exclude=[]
 const postFix =''
 async function getUrls(page) {
-    // const url = await page.url()
-    // await page.waitForSelector('.pageBorder')
-
-    // const totalPages = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.pageBorder a')).map(m => m.innerText).filter(Number)))
+     const url = await page.url()
+    const nextPage= await page.$('li.appliedFilter span')
     const pageUrls = []
-    // if (totalPages > 1) {
-    //     let pagesLeft = totalPages
-    //     for (let i = 2; i <= totalPages; i++) {
-
-    //         pageUrls.push(`${url}?sayfa=` + i)
-    //         --pagesLeft
-
-
-    //     }
-    // }
+    let productCount =0
+    if(nextPage){
+        productCount =await page.evaluate(()=>parseInt( document.querySelector('li.appliedFilter span').innerText.replace(/[^\d]/g,'')))
+        const totalPages = Math.ceil(productCount / 20)
+    
+       if (totalPages > 1) {
+           let pagesLeft = totalPages
+           for (let i = 2; i <= totalPages; i++) {
+   
+               pageUrls.push(`${url}?sayfa=` + i)
+               --pagesLeft
+   
+   
+           }
+    }
+   
+    }
 
 
     return { pageUrls, productCount: 0, pageLength:0 }
