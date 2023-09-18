@@ -3,7 +3,9 @@
 async function extractor(page) {
 
  //await  autoScroll(page)
-
+  page.on("console", (message) => {
+    console.log("Message from Puppeteer page:", message.text());
+  });
     const data = await page.$$eval('.glass-product-card', (productCards) => {
         return productCards.map(productCard => {
             try {
@@ -21,8 +23,9 @@ async function extractor(page) {
                     marka: 'adidas'
                 }
             } catch (error) {
+              
                 console.log('error body',error.toString(),productCard.baseURL,productCard.innerHTML)
-                return {error:error.toString(),content:productCard.innerHTML}
+                return {error:error.toString(),content:productCard.innerHTML,baseURL:productCard.baseURL}
             }
           
         }).filter(f => f.priceNew !== null)

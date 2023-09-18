@@ -204,9 +204,12 @@ debugger
     const withError =productItems.filter(f=>f.error)
     debugger
     if(withError.length>0){
+        const errorDataset = await Dataset.open(`withError`);
+        await errorDataset.pushData(withError)
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
+
         throw 'Error when scraping'
     }else{
         const pageDataset = await Dataset.open(`pageInfo`);
