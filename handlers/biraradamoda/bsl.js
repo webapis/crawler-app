@@ -1,20 +1,10 @@
+const {autoScroll}=require('../../utils/autoscroll')
 
 
-const { RequestQueue  } =require ('crawlee');
-async function handler(page, context) {
-    const { request: { userData: { start } } } = context
-    debugger;
+async function extractor(page) {
 
-
-    const url = await page.url()
-
-    debugger;
-
-    await page.waitForSelector('.ProductList')
-
-
-    const requestQueue = await RequestQueue.open();
     debugger
+    await autoScroll(page)
     const data = await page.$$eval('.Prd', (productCards) => {
         return productCards.map(document => {
             const priceNew =document.querySelectorAll('.PriceArea span')? Array.from(document.querySelectorAll('.PriceArea span')).reverse()[0].innerText.replace('TL', '').trim():null//.replace(',','.')
@@ -33,32 +23,23 @@ async function handler(page, context) {
             }
         }).filter(f =>  f.title.length > 5)
     })
-    const hasMore = await page.evaluate(() => document.querySelectorAll('.Prd').length >= 24)
-    if (start && hasMore) {
 
-        await requestQueue.addRequest({ url: url + '?p=2&ct=2&g=4', userData: { start: false } })
-    } else {
-        if (hasMore) {
-            const prevPage = parseInt(url.substring(url.indexOf('p=') + 2, url.indexOf('&')))
-            await requestQueue.addRequest({ url: url.replace(`?p=${prevPage}&ct=2&g=4`,`?p=${prevPage + 1}&ct=2&g=4`), userData: { start: false } })
-        }
 
-    }
 
-    //----------
-
-    console.log('data length_____', data.length, 'url:', url)
-
-    debugger
-
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+    return data
 }
 
+const productPageSelector='.ProductList'
+const linkSelector='.nav-menu a'
+const linksToRemove=[]
+const hostname='https://www.bsl.com.tr/tr/'
+const exclude=[]
+const postFix =''
 async function getUrls(page) {
 
     return { pageUrls: [], productCount: 0, pageLength: 0 }
 }
 
 
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
 
