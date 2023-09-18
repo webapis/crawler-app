@@ -57,7 +57,7 @@ const productPageSelector='#ProductPageProductList'
 const linkSelector='.headerContent a'
 const linksToRemove=[]
 const hostname='https://www.baqa.com.tr/'
-const exclude=['?currency=eur','?currency=gbp','?currency=sar','?currency=usd','?currency=kwd','?currency=aed','?currency=qar']
+const exclude=['?currency=eur','?currency=gbp','?currency=sar','?currency=usd','?currency=kwd','?currency=aed','?currency=qar','/ar/','/en/']
 const postFix ='?currency=try'
 async function getUrls(page) {
 
