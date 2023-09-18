@@ -1,11 +1,9 @@
 
 
-async function handler(page, context) {
+async function extractor(page) {
 
 
-    const url = await page.url()
 
-    await page.waitForSelector('.FiltrelemeUrunAdet')
 
     await autoScroll(page)
     const data = await page.$$eval('.productItem', (productCards) => {
@@ -20,12 +18,12 @@ try {
     const imageUrlshort = imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/")+29)
 
     return {
-        title: 'bambi ' + title.replace(/İ/g,'i').toLowerCase(),
+        title: 'bambiayakkabi ' + title.replace(/İ/g,'i').toLowerCase(),
         priceNew,
         imageUrl: imageUrlshort,
         link,
         timestamp: Date.now(),
-        marka: 'bambi',
+        marka: 'bambiayakkabi',
     }
 } catch (error) {
     return {error,content:document.innerHTML}
@@ -33,17 +31,7 @@ try {
            
         })
     })
-
-    console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
-
-debugger
-    console.log("process.env.GENDER ")
-    const formatprice = data.map((m) => {
-        return { ...m, title: m.title + " _" + process.env.GENDER }
-    })
-
-
-    return formatprice
+return data
 }
 async function autoScroll(page) {
     await page.evaluate(async () => {
@@ -67,6 +55,14 @@ const totalItems =parseInt(document.querySelector(".FiltrelemeUrunAdet").innerTe
         });
     });
 }
+
+
+const productPageSelector='.FiltrelemeUrunAdet'
+const linkSelector='.navigation a'
+const linksToRemove=[]
+const hostname='https://www.bambiayakkabi.com.tr/'
+const exclude=[]
+const postFix =''
 async function getUrls(page) {
     // const url = await page.url()
     // await page.waitForSelector('.pageBorder')
@@ -87,4 +83,6 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength:0 }
 }
-module.exports = { handler, getUrls }
+
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+
