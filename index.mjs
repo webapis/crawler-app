@@ -39,12 +39,19 @@ require('dotenv').config()
 
         if (start) {
             let order = 1
+            let pageCounter =0
+            let pagesToCollect = calculatePagePercentage(pageUrls.length,5)
             for (let url of pageUrls) {
-                if (pageUrls.length === order) {
-                    requestQueue.addRequest({ url, userData: { start: false, opts, } })
-                } else {
-                    requestQueue.addRequest({ url, userData: { start: false, opts, } })
-                }
+                    
+                    pageCounter= pageCounter+1
+                    if(pageCounter<= pagesToCollect){
+                        if (pageUrls.length === order) {
+                            requestQueue.addRequest({ url, userData: { start: false, opts, } })
+                        } else {
+                            requestQueue.addRequest({ url, userData: { start: false, opts, } })
+                        }
+                    }
+               
                 ++order;
             }
         }
@@ -209,23 +216,35 @@ debugger
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
+<<<<<<< HEAD
 
         throw 'Error when scraping'
+=======
+        const errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
+        if(errorPercentate >=5)
+        {
+            throw 'Error when scraping'
+        }else{
+            console.log('Error %',errorPercentate)
+        }
+    
+      
+>>>>>>> b6bdcf31b891a3cb4765edf26e9a41ffef9b9318
     }else{
         const pageDataset = await Dataset.open(`pageInfo`);
         const { items: pageItems } = await pageDataset.getData();
-
+        const productItemsWithoutError =productItems.filter(f=>!f.error)
    
         for( let p of pageItems){
 
-            const foundProducts =productItems.filter(f=>f.pid === p.objectID)
+            const foundProducts =productItemsWithoutError.filter(f=>f.pid === p.objectID)
             const keywords = extractPagekeywords({products:foundProducts})
             p.keywords= keywords
 debugger
         }
 debugger
          await  importLinkData({data:pageItems})
-        console.log('productItems----',productItems.length)
+        console.log('productItems----',productItemsWithoutError.length)
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         
@@ -237,7 +256,11 @@ debugger
 
     console.log('Crawl finished.');
 
-
-
+    function calculateErrorPercentage(firstValue, secondValue) {
+        return (secondValue / firstValue) * 100;
+      }
+      function calculatePagePercentage(totalPages, percent) {
+        return (percent / 100) * totalPages;
+      }
 
 
