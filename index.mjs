@@ -75,7 +75,7 @@ require('dotenv').config()
 
     }
 
-const longertimeconsumers =['koton','addax']
+const longertimeconsumers =['koton','addax','bershka']
 const protocolTimeout =longertimeconsumers.find(f=>f===marka)? 2000000:120000
 console.log('protocolTimeout',protocolTimeout)
     const crawler = new PuppeteerCrawler({
