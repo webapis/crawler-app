@@ -1,6 +1,6 @@
 
 
-
+const {autoScroll}=require('../../utils/autoscroll')
 async function extractor(page) {
 
 
@@ -71,34 +71,6 @@ const exclude=[]
 const postFix =''
 
 
-async function autoScroll(page) {
-    page.on("console", (message) => {
-      console.log("Message from Puppeteer page:", message.text());
-    });
-    await page.evaluate(async () => {
-      await new Promise((resolve, reject) => {
-        var totalHeight = 0;
-        var distance = 100;
-        let inc = 0;
-  
-        var timer = setInterval(() => {
-          var scrollHeight = document.body.scrollHeight;
-  
-          window.scrollBy(0, distance);
-          totalHeight += distance;
-          inc = inc + 1;
-          console.log("inc", inc);
-          if (totalHeight >= scrollHeight - window.innerHeight) {
-            if (inc === 50) {
-              clearInterval(timer);
-              resolve();
-            }
-          } else {
-            inc = 0;
-          }
-        }, 200);
-      });
-    });
-  }
+
 module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
 
