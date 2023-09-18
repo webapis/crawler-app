@@ -2,7 +2,7 @@
 
 async function extractor(page) {
 
- //await  autoScroll(page)
+ await  autoScroll(page)
   page.on("console", (message) => {
     console.log("Message from Puppeteer page:", message.text());
   });
