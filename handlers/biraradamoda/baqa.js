@@ -1,10 +1,11 @@
 
-async function handler(page) {
+const {autoScroll}=require('../../utils/autoscroll')
+async function extractor(page) {
 
 
     const url = await page.url()
 
-    await page.waitForSelector('#ProductPageProductList')
+ 
     await autoScroll(page)
     debugger;
     const data = await page.$$eval('.ItemOrj.col-3', (productCards, _subcategory, _category, _node) => {
@@ -26,33 +27,38 @@ async function handler(page) {
         })//.filter(f => f.priceNew !== null)
     })
 
-    console.log('data length_____', data.length, 'url:', url)
 
-
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+    return data
 }
-async function autoScroll(page) {
-    await page.evaluate(async () => {
+// async function autoScroll(page) {
+//     await page.evaluate(async () => {
 
 
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
+//         await new Promise((resolve, reject) => {
+//             var totalHeight = 0;
+//             var distance = 100;
+//             let inc = 0
+//             var timer = setInterval(() => {
+//                 var scrollHeight = document.body.scrollHeight;
 
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 100);
-        });
-    });
-}
+//                 window.scrollBy(0, distance);
+//                 totalHeight += distance;
+//                 inc = inc + 1
+//                 if (totalHeight >= scrollHeight - window.innerHeight) {
+//                     clearInterval(timer);
+//                     resolve();
+//                 }
+//             }, 100);
+//         });
+//     });
+// }
+
+const productPageSelector='#ProductPageProductList'
+const linkSelector='.headerContent a'
+const linksToRemove=[]
+const hostname='https://www.baqa.com.tr/'
+const exclude=[]
+const postFix ='?currency=try'
 async function getUrls(page) {
 
     const pageUrls = []
@@ -61,4 +67,4 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
