@@ -1,11 +1,8 @@
 
 
 
-async function handler(page) {
+async function extractor(page) {
 
-    const url = await page.url()
-
-    debugger;
 
     await page.waitForSelector('.ProductList',{timeout:180000})
   // const totalProducts= await page.evaluate(()=>parseInt(document.querySelector("[for^=sidebar-filter-p-product_type]").innerText.replace(/[^\d]/g,"")))
@@ -36,56 +33,72 @@ async function handler(page) {
         })
     })
 
-debugger
-
-    //----------
-
-    console.log('data length_____', data.length, 'url:', url)
 
 
 
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }}).filter(f=>f.priceNew !=="")
+
+    return data.filter(f=>f.priceNew !=="")
 }
 
 
 async function getUrls(page) {
-    const url = await page.url()
-    await page.waitForSelector('.Pagination__Nav a')
 
-    const totalPages = await page.evaluate(()=>Math.max(...Array.from(document.querySelectorAll('.Pagination__Nav a')).map(m=>m.innerText).filter(Number)))
+
+   // const nextPage =     await page.$('.Pagination__Nav a')
     const pageUrls = []
+    // if(nextPage){
+    //     const totalPages = await page.evaluate(()=>Math.max(...Array.from(document.querySelectorAll('.Pagination__Nav a')).map(m=>m.innerText).filter(Number)))
 
-    let pagesLeft = totalPages
-    for (let i = 2; i <= totalPages; i++) {
-
-        pageUrls.push(`https://www.bagmori.com/search?options%5Bprefix%5D=last&page=${i}&q=Canta&type=product`)
-        --pagesLeft
-
-    }
+    //     let pagesLeft = totalPages
+    //     for (let i = 2; i <= totalPages; i++) {
+    
+    //         pageUrls.push(`https://www.bagmori.com/search?options%5Bprefix%5D=last&page=${i}&q=Canta&type=product`)
+    //         --pagesLeft
+    
+    //     }
+    // }
+ 
 
     return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
 }
+
+
+const productPageSelector='.ProductList'
+const linkSelector='nav.Header__MainNav a'
+const linksToRemove=[]
+const hostname='https://www.bagmori.com/'
+const exclude=[]
+const postFix =''
+
+
 async function autoScroll(page) {
-    await page.evaluate(async () => {
-
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 150);
-        });
+    page.on("console", (message) => {
+      console.log("Message from Puppeteer page:", message.text());
     });
-}
-module.exports = { handler, getUrls }
+    await page.evaluate(async () => {
+      await new Promise((resolve, reject) => {
+        var totalHeight = 0;
+        var distance = 100;
+        let inc = 0;
+  
+        var timer = setInterval(() => {
+          var scrollHeight = document.body.scrollHeight;
+  
+          window.scrollBy(0, distance);
+          totalHeight += distance;
+          inc = inc + 1;
+          console.log("inc", inc);
+          if (totalHeight >= scrollHeight - window.innerHeight) {
+            if (inc === 50) {
+              clearInterval(timer);
+              resolve();
+            }
+          } else {
+            inc = 0;
+          }
+        }, 200);
+      });
+    });
+  }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
 
