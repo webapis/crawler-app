@@ -1,10 +1,9 @@
 
-async function handler(page, context) {
+const {autoScroll}=require('../../utils/autoscroll')
+
+
+async function extractor(page) {
   
-
-    const url = await page.url()
-
-    await page.waitForSelector('.product-list')
     await autoScroll(page)
     const data = await page.$$eval('.product-item', (productCards) => {
         return productCards.map(document => {
@@ -25,37 +24,15 @@ async function handler(page, context) {
         }).filter(f => f.imageUrl !== null && f.title.length > 5)
     })
 
-    console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
-    console.log("process.env.GENDER ")
-    debugger
-    const formatprice = data.map((m) => {
-        return { ...m, title: m.title + " _" + process.env.GENDER }
-    })
 
-    return formatprice
+    return data
 }
-async function autoScroll(page) {
-    await page.evaluate(async () => {
-
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 100);
-        });
-    });
-}
+const productPageSelector='.product-list'
+const linkSelector='.top-nav a'
+const linksToRemove=[]
+const hostname='https://www.centone.com.tr/'
+const exclude=[]
+const postFix =''
 async function getUrls(page) {
     const url = await page.url()
     const hasMorePges = await page.$('.pagination a')
@@ -69,11 +46,10 @@ async function getUrls(page) {
             pageUrls.push(`${url}?sayfa=` + i)
             --pagesLeft
 
-
         }
     }
 
-
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+
