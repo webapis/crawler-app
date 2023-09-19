@@ -1,43 +1,36 @@
 
 async function extractor(page) {
 
-
-
-    const data = await page.$$eval('[data-gtm-product]', (productCards, _subcategory, _category,_node) => {
-        return productCards.map(productCard => {
-
-            const obj = JSON.parse(productCard.getAttribute('data-gtm-product'))
-
-            const img = productCard.querySelector('[data-src]').getAttribute('data-src')
-            const title = obj.name
-            const priceNew =obj.price
-            const link = obj.url
-            return {
-                title: 'butigo '+title.replace(/İ/g,'i').toLowerCase(),
-   
-                priceNew,
-
-                imageUrl: img.substring(img.indexOf('https://floimages.mncdn.com/mnpadding/')+38),
-                link,
-
-                timestamp: Date.now(),
- 
-                marka: 'butigo',
-
+    const data = await page.$$eval('[data-gtm-product]', (productCards) => {
+        return productCards.map(document => {
+            try {
+                const img = document.querySelector('[data-src]').getAttribute('data-src')
+                const title =  document.querySelector('.product__image a img').alt
+                const priceNew =document.querySelector('.product__prices-sale').innerText.replace('TL','').trim()
+                const link = document.querySelector('.product__image a').href
+                return {
+                    title: 'butigo '+title.replace(/İ/g,'i').toLowerCase(),
+                    priceNew,
+                    imageUrl: img.substring(img.indexOf('https://floimages.mncdn.com/mnpadding/')+38),
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'butigo',
+                }
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
+        
         })//.filter(f => f.imageUrl !== null)
     })
-
-
 
 
     return data
 }
 
 const productPageSelector='.row.product-lists'
-const linkSelector=''
+const linkSelector='.navigation a'
 const linksToRemove=[]
-const hostname=''
+const hostname='https://www.butigo.com.tr/'
 const exclude=[]
 const postFix =''
 
@@ -56,7 +49,6 @@ async function getUrls(page) {
         
         }
     
-
     }
   
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
