@@ -224,7 +224,7 @@ if(productItems.length===0){
          errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
         if(errorPercentate >=5 )
         {
-            throw 'Error when scraping'
+            throw `Total error exceeds ${errorPercentate} %`
         }else{
 
 
