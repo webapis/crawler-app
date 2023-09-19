@@ -1,10 +1,6 @@
 
-async function handler(page,context) {
+async function extractor(page) {
 
-
-    const url = await page.url()
-
-    await page.waitForSelector('.row.product-lists')
 
 
     const data = await page.$$eval('[data-gtm-product]', (productCards, _subcategory, _category,_node) => {
@@ -28,37 +24,42 @@ async function handler(page,context) {
  
                 marka: 'butigo',
 
-
-
             }
         })//.filter(f => f.imageUrl !== null)
     })
 
-    console.log('data length_____', data.length, 'url:', url)
 
 
 
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+    return data
 }
+
+const productPageSelector='.row.product-lists'
+const linkSelector=''
+const linksToRemove=[]
+const hostname=''
+const exclude=[]
+const postFix =''
 
 async function getUrls(page) {
     const url = await page.url()
-    await page.waitForSelector('.listing__total-count span')
-    const productCount = await page.$eval('.listing__total-count span', element => parseInt(element.innerHTML))
-    const totalPages = Math.ceil(productCount / 72)
+ const nextPage =   await page.$('.pagination .page-item a')
+    const productCount = 0
     const pageUrls = []
-
-    let pagesLeft = totalPages
-    for (let i = 2; i <= totalPages; i++) {
-
-     
-
-        pageUrls.push(`${url}?page=` + i)
-        --pagesLeft
+    if(nextPage){
+        const totalPages = await page.evaluate(()=>Math.max(...Array.from(document.querySelectorAll('.pagination .page-item a')).map(m=> m.innerHTML).filter(Number)))
+        let pagesLeft = totalPages
+        for (let i = 2; i <= totalPages; i++) {
+    
+            pageUrls.push(`${url}?page=` + i)
+            --pagesLeft
+        
+        }
     
 
     }
-
+  
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+
