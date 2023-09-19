@@ -8,8 +8,8 @@ async function extractor(page) {
                 const imageUrl = document.querySelector('[data-full-size-image-url]').getAttribute('data-full-size-image-url')
                 const title = document.querySelector('.product-title').innerText.trim()
                 const priceNew = document.querySelector('.product-price').innerText.trim().replace('₺', '')
-                const longlink = document.querySelector('.product-title a').href
-                const link = longlink.substring(longlink.indexOf("https://www.alinderi.com.tr/") + 28)
+                const link = document.querySelector('.product-title a').href
+        
     
     
                 return {

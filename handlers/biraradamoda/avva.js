@@ -10,14 +10,13 @@ async function extractor(page, ) {
             const imageUrl = document.querySelector('a.detailLink img').src
             const title = document.querySelector('a.detailLink img').alt
             const priceNew = document.querySelector('.discountPrice span').innerText.replace('₺', '')
-            const longlink = document.querySelector('a.detailLink').href
-            const link = longlink.substring(longlink.indexOf('https://www.avva.com.tr/') + 24)
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") +29)
-
+            const link = document.querySelector('a.detailLink').href
+    
+         
             return {
                 title: 'avva ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'avva',

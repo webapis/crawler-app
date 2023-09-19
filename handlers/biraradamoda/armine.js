@@ -13,14 +13,12 @@ async function extractor(page) {
                 const imageUrl = document.querySelector('.productSliderImage')? document.querySelector('.productSliderImage').src: document.querySelector('[data-original]').getAttribute('data-original')
                 const title = document.querySelector('.productName.detailUrl a').innerHTML.trim()
                 const priceNew = document.querySelector('.discountPrice span').innerHTML.replace('₺', '').replace(/\n/g, '').trim()
-                const longlink = document.querySelector('.productName.detailUrl a').href
-                const link = longlink.substring(longlink.indexOf("https://www.armine.com/") + 23)
-                const imageUrlshort = imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") + 29)
-    
+                const link = document.querySelector('.productName.detailUrl a').href
+          
                 return {
                     title: 'armine ' + title,
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka: 'armine',

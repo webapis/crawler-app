@@ -10,14 +10,14 @@ async function extractor(page) {
                 const imageUrl = document.querySelector('.showcase-image img').getAttribute('data-src')
                 const title = brand +' '+ document.querySelector('.showcase-title').innerText
                 const priceNew = document.querySelector('.showcase-price-new').innerText.replace('TL','').trim()
-                const longlink = document.querySelector('.showcase-image a').href
+                const link = document.querySelector('.showcase-image a').href
              
                 return {
                     hrefText:title ,
                     title: 'alpinist ' + title.replace(/İ/g, 'i').toLowerCase(),
                     priceNew,
                     imageUrl,
-                    link:longlink,
+                    link,
                     timestamp: Date.now(),
                     marka: 'alpinist',
                 }

@@ -7,15 +7,15 @@ async function extractor(page,marka) {
         return productCards.map(document => {
             try {
                 const priceNew = Array.from(document.querySelector('.SalesAmount').querySelectorAll('.PPrice')).reverse()[0].innerHTML.replace('TL', '').trim()
-                const longlink = document.querySelector('a[data-product').href
-                const link = longlink.substring(longlink.indexOf("https://www.addax.com.tr/") + 25)
-                const longImgUrl = document.querySelector("img[data-src]").getAttribute('data-src')
-                const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://cdn3.sorsware.com/") + 26)//https://cdn3.sorsware.com/
+                const link = document.querySelector('a[data-product').href
+              
+                const imageUrl = document.querySelector("img[data-src]").getAttribute('data-src')
+
                 const title = document.querySelector("img[data-src]").alt
                 return {
                     title: marka+' ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka,

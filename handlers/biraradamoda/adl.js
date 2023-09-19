@@ -7,15 +7,15 @@ async function extractor(page) {
             return productCards.map(productCard => {
                 const title = productCard.querySelector('.product-item__name.d-block').innerText.trim()
                 const priceNew = Array.from(productCard.querySelectorAll('.price__new')).reverse()[0].innerText.replace('TL','').trim()
-                const longlink = productCard.querySelector('.d-block.list-slider-item__link').href
-                const link = longlink.substring(longlink.indexOf('https://www.adl.com.tr/') + 23)
-                const longImgUrl = productCard.querySelector('.d-block.list-slider-item__link img').src
-              //  const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf('https://lmb-adl.akinoncdn.com/products/') + 39)
+                const link = productCard.querySelector('.d-block.list-slider-item__link').href
+            
+                const imageUrl = productCard.querySelector('.d-block.list-slider-item__link img').src
+     
                 debugger;
                 return {
                     title: 'adl ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
-                    imageUrl: longImgUrl,
+                    imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka: 'adl',    

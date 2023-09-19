@@ -6,15 +6,15 @@ const  extractor=async (page,marka)=> {
         return productCards.map(document => {
             try {
                 const priceNew = document.querySelector("span[data-price]").innerHTML
-                const longlink = document.href
-                const link = longlink.substring(longlink.indexOf("https://www.abiyefon.com/") + 25)
-                const longImgUrl = document.querySelector('img.product-list-image').src
-                const imageUrlshort = longImgUrl && longImgUrl.substring(longImgUrl.indexOf('https://www.abiyefon.com/') + 25)
+                const link = document.href
+    
+                const imageUrl = document.querySelector('img.product-list-image').src
+               
                 const title = document.querySelector('img.product-list-image').alt
                 return {
                     title: marka+' ' + title.toLowerCase(),
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka
