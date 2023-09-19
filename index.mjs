@@ -99,7 +99,7 @@ console.log('protocolTimeout',protocolTimeout)
                 // depending on your requirements
                 // For example, set it to 30000 (30 seconds)
                protocolTimeout,
-                headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
+                headless: process.env.HEADLESS==='true'? true:false, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
                    // `--window-size=1200,1250`,
                     "--allow-insecure-localhost",
                     //  "--user-data-dir=/tmp/foo",
