@@ -1,5 +1,5 @@
 
-
+const {autoScroll}=require('../../utils/autoscroll')
 async function extractor(page, ) {
 
 
@@ -31,28 +31,7 @@ async function extractor(page, ) {
 
     return data
 }
-async function autoScroll(page) {
-    await page.evaluate(async () => {
 
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 100);
-        });
-    });
-}
 
 const productPageSelector='#ProductPageProductList'
 const linkSelector='.navigation a'

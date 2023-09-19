@@ -5,7 +5,6 @@ async function extractor(page) {
 
 
   
-        //  await autoScroll(page)
         debugger;
         const data = await page.$$eval('.js-product-wrapper.product-item', (productCards) => {
             return productCards.map(productCard => {
@@ -32,31 +31,7 @@ async function extractor(page) {
     
 
 }
-async function autoScroll(page) {
-    await page.evaluate(async () => {
 
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-
-                    clearInterval(timer);
-                    resolve();
-
-
-                }
-            }, 200);
-        });
-    });
-}
 
 const productPageSelector='.js-product-wrapper.product-item'
 const linkSelector='.main-nav__list a'
