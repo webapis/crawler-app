@@ -246,7 +246,7 @@ if(productItems.length===0){
 
         }
 
-         await  importLinkData({data:productItemsWithoutError})
+         await  importLinkData({data:pageItems})
         console.log('productItemsWithoutError----',productItemsWithoutError.length)
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
