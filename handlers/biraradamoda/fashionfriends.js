@@ -1,68 +1,39 @@
 
-async function handler(page, context) {
+const {autoScroll}=require('../../utils/autoscroll')
+async function extractor(page) {
 
-    debugger;
-    const url = await page.url()
-    // const acceptcookies = await page.$('.insider-opt-in-notification-button.insider-opt-in-disallow-button')
-    // if (acceptcookies) {
-    //     await page.click('.insider-opt-in-notification-button.insider-opt-in-disallow-button')
-    // }
-    await page.waitForSelector('#ProductListMainContainer')
+   // await autoScroll(page)
 
-    await autoScroll(page)
-    debugger;
 
 
     const data = await page.$$eval('.ItemOrj', (productCards) => {
-        return productCards.map(productCard => {
-              const title = productCard.querySelector(".productName.detailUrl a").innerHTML
-              const img= productCard.querySelector("[data-original]").getAttribute('[data-original]')
-             const priceNew =productCard.querySelectorAll(".sptPrice")[0].innerHTML.replace('TL', '').replace(/\n/g, '').trim()
-               const link = productCard.querySelector(".productName.detailUrl a")
-
-            return {
-                   title:'fashionfriends '+title.replace(/İ/g,'i').toLowerCase(),
-                   priceNew:priceNew,//.replace(',','.'),
-                 imageUrl: img,//img.substring(img.indexOf('https://www.tiffanytomato.com.tr/')+33) ,
-                  link,//:link.substring(link.indexOf('https://www.tiffanytomato.com.tr/')+33),
-                  timestamp: Date.now(),
-                   marka: 'fashionfriends',
-
+        return productCards.map(document => {
+            try {
+                const title = document.querySelector('a.detailUrl').getAttribute('title')
+                const imageUrl= document.querySelector('a.detailUrl img[data-original]').getAttribute('data-original')
+                const priceNew =document.querySelector('.discountPrice').innerText.replace('TL','').trim()
+                const link = document.querySelector('a.detailUrl').href
+ 
+             return {
+                    title:'fashionfriends '+title.replace(/İ/g,'i').toLowerCase(),
+                    priceNew,
+                    imageUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'fashionfriends',
+             }
+            } catch (error) {
+                return {error:error.toString(),content:document.innerHTML}
             }
+         
         })
     })
-    console.log('data length_____', data.length, 'url:', url)
-debugger
-    
-    return data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
+
+    return data
 }
 
 
 
-
-
-async function autoScroll(page) {
-    await page.evaluate(async () => {
-
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-                var toth = 7775
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 200);
-        });
-    });
-}
 async function getUrls(page) {
 
     const pageUrls = []
@@ -70,4 +41,12 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+const productPageSelector='#ProductListMainContainer'
+const linkSelector='.navigation a'
+const linksToRemove=[]
+const hostname='https://www.fashionfriends.com/'
+const exclude=[]
+const postFix =''
+
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+
