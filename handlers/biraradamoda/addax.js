@@ -25,6 +25,7 @@ async function extractor(page,marka) {
             }
   
         })
+        
     },marka)
 
 return data

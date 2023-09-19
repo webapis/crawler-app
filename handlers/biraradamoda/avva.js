@@ -3,8 +3,6 @@ const {autoScroll}=require('../../utils/autoscroll')
 async function extractor(page, ) {
 
 
-    const url = await page.url()
-
     await autoScroll(page)
     const data = await page.$$eval('.productItem', (productCards) => {
         return productCards.map(document => {

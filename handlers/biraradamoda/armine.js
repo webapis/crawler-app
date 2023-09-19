@@ -6,7 +6,7 @@ async function extractor(page) {
 
     await autoScroll(page)
 
-    const data = await page.$$eval('#ProductPageProductList .ItemOrj.col-4', (productCards) => {
+    const data = await page.$$eval('#ProductPageProductList .ItemOrj', (productCards) => {
         return productCards.map(document => {
             try {
 

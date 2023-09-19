@@ -207,7 +207,10 @@ console.log('protocolTimeout',protocolTimeout)
 debugger
     const { items: productItems } = await productsDataset.getData();
     debugger
+if(productItems.length===0){
 
+    throw 'Error when scraping 0 productItems.length'
+}
     const withError =productItems.filter(f=>f.error)
     debugger
     if(withError.length>0){
@@ -217,7 +220,7 @@ debugger
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
         const errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
-        if(errorPercentate >=5)
+        if(errorPercentate >=5 )
         {
             throw 'Error when scraping'
         }else{
@@ -238,8 +241,8 @@ debugger
 debugger
         }
 debugger
-         await  importLinkData({data:pageItems})
-        console.log('productItems----',productItemsWithoutError.length)
+         await  importLinkData({data:productItemsWithoutError})
+        console.log('productItemsWithoutError----',productItemsWithoutError.length)
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
             debugger
         
