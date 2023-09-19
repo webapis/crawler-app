@@ -227,7 +227,6 @@ if(productItems.length===0){
             throw `Total error exceeds ${errorPercentate} %`
         }else{
 
-
             console.log('Error %',errorPercentate)
         }
     

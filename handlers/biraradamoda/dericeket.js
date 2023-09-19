@@ -1,11 +1,6 @@
 
 
-async function handler(page, context) {
-
-
-    const url = await page.url()
-
-    await page.waitForSelector('#ProductPageProductList')
+async function extractor(page) {
 
 
     const data = await page.$$eval('.productItem', (productCards) => {
@@ -30,36 +25,40 @@ async function handler(page, context) {
         }).filter(f => f.imageUrl && f.title.length > 5)
     })
 
-    console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
 
-
-    console.log("process.env.GENDER ")
-    const mapgender = data.map((m) => {
-        return { ...m, title: m.title + " _" + process.env.GENDER }
-    })
 
 debugger
-    return mapgender
+    return data
 }
+
+
+const productPageSelector='#ProductPageProductList'
+const linkSelector='.navigation a'
+const linksToRemove=[]
+const hostname='https://www.dericeket.com.tr/'
+const exclude=[]
+const postFix =''
 
 async function getUrls(page) {
     const url = await page.url()
-    await page.waitForSelector('.FiltrelemeUrunAdet span')
-    const productCount = await page.$eval('.FiltrelemeUrunAdet span', element => parseInt(element.innerText.replace(/[^\d]/g, '')))
-    const totalPages = Math.ceil(productCount / 20)
+   const nextPage = await page.$('.FiltrelemeUrunAdet span')
+   let productCount=0
     const pageUrls = []
-
-    let pagesLeft = totalPages
-    for (let i = 2; i <= totalPages; i++) {
-
-
-
-        pageUrls.push(`${url}?sayfa=` + i)
-        --pagesLeft
-
-
+    if(nextPage){
+         productCount = await page.$eval('.FiltrelemeUrunAdet span', element => parseInt(element.innerText.replace(/[^\d]/g, '')))
+ 
+        const totalPages = Math.ceil(productCount / 20)
+        let pagesLeft = totalPages
+        for (let i = 2; i <= totalPages; i++) {
+            pageUrls.push(`${url}?sayfa=` + i)
+            --pagesLeft
+    
+    
+        }
     }
+   
 
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+
