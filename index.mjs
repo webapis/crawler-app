@@ -213,22 +213,28 @@ if(productItems.length===0){
 }
     const withError =productItems.filter(f=>f.error)
     debugger
+
+    let errorPercentate =0
     if(withError.length>0){
         const errorDataset = await Dataset.open(`withError`);
         await errorDataset.pushData(withError)
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
         console.log('withError:content', withError[0].content)
-        const errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
+         errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
         if(errorPercentate >=5 )
         {
             throw 'Error when scraping'
         }else{
+
+
             console.log('Error %',errorPercentate)
         }
     
       
-    }else{
+    }
+
+    if(errorPercentate <5){
         const pageDataset = await Dataset.open(`pageInfo`);
         const { items: pageItems } = await pageDataset.getData();
         const productItemsWithoutError =productItems.filter(f=>!f.error)
@@ -238,9 +244,9 @@ if(productItems.length===0){
             const foundProducts =productItemsWithoutError.filter(f=>f.pid === p.objectID)
             const keywords = extractPagekeywords({products:foundProducts})
             p.keywords= keywords
-debugger
+
         }
-debugger
+
          await  importLinkData({data:productItemsWithoutError})
         console.log('productItemsWithoutError----',productItemsWithoutError.length)
        //     await uploadCollection({ fileName: `${marka}`, data: productItems, gender: 'all', marka })
@@ -248,8 +254,10 @@ debugger
         
 
         console.log('uploading git state')
-        
     }
+     
+        
+    
 
 
     console.log('Crawl finished.');
