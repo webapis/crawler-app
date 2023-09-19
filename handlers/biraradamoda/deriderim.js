@@ -9,13 +9,13 @@ async function extractor(page, ) {
                 const imageUrl = productCard.querySelector(".detailLink img[data-original]") && productCard.querySelector(".detailLink img[data-original]").getAttribute('data-original')
                 const title = productCard.querySelector('.detailLink').getAttribute('title')
                 const priceNew = productCard.querySelector('.discountPrice') && productCard.querySelector(".discountPrice span").innerHTML.replaceAll('\n','').replace('₺','')
-                const longlink = productCard.querySelector('.detailLink').href
-                const link = longlink.substring(longlink.indexOf("https://www.deriderim.com/") + 26)
-                const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") + 29)
+                const link = productCard.querySelector('.detailLink').href
+         
+         
                 return {
                     title: 'deriderim ' + title.replace(/İ/g, 'i').toLowerCase(),
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka: 'deriderim',
