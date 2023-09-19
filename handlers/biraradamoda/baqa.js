@@ -10,7 +10,7 @@ async function extractor(page) {
     debugger;
     const data = await page.$$eval('.ItemOrj.col-3', (productCards, _subcategory, _category, _node) => {
         return productCards.map(productCard => {
-            const longimg = productCard.querySelector('[data-original]').getAttribute('data-original')
+            const imageUrl = productCard.querySelector('[data-original]').getAttribute('data-original')
             const title = productCard.querySelector('.productName.detailUrl a').innerHTML
             const priceNew = productCard.querySelector('.discountPrice span').innerHTML.replace('₺', '').replaceAll('\n','')//.replace('.','').replace(',','.')
             const link = productCard.querySelector('.detailLink.detailUrl').href
@@ -18,8 +18,8 @@ async function extractor(page) {
             return {
                 title: 'baqa ' + title.replace(/İ/g,'i').toLowerCase(),
                 priceNew,
-                imageUrl: longimg,
-                link: link.substring(link.indexOf('https://www.baqa.com.tr/') + 24),
+                imageUrl,
+                link,
                 timestamp: Date.now(),
                 marka: 'baqa',
 

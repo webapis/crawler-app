@@ -9,15 +9,12 @@ async function extractor(page) {
             const imageUrl = document.querySelector('.detailUrl [data-original]').getAttribute('data-original')
             const title = document.querySelector('.detailUrl a[title]').getAttribute('title').trim()
             const priceNew = document.querySelector('.discountPrice span').innerText.replace('₺', '')
-            const longlink = document.querySelector('.detailUrl a[title]').href
-            const link = longlink.substring(longlink.indexOf('https://www.dericeket.com.tr/') + 29)
-            const longImgUrl = imageUrl && 'https:' + imageUrl.substring(imageUrl.lastIndexOf('//'), imageUrl.lastIndexOf('.jpg') + 4)
-            const imageUrlshort = imageUrl && longImgUrl.substring(longImgUrl.indexOf('https://static.ticimax.cloud/') + 29)
-
+            const link = document.querySelector('.detailUrl a[title]').href
+    
             return {
                 title: 'dericeket ' + title.replace(/İ/g,'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'dericeket',

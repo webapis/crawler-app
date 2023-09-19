@@ -9,7 +9,7 @@ async function extractor(page) {
         const data = await page.$$eval('.js-product-wrapper.product-item', (productCards) => {
             return productCards.map(productCard => {
 
-                const img = productCard.querySelector('.product-item__image.js-product-item-image a img').src
+                const imageUrl = productCard.querySelector('.product-item__image.js-product-item-image a img').src
                 const title = productCard.querySelector('.product-item__image.js-product-item-image a img').alt
                 const priceNew = productCard.querySelector('pz-price').innerHTML.replace('TL', '').trim()//.replace(',','.')
                 const link = productCard.querySelector('.product-item__image.js-product-item-image a').href
@@ -17,8 +17,8 @@ async function extractor(page) {
                 return {
                     title: 'beyyoglu ' + title.replace(/İ/g, 'i').toLowerCase(),
                     priceNew,
-                    imageUrl: img.substring(img.indexOf('https://179a38.cdn.akinoncloud.com/products/') + 44),
-                    link: link.substring(link.indexOf('https://www.beyyoglu.com/') + 25),
+                    imageUrl,
+                    link,
                     timestamp: Date.now(),
                     marka: 'beyyoglu',
 

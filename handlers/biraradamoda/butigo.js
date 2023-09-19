@@ -4,16 +4,16 @@ async function extractor(page) {
     const data = await page.$$eval('[data-gtm-product]', (productCards) => {
         return productCards.map(document => {
             try {
-                const img = document.querySelector('[data-src]').getAttribute('data-src')
+                const imageUrl = document.querySelector('[data-src]').getAttribute('data-src')
                 const title =  document.querySelector('.product__image a img').alt
                 const priceNew =document.querySelector('.product__prices-sale').innerText.replace('TL','').trim()
                 const link = document.querySelector('.product__image a').href
                 return {
                     title: 'butigo '+title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
-                    imageUrl: img.substring(img.indexOf('https://floimages.mncdn.com/mnpadding/')+38),
-                    link,
+                    imageUrl,
                     timestamp: Date.now(),
+                    link,
                     marka: 'butigo',
                 }
             } catch (error) {

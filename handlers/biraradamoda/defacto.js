@@ -11,15 +11,13 @@
                 const imageUrl = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box .product-card__image--item.swiper-slide img').getAttribute('data-srcset')
                 const title = productCard.querySelector('.product-card__title a').getAttribute('title').trim()
                 const priceNew = productCard.querySelector('.product-card__price--new') && productCard.querySelector('.product-card__price--new').textContent.trim().replace('₺', '').replace('TL', '')
-                const longlink = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box a').href
-                const link = longlink.substring(longlink.indexOf("defacto.com.tr/") + 15)
-                const longImgUrl = imageUrl && 'https:' + imageUrl.substring(imageUrl.lastIndexOf('//'), imageUrl.lastIndexOf('.jpg') + 4)
-                const imageUrlshort = imageUrl && longImgUrl.substring(longImgUrl.indexOf("https://dfcdn.defacto.com.tr/") + 29)
-    
+                const link = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box a').href
+      
+         
                 return {
                     title: marka+' ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka,

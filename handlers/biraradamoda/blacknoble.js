@@ -10,14 +10,12 @@ async function extractor(page) {
             const imageUrl = document.querySelector('.detailLink [data-original]').getAttribute('data-original')
             const title = document.querySelector('a.detailLink[title]').getAttribute('title').trim()
             const priceNew = document.querySelector('.discountPrice').innerText.replace('₺','')
-            const longlink = document.querySelector('.productName.detailUrl a').href
-            const link = longlink.substring(longlink.indexOf("https://www.blacknoble.com/") + 27)
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") + 29)
-
+            const link = document.querySelector('.productName.detailUrl a').href
+     
             return {
                 title: 'blacknoble ' + title.replace(/İ/g,'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'blacknoble',

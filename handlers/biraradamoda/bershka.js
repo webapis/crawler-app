@@ -18,20 +18,16 @@ async function extractor(page) {
           .querySelector(".current-price-elem")
           .innerText.replace("TL", "")
           .trim();
-        const longlink = document.querySelector(
+        const link = document.querySelector(
           ".category-product-card a"
         ).href;
-        const link = longlink.substring(
-          longlink.indexOf("https://www.bershka.com/") + 24
-        );
-        const imageUrlshort = imageUrl.substring(
-          imageUrl.indexOf("https://static.bershka.net/") + 27
-        );
+    
+  
 
         return {
           title: "bershka " + title,
           priceNew,
-          imageUrl: imageUrlshort,
+          imageUrl,
           link,
           timestamp: Date.now(),
           marka: "bershka",

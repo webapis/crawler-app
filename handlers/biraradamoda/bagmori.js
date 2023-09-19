@@ -13,15 +13,15 @@ async function extractor(page) {
         return productCards.map(document => {
             try {
                 const priceNew = document.querySelector('.ProductItem__Price').innerText.replace('TL','')
-                const longlink = document.querySelector(".ProductItem__Title.Heading a").href
-                 const link = longlink.substring(longlink.indexOf("https://www.bagmori.com/") + 24)
-                const longImgUrl =document.querySelector('.ProductItem__Image').getAttribute('data-src').replace('{width}',600)
-                 const imageUrlshort = longImgUrl.substr(longImgUrl.indexOf("//www.bagmori.com/") + 18)//https://cdn3.sorsware.com/
+                const link = document.querySelector(".ProductItem__Title.Heading a").href
+       
+                const imageUrl =document.querySelector('.ProductItem__Image').getAttribute('data-src').replace('{width}',600)
+        
                 const title = document.querySelector(".ProductItem__Title.Heading a").innerText
                 return {
                     title: 'bagmori ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
-                    imageUrl: imageUrlshort,
+                    imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka: 'bagmori',

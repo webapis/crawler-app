@@ -12,15 +12,13 @@ try {
     const imageUrl = document.querySelector('.productImage a img').getAttribute('data-original')
     const title = document.querySelector('.productImage a').getAttribute('title')
     const priceNew = document.querySelector('.discountPrice').innerText.replace('₺','').trim()
-    const longlink = document.querySelector('.productImage a').href
-    const link = longlink.substring(longlink.indexOf("https://www.bambiayakkabi.com.tr/") + 33)
-    
-    const imageUrlshort = imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/")+29)
-
+    const link = document.querySelector('.productImage a').href
+  
+ 
     return {
         title: 'bambiayakkabi ' + title.replace(/İ/g,'i').toLowerCase(),
         priceNew,
-        imageUrl: imageUrlshort,
+        imageUrl,
         link,
         timestamp: Date.now(),
         marka: 'bambiayakkabi',

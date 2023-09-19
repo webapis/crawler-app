@@ -7,15 +7,15 @@ await autoScroll(page)
                     const data = await page.$$eval('.productbox.clearfix.list-item', (productCards) => {
                         return productCards.map(productCard => {
                             const title = productCard.querySelector('.lazy-image.product-name.track-link').getAttribute('title')
-                            const img =productCard.querySelector('.lazy-image.product-name.track-link img')&& productCard.querySelector('.lazy-image.product-name.track-link img').src
+                            const imageUrl =productCard.querySelector('.lazy-image.product-name.track-link img')&& productCard.querySelector('.lazy-image.product-name.track-link img').src
                             const priceNew = productCard.querySelector('.product-price') ? productCard.querySelector('.product-price').innerHTML.replace('TL', '').trim() : productCard.querySelector('.product-new-price').innerHTML.replace('TL', '').trim()
                             const link = productCard.querySelector('.lazy-image.product-name.track-link').href
 
                             return {
                                 title: 'colins ' + title.replace(/İ/g, 'i').toLowerCase(),
                                 priceNew: priceNew,//.replace(',','.'),
-                                imageUrl:img&& img.substring(img.indexOf('https://img-colinstr.mncdn.com/mnresize/') + 40),
-                                link:link&& link.substring(link.indexOf('https://www.colins.com.tr/') + 26),
+                                imageUrl,
+                                link,
                                 timestamp: Date.now(),
                                 marka: 'colins',
 

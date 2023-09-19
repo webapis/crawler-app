@@ -10,13 +10,13 @@ async function extractor(page) {
             const imageUrl = document.querySelector('.image-link img').src
             const title = document.querySelector('.image-link img').alt
             const priceNew = document.querySelector('.last-price').innerText
-            const longlink = document.querySelector('.image-link').href
-            const link = longlink.substring(longlink.indexOf("https://www.centone.com.tr/") + 27)
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://www.centone.com.tr/") + 27)
+            const link = document.querySelector('.image-link').href
+   
+     
             return {
                 title: 'centone ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'centone',

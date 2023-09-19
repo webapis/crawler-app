@@ -8,15 +8,13 @@ async function extractor(page) {
     const data = await page.$$eval('.Prd', (productCards) => {
         return productCards.map(document => {
             const priceNew =document.querySelectorAll('.PriceArea span')? Array.from(document.querySelectorAll('.PriceArea span')).reverse()[0].innerText.replace('TL', '').trim():null//.replace(',','.')
-            const longlink =document.querySelector('button.AddToCart')? document.querySelector('button.AddToCart').getAttribute('data-producturl'):null
-            const link = longlink?longlink.substring(1):null
-            const longImgUrl =document.querySelector('[data-src]')? document.querySelector('[data-src]').getAttribute('data-src'):null
-        //    const imageUrlshort =longImgUrl? longImgUrl.substring(longImgUrl.indexOf("https://cdn3.sorsware.com/") + 26):null
+            const link =document.querySelector('button.AddToCart')? document.querySelector('button.AddToCart').getAttribute('data-producturl'):null
+            const imageUrl =document.querySelector('[data-src]')? document.querySelector('[data-src]').getAttribute('data-src'):null
             const title =document.querySelector('button.AddToCart')? document.querySelector('button.AddToCart').getAttribute('data-productname') + ' ' + document.querySelector('button.AddToCart').getAttribute('data-colorname'):null
             return {
                 title: 'bsl ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: longImgUrl,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'bsl',
