@@ -16,7 +16,7 @@ debugger
                 try {
                     const priceNew =  document.querySelector('.urunListe_satisFiyat').innerText.replace('₺', '').trim()
                     const link = document.querySelector('.prd-lnk').href
-                    const imageUrl = item.querySelector('[data-image-src]').getAttribute('data-image-src')
+                    const imageUrl = document.querySelector('[data-image-src]').getAttribute('data-image-src')
            
                     return {
                         title: 'ipekyol ' + document.querySelector('.prd-name span').innerHTML.replace(/İ/g, 'i').toLowerCase(),
