@@ -7,7 +7,7 @@ async function extractor(page) {
         return productCards.map(document => {
             try {
               
-            const imageUrl = document.querySelector('img[onmouseover]').getAttribute('onmouseover').replace('this.src=','')
+            const imageUrl = document.querySelector('img[onmouseover]').getAttribute('onmouseover').replace('this.src=','').replaceAll("'", "")
             const title = document.querySelector('.card-product-inner .title').innerText.trim()
             const priceNew = document.querySelector('.sale-price').innerText.replace('TL', '').trim()
             const link = document.querySelector('a.c-p-i-link').href
