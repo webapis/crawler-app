@@ -46,8 +46,10 @@ async function extractor(page) {
         })
 
 
-
+        console.log('data',data[0])
     return data
+
+
 }
 
 async function getUrls(page) {
