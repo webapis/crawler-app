@@ -77,7 +77,7 @@ const productPageSelector='.fl.col-12.catalogWrapper'
 const linkSelector='nav ul.menu a'
 const linksToRemove=[]
 const hostname='https://www.gizia.com'
-const exclude=[]
+const exclude=['/en/']
 const postFix =''
 
 module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }

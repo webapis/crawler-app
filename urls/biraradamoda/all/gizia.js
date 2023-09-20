@@ -1,5 +1,5 @@
 const urls = [
-  { url: 'https://www.gizia.com/'},
+  { url: 'https://www.gizia.com/giyim-kaban'},
 
 
 
