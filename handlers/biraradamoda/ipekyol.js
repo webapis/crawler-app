@@ -39,7 +39,7 @@ debugger
 }
 
 
-async function getUrls(page, param) {
+async function getUrls(page) {
 
     const url = await page.url()
     let productCount =0
