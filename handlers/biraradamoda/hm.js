@@ -9,7 +9,7 @@ debugger
                 try {
                     const priceNew = productCard.querySelector('.price.regular') ? productCard.querySelector('.price.regular').innerHTML.replace('TL', '').trim() : ''
                     const link = productCard.querySelector('.item-heading a') ? productCard.querySelector('.item-heading a').href : ''
-                    const imageUrl = 'https://'+ productCard.querySelector('[data-src]').getAttribute('data-src')
+                    const imageUrl = 'https:'+ productCard.querySelector('[data-src]').getAttribute('data-src')
                     const title = productCard.querySelector('.item-heading a') ? productCard.querySelector('.item-heading a').textContent.replace(/[\n]/g, '').trim() : ''
     
                     return {
