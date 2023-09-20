@@ -12,14 +12,14 @@ debugger
     const data = await page.evaluate(() => {
 
         const items = Array.from(document.querySelectorAll('[data-product-id]'))
-        return items.map(item => {
+        return items.map(document => {
                 try {
-                    const priceNew = item.querySelector('.prd-price .urunListe_satisFiyat') && item.querySelector('.prd-list .prd-price .urunListe_satisFiyat').textContent.replace('\n', '').replace('₺', '').trim()
-                    const link = item.querySelector('a.prd-lnk.clicked-item') && item.querySelector('a.prd-lnk.clicked-item').href
-                    const imageUrl = item.querySelector('[data-image-src]') && item.querySelector('[data-image-src]').getAttribute('data-image-src')
+                    const priceNew =  document.querySelector('.urunListe_satisFiyat').innerText.replace('₺', '').trim()
+                    const link = document.querySelector('.prd-lnk').href
+                    const imageUrl = item.querySelector('[data-image-src]').getAttribute('data-image-src')
            
                     return {
-                        title: item.querySelector('.prd-name span') && 'ipekyol ' + item.querySelector('.prd-name span').innerHTML.replace(/İ/g, 'i').toLowerCase(),
+                        title: 'ipekyol ' + document.querySelector('.prd-name span').innerHTML.replace(/İ/g, 'i').toLowerCase(),
                         priceNew,
                         imageUrl,
                         link,
