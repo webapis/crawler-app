@@ -41,7 +41,7 @@ debugger;
     for (let i = 2; i <= totalPages; i++) {
         const url = `${firstUrl}${param}${i}`
             pageUrls.push(url)
-  }
+    }
   
     }
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
