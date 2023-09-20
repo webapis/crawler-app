@@ -1,31 +1,37 @@
 
 async function extractor(page) {
-
-    // await page.waitForSelector('.fl.col-12.catalogWrapper')
-    // debugger
-    // await page.hover('.countryChange')
-
-    // debugger
-    // await page.waitForSelector('.countryChange')
-    //  await page.hover('.countryChange')
-
-    //  const valueExits  =   await page.$('[data-value=tr]')
-    //  const valueTLExits  =   await page.$('[data-value=TL]')
-    //  if(valueExits){
-    //     console.log('chaged language')
-    //     await page.click('[data-value=tr]')
-    //     await page.waitForNavigation()
-    //  }
-    //  if(valueTLExits){
-    //     console.log('chaged to TL')
-    //     await page.click('[data-value=TL]')
-    //     await page.waitForNavigation()
-    //  }
-  
+debugger
+    await page.waitForSelector('.fl.col-12.catalogWrapper')
     debugger
+    await page.hover('.countryChange')
+    debugger
+    await page.waitForSelector('.countryChange')
+    await page.hover('.countryChange')
+    debugger
+     const valueExits  =   await page.$('[data-value=tr]')
+     const valueTLExits  =   await page.$('[data-value=TL]')
+     debugger
+     if(valueExits){
+        console.log('chaged language')
+        await page.click('[data-value=tr]')
+        await page.waitForNavigation()
+        debugger
+     }
+     debugger
+     await page.waitForSelector('.countryChange')
+     await page.hover('.countryChange')
+     debugger
+     if(valueTLExits){
+        console.log('chaged to USD')
+        await page.click('[data-value=TL]')
+        await page.waitForNavigation()
+        debugger
+     }
+  
+
     const products = await page.evaluate(()=>window.PRODUCT_DATA)
 
-    debugger;
+   
 
    const data = products.map(product => {
    
