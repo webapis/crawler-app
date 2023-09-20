@@ -74,7 +74,7 @@ if(nextPage){
    
 }
 const productPageSelector='.fl.col-12.catalogWrapper'
-const linkSelector='..'
+const linkSelector='.dd'
 const linksToRemove=[]
 const hostname='https://www.gizia.com'
 const exclude=['/en/']
