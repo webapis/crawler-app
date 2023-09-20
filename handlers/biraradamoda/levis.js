@@ -2,12 +2,12 @@
 const {autoScroll}=require('../../utils/autoscroll')
 async function extractor(page) {
 
-    await autoScroll(page)
+   // await autoScroll(page)
 
     const data = await page.$$eval('[data-js="p-item"]', (productCards) => {
         return productCards.map(document => {
             try {
-                const imageUrl = document.querySelector('.image img') ? document.querySelector('.image img').src : null
+                const imageUrl = document.querySelector('.image img').src
                 const title = document.querySelector('.image a').getAttribute('title')
                 const priceNew = document.querySelector('.one-price') ? document.querySelector('.one-price').innerText.replace('TL', '').trim() : document.querySelector('.new-price').innerText.replace('TL', '').trim()
                 const link = document.querySelector('.image a').href
