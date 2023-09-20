@@ -61,7 +61,7 @@ async function getUrls(page) {
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
 const productPageSelector='.list-content'
-const linkSelector='a:not(.product-item-wrapper a)'
+const linkSelector='.ddd'
 const linksToRemove=[]
 const hostname='https://www.kigili.com/'
 const exclude=[]
