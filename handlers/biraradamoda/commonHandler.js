@@ -47,7 +47,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
     
              if(linksToRemove.find(f=> f===l.href)===undefined && !negative && l.href.length<=150 ){
                     i =i+1
-                
+                debugger
            await  requestQueue.addRequest({ url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:relatedLinks.length} })
                       
                }

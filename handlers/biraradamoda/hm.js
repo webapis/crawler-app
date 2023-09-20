@@ -1,48 +1,21 @@
 
-const { RequestQueue  } =require ('crawlee');
-async function handler(page, context) {
-    const { request: { userData: { start } } } = context
-    const requestQueue = await RequestQueue.open();
-    const url = await page.url()
-    if (start) {
-        const total = await page.evaluate(() => parseInt(document.querySelector('.filter-pagination').innerHTML.replace(/[^\d]/g, '')))
-        debugger
-        const updatedUrl = url + `?sort=stock&image-size=small&image=model&offset=0&page-size=${total}`
+//const {autoScroll}=require('../../utils/autoscroll')
+async function extractor(page) {
     
-        debugger;
-        requestQueue.addRequest({ url: updatedUrl, userData: { start: false } })
-        return []
-    } else {
-        debugger
-        // await page.waitForSelector(() => {
-        //     const productCounter = document.querySelectorAll('.product-item').length
-        //     const total = parseInt(document.querySelector('.filter-pagination').innerHTML.replace(/[^\d]/g, ''))
-
-        //     return total === productCounter
-        // })
-
-        // onetrust-accept-btn-handler
-
-        const acceptcookies = await page.$('#onetrust-accept-btn-handler')
-        if (acceptcookies) {
-            await page.click('#onetrust-accept-btn-handler')
-        }
-        await autoScroll(page)
-
+     //   await autoScroll(page)
+debugger
         const data = await page.$$eval('.product-item', (productCards) => {
             return productCards.map(productCard => {
                 try {
                     const priceNew = productCard.querySelector('.price.regular') ? productCard.querySelector('.price.regular').innerHTML.replace('TL', '').trim() : ''
-                    const longlink = productCard.querySelector('.item-heading a') ? productCard.querySelector('.item-heading a').href : ''
-                    const link = longlink.substring(longlink.indexOf("https://www2.hm.com/tr_tr/") + 26)
-                    const longImgUrl = productCard.querySelector('[data-src]').getAttribute('data-src')
-                    const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("//lp2.hm.com/hmgoepprod?set=source[") + 35)
+                    const link = productCard.querySelector('.item-heading a') ? productCard.querySelector('.item-heading a').href : ''
+                    const imageUrl = 'https://'+ productCard.querySelector('[data-src]').getAttribute('data-src')
                     const title = productCard.querySelector('.item-heading a') ? productCard.querySelector('.item-heading a').textContent.replace(/[\n]/g, '').trim() : ''
     
                     return {
                         title: 'hm ' + title.replace(/İ/g, 'i').toLowerCase(),
-                        priceNew: priceNew.replace('&nbsp;', '.'),//:priceNew.replace('.','').replace(',','.').trim(),
-                        imageUrl: imageUrlshort,
+                        priceNew: priceNew.replace('&nbsp;', '.'),
+                        imageUrl,
                         link,
                         timestamp: Date.now(),
                         marka: 'hm',
@@ -55,16 +28,14 @@ async function handler(page, context) {
             
             })
         })
-        console.log('data length_____', data.length, 'url:', url)
-
-
-
-        return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+   
+debugger
+        return data
 
 
 
 
-    }
+    
 
 }
 
@@ -96,10 +67,33 @@ async function autoScroll(page) {
 
 async function getUrls(page) {
 
+
+  const nextPage = await page.$('.load-more-heading')
+
     const pageUrls = []
+    if(nextPage){
+        const start = await page.evaluate(()=>parseInt( document.querySelector('.load-more-heading').innerText.split(' ').filter(Number)[0]))
+        const total = await page.evaluate(()=>parseInt( document.querySelector('.load-more-heading').innerText.split(' ').filter(Number)[0]))
+        
+        if(start<total){
+            pageUrls.push(`${url}??sort=stock&image-size=small&image=model&offset=0&page-size=` + productCount)
+        }
+
+        
+    
+    }
 
 
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+const productPageSelector='.products-listing'
+const linkSelector='nav a'
+const linksToRemove=['https://www2.hm.com/tr_tr/customer-service/newsletter.html',
+'https://www2.hm.com/tr_tr/customer-service/shopping-at-hm/store-locator','https://www2.hm.com/tr_tr/cart','https://www2.hm.com/tr_tr/favourites','https://www2.hm.com/tr_tr/kadin.html']
+const hostname='https://www2.hm.com/'
+const exclude=[]
+const postFix =''
+
+module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+

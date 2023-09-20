@@ -1,8 +1,6 @@
 
 async function extractor(page) {
-debugger
-    await page.waitForSelector('.fl.col-12.catalogWrapper')
-    debugger
+
     await page.hover('.countryChange')
     debugger
     await page.waitForSelector('.countryChange')
