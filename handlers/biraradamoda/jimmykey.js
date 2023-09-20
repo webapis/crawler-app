@@ -2,13 +2,13 @@
 async function extractor(page) {
  
     debugger;
-    const data = await page.$$eval('.row.ProductList', (productCards) => {
+    const data = await page.$$eval('.Prd', (productCards) => {
 
         return productCards.map(document => {
             try {
                 
            
-            const imageUrl = document.querySelector('.Prd picture source[data-srcset]').getAttribute('data-srcset')
+            const imageUrl = document.querySelector('picture source[data-srcset]').getAttribute('data-srcset')
             const title = document.querySelector('.PName').innerHTML.trim()
             const priceNew =  document.querySelector('.PPrice').textContent.trim().replace('₺', '')
             const link = document.querySelector('.PrdItemBox a').href
