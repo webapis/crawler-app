@@ -1,3 +1,13 @@
+const {linkExtractor}=require('../../utils/linkExtractor')
+const initValues ={
+     productPageSelector:'',
+     linkSelector:'',
+     linksToRemove:[],
+     hostname:'',
+     exclude:[],
+     postFix:''
+}
+
 const fetch =require('node-fetch')
 
 async function handler(page, context) {
@@ -32,5 +42,4 @@ async function getUrls(page) {
 }
 
 
-module.exports = { handler, getUrls }
-
+module.exports = { extractor, getUrls,...initValues }
