@@ -1,8 +1,18 @@
 
+const {linkExtractor}=require('../../utils/linkExtractor')
+const initValues ={
+     productPageSelector:'.list-content',
+     linkSelector:'.navigation a',
+     linksToRemove:[],
+     hostname:'https://www.kigili.com/',
+     exclude:[],
+     postFix :''
+    
+}
 
 const {autoScroll}=require('../../utils/autoscroll')
-async function extractor(page) {
-
+async function extractor(page,context) {
+    await linkExtractor({...initValues,linkSelector:'.navigation__submenu__item__title',candidateSelector:'.navigation__item',page,context,action:'hover'})
    await autoScroll(page)
     debugger
     const data = await page.$$eval('.product-item-wrapper', (productCards) => {
@@ -60,11 +70,5 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-const productPageSelector='.list-content'
-const linkSelector='.ddd'
-const linksToRemove=[]
-const hostname='https://www.kigili.com/'
-const exclude=[]
-const postFix =''
 
-module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+module.exports = { extractor, getUrls,...initValues }
