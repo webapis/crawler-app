@@ -40,7 +40,7 @@ async function extractor(page, context) {
         
                     }
                 } catch (error) {
-                    return {error:error.toString(),url:document.baseUrl,content:document.innerHTML}
+                    return {error:error.toString(),url:document.baseURI,content:document.innerHTML}
                 }
            
             })
