@@ -6,7 +6,7 @@ const initValues ={
      linkSelector:'.btn-full',
      linksToRemove:[],
      hostname:'https://www.machka.com.tr/',
-     exclude:[],
+     exclude:['lookbook'],
      postFix:''
 }
 
