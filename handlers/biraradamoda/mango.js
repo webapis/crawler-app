@@ -1,39 +1,42 @@
-const {linkExtractor}=require('../../utils/linkExtractor')
+
+const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
-     productPageSelector:'',
-     linkSelector:'',
+     productPageSelector:'.catalog',
+     linkSelector:'#sitemap a',
      linksToRemove:[],
-     hostname:'',
+     hostname:'https://shop.mango.com/',
      exclude:[],
      postFix:''
 }
 
-const fetch =require('node-fetch')
-
-async function handler(page, context) {
-const url =await page.url()
-    debugger;
-    const response =await fetch(url)
-debugger
-const jsonData =await response.json()
-debugger
-
-const data = Object.values( jsonData.groups[0].garments).map(m=>m.colors).flat().map(m=>{
-    
-    const imageUrl=m.images[0].img1Src
-    return {
-    imageUrl,
-    title:'mango '+m.images[0].
-    altText,
-    priceNew:m.price. salePriceNoCurrency,
-    link:m.linkAnchor.substring(1),
-
-    timestamp: Date.now(),
-    marka: 'mango',
-}})
 
 
-    return data
+async function extractor(page) {
+
+await autoScroll(page)
+
+const data = await page.$$eval('[id^="product-key-id"]', (productCards) => {
+    return productCards.map( document => {
+        try {
+            // const imageUrl =document.querySelector('img')? document.querySelector('img').src:document.querySelector('img["original"]').getAttribute("original")
+            // const title = document.querySelector('img')? document.querySelector('img').alt:document.querySelector('img["original"]').alt
+            // const priceNew = document.querySelector('[data-testid=currentPrice] span').innerText.replace('TL','').trim()
+            // const link = document.querySelector('a').href
+  
+            return {
+                title: document.innerHTML //  'mango'+' ' + title.replace(/İ/g,'i').toLowerCase(),
+                // priceNew,
+                // imageUrl,
+                // link,
+                // timestamp: Date.now(),
+                // marka:'mango',
+            }  
+        } catch (error) {
+            return {error:error.toString(),content:document.innerHTML}
+        }
+    })
+})
+return data
 }
 
 async function getUrls(page) {
