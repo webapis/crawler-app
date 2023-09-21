@@ -66,18 +66,26 @@ async function linkExtractor({
     }),
   });
 
-  for (let l of links) {
-    await requestQueue.addRequest({
-      url: l.href.replace(postFix, "") + postFix,
-      userData: {
-        start: true,
-        title: l.title,
-        order: l.order,
-        total: links.length,
-        lx:true
-      },
-    });
-  }
+  for(let l of links ){
+    let negative =false
+  
+    if(exclude.length>0){
+        for(let e of exclude){ 
+            if(l.href.indexOf(e) !==-1){
+        
+                negative=true
+            }
+        }
+    } 
+
+ if(linksToRemove.find(f=> f===l.href)===undefined && !negative && l.href.length<=150 ){
+        i =i+1
+
+await  requestQueue.addRequest({ url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:links.length} })
+          
+   }
+
+}
 }
 
 module.exports = { linkExtractor };
