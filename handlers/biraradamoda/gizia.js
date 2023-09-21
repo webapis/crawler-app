@@ -1,5 +1,16 @@
 
-async function extractor(page) {
+
+const {linkExtractor}=require('../../utils/linkExtractor')
+const initValues ={
+     productPageSelector:'.fl.col-12.catalogWrapper',
+     linkSelector:'.drop-down-title a',
+     linksToRemove:[],
+     hostname:'https://www.gizia.com',
+     exclude:['/en/'],
+     postFix:''
+    
+}
+async function extractor(page,context) {
 
     await page.hover('.countryChange')
     debugger
@@ -26,7 +37,7 @@ async function extractor(page) {
         debugger
      }
   
-
+     await linkExtractor({...initValues,linkSelector:'#mainMenu a',candidateSelector:'nav#mainMenu ul.menu .parentLink',page,context,action:'hover'})
     const products = await page.evaluate(()=>window.PRODUCT_DATA)
 
    
@@ -77,12 +88,6 @@ if(nextPage){
  
    
 }
-const productPageSelector='.fl.col-12.catalogWrapper'
-const linkSelector='.dd'
-const linksToRemove=[]
-const hostname='https://www.gizia.com'
-const exclude=['/en/']
-const postFix =''
 
-module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
 
+module.exports = { extractor, getUrls,...initValues }
