@@ -1,6 +1,6 @@
 
 const {linkExtractor}=require('../../utils/linkExtractor')
-const {autoScroll}=require('../../utils/autoscroll')
+//const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
      productPageSelector:'.ems-prd-list',
      linkSelector:'.btn-full',
@@ -16,7 +16,7 @@ async function extractor(page, context) {
 
     debugger
     await linkExtractor({...initValues,linkSelector:'.selected a',candidateSelector:'.modal-body [href="javascript:void(0);"]',page,context,action:'click'})
-await autoScroll(page)
+
     debugger
 
     await page.waitForSelector('.ems-prd')
@@ -28,10 +28,10 @@ await autoScroll(page)
                 try {
                     const priceNew = document.querySelector('.ems-prd-price-last') && document.querySelector('.ems-prd-price-last').innerText.replace('₺', '').trim()
                     const link = document.querySelector('.ems-prd-link.btn-full').href
-                    const imageUrl = document.querySelector('.ems-responsive-item').getAttribute('data-image-src')
+                    const imageUrl = document.querySelector('[data-image-src]').getAttribute('data-image-src')
 
                     return {
-                        title: 'machka ' + document.querySelector('.ems-prd-title').innerHTML.replace(/İ/g,'i').toLowerCase(),
+                        title: 'machka ' + document.querySelector('[data-image-src]').alt,
                         priceNew,
                         imageUrl,
                         link,
@@ -55,17 +55,17 @@ return data
 
 async function getUrls(page) {
 
-//     const url = await page.url()
-//  const nextPage =   await page.$('.prd-qty')
-//     let productCount = 0
+    const url = await page.url()
+ const nextPage =   await page.$('.prd-qty')
+    let productCount = 0
    const pageUrls = []
-//     if(nextPage){
-//          productCount = await page.evaluate(()=>parseInt(document.querySelector('.prd-qty').innerHTML.replace(/[^\d]/g, '')))
-//         const totalPages = Math.ceil(productCount / 15)
-//         for (let i = 2; i <= totalPages; i++) {
-//             pageUrls.push(`${url}?page=` + i)
-//         }
-//     }
+    if(nextPage){
+         productCount = await page.evaluate(()=>parseInt(document.querySelector('.prd-qty').innerHTML.replace(/[^\d]/g, '')))
+        const totalPages = Math.ceil(productCount / 15)
+        for (let i = 2; i <= totalPages; i++) {
+            pageUrls.push(`${url}?page=` + i)
+        }
+    }
  
 
     return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
