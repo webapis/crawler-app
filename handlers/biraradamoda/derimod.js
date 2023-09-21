@@ -1,7 +1,17 @@
 
-
-async function extractor(page) {
-
+const {linkExtractor}=require('../../utils/linkExtractor')
+const initValues ={
+     productPageSelector:'.list-content-product-item',
+     linkSelector:'.navigation a',
+     linksToRemove:[],
+     hostname:'https://www.derimod.com.tr/',
+     exclude:[],
+     postFix:''
+    
+}
+async function extractor(page,context) {
+  
+    await linkExtractor({...initValues,linkSelector:'.navigation__item a',candidateSelector:'.navigation__item',page,context,action:'hover'})
     const data = await page.$$eval('.list-content-product-item', (productCards) => {
         return productCards.map(productCard => {
                 try {
@@ -54,12 +64,5 @@ async function getUrls(page) {
 
     return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
 }
-const productPageSelector='.list-content-product-item'
-const linkSelector='.navigation a'
-const linksToRemove=[]
-const hostname='https://www.derimod.com.tr/'
-const exclude=[]
-const postFix =''
 
-module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
-
+module.exports = { extractor, getUrls,...initValues }
