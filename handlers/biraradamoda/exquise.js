@@ -1,5 +1,24 @@
 const {autoScroll}=require('../../utils/autoscroll')
-async function extractor(page) {
+
+const {linkExtractor}=require('../../utils/linkExtractor')
+const initValues ={
+     productPageSelector:'.infinite-scroll-component__outerdiv',
+     linkSelector:'footer nav a',
+     linksToRemove:[],
+     hostname:'https://exquise.com/',
+     exclude:[],
+     postFix :''
+    
+    
+}
+async function extractor(page,context) {
+
+    const toggleBtn = await page.$('[aria-label="Toggle main menu"]')
+    if(toggleBtn){
+        await page.click('[aria-label="Toggle main menu"]')
+        await page.waitForSelector('.MuiDrawer-root')
+        await linkExtractor({...initValues,linkSelector:'.MuiAccordion-region a',candidateSelector:'.MuiAccordionSummary-expandIconWrapper',page,context,action:'click'})
+    }
 
    await autoScroll(page)
 
@@ -49,13 +68,7 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-const productPageSelector='.infinite-scroll-component__outerdiv'
-const linkSelector='sss'
-const linksToRemove=[]
-const hostname='https://exquise.com/'
-const exclude=[]
-const postFix =''
 
-module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
 
+module.exports = { extractor, getUrls,...initValues }
 

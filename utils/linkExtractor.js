@@ -54,6 +54,9 @@ async function linkExtractor({
     } catch (error) {
       console.log("hover error", error.toString());
     }
+
+
+    
   }
   debugger;
   const linkDataset = await Dataset.open(`links`);
