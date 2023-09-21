@@ -14,7 +14,7 @@ const initValues ={
 async function extractor(page,context) {
 
     
-    await linkExtractor({...initValues,candidateSelector:'.navigation__item',page,context})
+    await linkExtractor({...initValues,candidateSelector:'.navigation__item',page,context,action:'hover'})
     debugger
     await page.waitForTimeout(5000);
    

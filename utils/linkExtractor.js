@@ -8,14 +8,17 @@ async function linkExtractor({
   exclude,
   postFix,
   page,
-  context
+  context,
+  action
 }) {
 
   const { request: { userData: { lx } } } = context
   console.log('lx',lx)
+  console.log('action',action)
   const requestQueue = await RequestQueue.open();
   debugger;
   const navigationItems = await page.$$(candidateSelector);
+
   let links = [];
   debugger;
   // Iterate over the navigation items and hover over each of them.
@@ -24,8 +27,13 @@ async function linkExtractor({
   }
   for (const navigationItem of navigationItems) {
     try {
-      await navigationItem.hover();
-      await page.waitForTimeout(700);
+      if(action==='hover'){
+        await navigationItem.hover();
+      }
+      if(action==='click'){
+        await navigationItem.click();  
+      }
+      await page.waitForTimeout(1000);
       const currentLinks = await page.evaluate(
         (linkSelector, hostname) =>
           Array.from(document.querySelectorAll(linkSelector))

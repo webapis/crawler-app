@@ -1,8 +1,26 @@
-
-const {autoScroll}=require('../../utils/autoscroll')
-async function extractor(page) {
-
-   // await autoScroll(page)
+//main-links
+const {linkExtractor}=require('../../utils/linkExtractor')
+const initValues ={
+     productPageSelector:'.product-listing',
+     linkSelector:'.main-links a',
+     linksToRemove:[],
+     hostname:'https://www.levis.com.tr/',
+     exclude:[],
+     postFix :'',
+}
+async function extractor(page,context) {
+        const alisverisBtn =await page.$('[data-js="menu-main-link"]')
+        if(alisverisBtn){
+            await page.click('[data-js="menu-main-link"]')
+            debugger
+            await page.waitForSelector('[data-js="mp-links"]');
+            debugger
+            await linkExtractor({...initValues, linkSelector:'[data-js="mp-tab-sub-link"]',candidateSelector:'.menu-panel .mp-links .js-active a[data-js="mp-tab-link"]',page,context,action:'click'})
+        }
+        // const closeBtn = await page.$('[data-js="btn-close-menu]')
+        // if(closeBtn){
+        //     await page.click('[data-js="btn-close-menu]')
+        // }
 
     const data = await page.$$eval('[data-js="p-item"]', (productCards) => {
         return productCards.map(document => {
@@ -47,11 +65,6 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-const productPageSelector='.product-listing'
-const linkSelector='.ddd'
-const linksToRemove=[]
-const hostname='https://www.levis.com.tr/'
-const exclude=[]
-const postFix =''
 
-module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname ,exclude,postFix }
+
+module.exports = { extractor, getUrls,...initValues }
