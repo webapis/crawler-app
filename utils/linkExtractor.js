@@ -79,7 +79,7 @@ async function linkExtractor({
     } 
 
  if(linksToRemove.find(f=> f===l.href)===undefined && !negative && l.href.length<=150 ){
-        i =i+1
+    
 
 await  requestQueue.addRequest({ url:l.href.replace(postFix,'') + postFix,  userData:{start:true,title:l.title,order:l.order, total:links.length} })
           
