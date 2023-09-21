@@ -220,6 +220,7 @@ if(productItems.length===0){
         await errorDataset.pushData(withError)
         console.log('withError:length', withError.length)
         console.log('withError:error', withError[0].error)
+        console.log('withError:url', withError[0].url)
         console.log('withError:content', withError[0].content)
          errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
         if(errorPercentate >=5 )
