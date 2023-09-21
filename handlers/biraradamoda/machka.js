@@ -58,7 +58,7 @@ async function getUrls(page) {
 //     const url = await page.url()
 //  const nextPage =   await page.$('.prd-qty')
 //     let productCount = 0
-//     const pageUrls = []
+   const pageUrls = []
 //     if(nextPage){
 //          productCount = await page.evaluate(()=>parseInt(document.querySelector('.prd-qty').innerHTML.replace(/[^\d]/g, '')))
 //         const totalPages = Math.ceil(productCount / 15)
