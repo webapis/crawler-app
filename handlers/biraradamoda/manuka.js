@@ -8,9 +8,7 @@ const initValues ={
   postFix:''
 }
 async function extractor(page) {
-    debugger;
 
-  
 
 
   await page.click('.dropdown a')

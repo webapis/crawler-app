@@ -1,5 +1,12 @@
 
-
+const initValues ={
+    productPageSelector:'.catalogWrapper',
+    linkSelector:'#mainMenu a',
+    linksToRemove:[],
+    hostname:'https://www.manuka.com.tr/',
+    exclude:[],
+    postFix:''
+  }
 async function handler(page) {
 
 
