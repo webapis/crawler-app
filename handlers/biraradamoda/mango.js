@@ -22,7 +22,7 @@ async function extractor(page) {
         return window.viewObjectsJson['catalogParameters']
     })
 debugger
-const productUrl = `https://shop.mango.com/services/productlist/products/${isoCode}/${idShop}/${idSection}/?pageNum=1&rowsPerPage=1000&columnsPerRow=4 ${idSubSection? '&'+ idSubSection:''}`
+const productUrl = `https://shop.mango.com/services/productlist/products/${isoCode}/${idShop}/${idSection}/?pageNum=1&rowsPerPage=1000&columnsPerRow=4`
 debugger
     const response =await fetch(productUrl)
 debugger
