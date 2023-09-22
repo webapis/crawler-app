@@ -1,6 +1,6 @@
 const fetch =require('node-fetch')
 
-const {autoScroll}=require('../../utils/autoscroll')
+
 const initValues ={
      productPageSelector:'.catalog',
      linkSelector:'#sitemap a',
@@ -13,14 +13,12 @@ const initValues ={
 
 
 async function extractor(page) {
-    const url =await page.url()
-    debugger;
+
+
     const {isoCode,idShop,family,idSection,columnsPerRow,optionalParams:{idSubSection}} = await page.evaluate(()=>{
         return window.viewObjectsJson['catalogParameters']
     })
-    const params = await page.evaluate(()=>{
-        return window.viewObjectsJson['catalogParameters']
-    })
+
 debugger
 const productUrl = `https://shop.mango.com/services/productlist/products/${isoCode}/${idShop}/${idSection}/?pageNum=1&rowsPerPage=1000&columnsPerRow=4`
 debugger
