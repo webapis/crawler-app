@@ -1,10 +1,17 @@
 
-async function handler(page) {
+const initValues ={
+  productPageSelector:'.catalogWrapper',
+  linkSelector:'#mainMenu a',
+  linksToRemove:[],
+  hostname:'https://www.manuka.com.tr/',
+  exclude:[],
+  postFix:''
+}
+async function extractor(page) {
     debugger;
 
   
-    await page.waitForSelector(".catalogWrapper");
-   
+
 
   await page.click('.dropdown a')
   debugger
@@ -44,5 +51,4 @@ async function handler(page) {
   
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
   }
-  module.exports = { handler, getUrls };
-
+  module.exports = { extractor, getUrls,...initValues }

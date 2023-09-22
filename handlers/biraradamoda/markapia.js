@@ -50,32 +50,7 @@ async function handler(page) {
 
 
 
-async function autoScroll(page) {
-    await page.evaluate(async () => {
 
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-    
-                const totalCollected = document.querySelectorAll('.productItem').length
-                const totalItems = parseInt(document.querySelector('.totalPr').innerText.replace(/[^\d]/g, '').trim())
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalCollected === totalItems) {
-                    window.scrollBy(0, distance);
-             
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 300);
-        });
-    });
-}
 async function getUrls(page) {
     //  const url = await page.url()
     //  await page.waitForSelector('.page_numbers span')
