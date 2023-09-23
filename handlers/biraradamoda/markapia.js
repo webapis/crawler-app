@@ -17,20 +17,24 @@ async function extractor(page) {
 
     const data = await page.$$eval('[data-id]', (productCards) => {
         return productCards.map(document => {
+try {
+    const imageUrl =Array.from(document.querySelector('[srcset]').getAttribute('srcset').split(',') ).find((f,i)=>i===10).trim().split(' ')[0]
+    const title = document.querySelector('.product-name').innerText
+    const priceNew = Array.from(document.querySelectorAll('.discount-price span')).reverse()[0].innerText.replace('₺','').trim()
+    const link = document.querySelector('a').href
 
-            const imageUrl =Array.from(document.querySelector('[srcset]').getAttribute('srcset').split(',') ).find((f,i)=>i===10).trim().split(' ')[0]
-            const title = document.querySelector('.product-name').innerText
-            const priceNew = Array.from(document.querySelectorAll('.discount-price span')).reverse()[0].innerText.replace('₺','').trim()
-            const link = document.querySelector('a').href
-    
-            return {
-                title: 'markapia ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,
-                imageUrl,
-                link,
-                timestamp: Date.now(),
-                marka: 'markapia',
-            }
+    return {
+        title: 'markapia ' + title.replace(/İ/g, 'i').toLowerCase(),
+        priceNew,
+        imageUrl,
+        link,
+        timestamp: Date.now(),
+        marka: 'markapia',
+    }
+} catch (error) {
+    return { error: error.toString(), content: document.innerHTML };
+}
+        
         })
     })
 debugger
