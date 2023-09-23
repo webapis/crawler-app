@@ -1,5 +1,8 @@
 
+<<<<<<< HEAD
 const {autoScroll}=require('../../utils/autoscroll')
+=======
+>>>>>>> 2c545d90b157b730858dbcd3a328da59704c38d4
 const initValues ={
   productPageSelector:'.catalogWrapper',
   linkSelector:'#mainMenu a',
@@ -8,10 +11,17 @@ const initValues ={
   exclude:[],
   postFix:''
 }
+<<<<<<< HEAD
 
 async function extractor(page) {
     debugger;
 
+=======
+async function extractor(page) {
+
+
+
+>>>>>>> 2c545d90b157b730858dbcd3a328da59704c38d4
   await page.click('.dropdown a')
   debugger
   await page.click('span[value="tr"]')
