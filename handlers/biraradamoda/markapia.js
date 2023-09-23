@@ -1,57 +1,40 @@
-
+const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
-    productPageSelector:'.catalogWrapper',
-    linkSelector:'#mainMenu a',
+    productPageSelector:'.infinite-scroll-component__outerdiv',
+    linkSelector:'.ddd',
     linksToRemove:[],
-    hostname:'https://www.manuka.com.tr/',
+    hostname:'https://www.markapia.com/',
     exclude:[],
     postFix:''
   }
-async function handler(page) {
+async function extractor(page) {
 
-
-    const url = await page.url()
-    debugger
-    await page.waitForSelector('.catalogWrapper')
-    debugger
 
     await autoScroll(page)
 
 
     debugger
 
-    const data = await page.$$eval('.productItem', (productCards) => {
+    const data = await page.$$eval('[data-id]', (productCards) => {
         return productCards.map(document => {
 
-            const imageUrl =document.querySelector('[data-src]')?document.querySelector('[data-src]').getAttribute('data-src'):  document.querySelector('img.stImage').src
-            const title = document.querySelector('.productDetails a').innerText
-            const priceNew = document.querySelector('.currentPrice').innerText.replace('TL', '').trim()
-            const longlink = document.querySelector('.productDetails a').href
-            const link = longlink.substring(longlink.indexOf("https://www.markapia.com/") + 25)
-
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://www.markapia.com/") + 25)
-
+            const imageUrl =Array.from(document.querySelector('[srcset]').getAttribute('srcset').split(',') ).find((f,i)=>i===10).trim().split(' ')[0]
+            const title = document.querySelector('.product-name').innerText
+            const priceNew = Array.from(document.querySelectorAll('.discount-price span')).reverse()[0].innerText.replace('₺','').trim()
+            const link = document.querySelector('a').href
+    
             return {
                 title: 'markapia ' + title.replace(/İ/g, 'i').toLowerCase(),
                 priceNew,
-                imageUrl: imageUrlshort,
+                imageUrl,
                 link,
                 timestamp: Date.now(),
                 marka: 'markapia',
             }
-        })//.filter(f => f.imageUrl !== null && f.title.length > 3 && f.priceNew != null)
+        })
     })
-
-    console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
-
-    debugger
-    console.log("process.env.GENDER ")
-
-    const formatedData =data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }})
-
-
-    debugger
-    return formatedData
+debugger
+ return data
 }
 
 
@@ -78,4 +61,4 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
