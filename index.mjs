@@ -143,7 +143,7 @@ console.log('protocolTimeout',protocolTimeout)
                     const resourceType = req.resourceType();
                     const url = req.url();
 
-                  
+                    
                     if (resourceType === 'image'  ||url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.gif')|| url.endsWith('.webp')||url.endsWith("imformat=chrome")) {
                         req.respond({
                             status: 200,
@@ -152,11 +152,7 @@ console.log('protocolTimeout',protocolTimeout)
                         });
 
 
-                    } else   if (url === 'https://cdn.weglot.com/weglot.min.js') {
-                        // Abort the request.
-                        req.abort();
-                      } else
-                      {
+                    } else {
                         req.continue();
                     }
                 });
