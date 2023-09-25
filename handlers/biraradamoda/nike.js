@@ -1,78 +1,49 @@
-
-
-async function handler(page, context) {
+const {autoScroll}=require('../../utils/autoscroll')
+const initValues ={
+  productPageSelector:'.product-card',
+  linkSelector:'.pre-desktop-menu a',
+  linksToRemove:[],
+  hostname:'https://www.nike.com/',
+  exclude:[],
+  postFix:''
+}
+async function extractor(page) {
 
 
     const url = await page.url()
 debugger
-    await page.waitForSelector('.product-card')
+
  await autoScroll(page)
 debugger
-    const data = await page.$$eval('.product-card', (productCards) => {
+    const data = await page.$$eval('.product-card', (productCards,url) => {
         return productCards.map(document => {
+try {
+  const imageUrl = document.querySelector('.product-card__hero-image').src
+  const title = document.querySelector('.product-card__hero-image').alt
+  const priceNew = document.querySelector('[data-testid="product-price-reduced"]') ?document.querySelector('[data-testid="product-price-reduced"]').innerText.replace('₺',''):document.querySelector('[data-testid="product-price"]').innerText.replace('₺','')
+  const link = document.querySelector('.product-card__link-overlay').href
 
-            const imageUrl = document.querySelector('.product-card__hero-image').src
-            const title = document.querySelector('.product-card__hero-image').alt
-            const priceNew = document.querySelector('[data-testid="product-price-reduced"]') ?document.querySelector('[data-testid="product-price-reduced"]').innerText.replace('₺',''):document.querySelector('[data-testid="product-price"]').innerText.replace('₺','')
-            const longlink = document.querySelector('.product-card__link-overlay').href
-            const link = longlink.substring(longlink.indexOf("https://www.nike.com/") + 21)
-
-            const imageUrlshort = imageUrl && imageUrl.substring(imageUrl.indexOf("https://static.nike.com/") + 24)
-
-            return {
-                title: 'nike ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'nike',
-            }
-        }).filter(f => f.imageUrl !== null && f.title.length > 5)
-    })
-
-    console.log('data length_____', data.length, 'url:', url, process.env.GENDER)
-
-debugger
-    console.log("process.env.GENDER ")
-    const formatprice = data.map((m) => {
-        return { ...m, title: m.title + " _" + process.env.GENDER }
-    })
-
-
-    return formatprice
-}
-async function autoScroll(page) {
-    page.on("console", (message) => {
-      console.log("Message from Puppeteer page:", message.text());
-    });
-    await page.evaluate(async () => {
-      await new Promise((resolve, reject) => {
-        var totalHeight = 0;
-        var distance = 100;
-        let inc = 0;
-  
-        var timer = setInterval(() => {
-          var scrollHeight = document.body.scrollHeight;
-  
-          window.scrollBy(0, distance);
-          totalHeight += distance;
-          inc = inc + 1;
-          console.log("inc", inc);
-          if (totalHeight >= scrollHeight - window.innerHeight) {
-            if (inc === 50) {
-              clearInterval(timer);
-              resolve();
-            }
-          } else {
-            inc = 0;
-          }
-        }, 200);
-      });
-    });
+  return {
+      title: 'nike ' + title.replace(/İ/g, 'i').toLowerCase(),
+      priceNew,
+      imageUrl,
+      link,
+      timestamp: Date.now(),
+      marka: 'nike',
   }
+} catch (error) {
+  return {error:error.toString(),url,content:document.innerHTML}
+}
+      
+        })
+    },url)
+
+return data
+}
+
 async function getUrls(page) {
-    const url = await page.url()
+ 
     const pageUrls = []
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
