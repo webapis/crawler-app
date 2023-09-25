@@ -9,13 +9,13 @@ const initValues ={
   }
 async function extractor(page) {
 
-
+    const url = await page.url()
     await autoScroll(page)
 
 
     debugger
 
-    const data = await page.$$eval('[data-id]', (productCards) => {
+    const data = await page.$$eval('[data-id]', (productCards,url) => {
         return productCards.map(document => {
 try {
     const imageUrl =Array.from(document.querySelector('[srcset]').getAttribute('srcset').split(',') ).find((f,i)=>i===10).trim().split(' ')[0]
@@ -32,11 +32,11 @@ try {
         marka: 'markapia',
     }
 } catch (error) {
-    return { error: error.toString(), content: document.innerHTML };
+    return { error: error.toString(),url, content: document.innerHTML };
 }
         
         })
-    })
+    },url)
 debugger
  return data
 }

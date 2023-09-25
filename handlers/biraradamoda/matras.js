@@ -1,15 +1,15 @@
 
 const initValues ={
     productPageSelector:'.product_box',
-    linkSelector:'',
+    linkSelector:'.navigation a',
     linksToRemove:[],
     hostname:'https://www.matras.com/',
     exclude:[],
     postFix:''
   }
 async function extractor(page) {
-
-    const data = await page.$$eval('.product_box', (productCards) => {
+    const url = await page.url()
+    const data = await page.$$eval('.product_box', (productCards,url) => {
         return productCards.map(productCard => {
             try {
             const imageUrl = productCard.querySelector('.product_image img').src
@@ -27,12 +27,12 @@ async function extractor(page) {
             }   
             } catch (error) {
                 return {
-                    error:error.toString(),content:document.innerHTML
+                    error:error.toString(),url,content:document.innerHTML
                 }
             }
          
         })
-    })
+    },url)
 
 return data
 }
