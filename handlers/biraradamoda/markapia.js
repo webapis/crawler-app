@@ -16,7 +16,7 @@ async function extractor(page) {
     const data = await page.$$eval('[data-id]', (productCards,url) => {
         return productCards.map(document => {
 try {
-    const imageUrl =document.querySelector('img').src //Array.from(document.querySelector('[srcset]').getAttribute('srcset').split(',') ).find((f,i)=>i===10).trim().split(' ')[0]
+    const imageUrl =document.querySelector('[srcset]')? Array.from(document.querySelector('[srcset]').getAttribute('srcset').split(',') ).find((f,i)=>i===10).trim().split(' ')[0]:null
     const title = document.querySelector('.product-name').innerText
     const priceNew = Array.from(document.querySelectorAll('.discount-price span')).reverse()[0].innerText.replace('₺','').trim()
     const link = document.querySelector('a').href
@@ -32,11 +32,10 @@ try {
 } catch (error) {
     return { error: error.toString(),url, content: document.innerHTML };
 }
-        
         })
     },url)
 debugger
- return data
+ return data.filter((f)=>f.imageUrl !==null)
 }
 
 
