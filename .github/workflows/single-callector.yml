@@ -20,7 +20,6 @@ env:
   MONGODB_URL: ${{secrets.MONGODB_URL}}
   GH_TOKEN: ${{secrets.GH_TOKEN}}
   ALGOLIAKEY: ${{secrets.ALGOLIAKEY}}
-  RUNNER_LOCATION: eu-central-1
   # GENDER: ${{inputs.gender}}
 jobs:
   penti_job:
