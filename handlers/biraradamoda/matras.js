@@ -1,7 +1,7 @@
 
 const initValues ={
     productPageSelector:'.product_box',
-    linkSelector:'.navigation a',
+    linkSelector:'.open-sub a',
     linksToRemove:[],
     hostname:'https://www.matras.com/',
     exclude:[],
@@ -10,12 +10,12 @@ const initValues ={
 async function extractor(page) {
     const url = await page.url()
     const data = await page.$$eval('.product_box', (productCards,url) => {
-        return productCards.map(productCard => {
+        return productCards.map(document => {
             try {
-            const imageUrl = productCard.querySelector('.product_image img').src
-            const title = productCard.querySelector('.product_name').textContent.replaceAll('\n','') 
-            const priceNew = productCard.querySelector('.turkcell-price span').innerHTML.replaceAll('\n', '').replace('TL', '')
-            const link = productCard.querySelector('.product_image a').href
+            const imageUrl = document.querySelector('.product_image img').src
+            const title = document.querySelector('.product_name').innerText
+            const priceNew = document.querySelector('.turkcell-price span').innerHTML.replaceAll('\n', '').replace('TL', '')
+            const link = document.querySelector('.product_image a').href
          
             return {
                 title: 'matras ' + title.replace(/İ/g, 'i').toLowerCase(),
@@ -33,25 +33,27 @@ async function extractor(page) {
          
         })
     },url)
-
+debugger
 return data
 }
 
 async function getUrls(page) {
     const url = await page.url()
   const nextPage =  await page.$('.filtreurun')
-     const productCount = await page.evaluate(()=>parseInt(document.querySelector('.filtreurun').innerText.replace(/[^\d]/g,'')))
-     const totalPages = Math.ceil(productCount / 32)
+  let productCount =0
     const pageUrls = []
 if(nextPage){
-    
-}
+
+     productCount = await page.evaluate(()=>parseInt(document.querySelector('.filtreurun').innerText.replace(/[^\d]/g,'')))
+    const totalPages = Math.ceil(productCount / 32)
     for (let i = 2; i <= totalPages; i++) {
 
         pageUrls.push(`${url}?page=` + i)
 
 
-    }
+    }  
+}
+  
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
