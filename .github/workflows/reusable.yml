@@ -61,8 +61,6 @@ jobs:
       #       ${{ runner.os }}-
       - name: Install dependencies
         run: 'npm install'
-      - name: Log runner location
-        run: echo "RUNNER_LOCATION: ${RUNNER_LOCATION}"
       - name: aggregation step
         id: collection
         run: node index.mjs
