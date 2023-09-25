@@ -90,11 +90,7 @@ console.log('protocolTimeout',protocolTimeout)
             // If it doesn't, feel free to remove this.
             useChrome: process.env.LOCAL==='TRUE'?true:false,
             launchOptions: {
-                geolocation: {
-                    latitude: 41.0082,
-                    longitude: 28.9784,
-                    accuracy: 21,
-                  },
+     
                 // defaultViewport: {
                 //     width: 1920, // Desired width of the viewport
                 //     height: 1080, // Desired height of the viewport
