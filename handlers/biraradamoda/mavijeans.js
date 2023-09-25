@@ -3,7 +3,7 @@ const initValues ={
     productPageSelector:'.js-product-list-cards',
     linkSelector:'.newStaticPages a',
     linksToRemove:[],
-    hostname:'/',
+    hostname:'https://www.mavi.com/',
     exclude:[],
     postFix:''
   }
