@@ -1,4 +1,12 @@
 
+const initValues ={
+    productPageSelector:'',
+    linkSelector:'',
+    linksToRemove:[],
+    hostname:'',
+    exclude:[],
+    postFix:''
+  }
 async function handler(page, context) {
 
 
