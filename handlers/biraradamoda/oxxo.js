@@ -7,7 +7,7 @@ const initValues ={
     linkSelector:'#MainMenu a',
     linksToRemove:[],
     hostname:'https://www.oxxo.com.tr/',
-    exclude:[],
+    exclude:["undefined"],
     postFix:''
   }
 
