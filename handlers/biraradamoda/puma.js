@@ -1,27 +1,31 @@
 
+const initValues ={
+    productPageSelector:'.products-grid',
+    linkSelector:'.sitemap a',
+    linksToRemove:[],
+    hostname:'https://tr.puma.com/',
+    exclude:[],
+    postFix:''
+  }
 async function handler(page) {
 
 debugger
     const url = await page.url()
 
-    await page.waitForSelector('.products-grid')
-debugger
 
-    const data = await page.$$eval('.product-item', (productCards) => {
+    const data = await page.$$eval('.product-item', (productCards,url) => {
         return productCards.map(document => {
             try {
                 const imageUrl =document.querySelector('.product-item__media a img').getAttribute('data-src')
                 const title = document.querySelector('.product-item__media a img').alt
                 const priceNew = document.querySelector('.price').innerText.replace("₺",'').trim()
-                const longlink = document.querySelector('.product-item__media a').href
-                const link = longlink.substring(longlink.indexOf("https://tr.puma.com/") + 20)
-   
-                const imageUrlshort = imageUrl.substring(imageUrl.indexOf("https://images.puma.com/") + 24)
-   
+                const link = document.querySelector('.product-item__media a').href
+
+       
                return {
                     title: 'puma ' + title,
                     priceNew,
-                   imageUrl: imageUrlshort,
+                   imageUrl,
                     link,
                     timestamp: Date.now(),
                     marka: 'puma',
@@ -31,37 +35,26 @@ debugger
             }
       
         })
-    })
+    },url)
 debugger
-    console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
-
-
-    console.log("process.env.GENDER ")
-    const formatprice = data.map((m) => {
-        return { ...m, title: m.title + " _" + process.env.GENDER }
-    })
-
-
-    return formatprice
+return data
 }
 
 async function getUrls(page) {
     const url = await page.url()
-    await page.waitForSelector('.page-products-count')
-    const productCount = await page.$eval('.page-products-count', element => parseInt(element.innerHTML.replace(/[^\d]/ig,'')))
-    const totalPages = Math.ceil(productCount / 36)
+const nextPage =    await page.waitForSelector('.page-products-count')
+let productCount=0
     const pageUrls = []
 
-    let pagesLeft = totalPages
+  if(nextPage){
+     productCount = await page.$eval('.page-products-count', element => parseInt(element.innerHTML.replace(/[^\d]/ig,'')))
+    const totalPages = Math.ceil(productCount / 36)
     for (let i = 2; i <= totalPages; i++) {
-
-
-
         pageUrls.push(`${url}?p=` + i)
-        --pagesLeft
-
-
+  
     }
+  }
+
 
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
