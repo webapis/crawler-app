@@ -2,7 +2,7 @@
 //const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
     productPageSelector:'.productItem',
-    linkSelector:'.nav-links a',
+    linkSelector:'[id^="header-link-"]',
     linksToRemove:[],
     hostname:'https://www.olegcassini.com.tr/',
     exclude:[],
