@@ -35,7 +35,7 @@ try {
         })
     },url)
 debugger
- return data.filter((f)=>f.imageUrl !==null)
+ return data.filter((f)=>f.imageUrl !==null && !f.error)
 }
 
 
