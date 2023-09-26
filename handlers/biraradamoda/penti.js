@@ -1,70 +1,76 @@
-
-async function handler(page, context) {
+//const {linkExtractor}=require('../../utils/linkExtractor')
+const {autoScroll}=require('../../utils/autoscroll')
+const initValues ={
+    productPageSelector:'.products',
+    linkSelector:'.sub a',
+    linksToRemove:[],
+    hostname:'https://www.penti.com/tr/',
+    exclude:[],
+    postFix:''
+  }
+async function extractor(page) {
     
     const url = await page.url()
 
-    await page.waitForSelector('.products')
-    await manualScroll(page)
-    const productCount = await page.evaluate(() => parseInt(document.querySelector('.plp-info span').textContent.replace(/[^\d]/g, '')))
-    if (productCount === 0) {
-        return []
-    }
-    const data = await page.$$eval('[data-page]', (productCards, _subcategory, _category, _node) => {
+    // const menuBtn = await page.$('.btn-menu')
+
+    // if(menuBtn){
+    //     debugger
+    //     await page.click('.btn-menu')
+    //     debugger
+    //     await page.waitForTimeout(1000)
+    //     debugger
+    //     await linkExtractor({...initValues,linkSelector:'.mmn-lv2.sub a',candidateSelector:'.mmn-lv1.sub',page,context,action:'hover'})
+  
+    // }
+debugger
+ await autoScroll(page)
+debugger
+    const data = await page.$$eval('[data-page]', (productCards,url) => {
         return productCards.map(productCard => {
-            const obj = JSON.parse(productCard.querySelector('.prd-link').getAttribute('data-gtm-product'))
-
-
-            const longlink = productCard.querySelector('.prd-link').href.trim()
-            const link = longlink.substring(longlink.indexOf("https://www.penti.com/tr/") + 25)
-            const longImgUrl = obj.dimension19
-            const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://file-penti.mncdn.com/mnresize/") + 38)
-            return {
-                title: 'penti ' + obj.name.replace(/İ/g, 'i').toLowerCase(),
-                priceNew: obj.price,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'penti',
+            try {
+                const obj = JSON.parse(productCard.querySelector('.prd-link').getAttribute('data-gtm-product'))
+                const link = productCard.querySelector('.prd-link').href.trim()
+                const imageUrl = obj.dimension19
+                return {
+                    title: 'penti ' + obj.name.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew: obj.price,
+                    imageUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'penti',
+                }
+            } catch (error) {
+                return {error:error.toString(),url,content:document.innerHTML}
             }
         })
-    })
+    },url)
 
-    console.log('data length_____', data.length, 'url:', url)
-
-    debugger;
-
-
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+    return data
 }
 
 async function getUrls(page) {
     
-    const url = await page.url()
-    debugger;
-    await page.waitForSelector('.plp-info')
-    const productCount = await page.evaluate(() => parseInt(document.querySelector('.plp-info span').textContent.replace(/[^\d]/g, '')))
-    debugger;
-    const totalPages = Math.ceil(productCount / 20)
+//     const url = await page.url()
+
+//   const nextPage =  await page.$('.plp-info')
+//   let productCount =0
     const pageUrls = []
 
-    let pagesLeft = totalPages
-    for (let i = 0; i <= totalPages; i++) {
-        pageUrls.push(`${url}?page=` + i)
-        --pagesLeft
-    }
-    return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
+// if(nextPage){
+//      productCount = await page.evaluate(() => parseInt(document.querySelector('.plp-info span').textContent.replace(/[^\d]/g, '')))
+//     debugger;
+//     const totalPages = Math.ceil(productCount / 20)
+//     for (let i = 0; i <= totalPages; i++) {
+//         pageUrls.push(`${url}?page=` + i)
+      
+//     }
+// }
+    return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
 }
 
 
 
-async function manualScroll(page) {
-    await page.evaluate(async () => {
-        var totalHeight = 0;
-        var distance = 200;
-        let inc = 0
-        window.scrollBy(0, distance);
-        totalHeight += distance;
-        inc = inc + 1
-    });
-}
-module.exports = { handler, getUrls }
+
+module.exports = { extractor, getUrls,...initValues }
+
