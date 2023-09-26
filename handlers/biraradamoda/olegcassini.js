@@ -1,46 +1,44 @@
 
-//const {autoScroll}=require('../../utils/autoscroll')
+const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
-    productPageSelector:'.productItem',
-    linkSelector:'[id^="header-link-"]',
+    productPageSelector:'.desktop-filters',
+    linkSelector:'.nav-links a',
     linksToRemove:[],
-    hostname:'https://www.olegcassini.com.tr/',
+    hostname:'https://olegcassini.com.tr/',
     exclude:[],
     postFix:''
   }
 async function extractor(page) {
-
+//sell-price
     const url = await page.url()
-
-                              const data = await page.$$eval('.productItem', (productCards) => {
-
+debugger
+await autoScroll(page)
+                              const data = await page.$$eval('[data-id]', (productCards,url) => {
                                 try {
                                     return productCards.map(document => {
-                                        const priceNew = document.querySelector('.currentPrice').innerHTML.replace('TL', '').replace(/\n/g,'')
-                                        const link = document.querySelector('.proRowName a[title]').href
+                                        const priceNew =document.querySelector('.discount-price')?  Array.from(document.querySelectorAll('.discount-price span')).reverse()[0].innerText.replace('₺','').trim(): document.querySelector('.sell-price').innerText.replace('₺','').trim()
+                                        const link = document.querySelector('a').href
                                    
-                                         const imageUrl = document.querySelector('[srcset]').getAttribute('srcset').split(',')[10].trim().split(' ')[0]
-                            
-                                        const title = document.querySelector('.proRowName a[title]').getAttribute('title')
+                                        const imageUrl = document.querySelector('img').src//  document.querySelector('[srcset]').getAttribute('srcset').split(',')[10].trim().split(' ')[0]//:document.querySelector('img').src
+                        
+                                        const title = document.querySelector('.product-name').innerText
                                         return {
                                             title: 'olegcassini ' + title.replace(/İ/g,'i').toLowerCase(),
-                                            priceNew,
+                                             priceNew,
                                             imageUrl,
                                             link,
-                                            timestamp: Date.now(),
+                                             timestamp: Date.now(),
                                             marka: 'olegcassini',
-                            
-                            
-                            
                                         }
-                                    })     
+                                    })
                                 } catch (error) {
                                     return {error:error.toString(),url,content:document.innerHTML}
                                 }
+                            },url)
 
-                            })
-return data
-
+                            debugger
+return data.filter(f=> !f.imageUrl.includes('/gif'))
+debugger
                     
 }
 
@@ -55,15 +53,6 @@ async function getUrls(page) {
 
 
 
-async function manualScroll(page) {
-    await page.evaluate(async () => {
-        var totalHeight = 0;
-        var distance = 200;
-        let inc = 0
-        window.scrollBy(0, distance);
-        totalHeight += distance;
-        inc = inc + 1
-    });
-}
+
 
 module.exports = { extractor, getUrls,...initValues }
