@@ -231,7 +231,7 @@ if(productItems.length===0){
         console.log('withError:url', withError[0].url)
         console.log('withError:content', withError[0].content)
          errorPercentate = Math.round( calculateErrorPercentage(productItems.length,withError.length))
-        if(errorPercentate >=5 )
+        if(errorPercentate >=6 )
         {
             throw `Total error exceeds ${errorPercentate} %`
         }else{
@@ -242,7 +242,7 @@ if(productItems.length===0){
       
     }
 
-    if(errorPercentate <5){
+    if(errorPercentate <6){
         const pageDataset = await Dataset.open(`pageInfo`);
         const { items: pageItems } = await pageDataset.getData();
         const productItemsWithoutError =productItems.filter(f=>!f.error)
