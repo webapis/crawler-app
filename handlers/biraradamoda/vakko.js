@@ -1,89 +1,68 @@
 
 
-async function handler(page, context) {
+const initValues ={
+    productPageSelector:'.plp-products',
+    linkSelector:'#main-menu a',
+    linksToRemove:[],
+    hostname:'https://www.vakko.com/',
+    exclude:[],
+    postFix:''
+  }
+async function extractor(page) {
   
     debugger;
     const url = await page.url()
 
-    await page.waitForSelector('.plp-products')
     debugger
-await autoScroll(page)
-    const data = await page.$$eval('.plp-products .prd', (productCards) => {
+//await autoScroll(page)
+    const data = await page.$$eval('.plp-products .prd', (productCards,url) => {
         return productCards.map(productCard => {
+try {
+    const prodName = productCard.querySelector('.prd-title').textContent.replace('\n', '').trim()
+    const priceNew = productCard.querySelector('.prc.prc-last') ? productCard.querySelector('.prc.prc-last').innerHTML.replace('₺', '').trim() : undefined
+    const link = productCard.querySelector('.prd-link').href
+    const imageUrl = productCard.querySelector('.prd-link img[data-srcset]').getAttribute('data-srcset')
 
-            const prodName = productCard.querySelector('.prd-title').textContent.replace('\n', '').trim()
-            const priceNew = productCard.querySelector('.prc.prc-last') ? productCard.querySelector('.prc.prc-last').innerHTML.replace('₺', '').trim() : undefined
-            const longlink = productCard.querySelector('.prd-link').href
-            const link = longlink.substring(longlink.indexOf("https://www.vakko.com/") + 22)
-            const longImgUrl = productCard.querySelector('.prd-link img[data-srcset]').getAttribute('data-srcset')
-            const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://vakko.akinoncdn.com/products/") + 37)
-            const title = prodName
-            return {
-                title: 'vakko ' + title.replace(/İ/g, 'i').toLowerCase(),
-
-                priceNew,//:priceNew.replace('.','').replace(',','.').trim(),
-
-                imageUrl: imageUrlshort,
-                link,
-
-                timestamp: Date.now(),
-
-                marka: 'vakko',
-
-
-
-            }
+    const title = prodName
+    return {
+        title: 'vakko ' + title.replace(/İ/g, 'i').toLowerCase(),
+        priceNew,
+        imageUrl,
+        link,
+        timestamp: Date.now(),
+        marka: 'vakko',
+    }
+} catch (error) {
+    return {error:error.toString(),url,content:document.innerHTML}
+}
+      
         })
-    })
+    },url)
 
 
-    console.log('data length_____', data.length, 'url:', url)
-    debugger
 
-    return data.filter(f => f.priceNew !== undefined).map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+
+    return data
 
     
 }
-async function autoScroll(page) {
-    await page.evaluate(async () => {
 
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                inc = inc + 1
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 150);
-        });
-    });
-}
 async function getUrls(page) {
     const url = await page.url()
+const nextPage = await page.$('.pz-pagination__list [data-page]')
 
-    const totalPages = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.pz-pagination__list [data-page]')).map(m => m.getAttribute('data-page')).filter(Number).map(m => parseInt(m))))
-    // const totalPages = Math.ceil(productCount / 48)
     const pageUrls = []
+if(nextPage){
+    const totalPages = await page.evaluate(() => Math.max(...Array.from(document.querySelectorAll('.pz-pagination__list [data-page]')).map(m => m.getAttribute('data-page')).filter(Number).map(m => parseInt(m))))
 
-    let pagesLeft = totalPages
     for (let i = 2; i <= totalPages; i++) {
 
-
-
         pageUrls.push(`${url}?page=` + i)
-        --pagesLeft
-
-
     }
+}
+  
+
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
