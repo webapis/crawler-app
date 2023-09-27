@@ -1,83 +1,73 @@
 
-async function handler(page, context) {
+
+const initValues ={
+    productPageSelector:'.product-list-grid',
+    linkSelector:'.menu a',
+    linksToRemove:[],
+    hostname:'https://www.twist.com.tr/',
+    exclude:[],
+    postFix:''
+  }
+async function extractor(page) {
 
     debugger;
     const url = await page.url()
 
-    await page.waitForSelector('.product-list-grid')
 
-    const data = await page.$$eval('[data-category-name]', (productCards) => {
+    const data = await page.$$eval('[data-category-name]', (productCards,url) => {
+
+
         return productCards.map(productCard => {
-            const priceNew = productCard.querySelector('.urunListe_satisFiyat').innerHTML.replace('₺', '').trim()
-            const longlink = productCard.querySelector('.prd-lnk').href
-            const link = longlink.substring(longlink.indexOf("https://www.twist.com.tr/") + 25)
-            const longImgUrl = productCard.querySelector('[data-background]') ? productCard.querySelector('[data-background]').getAttribute('data-background') : productCard.querySelector('[data-image-src]').getAttribute('data-image-src')
-            const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://img2-twist.mncdn.com/") + 29)
-            const title = productCard.querySelector('.prd-name').textContent.replace(/\n/g, '').trim()
 
-            return {
-                title: 'twist ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew,
-                imageUrl: imageUrlshort,
-                link,
-                timestamp: Date.now(),
-                marka: 'twist',
-
+            try {
+                const priceNew = productCard.querySelector('.urunListe_satisFiyat').innerHTML.replace('₺', '').trim()
+                const link = productCard.querySelector('.prd-lnk').href
+                const imageUrl = productCard.querySelector('[data-background]') ? productCard.querySelector('[data-background]').getAttribute('data-background') : productCard.querySelector('[data-image-src]').getAttribute('data-image-src')
+                const title = productCard.querySelector('.prd-name').textContent.replace(/\n/g, '').trim()
+    
+                return {
+                    title: 'twist ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew,
+                    imageUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'twist',
+    
+                } 
+            } catch (error) {
+                return {error:error.toString(),url,content:document.innerHTML}
             }
-        }).filter(f => f.imageUrl !== null)
-    })
 
-    console.log('data length_____', data.length, 'url:', url)
+        })
+    },url)
 
-debugger
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+
+
+
+    return data
 }
 
 
 
-// async function autoScroll(page) {
-//     await page.evaluate(async () => {
 
-
-//         await new Promise((resolve, reject) => {
-//             var totalHeight = 0;
-//             var distance = 100;
-//             let inc = 0
-//             var timer = setInterval(() => {
-//                 var scrollHeight = document.body.scrollHeight;
-
-//                 window.scrollBy(0, distance);
-//                 totalHeight += distance;
-//                 inc = inc + 1
-//                 if (totalHeight >= scrollHeight - window.innerHeight) {
-//                     clearInterval(timer);
-//                     resolve();
-//                 }
-//             }, 150);
-//         });
-//     });
-// }
 async function getUrls(page) {
 
-
     const url = await page.url()
-    await page.waitForSelector('.prd-qty')
-
-    const productCount = await page.evaluate(() => parseInt(document.querySelector('.prd-qty').innerHTML.replace(/[^\d]/g, '')))
-    const totalPages = Math.ceil(productCount / 15)
+    const nextPage =   await page.$('.prd-qty')
+    let productCount=0
     const pageUrls = []
 
-    let pagesLeft = totalPages
+if(nextPage){
+    const totalPages = Math.ceil(productCount / 15)
     for (let i = 2; i <= totalPages; i++) {
-
-
-
+         productCount = await page.evaluate(() => parseInt(document.querySelector('.prd-qty').innerHTML.replace(/[^\d]/g, '')))
+       
         pageUrls.push(`${url}?page=` + i)
-        --pagesLeft
-
 
     }
+}
+
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
