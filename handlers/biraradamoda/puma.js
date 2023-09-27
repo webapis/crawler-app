@@ -7,7 +7,7 @@ const initValues ={
     exclude:[],
     postFix:''
   }
-async function handler(page) {
+async function extractor(page) {
 
 debugger
     const url = await page.url()
@@ -58,4 +58,5 @@ let productCount=0
 
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
+
