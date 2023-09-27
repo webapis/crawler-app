@@ -1,63 +1,66 @@
 
-async function handler(page, context) {
+const initValues ={
+    productPageSelector:'.product-detail-card',
+    linkSelector:'#main-menu a',
+    linksToRemove:[],
+    hostname:'https://www.roman.com.tr/',
+    exclude:[],
+    postFix:''
+  }
+async function extractor(page) {
 
     debugger;
     const url = await page.url()
 
-    await page.waitForSelector('.product-detail-card')
-
-
-    const data = await page.$$eval('.product-item', (productCards) => {
+  
+    const data = await page.$$eval('.product-item', (productCards,url) => {
         return productCards.map(document => {
 try {
     const title = document.querySelector('a.product-title') && document.querySelector('a.product-title').innerText
     const priceNew = document.querySelector('.product-price').innerText.replace('₺', '').trim()
-    const longlink = document.querySelector('a.product-title').href
-    const link = longlink.substring(longlink.indexOf("https://www.roman.com.tr/") + 25)
-    const longImgUrl = Array.from(document.querySelector("a.image-wrapper picture").querySelectorAll("source")).reverse()[0].getAttribute("data-srcset")
-    const imageUrlshort = longImgUrl.substring(longImgUrl.indexOf("https://cache.roman.com.tr/") + 27)
+    const link = document.querySelector('a.product-title').href
+    const imageUrl = Array.from(document.querySelector("a.image-wrapper picture").querySelectorAll("source")).reverse()[0].getAttribute("data-srcset")
+
+    
     return {
         title: 'roman ' + title.replace(/İ/g, 'i').toLowerCase().replaceAll('-', ' '),
         priceNew,
-        imageUrl: imageUrlshort,
+        imageUrl,
         link,
         timestamp: Date.now(),
         marka: 'roman',
     }
 } catch (error) {
-    return {error:error.toString(),content:document.innerHTML}
+    return {error:error.toString(),url,content:document.innerHTML}
 }
         
         })
-    })
+    },url)
 
-    console.log('data length_____', data.length, 'url:', url)
-    debugger
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+return data
 }
 
 async function getUrls(page) {
     const url = await page.url()
-    debugger;
-    await page.waitForSelector('.pagination a')
-    const totalPages = await page.evaluate(() => {
-        return Array.from(document.querySelectorAll('.pagination a')).map(m => m.innerText).filter(Number).map(m => parseInt(m)).sort().reverse()[0]
-    })
-    debugger;
+
+ const nextPage=   await page.$('.pagination a')
 
     const pageUrls = []
 
-    let pagesLeft = totalPages
+  if(nextPage){
+    const totalPages = await page.evaluate(() => {
+        return Array.from(document.querySelectorAll('.pagination a')).map(m => m.innerText).filter(Number).map(m => parseInt(m)).sort().reverse()[0]
+    })
+
+
     for (let i = 2; i <= totalPages; i++) {
 
-
-
         pageUrls.push(`${url}?pg=` + i)
-        --pagesLeft
-
-
+     
     }
+  }
+ 
 
     return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
