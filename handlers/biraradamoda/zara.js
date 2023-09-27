@@ -1,61 +1,54 @@
 
-async function handler(page, context) {
-const {dataset}=context
-
-    const url = await page.url()
-    await page.waitForSelector('.product-grid-block-dynamic.product-grid-block-dynamic__container')
-
-    await page.evaluate(async () => {
-        var totalHeight = 0;
-        var distance = 100;
-        let inc = 0
-        window.scrollBy(0, distance);
-        totalHeight += distance;
-        inc = inc + 1
-    });
-
-    await page.waitForTimeout(5000)
-    const { items } = await dataset.getData()
-    const data = items.filter(f => f.productGroups).map(m => [...m.productGroups]).flat().map(m => {
-
-        return [...m.elements]
-    }).flat().filter(f => f.commercialComponents).map(m => [...m.commercialComponents]).flat().filter(f => f.price).map(c => {
-        try {
-            return {
-                ...c, detail: {
-                    ...c.detail, colors: c.detail.colors.map(m => {
-                        const imageUrl = m.xmedia[0].path + '/w/315/' + m.xmedia[0].name + '.jpg?ts=' + m.xmedia[0].timestamp
-                        const link = c.seo.keyword + '-p' + c.seo.seoProductId + '.html'
-                        const price = m.price.toString().length === 5 ? m.price.toString().substring(0, 3) + ',' + m.price.toString().substring(3) : (m.price.toString().length === 6 ? m.price.toString().charAt(0) + '.' + m.price.toString().substring(1, 4) + ',00' : null)
-
-                        return {
-                            ...m, title: "zara " + c.name + ' ' + m.name, priceNew: price, imageUrl, link
-
-                        }
-                    })
-                }
-            }
-        } catch (error) {
-            debugger
-        }
-
-    }).map(m => {
-        return [...m.detail.colors]
-
-    }).flat().map(m => {
-        return {
-            title: m.title, priceNew: m.priceNew, imageUrl: m.imageUrl, link: m.link, timestamp: Date.now(),
-            marka: "zara"
-        }
-    })
-    // debugger;
-
-    console.log('data length_____', data.length, 'url:', url)
+const {autoScroll}=require('../../utils/autoscroll')
+const initValues ={
+    productPageSelector:'.product-grid__product-list',
+    linkSelector:'.layout-menu-std__menu a',
+    linksToRemove:[],
+    hostname:'https://www.zara.com/tr/',
+    exclude:[],
+    postFix:''
+  }
 
 
+
+
+async function extractor(page) {
 
     debugger
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+
+debugger
+
+await autoScroll(page)
+
+    const url = await page.url()
+    debugger
+      await page.evaluate(()=>document.querySelectorAll('.view-option-selector button')[1].click())
+      debugger
+      await page.waitForTimeout(2000)
+      debugger
+    const data = await page.$$eval('li[data-productid]', (productCards) => {
+        return productCards.map(document => {
+            const priceNew = document.querySelector('.money-amount__main').innerText.replace('TL','').trim()
+            const link = document.querySelector('.product-grid-product__figure a').href
+            const imageUrl = document.querySelector('.product-grid-product__figure a img').src
+            const title = document.querySelector('.product-grid-product-info__main-info h3').innerText
+            return {
+                title: 'zara ' + title.replace(/İ/g, 'i').toLowerCase(),
+                priceNew,
+                imageUrl,
+                link,
+                timestamp: Date.now(),
+                marka: 'zara',
+
+            }
+        })
+    })
+
+
+debugger
+  
+    return data
+
 }
 
 async function getUrls(page) {
@@ -64,5 +57,4 @@ async function getUrls(page) {
 }
 
 
-module.exports = { handler, getUrls }
-
+module.exports = { extractor, getUrls,...initValues }

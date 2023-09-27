@@ -136,7 +136,7 @@ console.log('protocolTimeout',protocolTimeout)
 
                 await page.setDefaultNavigationTimeout(0);
                 await page.setRequestInterception(true);
-
+                const rootUrl = await page.url()
    
        
                 page.on('request', req => {
@@ -176,7 +176,7 @@ console.log('protocolTimeout',protocolTimeout)
 
                                 } else {
 
-                                    await Dataset.pushData(json);
+                                    await Dataset.pushData({json,rootUrl});
                                        //response.continue();
                                 }
 
