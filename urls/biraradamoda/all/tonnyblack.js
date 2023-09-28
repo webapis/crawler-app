@@ -1,7 +1,7 @@
 const urls = [
   
 
-     { url: 'https://www.tonnyblack.com.tr/' }
+     { url: 'https://www.tonnyblack.com.tr/erkek-trekking/' }
 
 
 ]
