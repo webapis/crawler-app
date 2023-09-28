@@ -1,48 +1,41 @@
-
-async function handler(page) {
+const initValues ={
+    productPageSelector:'.productItem',
+    linkSelector:'.navigation a',
+    linksToRemove:[],
+    hostname:'https://www.tonnyblack.com.tr',
+    exclude:[],
+    postFix:'?currency=try'
+  }
+async function extractor(page) {
 
     debugger
         const url = await page.url()
     
-        await page.waitForSelector('.productItem')
-
-    
-        const data = await page.$$eval('.productItem', (productCards) => {
+      
+        const data = await page.$$eval('.productItem', (productCards,url) => {
             return productCards.map(document => {
                 try {
                  const imageUrl =document.querySelector('.detailLink.detailUrl img').src
                 const title = document.querySelector('.detailLink.detailUrl').getAttribute('title')
                  const priceNew = document.querySelector('.discountPrice').innerText.replace('₺',' ').trim()
-                     const longlink = document.querySelector('.detailLink.detailUrl').href
-                     const link = longlink.substring(longlink.indexOf("https://www.tonnyblack.com.tr") + 29)
-   
-                    const imageUrlshort = imageUrl.substring(imageUrl.indexOf("https://static.ticimax.cloud/") + 29)
-       
+                     const link = document.querySelector('.detailLink.detailUrl').href
+               
+                
                    return {
                          title: 'tonnyblack ' + title.toLowerCase(),
                          priceNew,
-                         imageUrl: imageUrlshort,
+                         imageUrl,
                         link,
                         timestamp: Date.now(),
                         marka: 'tonnyblack',
                    } 
                 } catch (error) {
-                    return {error:error.toString(),content:document.innerHTML}
+                    return {error:error.toString(),url,content:document.innerHTML}
                 }
               
             })
-        })
-    debugger
-        console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
-    
-    
-        console.log("process.env.GENDER ")
-        const formatprice = data.map((m) => {
-            return { ...m, title: m.title + " _" + process.env.GENDER }
-        })
-    
-    
-        return formatprice
+        },url)
+return data
     }
     
     async function getUrls(page) {
@@ -67,4 +60,4 @@ async function handler(page) {
 
         return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
     }
-    module.exports = { handler, getUrls }
+    module.exports = { extractor, getUrls,...initValues }
