@@ -1,47 +1,49 @@
 
-async function handler(page, context) {
+const {autoScroll}=require('../../utils/autoscroll')
+const initValues ={
+    productPageSelector:'[data-product-id]',
+    linkSelector:'#main-nav a',
+    linksToRemove:[],
+    hostname:'https://www.sementa.com/',
+    exclude:[],
+    postFix:''
+  }
+async function extractor(page) {
 
     debugger;
     const url = await page.url()
 
-    await page.waitForSelector('#katalog')
-    debugger
-    await page.waitForSelector('#header-wrap > div > div.row > div > div > div.pos-r.fr.d-flex.forDesktop > div:nth-child(3) > span')
-    debugger
-    await page.hover("#header-wrap > div > div.row > div > div > div.pos-r.fr.d-flex.forDesktop > div:nth-child(3) > span")
-    debugger
-   const exits= await page.$("[data-value='TL']")
-    debugger
-if(exits){
-    await page.click("[data-value='TL']")
-    await page.reload()
-}
 
-    debugger
+ 
     await autoScroll(page)
+debugger
+    const data = await page.$$eval('[data-product-id]', (productCards,url) => {
+        return productCards.map(document => {
 
-    const data = await page.$$eval('.productItem', (productCards) => {
-        return productCards.map(productCard => {
-            const title = productCard.querySelector(".vitrinUrunAdi.detailLink").getAttribute('title')
-            const img = productCard.querySelector(".imgInner img").src
-            const priceNew = productCard.querySelector(".currentPrice").innerHTML.replace('TL', '').replace(/\n/g, '').trim()
-            const link = productCard.querySelector(".vitrinUrunAdi.detailLink").href
-
-            return {
-                title: 'sementa ' + title.replace(/İ/g, 'i').toLowerCase(),
-                priceNew: priceNew,//.replace(',','.'),
-                imageUrl: img.substring(img.indexOf('https://cdn.sementa.com/') + 24),
-                link: link.substring(link.indexOf('https://www.sementa.com/') + 24),
-                timestamp: Date.now(),
-                marka: 'sementa',
-
+            try {
+                const title = document.querySelector('.product-link').getAttribute('aria-label')
+                const imageUrl ="https:"+ document.querySelector('.product-link [data-srcset]').getAttribute('data-srcset').split(',')[5].trim().split(' ')[0]
+                const priceNew = document.querySelector('.product-price__item').innerText.replaceAll('\n','').replace("TL",'')
+                const link = document.querySelector('.product-link').href
+    
+                return {
+                    title: 'sementa ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew: priceNew,
+                    imageUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'sementa',
+    
+                }      
+            } catch (error) {
+                return {error:error.toString(),url,content:document.innerHTML}
             }
+
         })
-    })
-    console.log('data length_____', data.length, 'url:', url)
-    debugger
+    },url)
+debugger
 
-    return data.map(m => { return { ...m, title: m.title + " _" + process.env.GENDER } })
+    return data
 
 
 }
@@ -50,35 +52,6 @@ if(exits){
 
 
 
-async function autoScroll(page) {
-    await page.evaluate(async () => {
-
-
-        await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0
-            var timer = setInterval(() => {
-                var scrollHeight = document.body.scrollHeight;
-                var toth = 7775
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-
-                if (totalHeight >= scrollHeight - window.innerHeight) {
-                    if (inc === 200) {
-                        clearInterval(timer);
-                        resolve();
-                    } else {
-                        inc = inc + 1
-                    }
-
-                } else {
-                    inc = 0
-                }
-            }, 100);
-        });
-    });
-}
 async function getUrls(page) {
 
     const pageUrls = []
@@ -86,4 +59,4 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
