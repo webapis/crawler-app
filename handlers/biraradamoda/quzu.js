@@ -1,61 +1,53 @@
 const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
-    productPageSelector:'#ProductPageProductList',
+    productPageSelector:'.product-grid',
     linkSelector:'.menu-list a',
     linksToRemove:[],
-    hostname:'https://www.quzu.com.tr/',
+    hostname:'https://quzu.com.tr/',
     exclude:[],
     postFix:''
   }
-async function extractor(page, context) {
-
+async function extractor(page) {
 
     const url = await page.url()
-debugger
-
+    debugger
     const acceptcookies = await page.$('.seg-popup-close')
     if (acceptcookies) {
         await page.click('.seg-popup-close')
     }
+
     await autoScroll(page)
-debugger
-    
-                    const data = await page.$$eval('.productItem', (productCards,url) => {
+    debugger
+                    const data = await page.$$eval('.card', (productCards,url) => {
                         try {
-                            return productCards.map(productCard => {
-                                const priceNew = productCard.querySelector('.discountPrice span').textContent.replace(/\n/g, '').trim().replace('₺', '').replace('TL', '').trim()
-                                const link = productCard.querySelector('.productName a').href
-                                const imageUrl = productCard.querySelector('img[data-original]').getAttribute('data-original')
-                                const title = productCard.querySelector('.productName a').innerHTML
+                            return productCards.map(document => {
+                                const priceNew = document.querySelector('.price-item--sale')? document.querySelector('.price-item--sale').innerText.replace('TL','').replaceAll('\n','').trim():document.querySelector('.price-item--regular').innerText.replace('TL','').replaceAll('\n','').trim()
+                                const link = document.querySelector('.card a').href
+                                const imageUrl ="https://"+ document.querySelector('.card a img').srcset.split(',')[1].trim().split(' ')[0]
+                                const title = document.querySelector('.card a img').alt
     
                                 return {
                                     title: 'quzu ' + title.replace(/İ/g,'i').toLowerCase(),
-                                    priceNew,//:priceNew.replace('.','').replace(',','.').trim(),
+                                    priceNew,
                                     imageUrl,
                                     link,
                                     timestamp: Date.now(),
                                     marka: 'quzu',
-                      
                                 }
                             })       
                         } catch (error) {
-                            
+
+                            return {error:error.toString(),url,content:document.content}
                         }
-
                     },url)
-
-          
+                    debugger
     return data
 }
-
-
 
 
 async function getUrls(page) {
 
     const pageUrls = []
-
-
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
