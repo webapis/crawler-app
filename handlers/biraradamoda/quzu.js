@@ -1,4 +1,4 @@
-
+const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
     productPageSelector:'#ProductPageProductList',
     linkSelector:'.menu-list a',
@@ -17,27 +17,32 @@ async function extractor(page, context) {
     if (acceptcookies) {
         await page.click('.seg-popup-close')
     }
+    await autoScroll(page)
 
-                    const data = await page.$$eval('.productItem', (productCards) => {
-                        return productCards.map(productCard => {
-                            const priceNew = productCard.querySelector('.discountPrice span').textContent.replace(/\n/g, '').trim().replace('₺', '').replace('TL', '').trim()
-                            const longlink = productCard.querySelector('.productName a').href
-                            const link = longlink.substring(longlink.indexOf("https://www.quzu.com.tr/") + 24)
-                            const longImgUrl = productCard.querySelector('img[data-original]') &&  productCard.querySelector('img[data-original]').getAttribute('data-original')
-                            //const imageUrlshort = longImgUrl&& longImgUrl.substring(longImgUrl.indexOf('https://www.quzu.com.tr/') + 24)
-                            const title = productCard.querySelector('.productName a').innerHTML
+    
+                    const data = await page.$$eval('.productItem', (productCards,url) => {
+                        try {
+                            return productCards.map(productCard => {
+                                const priceNew = productCard.querySelector('.discountPrice span').textContent.replace(/\n/g, '').trim().replace('₺', '').replace('TL', '').trim()
+                                const link = productCard.querySelector('.productName a').href
+                                const imageUrl = productCard.querySelector('img[data-original]').getAttribute('data-original')
+                                const title = productCard.querySelector('.productName a').innerHTML
+    
+                                return {
+                                    title: 'quzu ' + title.replace(/İ/g,'i').toLowerCase(),
+                                    priceNew,//:priceNew.replace('.','').replace(',','.').trim(),
+                                    imageUrl,
+                                    link,
+                                    timestamp: Date.now(),
+                                    marka: 'quzu',
+                      
+                                }
+                            })       
+                        } catch (error) {
+                            
+                        }
 
-                            return {
-                                title: 'quzu ' + title.replace(/İ/g,'i').toLowerCase(),
-                                priceNew,//:priceNew.replace('.','').replace(',','.').trim(),
-                                imageUrl: longImgUrl,
-                                link,
-                                timestamp: Date.now(),
-                                marka: 'quzu',
-                  
-                            }
-                        })
-                    })
+                    },url)
 
           
     return data

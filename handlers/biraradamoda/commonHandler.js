@@ -26,13 +26,13 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
 
     if(start){
     
-        await page.waitForSelector(linkSelector)
+        //await page.waitForSelector(linkSelector)
         const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map((m,i)=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),order:i} }).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
         const relatedLinks =filterArray(links,linksToRemove)
         console.log('links.length',relatedLinks.length)
         const linkDataset = await Dataset.open(`links`);
         await linkDataset.pushData({links:relatedLinks.map((m,i)=>{return {url:m.href,title:m.title}})})
-
+debugger
             for(let l of relatedLinks ){
                 let negative =false
               
