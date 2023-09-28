@@ -1,9 +1,16 @@
-async function handler(page, context) {
-    const { request: { userData: { start } } } = context
+const initValues ={
+  productPageSelector:'.fl.col-12.catalogWrapper',
+  linkSelector:'#mainMenu a',
+  linksToRemove:[],
+  hostname:'https://www.vitrin.com.tr/',
+  exclude:[],
+  postFix:''
+}
+async function extractor(page) {
 
   const url = await page.url();
   debugger;
-  await page.waitForSelector(".fl.col-12.catalogWrapper");
+
   const products = await page.evaluate(() => window.PRODUCT_DATA);
 
 
@@ -14,26 +21,23 @@ async function handler(page, context) {
       const longImage = document.image;
       const title = document.name;
       const priceNew = document.total_sale_price.toString().replace(".", ",");
-      const link = document.url;
+      const link = "https://www.vitrin.com.tr/"+ document.url;
 
       return {
         title: "vitrin " + title.replace(/İ/g, "i").toLowerCase(),
-        priceNew, //:priceNew.replace('.','').replace(',','.').trim(),
-        imageUrl: longImage, //.substring(longImage.indexOf('https://www.vitrin.com.tr') + 25),
+        priceNew, 
+        imageUrl: longImage, 
         link,
         timestamp: Date.now(),
         marka: "vitrin",
       };
     } catch (error) {
-      return { error: error.toString(), content: document.innerHTML };
+      return { error: error.toString(),url, content: document.innerHTML };
     }
   });
 
-  console.log("data length_____", data.length, "url:", url);
 
-  return data.map((m) => {
-    return { ...m, title: m.title + " _" + process.env.GENDER };
-  });
+  return data
 }
 
 async function getUrls(page) {
@@ -50,15 +54,15 @@ async function getUrls(page) {
             .map((m) => parseInt(m))
         )
       );
-      debugger;
+   
   
-      let pagesLeft = totalPages;
+ 
       for (let i = 2; i <= totalPages; i++) {
         pageUrls.push(`${url}?pg=` + i);
-        --pagesLeft;
+    
       }
     }
   
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
   }
-module.exports = { handler, getUrls };
+  module.exports = { extractor, getUrls,...initValues }
