@@ -45,15 +45,11 @@ return data
       if(nextPageExist){
         const totalPages = await page.evaluate(()=>Math.max(...Array.from(document.querySelectorAll(".pageBorder a")).map(a=>a.innerText).filter(Number)))
 
-    
-        let pagesLeft = totalPages
         for (let i = 2; i <= totalPages; i++) {
     
-    
-    
+
             pageUrls.push(`${url}&sayfa=` + i)
-            --pagesLeft
-    
+         
     
         }
       }
