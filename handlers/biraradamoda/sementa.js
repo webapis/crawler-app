@@ -22,7 +22,7 @@ debugger
 
             try {
                 const title = document.querySelector('.product-link').getAttribute('aria-label')
-                const imageUrl ="https:"+ document.querySelector('.product-link [data-srcset]').getAttribute('data-srcset').split(',')[5].trim().split(' ')[0]
+                const imageUrl = document.querySelector('[data-product-id] [data-lazy-bgset-src]')? 'https:'+ document.querySelector('[data-product-id] [data-lazy-bgset-src]'):"https:"+ document.querySelector('.product-link [data-srcset]').getAttribute('data-srcset').split(',')[5].trim().split(' ')[0]
                 const priceNew = document.querySelector('.product-price__item').innerText.replaceAll('\n','').replace("TL",'')
                 const link = document.querySelector('.product-link').href
     
