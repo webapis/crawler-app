@@ -1,90 +1,62 @@
-async function handler(page) {
-  debugger;
-  const url = await page.url();
 
-  await page.waitForSelector("#pageContentWrapper",{timeout:120000});
-  debugger;
-  //   await page.click('span.bskico-filter')
-  await autoScroll(page);
-  debugger;
+const {autoScroll}=require('../../utils/autoscroll')
+const initValues ={
+    productPageSelector:'',
+    linkSelector:'',
+    linksToRemove:[],
+    hostname:'',
+    exclude:[],
+    postFix:''
+  }
+async function extractor(page) {
 
-  const data = await page.$$eval(".product-grid-item", (productCards) => {
-    return productCards.map((document) => {
-      try {
-        // const imageUrl = document
-        //   .querySelector(".category-product-card a img")
-        //   .getAttribute("data-original");
-        // const title = document.querySelector(".product-image img").alt;
-        // const priceNew = document
-        //   .querySelector(".current-price-elem")
-        //   .innerText.replace("TL", "")
-        //   .trim();
-        // const longlink = document.querySelector(
-        //   ".category-product-card a"
-        // ).href;
-        // const link = longlink.substring(
-        //   longlink.indexOf("https://www.bershka.com/") + 24
-        // );
-        // const imageUrlshort = imageUrl.substring(
-        //   imageUrl.indexOf("https://static.bershka.net/") + 27
-        // );
+    debugger;
+    const url = await page.url()
 
-        return {
-          // title: "bershka " + title,
-          // priceNew,
-          // imageUrl: imageUrlshort,
-          // link,
-          // timestamp: Date.now(),
-          // marka: "bershka",
-        };
-      } catch (error) {
-        return { error: error.toString(), content: document.innerHTML };
-      }
-    });
-  })
-  debugger;
-  console.log("data length_____", data.length, "url:", url, process.env.GENDER);
 
-  console.log("process.env.GENDER ");
-  const formatprice = data.map((m) => {
-    return { ...m, title: m.title + " _" + process.env.GENDER };
-  }).filter(f=>!f.error);
+ 
+    await autoScroll(page)
+debugger
+    const data = await page.$$eval('[data-product-id]', (productCards,url) => {
+        return productCards.map(document => {
 
-  return formatprice;
+            try {
+                const title = document.querySelector('.product-link').getAttribute('aria-label')
+                const imageUrl = document.querySelector('[data-lazy-bgset-src]')? 'https:'+ document.querySelector('[data-lazy-bgset-src]').getAttribute('data-lazy-bgset-src'):"https:"+ document.querySelector('.product-link [data-srcset]').getAttribute('data-srcset').split(',')[5].trim().split(' ')[0]
+                const priceNew = document.querySelector('.product-price__item').innerText.replaceAll('\n','').replace("TL",'')
+                const link = document.querySelector('.product-link').href
+    
+                return {
+                    title: 'stradivarius ' + title.replace(/İ/g, 'i').toLowerCase(),
+                    priceNew: priceNew,
+                    imageUrl,
+                    link,
+                    timestamp: Date.now(),
+                    marka: 'stradivarius',
+    
+                }      
+            } catch (error) {
+                return {error:error.toString(),url,content:document.innerHTML}
+            }
+
+        })
+    },url)
+debugger
+
+    return data
+
+
 }
 
-async function autoScroll(page) {
-  page.on("console", (message) => {
-    console.log("Message from Puppeteer page:", message.text());
-  });
-  await page.evaluate(async () => {
-    await new Promise((resolve, reject) => {
-      var totalHeight = 0;
-      var distance = 100;
-      let inc = 0;
 
-      var timer = setInterval(() => {
-        var scrollHeight = document.body.scrollHeight;
 
-        window.scrollBy(0, distance);
-        totalHeight += distance;
-        inc = inc + 1;
-        console.log("inc", inc);
-        if (totalHeight >= scrollHeight - window.innerHeight) {
-          if (inc === 50) {
-            clearInterval(timer);
-            resolve();
-          }
-        } else {
-          inc = 0;
-        }
-      }, 500);
-    });
-  });
-}
+
+
 async function getUrls(page) {
-  const pageUrls = [];
 
-  return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
+    const pageUrls = []
+
+
+    return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls };
+module.exports = { extractor, getUrls,...initValues }
