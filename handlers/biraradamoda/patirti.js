@@ -11,8 +11,6 @@ const initValues ={
 //currentPrice
 async function extractor(page, ) {
  
-        // await page.waitForSelector('#productContent')
-        // await page.waitForSelector('#ProductImagesLightGallery img')
         debugger
 await autoScroll(page)
 const url = await page.url()
