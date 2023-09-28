@@ -1,7 +1,16 @@
-async function handler(page, context) {
+
+const initValues ={
+  productPageSelector:'.catalogWrapper',
+  linkSelector:'#mainMenu a',
+  linksToRemove:[],
+  hostname:'https://www.xint.com.tr/',
+  exclude:[],
+  postFix:''
+}
+async function extractor(page) {
   const url = await page.url();
   debugger;
-  await page.waitForSelector(".fl.col-12.catalogWrapper");
+
   const products = await page.evaluate(() => window.PRODUCT_DATA);
 
   debugger;
@@ -10,27 +19,23 @@ async function handler(page, context) {
     try {
       const longImage = document.image;
       const title = document.name;
-      const priceNew = document.total_sale_price; //.toString().replace('.',',')
-      const link = document.url;
+      const priceNew = document.total_sale_price; 
+      const link ="https://www.xint.com.tr/"+ document.url;
 
       return {
         title: "xint " + title.replace(/İ/g, "i").toLowerCase(),
         priceNew,
-        imageUrl: longImage, //.substring(longImage.indexOf('https://www.xint.com.tr/') + 24),
+        imageUrl: longImage, 
         link,
         timestamp: Date.now(),
         marka: "xint",
       };
     } catch (error) {
-      return { error: error.toString(), content: document.innerHTML };
+      return { error: error.toString(),url, content: document.innerHTML };
     }
   });
 
-  console.log("data length_____", data.length, "url:", url);
-
-  return data.map((m) => {
-    return { ...m, title: m.title + " _" + process.env.GENDER };
-  });
+return data
 }
 
 async function getUrls(page) {
@@ -49,13 +54,13 @@ async function getUrls(page) {
     );
     debugger;
 
-    let pagesLeft = totalPages;
+
     for (let i = 2; i <= totalPages; i++) {
       pageUrls.push(`${url}?pg=` + i);
-      --pagesLeft;
+    
     }
   }
 
   return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 };
 }
-module.exports = { handler, getUrls };
+module.exports = { extractor, getUrls,...initValues }
