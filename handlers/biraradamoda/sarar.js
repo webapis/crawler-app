@@ -1,61 +1,24 @@
-const {  RequestQueue ,Dataset} =require('crawlee');
-async function handler(page,context) {
-const {request:{userData:{start}}}=context
 
-const requestQueue = await RequestQueue.open();
-    debugger
+const {autoScroll}=require('../../utils/autoscroll')
+const initValues ={
+  productPageSelector:'.catalogWrapper',
+  linkSelector:'#mainMenu a',
+  linksToRemove:[],
+  hostname:'https://sarar.com/',
+  exclude:[],
+  postFix:''
+}
+async function extractor(page) {
+
         const url = await page.url()
-    
-        const pageExist = await page.$('.catalogWrapper')
-
-        if(start){
-          await page.waitForSelector('.catalogWrapper')
-       await requestQueue.addRequest({url:'https://sarar.com/canta?ps=2',userData:{start:false}})
-        }
-
-        else{
-     
-          if(pageExist){
-            const productsDataset = await Dataset.open(`products`);
-            const { items: productItems } = await productsDataset.getData();
-            
-            var groupBy = function (xs, key) {
-              return xs.reduce(function (rv, x) {
-                  (rv[x[key]] = rv[x[key]] || []).push(x);
-                  return rv;
-              }, {});
-          };
-          const groupByimageUrl = groupBy(productItems, 'imageUrl')
-          let similarexists =false
-          for (let image in groupByimageUrl) {
-              const curr = groupByimageUrl[image]
-              image
-              debugger
-              if(curr.length>1){
-                  console.log('similar images',image,': ',curr.length)
-                  similarexists=true
-              }
-         
-         
-          }
-          if(!similarexists){
-            const lastPage = parseInt( url.substring(url.indexOf('ps=')+3))
-            await requestQueue.addRequest({url:`https://sarar.com/canta?ps=${lastPage+1}`,userData:{start:false}})
-          }
-
-          }else{
-        
-          }
-
-        }
-        if(start  || pageExist){
-          const data = await page.$$eval('.catalogWrapper .productItem', (productCards) => {
+        await autoScroll(page)
+          const data = await page.$$eval('.productItem', (productCards,url) => {
             return productCards.map(document => {
               try {
                    const imageUrl = document.querySelector('span[itemprop="image"]').getAttribute('content')
                    const title = document.querySelector('span[itemprop="name"]').getAttribute('content')
                    const priceNew = document.querySelector('.discount-in-basket-price span')? document.querySelector('.discount-in-basket-price span').innerText.replace('₺',''):document.querySelector('.currentPrice').innerText.replace('₺','').trim()
-                   const link = document.querySelector('span[itemprop="url"]').getAttribute('content')
+                   const link ="https://sarar.com/"+ document.querySelector('span[itemprop="url"]').getAttribute('content')
 
                   return {
                        title: 'sarar ' + title.replace(/İ/g,'i').toLowerCase(),
@@ -66,57 +29,19 @@ const requestQueue = await RequestQueue.open();
                        marka: 'sarar',
                   }
               } catch (error) {
-                return {error:error.toString(),content:document.innerHTML}
+                
+                return {error:error.toString(),url,content:document.innerHTML}
               }
              
-            })//.filter(f => f.imageUrl !== null && f.title.length > 5)
-        })
-    debugger
-        console.log('data length_____', data.length, 'url:', url,process.env.GENDER)
-    
-    
-        console.log("process.env.GENDER ")
-        // const formatprice = data.map((m) => {
-        //     return { ...m, title: m.title + " _" + process.env.GENDER }
-        // })
-    
-    
+            })
+        },url)
+ 
         return data
-        } else{
-          []
-        }
+      
 
    
     }
-    async function autoScroll(page) {
-        page.on("console", (message) => {
-          console.log("Message from Puppeteer page:", message.text());
-        });
-        await page.evaluate(async () => {
-          await new Promise((resolve, reject) => {
-            var totalHeight = 0;
-            var distance = 100;
-            let inc = 0;
-      
-            var timer = setInterval(() => {
-              var scrollHeight = document.body.scrollHeight;
-      
-              window.scrollBy(0, distance);
-              totalHeight += distance;
-              inc = inc + 1;
-              console.log("inc", inc);
-              if (totalHeight >= scrollHeight - window.innerHeight) {
-                if (inc === 50) {
-                  clearInterval(timer);
-                  resolve();
-                }
-              } else {
-                inc = 0;
-              }
-            }, 500);
-          });
-        });
-      }
+
     async function getUrls(page) {
         // const url = await page.url()
         // await page.waitForSelector('.catalog__meta--product-count span')
@@ -137,4 +62,4 @@ const requestQueue = await RequestQueue.open();
     
         return { pageUrls, productCount:0, pageLength: pageUrls.length + 1 }
     }
-    module.exports = { handler, getUrls }
+    module.exports = { extractor, getUrls,...initValues }
