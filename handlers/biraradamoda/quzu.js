@@ -11,14 +11,14 @@ async function extractor(page, context) {
 
 
     const url = await page.url()
-
+debugger
 
     const acceptcookies = await page.$('.seg-popup-close')
     if (acceptcookies) {
         await page.click('.seg-popup-close')
     }
     await autoScroll(page)
-
+debugger
     
                     const data = await page.$$eval('.productItem', (productCards,url) => {
                         try {
