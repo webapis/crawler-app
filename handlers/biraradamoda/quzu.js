@@ -1,27 +1,23 @@
 
-async function handler(page, context) {
+const initValues ={
+    productPageSelector:'#ProductPageProductList',
+    linkSelector:'.menu-list a',
+    linksToRemove:[],
+    hostname:'https://www.quzu.com.tr/',
+    exclude:[],
+    postFix:''
+  }
+async function extractor(page, context) {
 
 
     const url = await page.url()
 
-    await page.waitForSelector('#ProductPageProductList')
-    // onetrust-accept-btn-handler
 
     const acceptcookies = await page.$('.seg-popup-close')
     if (acceptcookies) {
         await page.click('.seg-popup-close')
     }
 
-    return new Promise((resolve, reject) => {
-        try {
-            let totalProducts = 0
-            let collected = 0
-            let inv = setInterval(async () => {
-
-                console.log('collected', collected)
-
-                if (totalProducts>0 && totalProducts === collected) {
-                    clearInterval(inv)
                     const data = await page.$$eval('.productItem', (productCards) => {
                         return productCards.map(productCard => {
                             const priceNew = productCard.querySelector('.discountPrice span').textContent.replace(/\n/g, '').trim().replace('₺', '').replace('TL', '').trim()
@@ -40,49 +36,15 @@ async function handler(page, context) {
                                 marka: 'quzu',
                   
                             }
-                        }).filter(f => f.imageUrl !== null)
+                        })
                     })
 
           
-                    console.log('data length_____', data.length, 'url:', url)
-                    debugger
-
-                    
-                    return resolve(data.map(m=>{return {...m,title:m.title+" _"+process.env.GENDER }}))
-             
-
-                } else {
-                 
-                    await manualScroll(page)
-
-                     totalProducts = await page.evaluate(() => parseInt(document.querySelector('.appliedFilter.FiltrelemeUrunAdet span').innerHTML.replace(/[^\d]/g, '')))
-                     collected = await page.evaluate(() => document.querySelectorAll('#ProductPageProductList .productItem').length)
-    
-                }
-
-            }, 50)
-        
-        } catch (error) {
-            debugger
-            return reject(error)
-        }
-    })
+    return data
 }
 
 
 
-
-
-async function manualScroll(page) {
-    await page.evaluate(async () => {
-        var totalHeight = 0;
-        var distance = 100;
-        let inc = 0
-        window.scrollBy(0, distance);
-        totalHeight += distance;
-        inc = inc + 1
-    });
-}
 
 async function getUrls(page) {
 
@@ -92,4 +54,5 @@ async function getUrls(page) {
 
     return { pageUrls, productCount: 0, pageLength: pageUrls.length + 1 }
 }
-module.exports = { handler, getUrls }
+module.exports = { extractor, getUrls,...initValues }
+

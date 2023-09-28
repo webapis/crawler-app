@@ -42,7 +42,7 @@ return data
 
 async function getUrls(page) {
     const url = await page.url()
-const nextPage =    await page.waitForSelector('.page-products-count')
+const nextPage =    await page.$('.page-products-count')
 let productCount=0
     const pageUrls = []
 
