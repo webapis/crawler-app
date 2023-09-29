@@ -7,6 +7,7 @@ import { uploadCollection } from'./utils/uploadCollection.mjs'
 const {extractPagekeywords}=require('./utils/extractPagekeywords')
 const {importLinkData}=require('./utils/importData.js')
 const {uniquefyData,generateMTM}=require('./utils/mapAsCollection.js')
+
 require('dotenv').config()
 
     const requestQueue = await RequestQueue.open();

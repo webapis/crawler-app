@@ -1,5 +1,5 @@
 
-
+const fetch =require('node-fetch')
 const {  Dataset,RequestQueue } =require('crawlee');
 const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 const marka =process.env.marka
@@ -64,8 +64,14 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
             const docTitle  = await page.evaluate(()=>document.title)
             const link = await page.evaluate(()=>document.baseURI)
             const id = generateUniqueKey({hrefText,docTitle,link})
-      
-         
+            debugger
+
+            const domainName = await page.evaluate(() => document.domain);
+            // debugger
+            // const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
+            // const faviconUrl = response.headers.get('Location');
+           
+         debugger
             const data = await extractor(page, context)
 
             const withId = data.map((m)=>{
@@ -80,7 +86,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
             if(start){
                 if(data.length>0){
                     const pageDataset = await Dataset.open(`pageInfo`);
-                    await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka ,imageUrl:data[0].imageUrl})
+                    await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka  })
                 }
              
             }
