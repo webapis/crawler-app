@@ -35,7 +35,7 @@ const data = Object.values( jsonData.groups[0].garments).map(m=>m.colors).flat()
     title:'mango '+m.images[0].
     altText,
     priceNew:m.price. salePriceNoCurrency,
-    link: "https://shop.mango.com/"+ m.linkAnchor.substring(1),
+    link: "https://shop.mango.com"+ m.linkAnchor,
 
     timestamp: Date.now(),
     marka: 'mango',
