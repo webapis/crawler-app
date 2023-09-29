@@ -25,7 +25,7 @@ async function extractor(page, ) {
             
             }
  
-        }).filter(f => f.imageUrl !== null && f.title.length > 5)
+        })
     })
 
     return data
