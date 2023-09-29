@@ -1,8 +1,15 @@
+const initValues ={
+    productPageSelector:'.products',
+    linkSelector:'#topMainMenu a',
+    linksToRemove:[],
+    hostname:'https://www.abiyefon.com/',
+     exclude:['USD','EUR','GBP','&uzunluk=uzun&uzunluk=uzun&'],
+     postFix :'?currency=TL'
+}
+const  extractor=async (page)=> {
 
-const  extractor=async (page,marka)=> {
 
-
-    const data = await page.$$eval('.products .product-link', (productCards,marka) => {
+    const data = await page.$$eval('.products .product-link', (productCards) => {
         return productCards.map(document => {
             try {
                 const priceNew = document.querySelector("span[data-price]").innerHTML
@@ -12,41 +19,22 @@ const  extractor=async (page,marka)=> {
                
                 const title = document.querySelector('img.product-list-image').alt
                 return {
-                    title: marka+' ' + title.toLowerCase(),
+                    title:'abiyefon ' + title.toLowerCase(),
                     priceNew,
                     imageUrl,
                     link,
                     timestamp: Date.now(),
-                    marka
+                    marka:'abiyefon'
                 }  
             }
             catch (error) {
                     return {error:error.toString(),content:document.innerHTML}
                 }
-        }).filter(f => f.imageUrl !== null  && f.link !==null)
-    },marka)
+        })
+    })
 
  return data
 }
- const productPageSelector='.products'
- const linkSelector='a:not(.product-link)'
- const linksToRemove=['https://www.abiyefon.com/iletisim.html'
- ,'https://www.abiyefon.com/hesabim/register',
- 'https://www.abiyefon.com/hesabim/login',
- 'https://www.abiyefon.com/sepetim',
- 'https://www.abiyefon.com/begendiklerim',
- 'https://www.abiyefon.com/hakkimizda.shtm',
- 'https://www.abiyefon.com/musteri-hizmetleri.shtm',
- 'https://www.abiyefon.com/teslimat-kosullari.shtm',
- 'https://www.abiyefon.com/iade-kosullari',
- 'https://www.abiyefon.com/sikca-sorulan-sorular',
- 'https://www.abiyefon.com/yasal-uyari.shtm'
-
-]
- const hostname='https://www.abiyefon.com/'
- const productItemsSelector='.products .product-link'
-const exclude=['USD','EUR','GBP','&uzunluk=uzun&uzunluk=uzun&']
-const postFix ='?currency=TL'
 
 
 
@@ -70,11 +58,8 @@ async function getUrls(page) {
 
     return { pageUrls, productCount, pageLength: pageUrls.length + 1 }
 }
-module.exports = { extractor, getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix }
 
-
-
-
+module.exports = { extractor, getUrls,...initValues }
 
 
 

@@ -20,7 +20,7 @@ async function extractor(page) {
                     timestamp: Date.now(),
                     marka: 'adl',    
                 }
-            })//.filter(f => f.imageUrl !== null)
+            })
         })
     
 
