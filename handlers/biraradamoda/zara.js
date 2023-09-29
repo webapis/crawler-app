@@ -2,7 +2,7 @@
 const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
     productPageSelector:'.product-grid__product-list',
-    linkSelector:'a:not(li[data-productid] a)',
+    linkSelector:'.ddd',
     linksToRemove:[],
     hostname:'https://www.zara.com/tr/',
     exclude:[],
@@ -31,7 +31,7 @@ await autoScroll(page)
             try {
                 const priceNew = document.querySelector('.money-amount__main').innerText.replace('TL','').trim()
                 const link = document.querySelector('.product-grid-product__figure a').href
-                const imageUrl = document.querySelector('.product-grid-product__figure a img').src
+                const imageUrl =document.querySelector('.product-grid-product__figure a img')? document.querySelector('.product-grid-product__figure a img').src:null
                 const title = document.querySelector('.product-grid-product-info__main-info h3').innerText
                 return {
                     title: 'zara ' + title.replace(/İ/g, 'i').toLowerCase(),
@@ -52,7 +52,7 @@ await autoScroll(page)
 
 debugger
   
-    return data
+    return data.filter(f=>f.imageUrl !==null)
 
 }
 
