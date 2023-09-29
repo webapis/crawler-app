@@ -2,10 +2,13 @@ const urls = [
 
     
         {
-           url: "https://www.derimod.com.tr/"
+           url: "https://derimod.com.tr/collections/kadin"
         },
 
-
+        {
+                url: "https://derimod.com.tr/collections/erkek"
+             },
+     
 
 ]
 

@@ -1,24 +1,26 @@
 
-const {linkExtractor}=require('../../utils/linkExtractor')
+
 const initValues ={
-     productPageSelector:'.list-content-product-item',
-     linkSelector:'.navigation a',
+     productPageSelector:'.ProductCard',
+     linkSelector:'.site-header a',
      linksToRemove:[],
-     hostname:'https://www.derimod.com.tr/',
+     hostname:'https://derimod.com.tr/',
      exclude:[],
      postFix:''
     
 }
-async function extractor(page,context) {
-  
-    await linkExtractor({...initValues,linkSelector:'.navigation__item a',candidateSelector:'.navigation__item',page,context,action:'hover'})
-    const data = await page.$$eval('.list-content-product-item', (productCards) => {
-        return productCards.map(productCard => {
+
+
+async function extractor(page) {
+    const url = await page.url()
+debugger
+   const data = await page.$$eval('.ProductCard', (productCards,url) => {
+        return productCards.map(document => {
                 try {
-                    const imageUrl = productCard.querySelector('.img1').getAttribute('src')
-                    const title = productCard.querySelector('.product-name').innerHTML.trim()
-                    const priceNew = productCard.querySelector('.product-sale-price-list')? productCard.querySelector('.product-sale-price-list').textContent.trim().replace('TL', ''): productCard.querySelector('.product-sale-price').textContent.trim().replace('TL', '')
-                    const link = productCard.querySelector('.img-holder a').href
+                    const imageUrl ='https:'+ document.querySelector('.ProductCard [data-bgset]').getAttribute('data-bgset').replaceAll('\n','').trim().split(',')[2].trim().split(' ')[0]
+                    const title = document.querySelector('.ProductCard a [aria-label]').getAttribute('aria-label')
+                    const priceNew = document.querySelector('.product-grid-item__price__new')?document.querySelector('.product-grid-item__price__new').innerText.replace('TL',''):document.querySelector('.product-grid-item__price').innerText.replace('TL','')
+                    const link = document.querySelector('.ProductCard a').href
      
                     return {
                         title: 'derimod ' + title.replace(/İ/g,'i').toLowerCase(),
@@ -30,15 +32,15 @@ async function extractor(page,context) {
                     } 
                 } catch (error) {
                     return{
-                        error:error.toString(),content:document.innerHTML
+                        error:error.toString(),url,content:document.innerHTML
                     }
                 }
        
         })
-    })
+    },url)
 
 
-
+debugger
 
     return data
 }

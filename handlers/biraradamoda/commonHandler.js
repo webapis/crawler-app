@@ -25,15 +25,15 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
     let i =0
 
     if(start){
-        debugger
+   
     await page.waitForTimeout(2000)
-    debugger
+
         const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map((m,i)=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),order:i} }).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
         const relatedLinks =filterArray(links,linksToRemove)
         console.log('links.length',relatedLinks.length)
         const linkDataset = await Dataset.open(`links`);
         await linkDataset.pushData({links:relatedLinks.map((m,i)=>{return {url:m.href,title:m.title}})})
-debugger
+
             for(let l of relatedLinks ){
                 let negative =false
               
@@ -56,15 +56,16 @@ debugger
             }
       
         }
-        debugger
+       
         const productPage = await page.$(productPageSelector)
+   
         if(productPage){
             const hrefText =title ? title:""
             const docTitle  = await page.evaluate(()=>document.title)
             const link = await page.evaluate(()=>document.baseURI)
             const id = generateUniqueKey({hrefText,docTitle,link})
       
-           debugger
+         
             const data = await extractor(page, context)
 
             const withId = data.map((m)=>{
