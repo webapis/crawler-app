@@ -25,7 +25,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
     let i =0
 
     if(start){
-    
+    await page.waitForTimeout(2000)
         const links = await page.evaluate((linkSelector,hostname)=>Array.from( document.querySelectorAll(linkSelector)).map((m,i)=>{return {href:m.href,title:m.innerText.replaceAll('\n','').trim(),order:i} }).filter(f=>f.href.includes(hostname)  ),linkSelector,hostname ) 
         const relatedLinks =filterArray(links,linksToRemove)
         console.log('links.length',relatedLinks.length)
