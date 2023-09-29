@@ -176,7 +176,7 @@ console.log('protocolTimeout',protocolTimeout)
 
                                 } else {
 
-                                    await Dataset.pushData({json,rootUrl});
+                                    await Dataset.pushData(json);
                                        //response.continue();
                                 }
 
