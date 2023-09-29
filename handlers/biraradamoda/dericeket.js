@@ -19,7 +19,7 @@ async function extractor(page) {
                 timestamp: Date.now(),
                 marka: 'dericeket',
             }
-        }).filter(f => f.imageUrl && f.title.length > 5)
+        })
     })
 
 
