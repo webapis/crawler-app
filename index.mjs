@@ -14,7 +14,7 @@ require('dotenv').config()
     const website = process.env.WEBSITE
     console.log('main running')
     console.log('main', process.env.GENDER)
-    const { urls } = require(`./urls/biraradamoda/${process.env.GENDER}/${marka}`)
+    const { urls } = require(`./urls/biraradamoda/all/${marka}`)
 
     for (let obj of urls) {
 

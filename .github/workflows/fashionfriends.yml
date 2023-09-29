@@ -1,0 +1,15 @@
+name: fashionfriends
+on:
+  schedule:
+    - cron:  '0 0 * * 5,1'
+env:
+  GH_TOKEN: ${{secrets.GH_TOKEN}}
+jobs:
+  kadin_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: all
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'fashionfriends'
+    secrets: inherit

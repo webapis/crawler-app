@@ -1,0 +1,16 @@
+name: alinderi
+on:
+  schedule:
+    - cron:  '0 0 * * 1,3'
+env:
+  GH_TOKEN: ${{secrets.GH_TOKEN}}
+jobs:
+  kadin_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: all
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'alinderi'
+    secrets: inherit
+

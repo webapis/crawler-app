@@ -1,0 +1,15 @@
+name: yargici
+on:
+  schedule:
+    - cron:  '0 0 * * 0,2'
+env:
+  GH_TOKEN: ${{secrets.GH_TOKEN}}
+jobs:
+  kadin_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: all
+      maxconcurrency: '5'
+      WEBSITE: 'biraradamoda'
+      marka: 'yargici'
+    secrets: inherit

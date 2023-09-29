@@ -1,0 +1,15 @@
+name: slatra
+on:
+  schedule:
+    - cron:  '0 0 * * 5,1'
+env:
+  GH_TOKEN: ${{secrets.GH_TOKEN}}
+jobs:
+  erkek_job:
+    uses: ./.github/workflows/reusable.yml
+    with:
+      GENDER: all
+      maxconcurrency: '1'
+      WEBSITE: 'biraradamoda'
+      marka: 'slatra'
+    secrets: inherit
