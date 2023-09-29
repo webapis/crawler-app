@@ -4,8 +4,8 @@
 
 
 
-  const  extractor=async (page,marka)=> {
-    const data = await page.$$eval('.catalog-products .product-card', (productCards,marka) => {
+  const  extractor=async (page)=> {
+    const data = await page.$$eval('.catalog-products .product-card', (productCards) => {
         return productCards.map( productCard => {
             try {
                 const imageUrl = productCard.querySelector('.catalog-products .product-card .product-card__image .image-box .product-card__image--item.swiper-slide img').getAttribute('data-srcset')
@@ -15,18 +15,18 @@
       
          
                 return {
-                    title: marka+' ' + title.replace(/İ/g,'i').toLowerCase(),
+                    title: 'defacto ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,
                     imageUrl,
                     link,
                     timestamp: Date.now(),
-                    marka,
+                    marka:'defacto',
                 }  
             } catch (error) {
                 return {error:error.toString(),content:productCard.innerHTML}
             }
         }).filter(f => f.imageUrl !== null && f.title.length > 5)
-    },marka)
+    })
   return data
 }
 const productPageSelector='.catalog-products'
