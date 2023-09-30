@@ -254,7 +254,7 @@ if(productItems.length===0){
 
         }
 
-         await  importLinkData({data:pageItems})
+//await  importLinkData({data:pageItems})
         console.log('productItemsWithoutError----',productItemsWithoutError.length)
         const uniqueData =uniquefyData({data:productItemsWithoutError})
         const mTmCollection= generateMTM({data:productItemsWithoutError})
