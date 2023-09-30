@@ -68,8 +68,8 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
 
             const domainName = await page.evaluate(() => document.domain);
             // debugger
-            // const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
-            // const faviconUrl = response.headers.get('Location');
+             const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
+             const faviconUrl = response.headers.get('Content-Location');
            
          debugger
             const data = await extractor(page, context)
