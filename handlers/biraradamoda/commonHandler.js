@@ -32,7 +32,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
         const relatedLinks =filterArray(links,linksToRemove)
         console.log('links.length',relatedLinks.length)
         const linkDataset = await Dataset.open(`links`);
-        await linkDataset.pushData({links:relatedLinks.map((m,i)=>{return {url:m.href,title:m.title}})})
+        await linkDataset.pushData({links:relatedLinks.filter((f,i)=> i<10).map((m,i)=>{return {url:m.href,title:m.title}})})
 
             for(let l of relatedLinks ){
                 let negative =false
