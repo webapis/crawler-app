@@ -1,4 +1,4 @@
-name: bysaygi
+name: bysaygi-link
 on:
   schedule:
     - cron:  '0 0 * * 5,1'

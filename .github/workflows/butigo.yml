@@ -1,4 +1,4 @@
-name: butigo
+name: butigo-link
 on:
   schedule:
     - cron:  '0 0 * * 2,4'

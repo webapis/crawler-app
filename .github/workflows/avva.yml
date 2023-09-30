@@ -1,4 +1,4 @@
-name: avva
+name: avva-link
 on:
   schedule:
     - cron:  '0 0 * * 1,3'

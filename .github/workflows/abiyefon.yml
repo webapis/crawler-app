@@ -1,4 +1,4 @@
-name: abiyefon
+name: abiyefon-link
 on:
   schedule:
     - cron:  '0 0 * * 1,3'
