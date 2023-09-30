@@ -259,8 +259,8 @@ if(productItems.length===0){
         const uniqueData =uniquefyData({data:productItemsWithoutError})
         const mTmCollection= generateMTM({data:productItemsWithoutError})
         const pageCollectionsDataset = await Dataset.open(`pageCollections`);
-        await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems})
-        const domainName = await page.evaluate(() => document.domain);
+        await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems,faviconUrl})
+        const domainName = pageItems[0].domainName
          const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
          const faviconUrl = response.headers.get('Content-Location');
         debugger

@@ -65,7 +65,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
             const link = await page.evaluate(()=>document.baseURI)
             const id = generateUniqueKey({hrefText,docTitle,link})
             debugger
-
+            const domainName = await page.evaluate(() => document.domain);
          
            
          debugger
@@ -83,7 +83,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
             if(start){
                 if(data.length>0){
                     const pageDataset = await Dataset.open(`pageInfo`);
-                    await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka  })
+                    await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka,domainName  })
                 }
              
             }
