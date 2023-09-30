@@ -259,10 +259,11 @@ if(productItems.length===0){
         const uniqueData =uniquefyData({data:productItemsWithoutError})
         const mTmCollection= generateMTM({data:productItemsWithoutError})
         const pageCollectionsDataset = await Dataset.open(`pageCollections`);
-        await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems,faviconUrl})
         const domainName = pageItems[0].domainName
-         const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
-         const faviconUrl = response.headers.get('Content-Location');
+        const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
+        const faviconUrl = response.headers.get('Content-Location');
+        await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems,faviconUrl})
+
         debugger
             await uploadCollection({ fileName: `${marka}`, data: {uniqueData,mTmCollection,pageItems,faviconUrl}, gender: 'all', marka })
             debugger

@@ -34,7 +34,7 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
         const linkDataset = await Dataset.open(`links`);
         await linkDataset.pushData({links:relatedLinks.filter((f,i)=> i<10).map((m,i)=>{return {url:m.href,title:m.title}})})
 
-            for(let l of relatedLinks ){
+            for(let l of relatedLinks.filter((f,i)=> i<10) ){
                 let negative =false
               
                 if(exclude.length>0){
