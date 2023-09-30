@@ -1,5 +1,5 @@
 
-const fetch =require('node-fetch')
+
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
@@ -7,7 +7,7 @@ import { uploadCollection } from'./utils/uploadCollection.mjs'
 const {extractPagekeywords}=require('./utils/extractPagekeywords')
 const {importLinkData}=require('./utils/importData.js')
 const {uniquefyData,generateMTM}=require('./utils/mapAsCollection.js')
-
+const fetch =require('node-fetch')
 require('dotenv').config()
 
     const requestQueue = await RequestQueue.open();
