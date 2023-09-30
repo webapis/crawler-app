@@ -1,5 +1,5 @@
 
-
+const fetch =require('node-fetch')
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
@@ -260,8 +260,11 @@ if(productItems.length===0){
         const mTmCollection= generateMTM({data:productItemsWithoutError})
         const pageCollectionsDataset = await Dataset.open(`pageCollections`);
         await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems})
+        const domainName = await page.evaluate(() => document.domain);
+         const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
+         const faviconUrl = response.headers.get('Content-Location');
         debugger
-            await uploadCollection({ fileName: `${marka}`, data: {uniqueData,mTmCollection,pageItems}, gender: 'all', marka })
+            await uploadCollection({ fileName: `${marka}`, data: {uniqueData,mTmCollection,pageItems,faviconUrl}, gender: 'all', marka })
             debugger
         
 
