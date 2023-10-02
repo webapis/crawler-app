@@ -8,10 +8,10 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
     const { request: { userData: { start,title,order,total } } } = context
     const requestQueue = await RequestQueue.open();
  
-    let extractor; // Define extractor function
+    let extractor; 
 
     try {
-      // Dynamically import the extractor based on the marka variable
+    
       extractor = require(`./${marka}`).extractor;
     } catch (error) {
       console.error(`Error importing extractor for ${marka}:`, error);
