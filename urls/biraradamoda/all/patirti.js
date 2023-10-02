@@ -1,6 +1,6 @@
 const urls = [
 
-    { url: 'https://www.patirti.com/' },
+    { url: 'https://www.patirti.com/kadin-giyim' },
 
 
 ]
