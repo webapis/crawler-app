@@ -1,9 +1,9 @@
 const {autoScroll}=require('../../utils/autoscroll')
 
-const {linkExtractor}=require('../../utils/linkExtractor')
+//const {linkExtractor}=require('../../utils/linkExtractor')
 const initValues ={
      productPageSelector:'.infinite-scroll-component__outerdiv',
-     linkSelector:'footer nav a',
+     linkSelector:'.ddd',//'footer nav a',
      linksToRemove:[],
      hostname:'https://exquise.com/',
      exclude:[],
@@ -13,12 +13,12 @@ const initValues ={
 }
 async function extractor(page,context) {
 
-    const toggleBtn = await page.$('[aria-label="Toggle main menu"]')
-    if(toggleBtn){
-        await page.click('[aria-label="Toggle main menu"]')
-        await page.waitForSelector('.MuiDrawer-root')
-        await linkExtractor({...initValues,linkSelector:'.MuiAccordion-region a',candidateSelector:'.MuiAccordionSummary-expandIconWrapper',page,context,action:'click'})
-    }
+    // const toggleBtn = await page.$('[aria-label="Toggle main menu"]')
+    // if(toggleBtn){
+    //     await page.click('[aria-label="Toggle main menu"]')
+    //     await page.waitForSelector('.MuiDrawer-root')
+    //     await linkExtractor({...initValues,linkSelector:'.MuiAccordion-region a',candidateSelector:'.MuiAccordionSummary-expandIconWrapper',page,context,action:'click'})
+    // }
 
    await autoScroll(page)
 
