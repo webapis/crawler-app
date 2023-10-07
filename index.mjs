@@ -262,6 +262,7 @@ if(productItems.length===0){
         const domainName = pageItems[0].domainName
         const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
         const faviconUrl = response.headers.get('Content-Location');
+        debugger
         await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems,faviconUrl})
 
         debugger

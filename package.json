@@ -9,7 +9,7 @@
     "import": "node typesense/importData.mjs",
     "deleteData": "node typesense/deleteDatabase.mjs",
     "deleteByMarka": "node typesense/deleteByMarka.mjs",
-    "snap": "node snap.js"
+    "snap": "node snap.mjs"
   },
   "keywords": [],
   "author": "",
