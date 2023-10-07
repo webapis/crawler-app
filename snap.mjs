@@ -33,5 +33,7 @@
 
 const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.defacto.com.tr'}`);
 const faviconUrl = response.headers.get('Content-Location');
-"data:" + blob.type + ';base64,' + buffer.toString('base64');
+const blob = await response.blob()
+let buffer = Buffer.from(await blob.text());
+const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
 debugger
