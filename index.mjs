@@ -261,7 +261,10 @@ if(productItems.length===0){
         const pageCollectionsDataset = await Dataset.open(`pageCollections`);
         const domainName = pageItems[0].domainName
         const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${domainName}`);
-        const faviconUrl = response.headers.get('Content-Location');
+      //  const faviconUrl = response.headers.get('Content-Location');
+        const blob = await response.blob()
+        let buffer = Buffer.from(await blob.text());
+        const faviconUrl ="data:" + blob.type + ';base64,' + buffer.toString('base64');
         debugger
         await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems,faviconUrl})
 
