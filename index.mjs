@@ -270,7 +270,7 @@ if(productItems.length===0){
         let buffer = Buffer.from(await blob.text());
         const faviconUrl ="data:" + blob.type + ';base64,' + buffer.toString('base64');
         debugger
-        await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems,faviconUrl})
+       // await pageCollectionsDataset.pushData({uniqueData,mTmCollection,pageItems,faviconUrl})
 
         debugger
             await uploadCollection({ fileName: `${marka}`, data: {uniqueData,mTmCollection,pageItems,faviconUrl}, gender: 'all', marka })
