@@ -1,5 +1,5 @@
 
-//const {autoScroll}=require('../../utils/autoscroll')
+const {autoScroll}=require('../../utils/autoscroll')
 const initValues ={
   productPageSelector:'#CollectionProductGrid',
   linkSelector:'.main-navigation a',
@@ -14,12 +14,12 @@ async function extractor(page) {
 
     const url = await page.url()
 
-   // await autoScroll(page)
+    await autoScroll(page)
 
     const data = await page.$$eval('article.product-item', (productCards,url) => {
         return productCards.map(document => {
             try {
-                const imageUrl =document.querySelector('.product-item-image[data-srcset]')&&  document.querySelector('.product-item-image').getAttribute('data-srcset').split(',').reverse()[0].trim()
+                const imageUrl = 'https:'+ document.querySelector('.product-item-image').getAttribute('data-srcset').split(',').reverse()[0].trim().split(' ')[0]
                 const title = document.querySelector('.product--item-title a').innerText
                 const priceNew =0// Array.from(document.querySelector('.product-item-price').querySelectorAll('span')).map(m=>m.innerText.replace('₺','').trim()).sort().reverse()[0]
                 const link = document.querySelector('.product--item-title a').href

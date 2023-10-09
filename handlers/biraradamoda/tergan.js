@@ -17,7 +17,7 @@ async function extractor(page) {
     const data = await page.$$eval('.item.itemauto', (productCards,url) => {
         return productCards.map(productCard => {
             try {
-                const imageUrl ='https://www.tergan.com.tr'+ productCard.querySelector('.product img') && productCard.querySelector('.product img').getAttribute('src')
+                const imageUrl = 'https://www.tergan.com.tr'+ productCard.querySelector('.product img').getAttribute('src')
                 const title = productCard.querySelector(".product .description a").innerHTML.trim()
                 const priceNew = productCard.querySelector('.p-value') ? productCard.querySelector('.p-value').textContent.trim().replace('TL', '').trim() : productCard.querySelector('.price-sales').textContent.trim().replace('TL', '').trim()
                 const link = productCard.querySelector(".product .description a").href

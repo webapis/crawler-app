@@ -15,7 +15,7 @@ async function extractor(page) {
             return {
                 title: 'beymen ' + title + ' ' + desc,
                 priceNew,
-                imageUrl,
+                imageUrl: imageUrl.replace('{width}/{height}','431/-'),
                 link,
                 timestamp: Date.now(),
                 marka: 'beymen'

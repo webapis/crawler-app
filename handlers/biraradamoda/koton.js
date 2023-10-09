@@ -10,14 +10,14 @@ async function extractor(page) {
   const data = await page.$$eval('.list__products .product-item', (productCards) => {
     return productCards.map(document => {
 try {
-    const imageUrl = document.querySelector('img').src
+    const imageUrl = document.querySelector('.pz-image-placeholder source').srcset
     const title = document.querySelector('.product-item__info-name a').innerHTML.trim()
     const priceNew = document.querySelector('.product-item__info-price pz-price').innerText.replace('TL','').trim()
     const link = document.querySelector('.product-item__info-name a').href
 
 
     return {
-        title: 'koton ' + title.replace(/İ/g,'i').toLowerCase()  ,
+        title: 'koton ' + title.replace(/İ/g,'i').toLowerCase(),
         priceNew,
         imageUrl,
         link,
