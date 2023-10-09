@@ -253,7 +253,7 @@ if(productItems.length===0){
         for( let p of pageItems){
 
             const foundProducts =productItemsWithoutError.filter(f=>f.pid === p.objectID)
-            const keywords = extractPagekeywords({products:foundProducts})
+            const keywords = extractPagekeywords({products:foundProducts,page:p})
             p.keywords= keywords
 
         }

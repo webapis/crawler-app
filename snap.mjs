@@ -32,32 +32,33 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-<<<<<<< HEAD
-var FileReader = require('filereader')
-const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.defacto.com.tr'}`);
-const faviconUrl = response.headers.get('Content-Location');
-const blob = await response.blob()
-var reader = new FileReader(); 
-reader.readAsDataURL(blob); 
-// let buffer = Buffer.from(await blob.text());
-// const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
-debugger
-=======
 
-import fetchFavicon from "./utils/fetchFavicon.mjs";
-const sharp = require('sharp');
-const path =require('path')
-const im =require('imagemagick')
-const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.addax.com.tr'}`);
+// import fetchFavicon from "./utils/fetchFavicon.mjs";
+// const sharp = require('sharp');
+// const path =require('path')
+// const im =require('imagemagick')
+// const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.addax.com.tr'}`);
 
-const faviconUrl = response.headers.get('Content-Location');
-debugger
-const fpath = await fetchFavicon({url:faviconUrl,filename:'addax'})
-debugger
-sharp(fpath).jpeg().toFile(`addax.jpeg`)
 // const faviconUrl = response.headers.get('Content-Location');
-// const blob = await response.blob()
-// let buffer = Buffer.from(response);
-// const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
 // debugger
->>>>>>> 235c0b89ba60128b5a2ae92abbc146199d628dc8
+// const fpath = await fetchFavicon({url:faviconUrl,filename:'addax'})
+// debugger
+// sharp(fpath).jpeg().toFile(`addax.jpeg`)
+// // const faviconUrl = response.headers.get('Content-Location');
+// // const blob = await response.blob()
+// // let buffer = Buffer.from(response);
+// // const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
+// // debugger
+debugger
+const  {extractUniqueWords} =require('./utils/extractUniqueWords');
+debugger
+const words = extractUniqueWords(
+    {
+      "hrefText": "",
+      "docTitle": "Abiyefon | Lider Abiye Giyim Sitesi",
+      "link": "https://www.abiyefon.com/?currency=TL",
+      "objectID": "7228c3d184cdbb5a1049a1da6a40e6f86529273c",
+      "brand": "abiyefon",
+      "domainName": "www.abiyefon.com"})
+
+      debugger
