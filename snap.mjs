@@ -29,7 +29,10 @@
 // console.log(wordCounts);
 // fs.writeFileSync('./pentiunique.json',JSON.stringify({keywords:removeLess}))
 
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
+<<<<<<< HEAD
 var FileReader = require('filereader')
 const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.defacto.com.tr'}`);
 const faviconUrl = response.headers.get('Content-Location');
@@ -39,3 +42,22 @@ reader.readAsDataURL(blob);
 // let buffer = Buffer.from(await blob.text());
 // const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
 debugger
+=======
+
+import fetchFavicon from "./utils/fetchFavicon.mjs";
+const sharp = require('sharp');
+const path =require('path')
+const im =require('imagemagick')
+const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.addax.com.tr'}`);
+
+const faviconUrl = response.headers.get('Content-Location');
+debugger
+const fpath = await fetchFavicon({url:faviconUrl,filename:'addax'})
+debugger
+sharp(fpath).jpeg().toFile(`addax.jpeg`)
+// const faviconUrl = response.headers.get('Content-Location');
+// const blob = await response.blob()
+// let buffer = Buffer.from(response);
+// const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
+// debugger
+>>>>>>> 235c0b89ba60128b5a2ae92abbc146199d628dc8
