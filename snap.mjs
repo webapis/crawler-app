@@ -30,10 +30,12 @@
 // fs.writeFileSync('./pentiunique.json',JSON.stringify({keywords:removeLess}))
 
 
-
+var FileReader = require('filereader')
 const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.defacto.com.tr'}`);
 const faviconUrl = response.headers.get('Content-Location');
 const blob = await response.blob()
-let buffer = Buffer.from(await blob.text());
-const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
+var reader = new FileReader(); 
+reader.readAsDataURL(blob); 
+// let buffer = Buffer.from(await blob.text());
+// const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
 debugger
