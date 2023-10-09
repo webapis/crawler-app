@@ -34,34 +34,16 @@ const require = createRequire(import.meta.url);
 
 
 import fetchFavicon from "./utils/fetchFavicon.mjs";
+const sharp = require('sharp');
 const path =require('path')
 const im =require('imagemagick')
-const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.defacto.com.tr'}`);
+const response = await fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${'https://www.addax.com.tr'}`);
 
 const faviconUrl = response.headers.get('Content-Location');
 debugger
 const fpath = await fetchFavicon({url:faviconUrl,filename:'addax'})
 debugger
-im.crop({
-                
-    srcPath:fpath,
-    dstPath:path.join( `${process.cwd()}`,`addax.jpg`),
-    width:   50,
-    format:'jpg'
-  }, function(err, stdout, stderr){
-
-    if(err){
-        debugger
-    
-    }else {
-        debugger
-  
-    }
-
-
-  
-  })
-
+sharp(fpath).jpeg().toFile(`addax.jpeg`)
 // const faviconUrl = response.headers.get('Content-Location');
 // const blob = await response.blob()
 // let buffer = Buffer.from(response);

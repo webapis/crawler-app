@@ -27,6 +27,7 @@
     "object-agent": "^1.6.0",
     "object-hash": "^3.0.0",
     "puppeteer": "20.7.3",
+    "sharp": "^0.32.6",
     "typesense": "1.5.4",
     "xml-js": "1.6.11"
   }
