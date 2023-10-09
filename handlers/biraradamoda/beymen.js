@@ -24,7 +24,7 @@ async function extractor(page) {
             }
         })
     })
-
+console.log('data[0]',data[0])
     return data
 }
 
