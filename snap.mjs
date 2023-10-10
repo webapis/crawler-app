@@ -49,16 +49,23 @@ const require = createRequire(import.meta.url);
 // // let buffer = Buffer.from(response);
 // // const dataURL ="data:" + blob.type + ';base64,' + buffer.toString('base64');
 // // debugger
-debugger
-const  {extractUniqueWords} =require('./utils/extractUniqueWords');
-debugger
-const words = extractUniqueWords(
-    {
-      "hrefText": "",
-      "docTitle": "Abiyefon | Lider Abiye Giyim Sitesi",
-      "link": "https://www.abiyefon.com/beyaz-uzun/kadın",
-      "objectID": "7228c3d184cdbb5a1049a1da6a40e6f86529273c",
-      "brand": "abiyefon",
-      "domainName": "www.abiyefon.com"})
 
-      debugger
+// const  {extractUniqueWords} =require('./utils/extractUniqueWords');
+// debugger
+// const words = extractUniqueWords(
+//     {
+//       "hrefText": "",
+//       "docTitle": "Abiyefon | Lider Abiye Giyim Sitesi",
+//       "link": "https://www.abiyefon.com/beyaz-uzun/kadın",
+//       "objectID": "7228c3d184cdbb5a1049a1da6a40e6f86529273c",
+//       "brand": "abiyefon",
+//       "domainName": "www.abiyefon.com"})
+
+
+
+const defacto = require('./defacto.json')
+const {uniqueData,pageItems}= defacto      
+const {extractPagekeywords}= require('./utils/extractPagekeywords')
+debugger
+const keywords= extractPagekeywords({products:uniqueData,page:pageItems[0]})
+debugger
