@@ -12,30 +12,30 @@ const initValues ={
 }
 async function extractor(page,context) {
 
-    await page.hover('.countryChange')
-    debugger
-    await page.waitForSelector('.countryChange')
-    await page.hover('.countryChange')
-    debugger
-     const valueExits  =   await page.$('[data-value=tr]')
-     const valueTLExits  =   await page.$('[data-value=TL]')
-     debugger
-     if(valueExits){
-        console.log('chaged language')
-        await page.click('[data-value=tr]')
-        await page.waitForNavigation()
-        debugger
-     }
-     debugger
-     await page.waitForSelector('.countryChange')
-     await page.hover('.countryChange')
-     debugger
-     if(valueTLExits){
-        console.log('chaged to USD')
-        await page.click('[data-value=TL]')
-        await page.waitForNavigation()
-        debugger
-     }
+    // await page.hover('.countryChange')
+    // debugger
+    // await page.waitForSelector('.countryChange')
+    // await page.hover('.countryChange')
+    // debugger
+    //  const valueExits  =   await page.$('[data-value=tr]')
+    //  const valueTLExits  =   await page.$('[data-value=TL]')
+    //  debugger
+    //  if(valueExits){
+    //     console.log('chaged language')
+    //     await page.click('[data-value=tr]')
+    //     await page.waitForNavigation()
+    //     debugger
+    //  }
+    //  debugger
+    //  await page.waitForSelector('.countryChange')
+    //  await page.hover('.countryChange')
+    //  debugger
+    //  if(valueTLExits){
+    //     console.log('chaged to USD')
+    //     await page.click('[data-value=TL]')
+    //     await page.waitForNavigation()
+    //     debugger
+    //  }
   
      await linkExtractor({...initValues,linkSelector:'#mainMenu a',candidateSelector:'nav#mainMenu ul.menu .parentLink',page,context,action:'hover'})
     const products = await page.evaluate(()=>window.PRODUCT_DATA)

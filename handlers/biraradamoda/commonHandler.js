@@ -64,11 +64,11 @@ async function commonHandler({page,context,productPageSelector, linkSelector, li
             const docTitle  = await page.evaluate(()=>document.title)
             const link = await page.evaluate(()=>document.baseURI)
             const id = generateUniqueKey({hrefText,docTitle,link})
-            debugger
+   
             const domainName = await page.evaluate(() => document.domain);
          
            
-         debugger
+        
             const data = await extractor(page, context)
 
             const withId = data.map((m)=>{

@@ -92,7 +92,7 @@ console.log('protocolTimeout',protocolTimeout)
             // If it doesn't, feel free to remove this.
             useChrome: process.env.LOCAL==='TRUE'?true:false,
             launchOptions: {
-     
+                geolocationEnabled: false,
                 // defaultViewport: {
                 //     width: 1920, // Desired width of the viewport
                 //     height: 1080, // Desired height of the viewport
@@ -116,6 +116,7 @@ console.log('protocolTimeout',protocolTimeout)
                     '--disable-dev-shm-usage',
                     '--deviceScaleFactor=0.50',
                     '--ignore-ssl-errors',
+                    '--lang=tr-TR,tr',
                     //'--lang=en-US,en'
                     // '--shm-size=3gb'
                     '--window-size=1920,1080', '--user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36"'
@@ -135,7 +136,16 @@ console.log('protocolTimeout',protocolTimeout)
 
                 await page.setDefaultNavigationTimeout(0);
                 await page.setRequestInterception(true);
-                const rootUrl = await page.url()
+                await page.evaluate(() => {
+                    navigator.geolocation.getCurrentPosition = () => {
+                      return {
+                        coords: {
+                          latitude: 41.015137,
+                          longitude: 28.979530,
+                        },
+                      };
+                    };
+                  });
    
        
                 page.on('request', req => {

@@ -61,11 +61,18 @@ const require = createRequire(import.meta.url);
 //       "brand": "abiyefon",
 //       "domainName": "www.abiyefon.com"})
 
-
-
-const defacto = require('./defacto.json')
-const {uniqueData,pageItems}= defacto      
-const {extractPagekeywords}= require('./utils/extractPagekeywords')
+import ProxyList from 'free-proxy';
+const proxyList = new ProxyList();
+let proxies;
+try {
+  proxies = await proxyList.get();
+} catch (error) {
+  throw new Error(error);
+}
 debugger
-const keywords= extractPagekeywords({products:uniqueData,page:pageItems[0]})
-debugger
+// const defacto = require('./defacto.json')
+// const {uniqueData,pageItems}= defacto      
+// const {extractPagekeywords}= require('./utils/extractPagekeywords')
+// debugger
+// const keywords= extractPagekeywords({products:uniqueData,page:pageItems[0]})
+// debugger
