@@ -56,7 +56,7 @@ const words = extractUniqueWords(
     {
       "hrefText": "",
       "docTitle": "Abiyefon | Lider Abiye Giyim Sitesi",
-      "link": "https://www.abiyefon.com/?currency=TL",
+      "link": "https://www.abiyefon.com/beyaz-uzun/kadın",
       "objectID": "7228c3d184cdbb5a1049a1da6a40e6f86529273c",
       "brand": "abiyefon",
       "domainName": "www.abiyefon.com"})
