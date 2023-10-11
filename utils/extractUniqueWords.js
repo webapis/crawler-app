@@ -1,15 +1,17 @@
 function extractUniqueWords(obj) {
   try {
-    delete obj.objectID;
-    delete obj.keywords
-    delete obj.id
-    delete obj.pid
-    delete obj.timestamp
-    delete obj.priceNew
-    delete obj.imageUrl
+
+    const objClone ={...obj}
+    delete objClone.objectID;
+    delete objClone.keywords
+    delete objClone.id
+    delete objClone.pid
+    delete objClone.timestamp
+    delete objClone.priceNew
+    delete objClone.imageUrl
     const wordSplitRegex = /\s|[-]|\/|[?]/;
     // Split all property values into words.
-    const words = Object.values(obj).flatMap((value) => value.toLowerCase().split(wordSplitRegex));
+    const words = Object.values(objClone).flatMap((value) => value.toLowerCase().split(wordSplitRegex));
   
     // Create a set to store the unique words.
     const uniqueWords = new Set();
