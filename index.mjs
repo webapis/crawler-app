@@ -13,6 +13,7 @@ require('dotenv').config()
     const requestQueue = await RequestQueue.open();
     const marka = process.env.marka// process.env.START_URL.match(/(?<=www.).*(?=.com)/g)[0]
     const website = process.env.WEBSITE
+    const CATEGORY =process.env.CATEGORY
     console.log('main running')
     console.log('main', process.env.GENDER)
     const { urls } = require(`./urls/biraradamoda/all/${marka}`)
@@ -20,8 +21,10 @@ require('dotenv').config()
     for (let obj of urls) {
 
         const { url, category, opts, node } = obj
-
-        await requestQueue.addRequest({ url, userData: { start: true, category, opts, node } })
+        if(CATEGORY===category){
+            await requestQueue.addRequest({ url, userData: { start: true, category, opts, node } })
+        }
+       
 
     }
 
@@ -263,8 +266,8 @@ if(productItems.length===0){
         for( let p of pageItems){
 
             const foundProducts =productItemsWithoutError.filter(f=>f.pid === p.objectID)
-            const keywords = extractPagekeywords({products:foundProducts,page:p})
-            p.keywords= keywords
+          //  const keywords = extractPagekeywords({products:foundProducts,page:p})
+//p.keywords= keywords
 
         }
 
@@ -273,7 +276,7 @@ if(productItems.length===0){
         const uniqueData =uniquefyData({data:productItemsWithoutError})
         const mTmCollection= generateMTM({data:productItemsWithoutError})
        
-            await uploadCollection({ fileName: `${marka}`, data: {uniqueData,mTmCollection,pageItems}, gender: 'all', marka })
+            await uploadCollection({ fileName: `${marka}`, data: {uniqueData,mTmCollection,pageItems}, gender: CATEGORY, marka })
        
         
 
