@@ -1180,11 +1180,11 @@ const urls = [
               },
               {
                   "url": "https://www.zara.com/tr/tr/logon"
-              }
+              },
           
         
       
-    
+    {url:"https://www.zara.com/tr/tr/kadin-plaj-giyim-l1052.html",category:"plaj"}
   
 
 ]

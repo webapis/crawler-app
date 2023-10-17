@@ -2,7 +2,7 @@
 
 async function extractor(page) {
 
- 
+ debugger
         const data = await page.$$eval('.products__items .product-item', (productCards) => {
             return productCards.map(productCard => {
                 const title = productCard.querySelector('.product-item__name.d-block').innerText.trim()
@@ -23,7 +23,7 @@ async function extractor(page) {
             })
         })
     
-
+debugger
  return data
 
 

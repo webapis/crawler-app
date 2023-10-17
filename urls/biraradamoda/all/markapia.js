@@ -478,7 +478,8 @@ const urls = [
     },
     {
         "url": "https://markapia.com/erkek-tshirt"
-    }
+    },
+    {url:"https://markapia.com/plaj-giyim",category:"plaj"}
 ]
 
 module.exports={urls}

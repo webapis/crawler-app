@@ -18,7 +18,7 @@ try {
         let productDesc = document.querySelector('.product-desc').textContent
         const priceNew = document.querySelector('.price')? document.querySelector('.price').innerText.replace('TL', '').trim():document.querySelector('.ins-product-price').innerText.replace('TL', '')
         const link = document.querySelector('.product-card-info').href
-        const imageUrl = document.querySelector('[data-cfsrc]')
+        const imageUrl ='https:'+ document.querySelector('[data-main-src]').getAttribute('data-main-src')
         return {
            
             title: 'mavijeans ' + productTitle.replace(/\n/g, '').trim() + ' ' + productDesc.replace(/\n/g, '').trim(),

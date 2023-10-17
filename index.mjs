@@ -21,6 +21,7 @@ require('dotenv').config()
     for (let obj of urls) {
 
         const { url, category, opts, node } = obj
+        debugger
         if(CATEGORY===category){
             await requestQueue.addRequest({ url, userData: { start: true, category, opts, node } })
         }
