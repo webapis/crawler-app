@@ -9,9 +9,9 @@ async function extractor(page) {
                 const priceNew = Array.from(document.querySelector('.SalesAmount').querySelectorAll('.PPrice')).reverse()[0].innerHTML.replace('TL', '').trim()
                 const link = document.querySelector('a[data-product').href
               
-                const imageUrl = document.querySelector("img[data-src]").getAttribute('data-src')
+                const imageUrl = document.querySelector(".PImage").src
 
-                const title = document.querySelector("img[data-src]").alt
+                const title = document.querySelector(".PImage").alt
                 return {
                     title: 'addax ' + title.replace(/İ/g,'i').toLowerCase(),
                     priceNew,

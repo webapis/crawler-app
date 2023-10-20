@@ -7,7 +7,7 @@ async function extractor(page) {
         const data = await page.$$eval('.showcase-container .showcase', (productCards) => {
             return productCards.map(document => {
                 const brand =document.querySelector('.showcase-brand a').innerText
-                const imageUrl = document.querySelector('.showcase-image img').getAttribute('data-src')
+                const imageUrl = 'https:'+ document.querySelector('.showcase-image img').getAttribute('data-src')
                 const title = brand +' '+ document.querySelector('.showcase-title').innerText
                 const priceNew = document.querySelector('.showcase-price-new').innerText.replace('TL','').trim()
                 const link = document.querySelector('.showcase-image a').href

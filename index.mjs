@@ -3,30 +3,34 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const { PuppeteerCrawler, Dataset,RequestQueue } =require('crawlee');
+const {getSearchUrls}=require('./utils/getSearchUrls')
 import { uploadCollection } from'./utils/uploadCollection.mjs'
-const {extractPagekeywords}=require('./utils/extractPagekeywords')
-const {importLinkData}=require('./utils/importData.js')
-const {uniquefyData,generateMTM}=require('./utils/mapAsCollection.js')
-const fetch =require('node-fetch')
+//const {extractPagekeywords}=require('./utils/extractPagekeywords')
+//const {importLinkData}=require('./utils/importData.js')
+const {uniquefyData}=require('./utils/mapAsCollection.js')
+//const fetch =require('node-fetch')
 require('dotenv').config()
 
     const requestQueue = await RequestQueue.open();
-    const marka = process.env.marka// process.env.START_URL.match(/(?<=www.).*(?=.com)/g)[0]
-    const website = process.env.WEBSITE
+ 
+ 
     const CATEGORY =process.env.CATEGORY
-    console.log('main running')
-    console.log('main', process.env.GENDER)
-    const { urls } = require(`./urls/biraradamoda/all/${marka}`)
+    const SEARCH_TYPE =process.env.SEARCH_TYPE
+    const SEARCH_TERM =process.env.SEARCH_TERM
+  
+    let urls=[]
+    if(SEARCH_TYPE==='QUERY'){
+        urls = getSearchUrls({searchterm:SEARCH_TERM})
+    }
+    debugger
 
     for (let obj of urls) {
 
-        const { url, category, opts, node } = obj
-        debugger
-        if(CATEGORY===category){
-            await requestQueue.addRequest({ url, userData: { start: true, category, opts, node } })
-        }
-       
-
+        const { url } = obj[1]
+        const marka=obj[0]
+     debugger
+            await requestQueue.addRequest({ url, userData: { start: true,marka } })
+    
     }
 
     const productsDataset = await Dataset.open(`products`);
@@ -34,56 +38,16 @@ require('dotenv').config()
     process.env.dataLength = 0
     const handlePageFunction = async (context) => {
 
+        const { page } = context
 
-        const { page, request: { userData: { start, opts } } } = context
-
-
-        const {  getUrls,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix } = require(`./handlers/biraradamoda/${process.env.marka}`);
-        const {commonHandler}=require(`./handlers/biraradamoda/commonHandler.js`)
-        const { pageUrls, productCount } = await getUrls(page)
-        process.env.productCount = productCount
-
-        if (start) {
-            let order = 1
-            let pageCounter =0
-            let pagesToCollect = calculatePagePercentage(pageUrls.length,5)
-            for (let url of pageUrls) {
-                    
-                    pageCounter= pageCounter+1
-                    if(pageCounter<= pagesToCollect){
-                        if (pageUrls.length === order) {
-                            requestQueue.addRequest({ url, userData: { start: false, opts, } })
-                        } else {
-                            requestQueue.addRequest({ url, userData: { start: false, opts, } })
-                        }
-                    }
-               
-                ++order;
-            }
-        }
-
-        const dataCollected = await commonHandler({page, context,productPageSelector,linkSelector,linksToRemove,hostname,productItemsSelector,exclude,postFix})
    
-        if (dataCollected.length > 0) {
-            await productsDataset.pushData(dataCollected)
-
-            process.env.dataLength = parseInt(process.env.dataLength) + dataCollected.length
-
-
-        } else {
-
-            console.log('unsuccessfull page data collection',dataCollected)
-
-            // throw 'unsuccessfull data collection'
-        }
-
-
-
+        const {commonHandler}=require(`./handlers/biraradamoda/commonHandler.js`)
+    
+            await commonHandler({page, context})
+   
     }
 
-const longertimeconsumers =['koton','addax','bershka','baqa','bsl']
-const protocolTimeout =longertimeconsumers.find(f=>f===marka)? 2000000:120000
-console.log('protocolTimeout',protocolTimeout)
+
     const crawler = new PuppeteerCrawler({
         // requestList,
         requestQueue,
@@ -105,7 +69,7 @@ console.log('protocolTimeout',protocolTimeout)
                 // increase protocolTimeout value to a higher timeout
                 // depending on your requirements
                 // For example, set it to 30000 (30 seconds)
-               protocolTimeout,
+             //  protocolTimeout,
                 headless: process.env.HEADLESS==='true'? true:false, args: ['--no-sandbox', '--disable-setuid-sandbox', "--disable-web-security",
                    // `--window-size=1200,1250`,
                     "--allow-insecure-localhost",
@@ -131,7 +95,7 @@ console.log('protocolTimeout',protocolTimeout)
         },
         requestHandler:handlePageFunction,
         //  navigationTimeoutSecs:120,
-        preNavigationHooks:['adsdsdax'].findIndex(f=>f===marka)!==-1? []: [
+        preNavigationHooks:[
             async (crawlingContext, gotoOptions) => {
 
                 const base64Data = 'UklGRrQCAABXRUJQVlA4WAoAAAAgAAAAMQAAMQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggxgAAADAFAJ0BKjIAMgA+KRSIQqGhIRQEABgChLSAAfEUsMdoQDxm7V7DY8pOCS0L/ZyItlBAAP78SglvPhcQmHd7faO6y1Vj5rGK48w1Px+0DDzmSmSYzbIU4V+7Fe49Jdh1s8ufvov/DhqMdLRQIsmNpwliL2KKjX3y+AjM9IY6ZBHFt/K3ZB9a92c7eC4FhJPj8CGJNQiCXYBrv/s2nqpZap2xm8BBq/aPjDKYsaw5MG8/sgZVfdCc1IZY+bxPEQplrVSOwAAAAA=='
@@ -264,29 +228,16 @@ if(productItems.length===0){
         const { items: pageItems } = await pageDataset.getData();
         const productItemsWithoutError =productItems.filter(f=>!f.error)
    
-        for( let p of pageItems){
-
-            const foundProducts =productItemsWithoutError.filter(f=>f.pid === p.objectID)
-          //  const keywords = extractPagekeywords({products:foundProducts,page:p})
-//p.keywords= keywords
-
-        }
-
-//await  importLinkData({data:pageItems})
         console.log('productItemsWithoutError----',productItemsWithoutError.length)
         const uniqueData =uniquefyData({data:productItemsWithoutError})
-        const mTmCollection= generateMTM({data:productItemsWithoutError})
        
-            await uploadCollection({ fileName: `${marka}`, data: {uniqueData,mTmCollection,pageItems}, gender: CATEGORY, marka })
+            await uploadCollection({ fileName: SEARCH_TERM, data: {uniqueData,pageItems}, gender: SEARCH_TERM, marka:SEARCH_TERM })
        
-        
 
         console.log('uploading git state')
     }
      
         
-    
-
 
     console.log('Crawl finished.');
 

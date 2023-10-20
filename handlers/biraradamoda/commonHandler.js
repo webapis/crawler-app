@@ -2,17 +2,42 @@
 
 const {  Dataset,RequestQueue } =require('crawlee');
 const {generateUniqueKey} =require('../../utils/generateUniqueKey')
-const marka =process.env.marka
 
-async function commonHandler({page,context,productPageSelector}){
-    const { request: { userData: { start,title,order,total } } } = context
+
+async function commonHandler({page,context}){
+    const { request: { userData: { start,title,order,total,marka } } } = context
+
+    const {  getUrls,productPageSelector } = require(`./${marka}`);
+    const { pageUrls } = await getUrls(page)
     const requestQueue = await RequestQueue.open();
+    const productsDataset = await Dataset.open(`products`);
+    // if (start) {
+    //     let order = 1
+    //     let pageCounter =0
+    //     let pagesToCollect = calculatePagePercentage(pageUrls.length,5)
+    //     for (let url of pageUrls) {
+                
+    //             pageCounter= pageCounter+1
+    //             if(pageCounter<= pagesToCollect){
+    //                 if (pageUrls.length === order) {
+    //                     requestQueue.addRequest({ url, userData: { start: false, opts, } })
+    //                 } else {
+    //                     requestQueue.addRequest({ url, userData: { start: false, opts, } })
+    //                 }
+    //             }
+           
+    //         ++order;
+    //     }
+    // }
+
+  
  
     let extractor; 
 
     try {
     
       extractor = require(`./${marka}`).extractor;
+      debugger
     } catch (error) {
       console.error(`Error importing extractor for ${marka}:`, error);
     }
@@ -37,12 +62,7 @@ async function commonHandler({page,context,productPageSelector}){
             const data = await extractor(page, context)
             const images = data.map(m=> {return {url:m.imageUrl}}).filter((f,i)=>i<=7)
             debugger
-            const withId = data.map((m)=>{
-              
-                const prodId = generateUniqueKey({imageUrl:m.imageUrl,marka:m.marka,link:m.link})
-         
-                return {...m,id:prodId,pid:id}
-            })
+      
  debugger
 
             console.log('data length_____', data.length, 'url:', url)
@@ -53,16 +73,25 @@ async function commonHandler({page,context,productPageSelector}){
                 }
              
             }
-            return withId
+           
+            if (data.length>0){
+
+                await productsDataset.pushData(data)
+            }
+
+
         } else{
             console.log( '[]:', url)
                 return[]
             }
  
-debugger
+
 
 }
 
+function calculatePagePercentage(totalPages, percent) {
+    return (percent / 100) * totalPages;
+  }
 
 
 module.exports={commonHandler}

@@ -32,7 +32,7 @@ const  extractor=async (page)=> {
                 }
         })
     })
-
+debugger
  return data
 }
 
