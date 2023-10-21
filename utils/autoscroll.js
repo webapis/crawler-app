@@ -17,7 +17,7 @@ async function autoScroll(page) {
           inc = inc + 1;
           totalInterval = totalInterval + 1;
           console.log("inc", inc, totalInterval);
-          if( totalInterval>=30){
+          if( totalInterval>=3){
             clearInterval(timer);
             resolve();
           }else

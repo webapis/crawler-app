@@ -5,7 +5,7 @@ const {generateUniqueKey} =require('../../utils/generateUniqueKey')
 
 
 async function commonHandler({page,context}){
-    const { request: { userData: { start,title,order,total,marka } } } = context
+    const { request: { userData: { start,title,order,total,marka,searchterm } } } = context
 
     const {  getUrls,productPageSelector } = require(`./${marka}`);
     const { pageUrls } = await getUrls(page)
@@ -69,15 +69,15 @@ async function commonHandler({page,context}){
             if(start){
                 if(data.length>0){
                     const pageDataset = await Dataset.open(`pageInfo`);
-                    await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka,domainName,images  })
+                    await pageDataset.pushData({pageInfo:{hrefText,docTitle,link,objectID:id,brand:marka,domainName,images},searchterm  })
                 }
              
             }
            
-            if (data.length>0){
+            // if (data.length>0){
 
-                await productsDataset.pushData(data)
-            }
+            //     await productsDataset.pushData({data,searchterm})
+            // }
 
 
         } else{

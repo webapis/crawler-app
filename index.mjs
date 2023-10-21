@@ -14,26 +14,28 @@ require('dotenv').config()
 const requestQueue = await RequestQueue.open();
 
 
-const SEARCH_CAT = process.env.SEARCH_CAT
-const SEARCH_TYPE = process.env.SEARCH_TYPE
+const SEARCH_GROUP =  process.env.SEARCH_GROUP
+const searchTerms=require(`./search-terms/${SEARCH_GROUP}.json`)
+debugger
 const SEARCH_TERM = process.env.SEARCH_TERM
 
 let urls = []
-if (SEARCH_TYPE === 'QUERY') {
-    urls = getSearchUrls({ searchterm: SEARCH_TERM })
+for(let searchterm of searchTerms){
+    urls.push(...getSearchUrls({ searchterm }))
 }
+   
+
 debugger
 
 for (let obj of urls) {
-
-    const { url, cat } = obj[1]
+debugger
+    const { url, group,searchterm  } = obj[1]
     const marka = obj[0]
     debugger
-    if (cat.includes(SEARCH_CAT)) {
-        console.log('cat', cat)
-        await requestQueue.addRequest({ url, userData: { start: true, marka } })
+    if (group.includes(SEARCH_GROUP)) {
+        console.log('group', group)
+        await requestQueue.addRequest({ url, userData: { start: true, marka,searchterm } })
     }
-
 
 }
 
@@ -43,7 +45,6 @@ process.env.dataLength = 0
 const handlePageFunction = async (context) => {
 
     const { page } = context
-
 
     const { commonHandler } = require(`./handlers/biraradamoda/commonHandler.js`)
 
@@ -191,63 +192,18 @@ const crawler = new PuppeteerCrawler({
 
 
 await crawler.run();
-debugger
-
-debugger
-const { items: productItems } = await productsDataset.getData();
-debugger
-if (productItems.length === 0) {
-
-    throw 'Error when scraping 0 productItems.length'
-}
-const withError = productItems.filter(f => f.error)
-debugger
-
-let errorPercentate = 0
-if (withError.length > 0) {
-    const errorDataset = await Dataset.open(`withError`);
-    await errorDataset.pushData(withError)
-    console.log('withError:length', withError.length)
-    console.log('withError:error', withError[0].error)
-    console.log('withError:url', withError[0].url)
-    console.log('withError:content', withError[0].content)
-    errorPercentate = Math.round(calculateErrorPercentage(productItems.length, withError.length))
-    if (errorPercentate >= 5) {
-
-        throw `Total error exceeds ${errorPercentate} %`
-
-    } else {
 
 
-        console.log('Error %', errorPercentate)
-    }
-
-
-}
-
-if (errorPercentate < 5) {
     const pageDataset = await Dataset.open(`pageInfo`);
     const { items: pageItems } = await pageDataset.getData();
-    const productItemsWithoutError = productItems.filter(f => !f.error)
 
-    console.log('productItemsWithoutError----', productItemsWithoutError.length)
-    const uniqueData = uniquefyData({ data: productItemsWithoutError })
-
-    await uploadCollection({ fileName: SEARCH_TERM, data: { uniqueData, pageItems }, gender: SEARCH_TERM, marka: SEARCH_TERM })
-
+    await uploadCollection({ fileName: SEARCH_GROUP, data: { pageItems }, gender: SEARCH_GROUP, marka: SEARCH_GROUP })
 
     console.log('uploading git state')
-}
+
 
 
 
 console.log('Crawl finished.');
-
-function calculateErrorPercentage(firstValue, secondValue) {
-    return (secondValue / firstValue) * 100;
-}
-function calculatePagePercentage(totalPages, percent) {
-    return (percent / 100) * totalPages;
-}
 
 
