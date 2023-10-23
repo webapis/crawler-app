@@ -60,7 +60,7 @@ async function commonHandler({page,context}){
             const domainName = await page.evaluate(() => document.domain);
          
             const data = await extractor(page, context)
-            const images = data.map(m=> {return {url:m.imageUrl}}).filter((f,i)=>i<=7)
+            const images = data.map(m=> {return {url:m.imageUrl,alt:m.title}}).filter((f,i)=>i<=7)
             debugger
       
  debugger
@@ -69,7 +69,7 @@ async function commonHandler({page,context}){
             if(start){
                 if(data.length>0){
                     const pageDataset = await Dataset.open(`pageInfo`);
-                    await pageDataset.pushData({pageInfo:{hrefText,docTitle,link,objectID:id,brand:marka,domainName,images},searchterm  })
+                    await pageDataset.pushData({hrefText,docTitle,link,objectID:id,brand:marka,domainName,searchterm,images} )
                 }
              
             }

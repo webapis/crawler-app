@@ -197,7 +197,7 @@ await crawler.run();
     const pageDataset = await Dataset.open(`pageInfo`);
     const { items: pageItems } = await pageDataset.getData();
 
-    await uploadCollection({ fileName: SEARCH_GROUP, data: { pageItems }, gender: SEARCH_GROUP, marka: SEARCH_GROUP })
+    await uploadCollection({ fileName: SEARCH_GROUP, data:  pageItems , gender: SEARCH_GROUP, marka: SEARCH_GROUP })
 
     console.log('uploading git state')
 
